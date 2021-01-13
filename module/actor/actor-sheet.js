@@ -1,0 +1,180 @@
+/**
+ * Extend the basic ActorSheet with some very simple modifications
+ * @extends {ActorSheet}
+ */
+
+export class CortexPrimeActorSheet extends ActorSheet {
+
+  /** @override */
+  static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      classes: ["cortexprime", "sheet", "actor"],
+      template: "systems/cortexprime/templates/actor/actor-sheet.html",
+      width: 600,
+      height: 600,
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+    })
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  // getData() {
+  //   const data = super.getData()
+  //   data.dtypes = ["String", "Number", "Boolean"]
+  //   for (let attr of Object.values(data.data.attributes)) {
+  //     attr.isCheckbox = attr.dtype === "Boolean"
+  //   }
+  //   return data
+  // }
+
+  /** @override */
+  activateListeners(html) {
+    super.activateListeners(html)
+
+    // Everything below here is only needed if the sheet is editable
+    if (!this.options.editable) return
+
+    // Add Inventory Item
+    html.find('.item-create').click(this._onItemCreate.bind(this))
+
+    // Update Inventory Item
+    html.find('.item-edit').click(ev => {
+      const li = $(ev.currentTarget).parents(".item")
+      const item = this.actor.getOwnedItem(li.data("itemId"))
+      item.sheet.render(true)
+    })
+
+    // Delete Inventory Item
+    html.find('.item-delete').click(ev => {
+      const li = $(ev.currentTarget).parents(".item")
+      this.actor.deleteOwnedItem(li.data("itemId"))
+      li.slideUp(200, () => this.render(false))
+    })
+
+    // Rollable abilities.
+    html.find('.rollable').click(this._onRoll.bind(this))
+    html.find('.die-select').change(this._onDieChange.bind(this))
+    html.find('.new-die').click(this._onNewDie.bind(this))
+    html.find('.add-dice').click(this._onAddDice.bind(this))
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
+   * @param {Event} event   The originating click event
+   * @private
+   */
+  _onItemCreate(event) {
+    event.preventDefault()
+    const header = event.currentTarget
+    // Get the type of item to create.
+    const type = header.dataset.type
+    // Grab any data associated with this control.
+    const data = duplicate(header.dataset)
+    // Initialize a default name.
+    const name = `New ${type.capitalize()}`
+    // Prepare the item object.
+    const itemData = {
+      name: name,
+      type: type,
+      data: data
+    }
+    // Remove the type from the dataset since it's in the itemData.type prop.
+    delete itemData.data["type"]
+
+    // Finally, create the item!
+    return this.actor.createOwnedItem(itemData)
+  }
+
+  _onDieChange(event) {
+    event.preventDefault()
+    const element = event.currentTarget
+    const dataset = element.dataset
+    const dataTargetValue = Object.values(getProperty(this.actor.data, `${dataset.target}.values`))
+
+    if (dataset.target && dataset.index) {
+      if (element.value !== '0') {
+        this.actor.update({
+          [`${dataset.target}.values`]: dataTargetValue.map((value, index) => {
+            if (index === parseInt(dataset.index)) {
+              return value = element.value
+            }
+
+            return value
+          })
+        })
+      } else {
+        this.actor.update({
+          [`${dataset.target}.values`]: dataTargetValue.filter((_, index) => index !== parseInt(dataset.index))
+        })
+      }
+    }
+  }
+
+  _onNewDie(event) {
+    event.preventDefault()
+    const element = event.currentTarget
+    const dataset = element.dataset
+
+    if (dataset.target) {
+      const dataTargetValue = getProperty(this.actor.data, dataset.target)
+      const data = dataTargetValue
+      const values = Object.values(data.values)
+
+      this.actor.update({
+        [`${dataset.target}.values`]: [...values, values.length > 0 ? values[0] : '8']
+      })
+    }
+  }
+
+  _onAddDice(event) {
+    event.preventDefault()
+    const element = event.currentTarget
+    const dataset = element.dataset
+
+    if (dataset.target) {
+      const dataTarget = getProperty(this.actor.data, dataset.target)
+      const { values, label } = dataTarget
+
+      this._addToPool(Object.values(values), label, dataset.target)
+    }
+  }
+
+  /**
+   * Handle clickable rolls.
+   * @param {Event} event   The originating click event
+   * @private
+   */
+  _addToPool(values, label, dataLocation) {
+    const data = this.actor.data.data
+    let updateObject = dataLocation === 'data.customDice'
+      ? {
+        'data.customDice.values': ['8'],
+        'data.customDice.label': ""
+      }
+      : {}
+
+    this.actor.update({
+      ...updateObject,
+      'data.dicePool': [...data.dicePool, { label: label || null, values: values.map(value => parseInt(value)) }]
+    })
+  }
+
+  _onRoll(event) {
+    event.preventDefault()
+    const element = event.currentTarget
+    const dataset = element.dataset
+
+    if (dataset.roll) {
+      let roll = new Roll(dataset.roll, this.actor.data.data)
+      let label = dataset.label ? `Rolling ${dataset.label}` : ''
+      roll.roll().toMessage({
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        flavor: label
+      })
+    }
+  }
+
+}

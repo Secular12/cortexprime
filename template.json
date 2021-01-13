@@ -1,0 +1,42 @@
+{
+  "Actor": {
+    "types": ["character"],
+    "templates": {
+      "base": {
+        "customDice": {
+          "label": "",
+          "values": ["8"]
+        },
+        "dicePool": [],
+        "details": {
+          "description": {
+            "value": ""
+          },
+          "name": {
+            "value": ""
+          },
+          "biography": {
+            "value": ""
+          }
+        }
+      }
+    },
+    "character": {
+      "templates": ["base"],
+      "traits": {}
+    }
+  },
+  "Item": {
+    "types": ["asset"],
+    "templates": {
+      "base": {
+        "description": ""
+      }
+    },
+    "asset": {
+      "templates": ["base"],
+      "quantity": 1,
+      "weight": 0
+    }
+  }
+}

@@ -1,0 +1,21 @@
+// Import utilities.
+@import 'utils/typography';
+@import 'utils/colors';
+@import 'utils/mixins';
+@import 'utils/variables';
+
+/* Global styles */
+@import 'global/window';
+@import 'global/grid';
+@import 'global/flex';
+@import 'global/buttons';
+@import 'global/misc';
+
+/* Styles limited to cortexprime sheets */
+.cortexprime {
+  @import 'components/forms';
+  @import 'components/resource';
+  @import 'components/tabs';
+  @import 'components/items';
+  @import 'components/dicepool';
+}

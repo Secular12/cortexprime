@@ -1,0 +1,155 @@
+<form
+  autocomplete="off"
+  class="{{cssClass}} flexcol"
+>
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <img
+      class="profile-img"
+      data-edit="img"
+      height="100"
+      src="{{actor.img}}"
+      title="{{actor.name}}"
+      width="100"
+    />
+  </header>
+  {{!-- Sheet Tab Navigation --}}
+  <nav
+    class="sheet-tabs tabs"
+    data-group="primary"
+  >
+    <a
+      class="item"
+      data-tab="description"
+    >
+      Description
+    </a>
+    <a
+      class="item"
+      data-tab="items"
+    >
+      Items
+    </a>
+  </nav>
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Biography Tab --}}
+    <div
+      class="tab biography"
+      data-group="primary"
+      data-tab="description"
+    >
+      {{editor content=data.biography target="data.biography" button=true owner=owner editable=editable}}
+    </div>
+    {{!-- Owned Items Tab --}}
+    <div
+      class="tab items"
+      data-group="primary"
+      data-tab="items"
+    >
+      <ol class="items-list">
+        <li class="item flexrow item-header">
+          <div class="item-image">
+          </div>
+          <div class="item-name">
+            Name
+          </div>
+          <div class="item-controls">
+            <a
+              class="item-control item-create"
+              data-type="item"
+              title="Create item"
+            >
+              <i class="fas fa-plus"></i> Add item
+            </a>
+          </div>
+        </li>
+        {{#each actor.items as |item id|}}
+          <li
+            class="item flexrow"
+            data-item-id="{{item._id}}"
+          >
+            <div class="item-image">
+              <img
+                height="24"
+                src="{{item.img}}"
+                title="{{item.name}}"\
+                width="24"
+              />
+            </div>
+            <h4 class="item-name">
+              {{item.name}}
+            </h4>
+            <div class="item-controls">
+              <a
+                class="item-control item-edit"
+                title="Edit Item"
+              >
+                <i class="fas fa-edit"></i>
+              </a>
+              <a
+                class="item-control item-delete"
+                title="Delete Item"
+              >
+                <i class="fas fa-trash"></i>
+              </a>
+            </div>
+          </li>
+        {{/each}}
+      </ol>
+    </div>
+  </section>
+  <section class="sheet-pool">
+    {{!-- Custom dice adder --}}
+    <div class="flex flex-ac">
+      <input
+        name="data.customDice.label"
+        type="text"
+        value="{{data.customDice.label}}"
+      />
+      {{> "systems/cortexprime/templates/partials/die-select.html" dice=data.customDice.values selectName='data.customDice'}}
+      <button
+        class="add-dice btn btn-secondary"
+        data-target="data.customDice"
+        type="button"
+      >
+        Add To Pool
+      </button>
+    </div>
+    <div class="dice-pool">
+      {{#each data.dicePool as |poolDie|}}
+        <span class="dice-pool-item">
+          {{#if poolDie.label}}
+            <span class="pool-die-label">
+              {{poolDie.label}}
+            </span>
+          {{/if}}
+          {{#each poolDie.values as |dieRating|}}
+            {{> "systems/cortexprime/templates/partials/die-icon.html" sides=dieRating}}
+          {{/each}}
+          <button
+            class="remove-pool-trait btn btn-icon"
+            type="button"
+          >
+            <i class="fa fa-times-circle"></i>
+          </button>
+        </span>
+      {{/each}}
+    </div>
+    <div class="flex flex-je">
+      <button
+        class="btn btn-primary clear-pool"
+        type="button"
+      >
+        Clear Pool
+      </button>
+      <button
+        class="btn btn-secondary roll-rool"
+        type="button"
+      >
+        Roll Pool
+      </button>
+    </div>
+  </section>
+</form>
+

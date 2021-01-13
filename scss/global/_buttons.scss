@@ -1,0 +1,24 @@
+.btn {
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  white-space: nowrap;
+  width: auto;
+}
+
+.btn-primary {
+  background-color: $c-primary;
+  color: $c-white;
+}
+
+.btn-secondary {
+  background-color: $c-secondary;
+  color: $c-black;
+}
+
+.btn-icon {
+  border: none;
+  height: auto;
+  padding: 0;
+}
