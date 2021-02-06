@@ -1,0 +1,18 @@
+{{#if (equalOrBetween 0 min max)}}
+  <option value="0">{{existsOr zeroOption 'X'}}</option>
+{{/if}}
+{{#if (equalOrBetween 4 min max)}}
+  <option value="4">d4</option>
+{{/if}}
+{{#if (equalOrBetween 6 min max)}}
+<option value="6">d6</option>
+{{/if}}
+{{#if (equalOrBetween 8 min max)}}
+    <option value="8">d8</option>
+{{/if}}
+{{#if (equalOrBetween 10 min max)}}
+  <option value="10">d10</option>
+{{/if}}
+{{#if (equalOrBetween 12 min max)}}
+  <option value="12">d12</option>
+{{/if}}

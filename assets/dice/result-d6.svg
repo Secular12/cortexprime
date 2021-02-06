@@ -1,0 +1,15 @@
+<svg
+  aria-label="D6"
+  class="die-icon d6"
+  role="img"
+  viewBox="0 0 23 23"
+  xmlns="http://www.w3.org/2000/svg"
+>
+<path
+  class="shape"
+  d="M23 0H0V23H23V0Z"
+  fill="#f5f8fa"
+  stroke="#424C59"
+  stroke-width="2px"
+></path>
+</svg>

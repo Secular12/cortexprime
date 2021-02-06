@@ -1,0 +1,26 @@
+<svg
+  aria-label="D8"
+  class="die-icon d8"
+  role="img"
+  viewBox="0 0 56 57"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    class="shape"
+    d="M27.8735 2.00001L1.52148 28.3521L27.8735 54.7041L54.2256 28.3521L27.8735 2.00001Z"
+    fill="#B30044"
+    stroke="#B30044"
+    stroke-width="2px"
+  ></path>
+  <text
+    aria-hidden="true"
+    class="value"
+    fill="#f5f8fa"
+    font-family="Roboto, Arial, sans-serif"
+    font-size="28px"
+    font-weight="bold"
+    text-anchor="middle"
+    x="27"
+    y="38"
+  >8</text>
+</svg>

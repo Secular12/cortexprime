@@ -1,0 +1,15 @@
+<svg
+  aria-label="D8"
+  class="die-icon d8"
+  role="img"
+  viewBox="0 0 56 57"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    class="shape"
+    d="M27.8735 2.00001L1.52148 28.3521L27.8735 54.7041L54.2256 28.3521L27.8735 2.00001Z"
+    fill="#f5f8fa"
+    stroke="#B30044"
+    stroke-width="2px"
+  ></path>
+</svg>

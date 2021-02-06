@@ -1,0 +1,26 @@
+<svg
+  aria-label="D6"
+  class="die-icon d6"
+  role="img"
+  viewBox="0 0 23 23"
+  xmlns="http://www.w3.org/2000/svg"
+>
+<path
+  class="shape"
+  d="M23 0H0V23H23V0Z"
+  fill="#B30044"
+  stroke="#B30044"
+  stroke-width="2px"
+></path>
+<text
+  aria-hidden="true"
+  class="value"
+  fill="#f5f8fa"
+  font-family="Roboto, Arial, sans-serif"
+  font-size="16px"
+  font-weight="bold"
+  text-anchor="middle"
+  x="11"
+  y="17"
+>6</text>
+</svg>

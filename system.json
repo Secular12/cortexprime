@@ -7,7 +7,7 @@
   "compatibleCoreVersion": "0.7.9",
   "templateVersion": 2,
   "author": "Mark Dekin",
-  "esmodules": ["module/cortexprime.js"],
+  "esmodules": ["cortexprime.js"],
   "styles": ["css/cortexprime.css"],
   "scripts": [],
   "packs": [],
@@ -22,8 +22,8 @@
   "gridUnits": "ft",
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "power",
-  "url": "",
-  "manifest": "",
+  "url": "https://github.com/Secular12/cortexprime",
+  "manifest": "https://raw.githubusercontent.com/Secular12/cortexprime/master/system.json",
   "download": "",
   "license": "LICENSE.txt"
 }

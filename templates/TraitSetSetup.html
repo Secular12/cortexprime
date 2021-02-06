@@ -1,0 +1,35 @@
+<form onsubmit="event.preventDefault();">
+  <table style="width:auto" cellspacing="4" cellpadding="4">
+    <tr>
+      <td>
+        {{localize 'CortexPrime.TraitSets'}}:
+      </td>
+      <td>
+        <select id="traitSetListBox" size="25"
+          style="background: white; color: black; font-family:Arial; width: 150px; height: 250px">
+          {{#each traitSets}}
+          <option>
+            {{this.name}}
+          </option>>
+          {{/each}}
+        </select>
+      </td>
+      <td>
+        <button type="button" id="editTraitSet">{{localize 'CortexPrime.Edit'}}</button>
+        <p></p>
+        <button type="button" id="deleteTraitSet">{{localize 'CortexPrime.Delete'}}</button>
+        <p></p>
+        <button type="button" id="copyTraitSet">{{localize 'CortexPrime.Copy'}}</button>
+        <p></p>
+        <button type="button" id="exportTraitSet">{{localize 'CortexPrime.Export'}}</button>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <button type="button" id="addTraitSet">{{localize 'CortexPrime.AddNewTraitSet'}}</button>
+        <button type="button" id="importTraitSets">{{localize 'CortexPrime.ImportTraitSets'}}</button>
+        <button type="button" id="exportTraitSets">{{localize 'CortexPrime.ExportAllTraitSets'}}</button>
+      </td>
+    </tr>
+  </table>
+</form>

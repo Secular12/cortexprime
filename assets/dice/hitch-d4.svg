@@ -1,0 +1,25 @@
+<svg
+  aria-label="D4"
+  class="die-icon d4"
+  role="img"
+  viewBox="0 0 30 26"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g clip-path="url(#d4-clip0)">
+    <path
+      class="shape"
+      d="M14.6814 25.5209L29.5 0H0L14.6814 25.5209Z"
+      fill="#141c27"
+      stroke="#B30044"
+      stroke-width="1.25px"
+    ></path>
+  </g>
+  <defs>
+    <clipPath id="d4-clip0">
+      <rect
+        height="25.5209"
+        width="29.5"
+      ></rect>
+    </clipPath>
+  </defs>
+</svg>

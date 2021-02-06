@@ -1,54 +1,25 @@
-.cp-icon {
-  background-repeat: no-repeat;
-  background-size: contain;
+.collapse-parent, .collapse-body {
+  border-top: toRem(2px) solid color('primary');
 }
 
-.die-select {
-  border: none;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  color: transparent;
-  height: 28px;
-  text-align: center;
-  text-align-last: center;
-  -moz-text-align-last: center;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  ::-ms-expand {
-    display: none;
+.collapse-parent:last-child {
+  border-bottom: toRem(2px) solid color('primary');
+}
+
+.collapse-header, .collapse-body {
+  padding: $spacing-sm * 2;
+}
+
+.hide {
+  display: none;
+}
+
+@each $color, $hex in $colors {
+  .bkg-#{$color} {
+    background-color: $hex;
   }
 
-  option {
-    color: black;
-    font-weight: 600;
+  .text-#{$color} {
+    color: $hex;
   }
-}
-
-.icon {
-  display: inline-block;
-  height: 28px;
-  width: 28px;
-  vertical-align: middle;
-}
-
-.d4 {
-  background-image: url("../assets/icons/d4.png");
-}
-
-.d6 {
-  background-image: url("../assets/icons/d6.png")
-}
-
-.d8 {
-  background-image: url("../assets/icons/d8.png")
-}
-
-.d10 {
-  background-image: url("../assets/icons/d10.png")
-}
-
-.d12 {
-  background-image: url("../assets/icons/d12.png")
 }

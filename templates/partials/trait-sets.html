@@ -1,0 +1,12 @@
+<div class="flex-row flex-wrap">
+  {{#each data.traitSets as |traitSet|}}
+  <section class="flex-col col-6 my-2">
+    <header>
+      <h2 class="section-heading">{{traitSet.name}}</h2>
+    </header>
+    {{#if traitSet.description}}
+      <p>{{traitSet.description}}</p>
+    {{/if}}
+  </section>
+  {{/each}}
+</div>

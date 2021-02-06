@@ -1,3 +1,7 @@
-$padding-sm: 5px;
-$padding-md: 10px;
-$padding-lg: 20px;
+$spacing-sm: toRem(4px);
+
+$bottom-gutters: toRem(24px);
+$horizontal-gutters: toRem(16px);
+$side-gutters: toRem(16px);
+$top-gutters: toRem(24px);
+$vertical-gutters: toRem(16px);

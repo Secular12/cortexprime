@@ -1,0 +1,69 @@
+<section class="bt-2-secondary my-3">
+  <h2 class="section-heading my-2">{{localize "CortexPrime.DicePool"}}</h2>
+  <div class="ba-2-primary">
+    <div class="bkg-white pb-2 pt-1 bb-2-primary">
+      <h3 class="section-sub-heading px-2 mb-1">{{localize "CortexPrime.AddCustomDice"}}</h3>
+      <div class="flex flex-ae">
+        <div class="flex-col col-12">
+          <div class="flex-row flex-ac">
+            <label class="flex-col col-12">
+              <span class="label">{{localize 'CortexPrime.Label'}}</span>
+              <input name="data.dice.customAdd.label" type="text" value="{{data.dice.customAdd.label}}" />
+            </label>
+            <div class="flex-col">
+              <span class="label">{{localize 'CortexPrime.Dice'}}</span>
+              {{> "systems/cortexprime/templates/partials/dice/select.html" dice=data.dice.customAdd.values
+              selectName="data.dice.customAdd" }}
+            </div>
+          </div>
+        </div>
+        <div class="flex-col pr-1">
+          <button class="reset-custom-pool-trait btn btn-primary btn-icon">
+            <i class="fa fa-undo"></i>
+          </button>
+        </div>
+        <div class="flex-col pl-0">
+          <button class="add-trait-to-pool btn btn-secondary btn-icon" data-trait-target="data.dice.customAdd">
+            <i class="fa fa-plus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-wrap bkg-grey pa-1">
+      <div class="flex flex-ac flex-wrap">
+        {{#each data.dice.pool as |trait traitKey|}}
+        <div class="flex-col ma-1 py-1 bkg-white ba-1-primary">
+          <div class="flex-row flex-ac">
+            {{#if trait.label}}
+            <div class="flex-col pr-0">
+              <p class="bold text-black">{{trait.label}}</p>
+            </div>
+            {{/if}}
+            <div class="flex-col pr-0">
+              {{> "systems/cortexprime/templates/partials/dice/select.html" dice=trait.values
+              selectName=(concat 'data.dice.pool.' traitKey) }}
+            </div>
+            <div class="flex-col">
+              <button class="remove-pool-trait btn btn-icon btn-small btn-black" data-key="{{traitKey}}">
+                <i class="fa fa-times"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        {{else}}
+        <div class="flex-col my-2">
+          <p class="text-white trait-name">{{localize "CortexPrime.NoTraitsInPool"}}</p>
+        </div>
+        {{/each}}
+      </div>
+      <div class="flex-col col-12 flex flex-je mt-2 pt-2 bt-1-dark-grey">
+        <div class="flex-col">
+          <button class="clear-dice-pool btn btn-primary">{{localize "CortexPrime.Clear"}}</button>
+        </div>
+        <div class="flex-col pl-0">
+          <button class="roll-dice-pool btn btn-secondary">{{localize "CortexPrime.Roll"}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

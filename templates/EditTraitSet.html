@@ -1,0 +1,106 @@
+<form onsubmit="event.preventDefault();">
+  <label>
+    <span>{{localize 'CortexPrime.TraitSetName'}}</span>
+    <p>{{localize 'CortexPrime.TraitSetNameD'}}</p>
+    <input
+      id="edit_trait_set__name"
+      name="name"
+      style="background: white; color: black; font-family:Arial;"
+      type="text"
+      value="{{traitSet.name}}"
+    />
+  </label>
+  <label>
+    <span>{{localize 'CortexPrime.Description'}}</span>
+    <textarea
+      id="edit-trait-set-description"
+      name="description"
+      rows="6"
+      style="background: white; color: black; font-family:Arial;"
+    >{{traitSet.description}}</textarea>
+  </label>
+  <label>
+    <span>{{localize 'CortexPrime.HasDice'}}</span>
+    {{#if traitSet.hasDice}}
+      <input
+        checked
+        id="edit-trait-set-has-dice"
+        name="hasDice"
+        type="checkbox"
+      />
+    {{else}}
+      <input
+        id="edit-trait-set-has-dice"
+        name="hasDice"
+        type="checkbox"
+      />
+    {{/if}}
+  </label>
+  <label>
+    <span>{{localize 'CortexPrime.MinDice'}}</span>
+    <p>{{localize 'CortexPrime.MinDiceD'}}</p>
+    <input
+      id="edit-trait-set-min-dice"
+      max="10"
+      min="0"
+      name="minDice"
+      type="number"
+      value="{{traitSet.minDice}}"
+    />
+  </label>
+  <label>
+    <span>{{localize 'CortexPrime.MaxDice'}}</span>
+    <p>{{localize 'CortexPrime.MaxDiceD'}}</p>
+    <input
+      id="edit-trait-set-max-dice"
+      min="-1"
+      name="maxDice"
+      type="number"
+      value="{{traitSet.maxDice}}"
+    />
+  </label>
+  <label>
+    <span>{{localize 'CortexPrime.MinDieRating'}}</span>
+    <p>{{localize 'CortexPrime.MinDieRatingD'}}</p>
+    <select
+      id="edit-trait-set-min-die-rating"
+      name="minDieRating"
+      value="{{traitSet.minDieRating}}"
+    >
+      {{#select traitSet.minDieRating}}
+        {{> "systems/cortexprime/templates/partials/die-sides-options.html" max=12 min=0 zeroOption="0"}}
+      {{/select}}
+    </select>
+  </label>
+  <label>
+    <span>{{localize 'CortexPrime.MaxDieRating'}}</span>
+    <p>{{localize 'CortexPrime.MaxDieRatingD'}}</p>
+    <select
+      id="edit-trait-set-max-die-rating"
+      name="maxDieRating"
+      value="{{traitSet.maxDieRating}}"
+    >
+      {{#select traitSet.maxDieRating}}
+        {{> "systems/cortexprime/templates/partials/die-sides-options.html" max=12 min=4}}
+      {{/select}}
+    </select>
+  </label>
+  <div>
+    <div>Traits</div>
+    <button
+      id="edit-trait-set-trait-add"
+      class="btn btn-icon"
+      type="button"
+    >
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+  {{!-- SFX --}}
+  <button
+    class="btn btn-primary"
+    id="edit-save-changes"
+    type="button"
+  >
+    {{localize 'CortexPrime.SaveChanges'}}
+  </button>
+</form>

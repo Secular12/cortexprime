@@ -1,14 +1,18 @@
 // Import utilities.
-@import 'utils/typography';
 @import 'utils/colors';
+@import 'utils/functions';
+@import 'utils/typography';
 @import 'utils/mixins';
 @import 'utils/variables';
 
+
 /* Global styles */
 @import 'global/window';
-@import 'global/grid';
-@import 'global/flex';
+@import 'global/text';
+@import 'global/borders';
 @import 'global/buttons';
+@import 'global/flex';
+@import 'global/spacing';
 @import 'global/misc';
 
 /* Styles limited to cortexprime sheets */
@@ -17,5 +21,6 @@
   @import 'components/resource';
   @import 'components/tabs';
   @import 'components/items';
-  @import 'components/dicepool';
 }
+
+@import 'components/dice';

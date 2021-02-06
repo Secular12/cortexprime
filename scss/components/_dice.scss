@@ -1,0 +1,136 @@
+$dieSides: 4, 6, 8, 10, 12;
+
+.die-icon-wrapper {
+  display: inline-block;
+  line-height: 0;
+  margin-left: toRem(2px);
+  margin-right: toRem(2px);
+  vertical-align: middle;
+}
+
+.die-icon {
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: flex;
+  height: 2.5rem;
+  justify-content: center;
+  position: relative;
+  width: 2.5rem;
+
+  &.d4 {
+    height: 2.25rem;
+    width: 2.25rem;
+
+    .value {
+      padding-bottom: 0.35rem;
+    }
+  }
+
+  &.d6 {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  &.d10, &.d12 {
+    height: 2.25rem;
+    width: 2.25rem;
+  }
+
+  @each $i in $dieSides {
+    &.d#{$i} {
+      background-image: url("../assets/dice/d#{$i}.svg");
+
+      &.effect {
+        background-image: url("../assets/dice/effect-d#{$i}.svg");
+      }
+
+      &.hitch {
+        background-image: url("../assets/dice/hitch-d#{$i}.svg");
+      }
+
+      &.result {
+        background-image: url("../assets/dice/result-d#{$i}.svg");
+      }
+
+      &.selected {
+        background-image: url("../assets/dice/selected-d#{$i}.svg");
+      }
+
+      &.unchosen {
+        background-image: url("../assets/dice/unchosen-d#{$i}.svg");
+      }
+    }
+  }
+
+  .value {
+    color: color('white');
+    font-weight: bold;
+    font-size: 1.125rem;
+  }
+
+  &.result {
+
+    .value {
+      color: color('dark-grey');
+    }
+  }
+
+  &.selected {
+
+    .value {
+      color: color('black');
+    }
+  }
+
+  &.unchosen {
+
+    .value {
+      color: color('grey');
+    }
+  }
+}
+
+.die-select {
+  border: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  color: transparent;
+  height: toRem(28px);
+  text-align: center;
+  text-align-last: center;
+  -moz-text-align-last: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  ::-ms-expand {
+    display: none;
+  }
+
+  option {
+    color: black;
+    font-weight: 600;
+  }
+
+  &.d4 {
+    background-image: url("../assets/dice/d4.svg");
+  }
+
+  &.d6 {
+    background-image: url("../assets/dice/d6.svg")
+  }
+
+  &.d8 {
+    background-image: url("../assets/dice/d8.svg")
+  }
+
+  &.d10 {
+    background-image: url("../assets/dice/d10.svg")
+  }
+
+  &.d12 {
+    background-image: url("../assets/dice/d12.svg")
+  }
+}

@@ -2,28 +2,32 @@
   "Actor": {
     "types": ["character"],
     "templates": {
-      "base": {
-        "customDice": {
-          "label": "",
-          "values": ["8"]
-        },
-        "dicePool": [],
+      "common": {
         "details": {
           "description": {
             "value": ""
           },
           "name": {
             "value": ""
-          },
-          "biography": {
-            "value": ""
           }
+        },
+        "dice": {
+          "customAdd": {
+            "label": "",
+            "values": {
+              "0": "8"
+            }
+          },
+          "pool": {}
         }
       }
     },
     "character": {
-      "templates": ["base"],
-      "traits": {}
+      "templates": ["common"],
+      "pp": {
+        "value": 1
+      },
+      "traitSets": {}
     }
   },
   "Item": {

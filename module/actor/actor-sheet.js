@@ -17,46 +17,26 @@ export class CortexPrimeActorSheet extends ActorSheet {
   }
 
   /* -------------------------------------------- */
-
   /** @override */
-  // getData() {
-  //   const data = super.getData()
-  //   data.dtypes = ["String", "Number", "Boolean"]
-  //   for (let attr of Object.values(data.data.attributes)) {
-  //     attr.isCheckbox = attr.dtype === "Boolean"
-  //   }
-  //   return data
-  // }
-
-  /** @override */
-  activateListeners(html) {
+  activateListeners (html) {
     super.activateListeners(html)
-
-    // Everything below here is only needed if the sheet is editable
-    if (!this.options.editable) return
-
-    // Add Inventory Item
-    html.find('.item-create').click(this._onItemCreate.bind(this))
-
-    // Update Inventory Item
-    html.find('.item-edit').click(ev => {
-      const li = $(ev.currentTarget).parents(".item")
-      const item = this.actor.getOwnedItem(li.data("itemId"))
-      item.sheet.render(true)
+    html.find('.add-pp').click(() => { this.actor.getPp() })
+    html.find('.spend-pp').click(() => {
+      this.actor
+        .spendPp()
+        .then(() => {
+          if (game.dice3d) {
+            game.dice3d.show({ throws: [{ dice: [{ result: 1, resultLabel: 1, type: 'dp', vectors: [], options: {} }] }] })
+          }
+        })
     })
-
-    // Delete Inventory Item
-    html.find('.item-delete').click(ev => {
-      const li = $(ev.currentTarget).parents(".item")
-      this.actor.deleteOwnedItem(li.data("itemId"))
-      li.slideUp(200, () => this.render(false))
-    })
-
-    // Rollable abilities.
-    html.find('.rollable').click(this._onRoll.bind(this))
+    html.find('.add-trait-to-pool').click(this._addTraitToPool.bind(this))
+    html.find('.clear-dice-pool').click(this._clearDicePool.bind(this))
+    html.find('.roll-dice-pool').click(this._rollDicePool.bind(this))
     html.find('.die-select').change(this._onDieChange.bind(this))
-    html.find('.new-die').click(this._onNewDie.bind(this))
-    html.find('.add-dice').click(this._onAddDice.bind(this))
+    html.find('.new-die').click(this._newDie.bind(this))
+    html.find('.remove-pool-trait').click(this._removePoolTrait.bind(this))
+    html.find('.reset-custom-pool-trait').click(this._resetCustomPoolTrait.bind(this))
   }
 
   /* -------------------------------------------- */
@@ -66,115 +46,175 @@ export class CortexPrimeActorSheet extends ActorSheet {
    * @param {Event} event   The originating click event
    * @private
    */
-  _onItemCreate(event) {
+
+  async _addTraitToPool(event) {
     event.preventDefault()
-    const header = event.currentTarget
-    // Get the type of item to create.
-    const type = header.dataset.type
-    // Grab any data associated with this control.
-    const data = duplicate(header.dataset)
-    // Initialize a default name.
-    const name = `New ${type.capitalize()}`
-    // Prepare the item object.
-    const itemData = {
-      name: name,
-      type: type,
-      data: data
+    const $addDieButton = $(event.currentTarget)
+    const traitTarget = $addDieButton.data('traitTarget')
+    const dataTarget = getProperty(this.actor.data, traitTarget)
+    const currentPool = this.actor.data.data.dice.pool
+    const newKey = Object.keys(currentPool).length
+
+    if (traitTarget === 'data.dice.customAdd') {
+      await this._resetCustomPoolTrait()
     }
-    // Remove the type from the dataset since it's in the itemData.type prop.
-    delete itemData.data["type"]
 
-    // Finally, create the item!
-    return this.actor.createOwnedItem(itemData)
-  }
-
-  _onDieChange(event) {
-    event.preventDefault()
-    const element = event.currentTarget
-    const dataset = element.dataset
-    const dataTargetValue = Object.values(getProperty(this.actor.data, `${dataset.target}.values`))
-
-    if (dataset.target && dataset.index) {
-      if (element.value !== '0') {
-        this.actor.update({
-          [`${dataset.target}.values`]: dataTargetValue.map((value, index) => {
-            if (index === parseInt(dataset.index)) {
-              return value = element.value
-            }
-
-            return value
-          })
-        })
-      } else {
-        this.actor.update({
-          [`${dataset.target}.values`]: dataTargetValue.filter((_, index) => index !== parseInt(dataset.index))
-        })
+    await this.actor.update({
+      'data.dice.pool': {
+        ...currentPool,
+        [newKey]: dataTarget
       }
-    }
-  }
-
-  _onNewDie(event) {
-    event.preventDefault()
-    const element = event.currentTarget
-    const dataset = element.dataset
-
-    if (dataset.target) {
-      const dataTargetValue = getProperty(this.actor.data, dataset.target)
-      const data = dataTargetValue
-      const values = Object.values(data.values)
-
-      this.actor.update({
-        [`${dataset.target}.values`]: [...values, values.length > 0 ? values[0] : '8']
-      })
-    }
-  }
-
-  _onAddDice(event) {
-    event.preventDefault()
-    const element = event.currentTarget
-    const dataset = element.dataset
-
-    if (dataset.target) {
-      const dataTarget = getProperty(this.actor.data, dataset.target)
-      const { values, label } = dataTarget
-
-      this._addToPool(Object.values(values), label, dataset.target)
-    }
-  }
-
-  /**
-   * Handle clickable rolls.
-   * @param {Event} event   The originating click event
-   * @private
-   */
-  _addToPool(values, label, dataLocation) {
-    const data = this.actor.data.data
-    let updateObject = dataLocation === 'data.customDice'
-      ? {
-        'data.customDice.values': ['8'],
-        'data.customDice.label': ""
-      }
-      : {}
-
-    this.actor.update({
-      ...updateObject,
-      'data.dicePool': [...data.dicePool, { label: label || null, values: values.map(value => parseInt(value)) }]
     })
   }
 
-  _onRoll(event) {
+  async _clearDicePool(event) {
     event.preventDefault()
-    const element = event.currentTarget
-    const dataset = element.dataset
 
-    if (dataset.roll) {
-      let roll = new Roll(dataset.roll, this.actor.data.data)
-      let label = dataset.label ? `Rolling ${dataset.label}` : ''
-      roll.roll().toMessage({
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: label
+    await this.actor.update({
+      'data.dice.-=pool': null
+    })
+
+    await this.actor.update({
+      'data.dice.pool': {}
+    })
+  }
+
+  _getRollFormula(dicePool) {
+    return Object.keys(dicePool).reduce((formula, trait) => {
+      const innerFormula = Object.keys(dicePool[trait].values)
+        .reduce((acc, value) => {
+          return `${acc}+d${dicePool[trait].values[value]}`
+        }, '')
+
+      return formula ? `${formula}+${innerFormula}` : innerFormula
+    }, '')
+  }
+
+  async _onDieChange(event) {
+    event.preventDefault()
+    const $targetDieSelect = $(event.currentTarget)
+    const target = $targetDieSelect.data('target')
+    const targetKey = $targetDieSelect.data('key')
+    const dataTargetValue = Object.values(getProperty(this.actor.data, `${target}.values`))
+
+    if ($targetDieSelect.val() === '0') {
+      $targetDieSelect.remove()
+
+      await this.actor.update({
+        [`${target}.-=values`]: null
+      })
+
+      await this.actor.update({
+        [`${target}.values`]: dataTargetValue.reduce((acc, value, index) => {
+          if (index !== targetKey) {
+            return { ...acc, [index]: value }
+          }
+
+          return acc
+        }, {})
+      })
+    } else {
+      await this.actor.update({
+        [`${target}.values`]: dataTargetValue.reduce((acc, value, index) => {
+          return { ...acc, [index]: value }
+        })
       })
     }
   }
 
+  async _newDie(event) {
+    event.preventDefault()
+    const $button = $(event.currentTarget)
+    const target = $button.data('target')
+    const data = getProperty(this.actor.data, target)
+    const values = Object.values(data.values)
+
+    await this.actor.update({
+      [`${target}.values`]: [...values, values.length > 0 ? values[0] : '8']
+    })
+  }
+
+  async _removePoolTrait(event) {
+    event.preventDefault()
+    const $button = $(event.currentTarget)
+    const targetKey = $button.data('key').toString()
+
+    const currentPool = this.actor.data.data.dice.pool
+
+    const newPool = Object.keys(currentPool).reduce((pool, currentKey) => {
+      console.log(currentKey, targetKey, currentKey !== targetKey)
+      if (currentKey !== targetKey) {
+        return { ...pool, [Object.keys(pool).length]: currentPool[currentKey] }
+      }
+
+      return pool
+    }, {})
+
+    await this.actor.update({
+      [`data.dice.-=pool`]: null
+    })
+
+    await this.actor.update({
+      [`data.dice.pool`]: newPool
+    })
+  }
+
+  async _resetCustomPoolTrait(event) {
+    if (event) {
+      event.preventDefault()
+    }
+
+    await this.actor.update({
+      'data.dice.customAdd.-=values': null
+    })
+
+    await this.actor.update({
+      'data.dice.customAdd.values': { 0: '8' },
+      'data.dice.customAdd.label': ''
+    })
+  }
+
+  async _rollDicePool(event) {
+    event.preventDefault()
+
+    const dicePool = this.actor.data.data.dice.pool
+
+    const rollFormula = this._getRollFormula(dicePool)
+
+    const roll = new Roll(rollFormula).roll()
+
+    if (game.dice3d) {
+      await game.dice3d.showForRoll(roll, game.user, true)
+    }
+
+    const rollResults = roll.terms
+      .filter(term => typeof term !== 'string')
+      .map(term => ({ faces: term.faces, result: term.results[0].result }))
+      .reduce((acc, result) => {
+        if (result.result > 1) {
+          return { ...acc, results: [...acc.results, result] }
+        }
+
+        return { ...acc, hitches: [...acc.hitches, result] }
+      }, { hitches: [], results: [] })
+
+    rollResults.hitches.sort((a, b) => {
+      return b.faces - a.faces
+    })
+
+    rollResults.results.sort((a, b) => {
+      if (a.faces !== b.faces) {
+        return b.faces - a.faces
+      }
+
+      return b.result - a.result
+    })
+
+    const message = await renderTemplate('systems/cortexprime/templates/chat/roll-result.html', {
+      rollResults,
+      speaker: game.user
+    })
+
+    await ChatMessage.create({ content: message })
+  }
 }
