@@ -5,22 +5,55 @@
 
 export class CortexPrimeActorSheet extends ActorSheet {
 
+  get actor () {
+    return super.actor
+  }
+
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["cortexprime", "sheet", "actor"],
       template: "systems/cortexprime/templates/actor/actor-sheet.html",
-      width: 600,
-      height: 600,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+      width: 900,
+      height: 1000,
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "traits" }]
     })
+  }
+
+  getData () {
+    const data = super.getData()
+
+    data.settings = {
+      hasStress: game.settings.get('cortexprime', 'hasStress'),
+      hasTrauma: game.settings.get('cortexprime', 'hasTrauma')
+    }
+
+    return data
   }
 
   /* -------------------------------------------- */
   /** @override */
   activateListeners (html) {
     super.activateListeners(html)
+
+    html.find('.add-new-asset').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.assets, 'assets', 'New Asset'))
+    html.find('.add-new-complication').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.complications, 'complications', 'New Complication'))
+    html.find('.add-new-stress').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.stress, 'stress', 'New Stress'))
+    html.find('.add-new-trait').click(this._addNewTrait.bind(this))
+    html.find('.add-new-trauma').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.trauma, 'trauma', 'New Trauma'))
     html.find('.add-pp').click(() => { this.actor.getPp() })
+    html.find('.add-trait-to-pool').click(this._addTraitToPool.bind(this))
+    html.find('.clear-dice-pool').click(this._clearDicePool.bind(this))
+    html.find('.die-select').change(this._onDieChange.bind(this))
+    html.find('.new-die').click(this._newDie.bind(this))
+    html.find('.remove-asset').click(async event => await this._removeSimpleTrait(event, this.actor.data.data.assets, '', 'assets'))
+    html.find('.remove-complication').click(async event => await this._removeSimpleTrait(event, this.actor.data.data.complications, '', 'complications'))
+    html.find('.remove-pool-trait').click(this._removePoolTrait.bind(this))
+    html.find('.remove-stress').click(async event => await this._removeSimpleTrait(event, this.actor.data.data.stress, '', 'stress'))
+    html.find('.remove-trait').click(this._removeTrait.bind(this))
+    html.find('.remove-trauma').click(async event => await this._removeSimpleTrait(event, this.actor.data.data.trauma, '', 'trauma'))
+    html.find('.reset-custom-pool-trait').click(this._resetCustomPoolTrait.bind(this))
+    html.find('.roll-dice-pool').click(this._rollDicePool.bind(this))
     html.find('.spend-pp').click(() => {
       this.actor
         .spendPp()
@@ -30,13 +63,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
           }
         })
     })
-    html.find('.add-trait-to-pool').click(this._addTraitToPool.bind(this))
-    html.find('.clear-dice-pool').click(this._clearDicePool.bind(this))
-    html.find('.roll-dice-pool').click(this._rollDicePool.bind(this))
-    html.find('.die-select').change(this._onDieChange.bind(this))
-    html.find('.new-die').click(this._newDie.bind(this))
-    html.find('.remove-pool-trait').click(this._removePoolTrait.bind(this))
-    html.find('.reset-custom-pool-trait').click(this._resetCustomPoolTrait.bind(this))
+    html.find('.toggle-edit-view').click(this._toggleEditView.bind(this))
   }
 
   /* -------------------------------------------- */
@@ -47,6 +74,49 @@ export class CortexPrimeActorSheet extends ActorSheet {
    * @private
    */
 
+  async _addNewSimpleTrait(event, data, target, name, die = 6) {
+    event.preventDefault()
+
+    const value = {
+      name,
+      dice: {
+        values: { 0: die }
+      }
+    }
+
+    console.log(data, target, value)
+
+    await this._addNewDataPoint(data, target, value)
+  }
+
+  async _addNewDataPoint(data, path, value) {
+    const currentData = data || {}
+
+    await this.actor.update({
+      [`data.${path}`]: {
+        ...currentData,
+        [Object.keys(currentData).length]: value
+      }
+    })
+  }
+
+  async _addNewTrait (event) {
+    event.preventDefault()
+    const $addTraitButton = $(event.currentTarget)
+    const traitSetKey = $addTraitButton.data('setKey').toString()
+    const traitSet = this.actor.data.data.traitSets[traitSetKey]
+    const diceValues = { 0: 8 }
+
+    const value = {
+      description: '',
+      dice: { values: diceValues },
+      isCustomTrait: true,
+      name: `New ${traitSet.name} Trait`
+    }
+
+    await this._addNewDataPoint(traitSet.traits, `traitSets.${traitSetKey}.traits`, value)
+  }
+
   async _addTraitToPool(event) {
     event.preventDefault()
     const $addDieButton = $(event.currentTarget)
@@ -54,6 +124,8 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const dataTarget = getProperty(this.actor.data, traitTarget)
     const currentPool = this.actor.data.data.dice.pool
     const newKey = Object.keys(currentPool).length
+    const useLabel = typeof $addDieButton.data('useLabel') !== 'undefined'
+    const label = useLabel ? dataTarget.label : dataTarget.name
 
     if (traitTarget === 'data.dice.customAdd') {
       await this._resetCustomPoolTrait()
@@ -62,7 +134,9 @@ export class CortexPrimeActorSheet extends ActorSheet {
     await this.actor.update({
       'data.dice.pool': {
         ...currentPool,
-        [newKey]: dataTarget
+        [newKey]: dataTarget.dice
+          ? { label, values: dataTarget.dice.values }
+          : dataTarget
       }
     })
   }
@@ -70,13 +144,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
   async _clearDicePool(event) {
     event.preventDefault()
 
-    await this.actor.update({
-      'data.dice.-=pool': null
-    })
-
-    await this.actor.update({
-      'data.dice.pool': {}
-    })
+    await this._resetDataPoint('data.dice', 'pool', {})
   }
 
   _getRollFormula(dicePool) {
@@ -95,10 +163,12 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const $targetDieSelect = $(event.currentTarget)
     const target = $targetDieSelect.data('target')
     const targetKey = $targetDieSelect.data('key')
-    const dataTargetValue = Object.values(getProperty(this.actor.data, `${target}.values`))
+    const dataTargetValue = Object.values(getProperty(this.actor.data, `${target}.values`) || {})
 
     if ($targetDieSelect.val() === '0') {
       $targetDieSelect.remove()
+
+      const newValue =
 
       await this.actor.update({
         [`${target}.-=values`]: null
@@ -117,7 +187,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
       await this.actor.update({
         [`${target}.values`]: dataTargetValue.reduce((acc, value, index) => {
           return { ...acc, [index]: value }
-        })
+        }, {})
       })
     }
   }
@@ -134,28 +204,50 @@ export class CortexPrimeActorSheet extends ActorSheet {
     })
   }
 
+  async _removeSimpleTrait(event, data, path, target) {
+    event.preventDefault()
+    const $button = $(event.currentTarget)
+    const targetKey = $button.data('key').toString()
+    await this._removeDataPoint(data, path, target, targetKey)
+  }
+
+  async _removeDataPoint (data, path, target, key) {
+    const currentData = data || {}
+
+    const newData = Object.keys(currentData)
+      .reduce((acc, currentKey) => {
+        if (currentKey !== key) {
+          return { ...acc, [Object.keys(acc).length]: currentData[currentKey] }
+        }
+
+        return acc
+      }, {})
+
+    await this._resetDataPoint(`data${path ? '.' + path : ''}`, target, newData)
+  }
+
   async _removePoolTrait(event) {
     event.preventDefault()
     const $button = $(event.currentTarget)
     const targetKey = $button.data('key').toString()
+    await this._removeDataPoint(this.actor.data.data.dice.pool, 'dice', 'pool', targetKey)
+  }
 
-    const currentPool = this.actor.data.data.dice.pool
+  async _removeTrait(event) {
+    event.preventDefault()
+    const $button = $(event.currentTarget)
+    const targetSetKey = $button.data('setKey').toString()
+    const targetKey = $button.data('key').toString()
+    await this._removeDataPoint(this.actor.data.data.traitSets[targetSetKey].traits, `traitSets.${targetSetKey}`, 'traits', targetKey)
+  }
 
-    const newPool = Object.keys(currentPool).reduce((pool, currentKey) => {
-      console.log(currentKey, targetKey, currentKey !== targetKey)
-      if (currentKey !== targetKey) {
-        return { ...pool, [Object.keys(pool).length]: currentPool[currentKey] }
-      }
-
-      return pool
-    }, {})
-
+  async _resetDataPoint (path, target, value) {
     await this.actor.update({
-      [`data.dice.-=pool`]: null
+      [`${path}.-=${target}`]: null
     })
 
     await this.actor.update({
-      [`data.dice.pool`]: newPool
+      [`${path}.${target}`]: value
     })
   }
 
@@ -216,5 +308,11 @@ export class CortexPrimeActorSheet extends ActorSheet {
     })
 
     await ChatMessage.create({ content: message })
+  }
+
+  async _toggleEditView() {
+    await this.actor.update({
+      'data.showEdit': !this.actor.data.data.showEdit,
+    })
   }
 }

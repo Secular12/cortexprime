@@ -26,7 +26,7 @@ input {
   vertical-align: middle;
 }
 
-.label {
+.label, .trait-label {
   color: #424C59;
   font-weight: bold;
   font-size: 0.8rem;
@@ -60,6 +60,12 @@ input {
 
 .trait-name {
   font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.trait-label {
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .ba-1-accent {
@@ -2370,6 +2376,7 @@ input {
 
 .die-select.d6 {
   background-image: url("../assets/dice/d6.svg");
+  background-size: 75%;
 }
 
 .die-select.d8 {

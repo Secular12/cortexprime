@@ -1,12 +1,81 @@
-<div class="flex-row flex-wrap">
-  {{#each data.traitSets as |traitSet|}}
-  <section class="flex-col col-6 my-2">
-    <header>
-      <h2 class="section-heading">{{traitSet.name}}</h2>
-    </header>
-    {{#if traitSet.description}}
-      <p>{{traitSet.description}}</p>
-    {{/if}}
-  </section>
+<div>
+  {{#each data.traitSets as |traitSet traitSetIndex|}}
+    <section class="my-2">
+      <div class="ba-1-secondary flex-container py-2">
+        <header class="flex-row flex-ac">
+          <h2 class="section-heading flex-col col-12">{{traitSet.name}}</h2>
+          {{#if (and ../data.showEdit traitSet.allowCustomTraits)}}
+            <div class="flex-col">
+              <button class="btn btn-icon btn-secondary add-new-trait" data-set-key="{{traitSetIndex}}" type="button">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+          {{/if}}
+        </header>
+        {{#if ../data.showEdit}}
+          <label class="label">{{localize "CortexPrime.TraitSetDescription"}}</label>
+          <textarea name="data.traitSets.{{traitSetIndex}}.description">{{traitSet.description}}</textarea>
+        {{else if traitSet.description}}
+          <p>{{traitSet.description}}</p>
+        {{/if}}
+        <div>
+          {{#each traitSet.traits as |trait traitIndex|}}
+            <div>
+              {{#if (or (and ../../data.showEdit traitSet.hasLabel) (and traitSet.hasLabel trait.label))}}
+                <div>
+                  <p class="section-sub-heading mt-1">{{trait.name}}</p>
+                </div>
+              {{/if}}
+              <div class="flex-row flex-ac">
+                {{#if ../../data.showEdit}}
+                  <div class="flex-col col-12">
+                    {{#unless traitSet.hasLabel}}
+                      <label class="label">{{localize 'CortexPrime.TraitName'}}</label>
+                      <input name="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.name" type="text"
+                        value="{{trait.name}}">
+                    {{else}}
+                      <label class="label">{{localize 'CortexPrime.TraitLabel'}}</label>
+                      <input name="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.label" type="text"
+                        value="{{trait.label}}">
+                    {{/unless}}
+                  </div>
+                {{else}}
+                  <div class="flex-col">
+                    {{#unless (and traitSet.hasLabel trait.label)}}
+                      <p class="add-trait-to-pool trait-label"
+                        data-trait-target="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}">{{trait.name}}</p>
+                    {{else}}
+                      <p class="add-trait-to-pool trait-label"
+                        data-trait-target="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}" data-use-label>{{trait.label}}</p>
+                    {{/unless}}
+                  </div>
+                {{/if}}
+                <div class="flex-col">
+                  {{> "systems/cortexprime/templates/partials/dice/select.html" dice=trait.dice.values selectName=(concat
+                  "data.traitSets." traitSetIndex ".traits." traitIndex ".dice") max=traitSet.maxDieRating min=traitSet.minDieRating
+                  maxDice=traitSet.maxDice minDice=traitSet.minDice }}
+                </div>
+                {{#if (and ../../data.showEdit trait.isCustomTrait)}}
+                  <div class="flex-col">
+                    <button class="remove-trait btn btn-icon btn-small btn-black" data-set-key="{{traitSetIndex}}" data-key="{{traitIndex}}">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                {{/if}}
+              </div>
+              {{#if (and (not ../../data.showEdit) trait.description)}}
+                <div class="mt-1">{{trait.description}}</div>
+              {{else if ../../data.showEdit}}
+                <div class="mt-1">
+                  <label class="label">{{localize "CortexPrime.TraitDescription"}}</label>
+                  <textarea class="mt-1"
+                    name="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.description">{{trait.description}}</textarea>
+                </div>
+              {{/if}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </section>
   {{/each}}
 </div>

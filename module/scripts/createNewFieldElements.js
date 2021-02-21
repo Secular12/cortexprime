@@ -3,8 +3,6 @@ const createNewField = ({ name, type = 'text', value: v }) => {
     ? v !== null ? [v] : ['']
     : v
 
-  console.log(v, values)
-
   return values.reduce((acc, value) => {
     if (type === 'textarea') {
       return `${acc}<textarea name="${name}">${value}</textarea>`

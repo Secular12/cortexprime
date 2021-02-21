@@ -1,0 +1,42 @@
+<div>
+  <section class="my-2">
+    <h2 class="section-heading"></h2>
+    <header class="flex-row flex-ac">
+      <h2 class="section-heading flex-col col-12">{{localize "CortexPrime.Assets"}}</h2>
+      <div class="flex-col">
+        <button class="btn btn-icon btn-secondary add-new-asset" type="button">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </header>
+    <div>
+      {{#each data.assets as |asset assetIndex|}}
+        <div class="flex-row flex-ac">
+          {{#if ../data.showEdit}}
+            <div class="flex-col col-12">
+              <label class="label">{{localize 'CortexPrime.AssetName'}}</label>
+              <input name="data.assets.{{assetIndex}}.name" type="text" value="{{asset.name}}">
+            </div>
+          {{else}}
+            <div class="flex-col">
+              <p class="add-trait-to-pool trait-label"
+                data-trait-target="data.assets.{{assetIndex}}">{{asset.name}}</p>
+            </div>
+          {{/if}}
+          <div class="flex-col">
+            {{> "systems/cortexprime/templates/partials/dice/select.html" dice=asset.dice.values selectName=(concat
+            "data.assets." assetIndex ".dice") minDice=traitSet.minDice }}
+          </div>
+          <div class="flex-col">
+            <button
+              class="remove-asset btn btn-icon btn-small btn-black"
+              data-key="{{assetIndex}}"
+            >
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </section>
+</div>

@@ -119,18 +119,19 @@ $dieSides: 4, 6, 8, 10, 12;
   }
 
   &.d6 {
-    background-image: url("../assets/dice/d6.svg")
+    background-image: url("../assets/dice/d6.svg");
+    background-size: 75%;
   }
 
   &.d8 {
-    background-image: url("../assets/dice/d8.svg")
+    background-image: url("../assets/dice/d8.svg");
   }
 
   &.d10 {
-    background-image: url("../assets/dice/d10.svg")
+    background-image: url("../assets/dice/d10.svg");
   }
 
   &.d12 {
-    background-image: url("../assets/dice/d12.svg")
+    background-image: url("../assets/dice/d12.svg");
   }
 }

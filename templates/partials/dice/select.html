@@ -8,7 +8,7 @@
         name="{{../selectName}}.values.{{index}}"
       >
         {{#select dieRating}}
-          {{> "systems/cortexprime/templates/partials/dice/select-options.html" max=(existsOr ../max 12) min=(existsOr ../min 0)}}
+          {{> "systems/cortexprime/templates/partials/dice/select-options.html" dice=../dice max=(existsOr ../max 12) min=(existsOr ../min 0) minDice=(existsOr ../minDice 1)}}
         {{/select}}
       </select>
     {{/each}}

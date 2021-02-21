@@ -1,18 +1,18 @@
-{{#if (equalOrBetween 0 min max)}}
+{{#if (or (and (gte 0 min) (lte 0 max)) (hasMore dice minDice))}}
   <option value="0">{{existsOr zeroOption 'X'}}</option>
 {{/if}}
-{{#if (equalOrBetween 4 min max)}}
+{{#if (and (gte 4 min) (lte 4 max))}}
   <option value="4">d4</option>
 {{/if}}
-{{#if (equalOrBetween 6 min max)}}
+{{#if (and (gte 6 min) (lte 6 max))}}
 <option value="6">d6</option>
 {{/if}}
-{{#if (equalOrBetween 8 min max)}}
+{{#if (and (gte 8 min) (lte 8 max))}}
     <option value="8">d8</option>
 {{/if}}
-{{#if (equalOrBetween 10 min max)}}
+{{#if (and (gte 10 min) (lte 10 max))}}
   <option value="10">d10</option>
 {{/if}}
-{{#if (equalOrBetween 12 min max)}}
+{{#if (and (gte 12 min) (lte 12 max))}}
   <option value="12">d12</option>
 {{/if}}

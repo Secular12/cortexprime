@@ -1,3 +1,11 @@
+const reduceOp = (args, reducer) => {
+  args = Array.from(args)
+  args.pop() // => options
+  var first = args.shift()
+  return args.reduce(reducer, first)
+}
+
+
 export const registerHandlebarHelpers = () => {
   Handlebars.registerHelper('capitalize', str => {
     if (typeof str !== 'string') return '';
@@ -12,26 +20,30 @@ export const registerHandlebarHelpers = () => {
     }, '')
   })
 
-  Handlebars.registerHelper('equalOrBetween', function (val, min, max) {
-    const value = val || val === 0 || val === '0'
-      ? parseInt(val, 10)
-      : false
-    return value !== false && value >= parseInt(min, 10) && value <= parseInt(max, 10)
-  })
-
   Handlebars.registerHelper('hasLess', (val, max = -1) => {
-    if (parseInt(max) < 0) return true
+    const parsedMax = parseInt(max)
 
-    return Array.isArray(val) || typeof val === 'string'
-      ? val.length < parseInt(max)
-      : typeof val === 'object' && val !== null && val !== undefined
-        ? Object.keys(val).length < parseInt(max)
-        : false
+    if (val === null || val === undefined) return false
+
+    if (parsedMax < 0) return true
+
+    return val.hasOwnProperty('length')
+      ? val.length < parsedMax
+      : typeof val === 'object'
+        ? Object.keys(val).length < parsedMax
+        : val < parsedMax
   })
 
-  Handlebars.registerHelper('ifeq', (a, b, options) => {
-    if (a == b) { return options.fn(this) }
-    return options.inverse(this)
+  Handlebars.registerHelper('hasMore', (val, min = 0) => {
+    const parsedMin = parseInt(min)
+
+    if (parsedMin === 0 || val === null || val === undefined) return true
+
+    return val.hasOwnProperty('length')
+      ? val.length > parsedMin
+      : typeof val === 'object'
+        ? Object.keys(val).length > parsedMin
+        : val > parsedMin
   })
 
   Handlebars.registerHelper('ifString', function (val, str, alt) {
@@ -41,4 +53,15 @@ export const registerHandlebarHelpers = () => {
   Handlebars.registerHelper('existsOr', (a, b) => {
     return a || b
   })
+  Handlebars.registerHelper({
+    eq: function () { return reduceOp(arguments, (a, b) => a === b) },
+    ne: function () { return reduceOp(arguments, (a, b) => a !== b) },
+    lt: function () { return reduceOp(arguments, (a, b) => a < b) },
+    gt: function () { return reduceOp(arguments, (a, b) => a > b) },
+    lte: function () { return reduceOp(arguments, (a, b) => parseInt(a) <= parseInt(b)) },
+    gte: function () { return reduceOp(arguments, (a, b) => parseInt(a) >= parseInt(b)) },
+    and: function () { return reduceOp(arguments, (a, b) => a && b) },
+    or: function () { return reduceOp(arguments, (a, b) => a || b) },
+    not: a => !a
+  });
 }
