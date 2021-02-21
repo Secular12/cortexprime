@@ -1,25 +1,25 @@
 <section class="trait-sets-container my-4">
-  {{#each traitSets as |traitSet|}}
+  {{#each traitSets as |traitSet traitSetIndex|}}
   <div class="trait-set collapse-parent">
     <div class="trait-set-header flex flex-ac collapse-header">
-      <input name="traitSets.{{traitSet.name}}.name" type="text" value="{{traitSet.name}}" />
+      <input name="traitSets.{{traitSetIndex}}.name" type="text" value="{{traitSet.name}}" />
       <button class="btn btn-icon remove-parent-element" data-selector=".trait-set" type="button">
         <i class="fa fa-trash"></i>
       </button>
-      <button class="btn btn-icon collapse-toggle" data-target="traitSets.{{traitSet.name}}" type="button">
+      <button class="btn btn-icon collapse-toggle" data-target="traitSets.{{traitSetIndex}}" type="button">
         <i class="fa {{ifString traitSet.isHidden 'fa-chevron-down' 'fa-chevron-up'}}"></i>
       </button>
-      <input class="collapse-value hide" type="checkbox" name="traitSets.{{traitSet.name}}.isHidden" {{checked traitSet.isHidden}} />
+      <input class="collapse-value hide" type="checkbox" name="traitSets.{{traitSetIndex}}.isHidden" {{checked traitSet.isHidden}} />
     </div>
     <div class="flex-row flex-wrap collapse-body{{ifString traitSet.isHidden ' hide' ''}}">
       <label class="flex-col col-12 my-1">
         <span>{{localize 'CortexPrime.Description'}}</span>
-        <textarea name="traitSets.{{traitSet.name}}.description">{{traitSet.description}}</textarea>
+        <textarea name="traitSets.{{traitSetIndex}}.description">{{traitSet.description}}</textarea>
       </label>
       <label class="flex-col my-1">
         <span class="label text-primary">{{localize 'CortexPrime.HasDice'}}</span>
         <input class="display-toggle" data-scope=".trait-set" data-selector=".dice-field-set"
-          name="traitSets.{{traitSet.name}}.hasDice" type="checkbox" {{checked traitSet.hasDice}} />
+          name="traitSets.{{traitSetIndex}}.hasDice" type="checkbox" {{checked traitSet.hasDice}} />
       </label>
       <div class="flex-col col-12 my-1">
         <fieldset class="dice-field-set{{ifString traitSet.hasDice '' ' hide'}}">
@@ -29,7 +29,7 @@
               <label class="flex-row flex-ac">
                 <span class="flex-col col-12 label text-primary">{{localize 'CortexPrime.MinDice'}}</span>
                 <span class="flex-col">
-                  <input id="edit-trait-set-min-dice" max="10" min="0" name="traitSets.{{traitSet.name}}.minDice"
+                  <input id="edit-trait-set-min-dice" max="10" min="0" name="traitSets.{{traitSetIndex}}.minDice"
                     type="number" value="{{traitSet.minDice}}" style="width: 3.25rem; text-align: center;" />
                 </span>
               </label>
@@ -39,7 +39,7 @@
               <label class="flex-row flex-ac">
                 <span class="flex-col col-12 label text-primary">{{localize 'CortexPrime.MaxDice'}}</span>
                 <span class="flex-col">
-                  <input id="edit-trait-set-max-dice" min="-1" name="traitSets.{{traitSet.name}}.maxDice" type="number"
+                  <input id="edit-trait-set-max-dice" min="-1" name="traitSets.{{traitSetIndex}}.maxDice" type="number"
                     value="{{traitSet.maxDice}}" style="width: 3.25rem; text-align: center;" />
                 </span>
               </label>
@@ -49,7 +49,7 @@
               <label class="flex-row flex-ac">
                 <span class="flex-col col-12 label text-primary">{{localize 'CortexPrime.MinDieRating'}}</span>
                 <span class="flex-col">
-                  <select id="edit-trait-set-min-die-rating" name="traitSets.{{traitSet.name}}.minDieRating"
+                  <select id="edit-trait-set-min-die-rating" name="traitSets.{{traitSetIndex}}.minDieRating"
                     value="{{traitSet.minDieRating}}">
                     {{#select traitSet.minDieRating}}
                     {{> "systems/cortexprime/templates/partials/dice/select-options.html" max=12 min=0 zeroOption="0"}}
@@ -63,7 +63,7 @@
               <label class="flex-row flex-ac">
                 <span class="flex-col col-12 label text-primary">{{localize 'CortexPrime.MaxDieRating'}}</span>
                 <span class="flex-col">
-                  <select id="edit-trait-set-max-die-rating" name="traitSets.{{traitSet.name}}.maxDieRating"
+                  <select id="edit-trait-set-max-die-rating" name="traitSets.{{traitSetIndex}}.maxDieRating"
                     value="{{traitSet.maxDieRating}}">
                     {{#select traitSet.maxDieRating}}
                     {{> "systems/cortexprime/templates/partials/dice/select-options.html" max=12 min=4}}
@@ -76,61 +76,72 @@
           </div>
         </fieldset>
       </div>
-      <div class="flex-col col-12 my-1">
-        <fieldset>
-          <legend>{{localize 'CortexPrime.Details'}}</legend>
-          <div class="details">
-            {{#each traitSet.details as |detail|}}
-            <div class="detail">
-              <label>
-                <span>Name</span>
-                <input name="traitSets.{{traitSet.name}}.details.{{detail.name}}.name" value="{{detail.name}}" />
-              </label>
-              <label>
-                <span>Value</span>
-                <textarea name="traitSets.{{traitSet.name}}.details.{{detail.name}}.name">{{detail.value}}</textarea>
-              </label>
-            </div>
-            {{/each}}
-          </div>
-        </fieldset>
-      </div>
       <section class="flex-col col-12 my-1 traits">
         <header class="flex-row flex-ac">
           <h3 class="section-sub-heading flex-col col-12">{{localize 'CortexPrime.Traits'}}</h3>
           <div>
-            <button class="add-trait flex-col btn btn-secondary" data-trait-set="{{traitSet.name}}" type="button">
+            <button class="add-trait flex-col btn btn-secondary" data-trait-set="{{traitSetIndex}}" type="button">
               {{localize 'CortexPrime.AddTrait'}}
             </button>
           </div>
         </header>
         <label class="my-1">
           <span class="label text-primary">{{localize 'CortexPrime.AllowCustomTraits'}}</span>
-          <input name="traitSets.{{traitSet.name}}.allowCustomTraits" type="checkbox" {{checked traitSet.allowCustomTraits}} />
+          <input name="traitSets.{{traitSetIndex}}.allowCustomTraits" type="checkbox" {{checked traitSet.allowCustomTraits}} />
+        </label>
+        <label class="my-1">
+          <span class="label text-primary">{{localize 'CortexPrime.HasLabel'}}</span>
+          <input name="traitSets.{{traitSetIndex}}.hasLabel" type="checkbox" {{checked traitSet.hasLabel}} />
+        </label>
+        <label class="my-1">
+          <span class="label text-primary">{{localize 'CortexPrime.HasDetails'}}</span>
+          <input class="display-toggle" data-scope=".trait-set" data-selector=".details-container"
+            name="traitSets.{{traitSetIndex}}.hasDetails" type="checkbox" {{checked traitSet.hasDetails}} />
         </label>
         <div class="traits-container">
-          {{#each traitSet.traits as |trait|}}
+          {{#each traitSet.traits as |trait traitIndex|}}
           <div class="trait collapse-parent">
             <div class="trait-header flex flex-ac">
-              <input name="traitSets.{{traitSet.name}}.traits.{{trait.name}}.name" type="text" value="{{trait.name}}" />
+              <input name="traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.name" type="text" value="{{trait.name}}" />
               <button class="btn btn-icon remove-parent-element" data-selector=".trait" type="button">
                 <i class="fa fa-trash"></i>
               </button>
-              <button class="btn btn-icon collapse-toggle" type="button">
-                <i class="fa fa-chevron-up"></i>
+              <button class="btn btn-icon collapse-toggle" data-target="traitSets.{{traitSetIndex}}.traits.{{traitIndex}}" type="button">
+                <i class="fa {{ifString trait.isHidden 'fa-chevron-down' 'fa-chevron-up'}}"></i>
               </button>
+              <input class="collapse-value hide" type="checkbox" name="traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.isHidden" {{checked
+                trait.isHidden}} />
             </div>
-            <div class="trait-body collapse-body">
-              <label>
-                <span>{{localize 'CortexPrime.Dice'}}</span>
-                {{> "systems/cortexprime/templates/partials/die-select.html" dice=trait.dice selectName=(concat
-                'traitSets.' traitSet.name '.traits.' trait.name '.dice')}}
-              </label>
+            <div class="trait-body collapse-body{{ifString trait.isHidden ' hide' ''}}">
               <label>
                 <span>{{localize 'CortexPrime.Description'}}</span>
                 <textarea
-                  name="traitSets.{{traitSet.name}}.traits.{{trait.name}}.description">{{trait.description}}</textarea>
+                  name="traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.description">{{trait.description}}</textarea>
               </label>
+              <div class="flex-col col-12 my-1 details-container{{ifString traitSet.hasDetails '' ' hide'}}">
+                <fieldset>
+                  <legend>{{localize 'CortexPrime.Details'}}</legend>
+                  <div class="details">
+                    <button class="btn btn-secondary add-detail">{{localize 'CortexPrime.AddDetail'}}</button>
+                    {{#each trait.details as |detail detailKey|}}
+                      <div class="detail">
+                        <label>
+                          <span>{{localize 'CortexPrime.Type'}}</span>
+                          <input name="traitSets.{{traitSetIndex}}.details.{{detailKey}}.type" value="{{detail.name}}" />
+                        </label>
+                        <label>
+                          <span>{{localize 'CortexPrime.Name'}}</span>
+                          <input name="traitSets.{{traitSetIndex}}.details.{{detailKey}}.name" value="{{detail.name}}" />
+                        </label>
+                        <label>
+                          <span>{{localize 'CortexPrime.Value'}}</span>
+                          <textarea name="traitSets.{{traitSetIndex}}.details.{{detailKey}}.value">{{detail.value}}</textarea>
+                        </label>
+                      </div>
+                    {{/each}}
+                  </div>
+                </fieldset>
+              </div>
             </div>
           </div>
           {{/each}}

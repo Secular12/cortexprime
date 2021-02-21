@@ -10,6 +10,26 @@ export const registerSettings = () => {
     type: TraitSettings
   })
 
+  game.settings.register('cortexprime', 'hasStress', {
+    config: true,
+    name: game.i18n.localize('CortexPrime.HasStressN'),
+    hint: game.i18n.localize('CortexPrime.HasStressD'),
+    default: false,
+    restricted: true,
+    scope: 'world',
+    type: Boolean
+  })
+
+  game.settings.register('cortexprime', 'hasTrauma', {
+    config: true,
+    name: game.i18n.localize('CortexPrime.HasTraumaN'),
+    hint: game.i18n.localize('CortexPrime.HasTraumaD'),
+    default: false,
+    restricted: true,
+    scope: 'world',
+    type: Boolean
+  })
+
   game.settings.register('cortexprime', 'traitSets', {
     name: 'Trait Sets',
     default: {},

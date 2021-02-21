@@ -34,7 +34,7 @@ export default class TraitSettings extends FormApplication {
     html.find('input.display-toggle').change(event => this._displayToggle(event, html))
     html.find('button.display-toggle').click(event => this._displayToggle(event, html))
     html.find('.remove-parent-element').click(this._removeParentElement.bind(this))
-    // html.find('.add-trait').click(this._addTrait.bind(this))
+    html.find('.add-trait').click(this._addTrait.bind(this))
     html.find('#reset').click(event => this._resetSettings(event))
     html.find('#submit').click(() => this.close())
     // html.find('.die-select').change(event => this._onTraitDieChange(event))
@@ -58,15 +58,17 @@ export default class TraitSettings extends FormApplication {
     const expandedFormData = expandObject(formData)
     const traitSets = game.settings.get('cortexprime', 'traitSets')
 
-    console.log(expandedFormData.traitSets)
+    const mergedTraitSets = this._mergeTraitSets(expandedFormData.traitSets, traitSets)
 
-    const traitSetsUpdated = this._handleTraitSetsUpdate(expandedFormData.traitSets, traitSets)
-    const mergedTraitSets = this._handleDeletableAttributes(traitSetsUpdated, traitSets)
+    // const traitSetsUpdated = this._handleTraitSetsUpdate(expandedFormData.traitSets, traitSets)
+    // const mergedTraitSets = this._handleDeletableAttributes(traitSetsUpdated, traitSets)
 
     if (expandedFormData.newTraitSet) {
+      const currentTraitSetLength = Object.keys(mergedTraitSets).length
+
       const saveValue = {
         ...mergedTraitSets,
-        [expandedFormData.newTraitSet.name]: {
+        [currentTraitSetLength]: {
           ...expandedFormData.newTraitSet,
           traits: {}
         }
@@ -74,13 +76,21 @@ export default class TraitSettings extends FormApplication {
 
       await game.settings.set('cortexprime', 'traitSets', saveValue)
     } else if (expandedFormData.newTrait) {
+      const currentTraitLength = Object.keys(mergedTraitSets[expandedFormData.newTrait.traitSet]?.traits || {}).length
+
+      const {
+        description,
+        dice,
+        name
+      } = expandedFormData.newTrait
+
       const saveValue = {
         ...mergedTraitSets,
         [expandedFormData.newTrait.traitSet]: {
           ...mergedTraitSets[expandedFormData.newTrait.traitSet],
           traits: {
             ...mergedTraitSets[expandedFormData.newTrait.traitSet].traits,
-            [expandedFormData.newTrait.name]: expandedFormData.newTrait
+            [currentTraitLength]: { description, details: {}, dice: { values: dice }, name }
           }
         }
       }
@@ -100,8 +110,8 @@ export default class TraitSettings extends FormApplication {
     const $newTraitFields = createNewFieldElements([
       { name: 'newTrait.description', type: 'text', value: '' },
       { name: 'newTrait.name', type: 'text', value: `New ${traitSet.name} Trait` },
-      { name: 'newTrait.traitSet', type: 'text', value: traitSet.name },
-      { name: 'newTrait.dice', type: 'number', value: [8, 8] },
+      { name: 'newTrait.traitSet', type: 'text', value: dataset.traitSet },
+      { name: 'newTrait.dice', type: 'number', value: [8] }
     ])
 
     $form.append($newTraitFields)
@@ -112,13 +122,13 @@ export default class TraitSettings extends FormApplication {
   async _addTraitSet (event) {
     event.preventDefault()
     const $form = this.form
-    const traitSets = game.settings.get('cortexprime', 'traitSets')
 
     const $newTraitSetFields = createNewFieldElements([
       { name: 'newTraitSet.allowCustomTraits', type: 'checkbox', value: true },
       { name: 'newTraitSet.description', type: 'text', value: '' },
-      { name: 'newTraitSet.details', type: 'text', value: '' },
+      { name: 'newTraitSet.hasDetails', type: 'checkbox', value: false },
       { name: 'newTraitSet.hasDice', type: 'checkbox', value: true },
+      { name: 'newTraitSet.hasLabel', type: 'checkbox', value: false },
       { name: 'newTraitSet.isHidden', type: 'checkbox', value: false },
       { name: 'newTraitSet.maxDice', type: 'number', value: 1 },
       { name: 'newTraitSet.maxDieRating', type: 'number', value: 12 },
@@ -149,8 +159,7 @@ export default class TraitSettings extends FormApplication {
     event.preventDefault()
     const $element = $(event.currentTarget)
     const $collapseValue = $element
-      .closest('.collapse-parent')
-      .find('.collapse-value')
+      .next('.collapse-value')
 
     $collapseValue.prop('checked', !($collapseValue.is(':checked')))
 
@@ -223,6 +232,23 @@ export default class TraitSettings extends FormApplication {
       : {}
   }
 
+  _mergeTraitSets (formSets, currentSets) {
+    return formSets
+      ? Object.keys(formSets).reduce((sets, setKey) => {
+        const setsKeys = Object.keys(sets)
+
+        if (setsKeys.every(i => sets[i].name !== formSets[setKey].name)) {
+          return {
+            ...sets,
+            [setsKeys.length]: formSets[setKey]
+          }
+        }
+
+        return sets
+      }, {})
+      : {}
+  }
+
   _newDieHtml (traitSet, name, value) {
     const select = `<select class="die-select cp-option d${value}" name="${name}" value="${value}">`
     const options = this._getTraitDieRatingOptions(traitSet).reduce((options, option) => {
@@ -255,8 +281,6 @@ export default class TraitSettings extends FormApplication {
   _onTraitDieChange (event) {
     event.preventDefault()
     const $element = event.currentTarget
-
-    console.log($element.value)
 
     if ($element.value === '0') {
       $element.remove()

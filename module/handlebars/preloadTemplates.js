@@ -5,6 +5,7 @@ export const preloadHandlebarsTemplates = async function () {
     'partials/dice/select-options',
     'partials/pp',
     'partials/settings-trait-sets',
+    'partials/simple-trait',
     'partials/trait-sets'
   ]
 

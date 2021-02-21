@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["character"],
+    "types": ["pc"],
     "templates": {
       "common": {
         "details": {
@@ -19,15 +19,28 @@
             }
           },
           "pool": {}
+        },
+        "showEdit": true
+      },
+      "assetsAndComplications": {
+        "assets": {},
+        "complications": {}
+      },
+      "stressAndTrauma": {
+        "stress": {},
+        "trauma": {}
+      },
+      "pp": {
+        "pp": {
+          "value": 1
         }
+      },
+      "traitSets": {
+        "traitSets": {}
       }
     },
-    "character": {
-      "templates": ["common"],
-      "pp": {
-        "value": 1
-      },
-      "traitSets": {}
+    "pc": {
+      "templates": ["common", "pp", "assetsAndComplications", "stressAndTrauma", "traitSets"]
     }
   },
   "Item": {
