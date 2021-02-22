@@ -1020,6 +1020,10 @@ input {
   text-transform: inherit;
 }
 
+.add-trait-to-pool {
+  cursor: pointer;
+}
+
 .flex, .flex-row {
   display: -webkit-box;
   display: -ms-flexbox;

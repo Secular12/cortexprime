@@ -18,12 +18,12 @@
         </div>
         {{else}}
         <div class="flex-col">
-          <p class="add-trait-to-pool trait-label" data-trait-target="{{../path}}.{{index}}">{{value.name}}</p>
+          <p class="add-trait-to-pool trait-label" data-label="{{value.name}}" data-trait-target="{{../path}}.{{index}}">{{value.name}}</p>
         </div>
         {{/if}}
         <div class="flex-col">
           {{> "systems/cortexprime/templates/partials/dice/select.html" dice=value.dice.values selectName=(concat
-          ../path "." index ".dice") minDice=1 }}
+          ../path "." index ".dice") }}
         </div>
         <div class="flex-col">
           <button class="{{../removeClass}} btn btn-icon btn-small btn-black" data-key="{{index}}">

@@ -1,0 +1,14 @@
+<div>
+  <div class="flex-row flex-ac my-2">
+    <div
+      class="{{ifString big 'section-heading' 'label'}} add-trait-to-pool flex-col"
+      data-label="{{name}}"
+      data-trait-target="{{path}}"
+    >
+      {{name}}
+    </div>
+    <div class="flex-col">
+      {{> "systems/cortexprime/templates/partials/dice/select.html" dice=value.values selectName=path }}
+    </div>
+  </div>
+</div>

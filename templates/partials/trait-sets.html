@@ -43,10 +43,12 @@
                   <div class="flex-col">
                     {{#unless (and traitSet.hasLabel trait.label)}}
                       <p class="add-trait-to-pool trait-label"
+                        data-label="{{trait.name}}"
                         data-trait-target="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}">{{trait.name}}</p>
                     {{else}}
                       <p class="add-trait-to-pool trait-label"
-                        data-trait-target="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}" data-use-label>{{trait.label}}</p>
+                        data-label="{{trait.label}}"
+                        data-trait-target="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}">{{trait.label}}</p>
                     {{/unless}}
                   </div>
                 {{/if}}
