@@ -24,6 +24,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const data = super.getData()
 
     data.settings = {
+      hasScaleDie: game.settings.get('cortexprime', 'majorCharacterScale'),
       hasStress: game.settings.get('cortexprime', 'hasStress'),
       hasTrauma: game.settings.get('cortexprime', 'hasTrauma')
     }
@@ -124,8 +125,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const dataTarget = getProperty(this.actor.data, traitTarget)
     const currentPool = this.actor.data.data.dice.pool
     const newKey = Object.keys(currentPool).length
-    const useLabel = typeof $addDieButton.data('useLabel') !== 'undefined'
-    const label = useLabel ? dataTarget.label : dataTarget.name
+    const label = $addDieButton.data('label') || ''
 
     if (traitTarget === 'data.dice.customAdd') {
       await this._resetCustomPoolTrait()
@@ -136,7 +136,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
         ...currentPool,
         [newKey]: dataTarget.dice
           ? { label, values: dataTarget.dice.values }
-          : dataTarget
+          : { ...dataTarget, label }
       }
     })
   }
@@ -197,7 +197,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const $button = $(event.currentTarget)
     const target = $button.data('target')
     const data = getProperty(this.actor.data, target)
-    const values = Object.values(data.values)
+    const values = Object.values(data?.values || {})
 
     await this.actor.update({
       [`${target}.values`]: [...values, values.length > 0 ? values[0] : '8']

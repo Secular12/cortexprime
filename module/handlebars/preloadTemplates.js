@@ -6,6 +6,7 @@ export const preloadHandlebarsTemplates = async function () {
     'partials/pp',
     'partials/settings-trait-sets',
     'partials/simple-trait',
+    'partials/single-trait',
     'partials/trait-sets'
   ]
 

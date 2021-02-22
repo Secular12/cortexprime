@@ -13,7 +13,7 @@
       </select>
     {{/each}}
   </div>
-  {{#if (hasLess dice (existsOr maxDice -1)) }}
+  {{#if (or (hasLess dice (existsOr maxDice -1)) (not dice)) }}
     <button
       class="new-die btn btn-icon btn-circle btn-small ml-1"
       data-target="{{selectName}}"

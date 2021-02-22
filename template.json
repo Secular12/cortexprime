@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["pc"],
+    "types": ["major-character"],
     "templates": {
       "common": {
         "details": {
@@ -35,12 +35,17 @@
           "value": 1
         }
       },
+      "scale": {
+        "values": {
+          "0": 6
+        }
+      },
       "traitSets": {
         "traitSets": {}
       }
     },
-    "pc": {
-      "templates": ["common", "pp", "assetsAndComplications", "stressAndTrauma", "traitSets"]
+    "major-character": {
+      "templates": ["common", "pp", "assetsAndComplications", "scale", "stressAndTrauma", "traitSets"]
     }
   },
   "Item": {

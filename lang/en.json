@@ -22,6 +22,8 @@
   "CortexPrime.HasTraumaD": "Whether or not your game uses the trauma mod.",
   "CortexPrime.HasTraumaN": "Has Trauma",
   "CortexPrime.Label": "Label",
+  "CortexPrime.MajorCharactersHaveScaleN": "Major characters can have scale dice",
+  "CortexPrime.MajorCharactersHaveScaleD": "Whether or not major characters can have scale die/dice.",
   "CortexPrime.MaxDice": "Max Dice",
   "CortexPrime.MaxDiceD": "The most amount of dice assigned to a trait in this trait set. If set to -1, there is no maximum.",
   "CortexPrime.MaxDieRating": "Max Die Rating",

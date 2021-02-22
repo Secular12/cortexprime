@@ -30,6 +30,16 @@ export const registerSettings = () => {
     type: Boolean
   })
 
+  game.settings.register('cortexprime', 'majorCharacterScale', {
+    config: true,
+    name: game.i18n.localize('CortexPrime.MajorCharactersHaveScaleN'),
+    hint: game.i18n.localize('CortexPrime.MajorCharactersHaveScaleD'),
+    default: false,
+    restricted: true,
+    scope: 'world',
+    type: Boolean
+  })
+
   game.settings.register('cortexprime', 'traitSets', {
     name: 'Trait Sets',
     default: {},
