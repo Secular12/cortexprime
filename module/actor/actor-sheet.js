@@ -39,6 +39,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
     html.find('.add-new-asset').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.assets, 'assets', 'New Asset'))
     html.find('.add-new-complication').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.complications, 'complications', 'New Complication'))
+    html.find('.add-new-detail').click(this._addNewDetail.bind(this))
     html.find('.add-new-stress').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.stress, 'stress', 'New Stress'))
     html.find('.add-new-trait').click(this._addNewTrait.bind(this))
     html.find('.add-new-trauma').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.trauma, 'trauma', 'New Trauma'))
@@ -49,6 +50,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     html.find('.new-die').click(this._newDie.bind(this))
     html.find('.remove-asset').click(async event => await this._removeSimpleTrait(event, this.actor.data.data.assets, '', 'assets'))
     html.find('.remove-complication').click(async event => await this._removeSimpleTrait(event, this.actor.data.data.complications, '', 'complications'))
+    html.find('.remove-detail').click(this._removeDetail.bind(this))
     html.find('.remove-pool-trait').click(this._removePoolTrait.bind(this))
     html.find('.remove-stress').click(async event => await this._removeSimpleTrait(event, this.actor.data.data.stress, '', 'stress'))
     html.find('.remove-trait').click(this._removeTrait.bind(this))
@@ -85,8 +87,6 @@ export class CortexPrimeActorSheet extends ActorSheet {
       }
     }
 
-    console.log(data, target, value)
-
     await this._addNewDataPoint(data, target, value)
   }
 
@@ -101,6 +101,22 @@ export class CortexPrimeActorSheet extends ActorSheet {
     })
   }
 
+  async _addNewDetail(event) {
+    event.preventDefault()
+    const $addDetailButton = $(event.currentTarget)
+    const traitSetKey = $addDetailButton.data('traitSet').toString()
+    const traitKey = $addDetailButton.data('trait').toString()
+    const trait = this.actor.data.data.traitSets[traitSetKey].traits[traitKey]
+
+    const value = {
+      name: '',
+      type: '',
+      value: ''
+    }
+
+    await this._addNewDataPoint(trait.details, `traitSets.${traitSetKey}.traits.${traitKey}.details`, value)
+  }
+
   async _addNewTrait (event) {
     event.preventDefault()
     const $addTraitButton = $(event.currentTarget)
@@ -110,6 +126,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
     const value = {
       description: '',
+      details: {},
       dice: { values: diceValues },
       isCustomTrait: true,
       name: `New ${traitSet.name} Trait`
@@ -224,6 +241,16 @@ export class CortexPrimeActorSheet extends ActorSheet {
       }, {})
 
     await this._resetDataPoint(`data${path ? '.' + path : ''}`, target, newData)
+  }
+
+  async _removeDetail(event) {
+    event.preventDefault()
+    const $button = $(event.currentTarget)
+    const traitSetKey = $button.data('traitSet').toString()
+    const traitKey = $button.data('trait').toString()
+    const detailKey = $button.data('detail').toString()
+
+    await this._removeDataPoint(this.actor.data.data.traitSets[traitSetKey].traits[traitKey].details, `traitSets.${traitSetKey}.traits.${traitKey}`, 'details', detailKey)
   }
 
   async _removePoolTrait(event) {
