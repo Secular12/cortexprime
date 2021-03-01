@@ -3,6 +3,10 @@
   font-weight: bold;
 }
 
+.italic {
+  font-style: italic;
+}
+
 /* Global styles */
 .window-app {
   font-family: "Roboto", sans-serif;
@@ -2167,6 +2171,23 @@ input {
   text-shadow: none;
 }
 
+.cortexprime li.detail-item {
+  list-style: none;
+}
+
+.cortexprime li.detail-item::before {
+  content: "\25CF";
+  color: #B30044;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-left: -1em;
+  margin-right: 0.5rem;
+}
+
+.cortexprime li.detail-item.locked::before {
+  content: "\25CB";
+}
+
 .die-icon-wrapper {
   display: inline-block;
   line-height: 0;
@@ -2360,6 +2381,7 @@ input {
   height: 1.75rem;
   text-align: center;
   text-align-last: center;
+  width: 1.75rem;
   -moz-text-align-last: center;
   -webkit-appearance: none;
   -moz-appearance: none;

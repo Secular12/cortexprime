@@ -122,21 +122,35 @@
                 <fieldset>
                   <legend>{{localize 'CortexPrime.Details'}}</legend>
                   <div class="details">
-                    <button class="btn btn-secondary add-detail">{{localize 'CortexPrime.AddDetail'}}</button>
+                    <button class="btn btn-secondary add-detail" data-trait-set="{{traitSetIndex}}" data-trait="{{traitIndex}}">{{localize 'CortexPrime.AddDetail'}}</button>
                     {{#each trait.details as |detail detailKey|}}
-                      <div class="detail">
-                        <label>
-                          <span>{{localize 'CortexPrime.Type'}}</span>
-                          <input name="traitSets.{{traitSetIndex}}.details.{{detailKey}}.type" value="{{detail.name}}" />
-                        </label>
-                        <label>
-                          <span>{{localize 'CortexPrime.Name'}}</span>
-                          <input name="traitSets.{{traitSetIndex}}.details.{{detailKey}}.name" value="{{detail.name}}" />
-                        </label>
-                        <label>
-                          <span>{{localize 'CortexPrime.Value'}}</span>
-                          <textarea name="traitSets.{{traitSetIndex}}.details.{{detailKey}}.value">{{detail.value}}</textarea>
-                        </label>
+                      <div class="detail{{ifString (gt detailKey 0) ' bt-1-primary mt-2 pt-2' ''}}">
+                        <div class="flex-row flex-ae">
+                          <div class="flex-col">
+                            <label class="label">{{localize 'CortexPrime.Name'}}</label>
+                            <input name="traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.details.{{detailKey}}.name" value="{{detail.name}}" />
+                          </div>
+                          <div class="flex-col">
+                            <label class="label">{{localize 'CortexPrime.Type'}}</label>
+                            <input name="traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.details.{{detailKey}}.type" value="{{detail.type}}" />
+                          </div>
+                          <div class="flex-col">
+                            <label class="label">
+                              <span>{{localize 'CortexPrime.Unlocked'}}</span>
+                              <input name="traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.details.{{detailKey}}.unlocked" type="checkbox"
+                                {{checked detail.unlocked}} />
+                            </label>
+                          </div>
+                          <div class="flex-col">
+                            <button class="btn btn-icon remove-parent-element" data-selector=".detail" type="button">
+                              <i class="fa fa-trash"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div>
+                          <label class="label">{{localize 'CortexPrime.Value'}}</label>
+                          <textarea name="traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.details.{{detailKey}}.value">{{detail.value}}</textarea>
+                        </div>
                       </div>
                     {{/each}}
                   </div>

@@ -28,15 +28,16 @@ export default class TraitSettings extends FormApplication {
 
   activateListeners (html) {
     super.activateListeners(html)
-
-    html.find('#add-trait-set').click(this._addTraitSet.bind(this))
-    html.find('.collapse-toggle').click(this._collapseToggle.bind(this))
-    html.find('input.display-toggle').change(event => this._displayToggle(event, html))
-    html.find('button.display-toggle').click(event => this._displayToggle(event, html))
-    html.find('.remove-parent-element').click(this._removeParentElement.bind(this))
+    html.find('.add-detail').click(this._addDetail.bind(this))
     html.find('.add-trait').click(this._addTrait.bind(this))
-    html.find('#reset').click(event => this._resetSettings(event))
+    html.find('#add-trait-set').click(this._addTraitSet.bind(this))
     html.find('#submit').click(() => this.close())
+    html.find('.collapse-toggle').click(this._collapseToggle.bind(this))
+    html.find('button.display-toggle').click(event => this._displayToggle(event, html))
+    html.find('input.display-toggle').change(event => this._displayToggle(event, html))
+    html.find('.remove-parent-element').click(this._removeParentElement.bind(this))
+    html.find('#reset').click(event => this._resetSettings(event))
+
     // html.find('.die-select').change(event => this._onTraitDieChange(event))
     // html.find('.new-die').click(this._newTraitDie.bind(this))
   }
@@ -56,18 +57,17 @@ export default class TraitSettings extends FormApplication {
 
   async _updateObject (_, formData) {
     const expandedFormData = expandObject(formData)
-    const traitSets = game.settings.get('cortexprime', 'traitSets')
 
-    const mergedTraitSets = this._mergeTraitSets(expandedFormData.traitSets, traitSets)
+    const traitSets = expandedFormData.traitSets
 
     // const traitSetsUpdated = this._handleTraitSetsUpdate(expandedFormData.traitSets, traitSets)
-    // const mergedTraitSets = this._handleDeletableAttributes(traitSetsUpdated, traitSets)
+    // const traitSets = this._handleDeletableAttributes(traitSetsUpdated, traitSets)
 
     if (expandedFormData.newTraitSet) {
-      const currentTraitSetLength = Object.keys(mergedTraitSets).length
+      const currentTraitSetLength = Object.keys(traitSets).length
 
       const saveValue = {
-        ...mergedTraitSets,
+        ...traitSets,
         [currentTraitSetLength]: {
           ...expandedFormData.newTraitSet,
           traits: {}
@@ -76,7 +76,7 @@ export default class TraitSettings extends FormApplication {
 
       await game.settings.set('cortexprime', 'traitSets', saveValue)
     } else if (expandedFormData.newTrait) {
-      const currentTraitLength = Object.keys(mergedTraitSets[expandedFormData.newTrait.traitSet]?.traits || {}).length
+      const currentTraitLength = Object.keys(traitSets[expandedFormData.newTrait.traitSet]?.traits || {}).length
 
       const {
         description,
@@ -85,20 +85,60 @@ export default class TraitSettings extends FormApplication {
       } = expandedFormData.newTrait
 
       const saveValue = {
-        ...mergedTraitSets,
+        ...traitSets,
         [expandedFormData.newTrait.traitSet]: {
-          ...mergedTraitSets[expandedFormData.newTrait.traitSet],
+          ...traitSets[expandedFormData.newTrait.traitSet],
           traits: {
-            ...mergedTraitSets[expandedFormData.newTrait.traitSet].traits,
+            ...traitSets[expandedFormData.newTrait.traitSet].traits || {},
             [currentTraitLength]: { description, details: {}, dice: { values: dice }, name }
           }
         }
       }
       await game.settings.set('cortexprime', 'traitSets', saveValue)
+    } else if (expandedFormData.newDetail) {
+      const {
+        name,
+        traitSet,
+        trait,
+        type,
+        unlocked,
+        value
+      } = expandedFormData.newDetail
+
+      const currentDetails = traitSets[traitSet].traits[trait].details
+
+      const currentDetailLength = Object.keys(currentDetails || {}).length
+
+      traitSets[traitSet].traits[trait].details = {
+        ...currentDetails,
+        [currentDetailLength]: { name, type, unlocked, value }
+      }
+
+      await game.settings.set('cortexprime', 'traitSets', traitSets)
     } else {
-      await game.settings.set('cortexprime', 'traitSets', mergedTraitSets)
+      await game.settings.set('cortexprime', 'traitSets', traitSets)
     }
 
+  }
+
+  async _addDetail (event) {
+    event.preventDefault()
+    const dataset = event.currentTarget.dataset
+    const $form = this.form
+    const trait = game.settings.get('cortexprime', 'traitSets')[dataset.traitSet].traits[dataset.trait]
+
+    const $newDetailFields = createNewFieldElements([
+      { name: 'newDetail.name', type: 'text', value: `New ${trait.name} Detail` },
+      { name: 'newDetail.traitSet', type: 'text', value: dataset.traitSet },
+      { name: 'newDetail.trait', type: 'text', value: dataset.trait },
+      { name: 'newDetail.type', type: 'text', value: '' },
+      { name: 'newDetail.unlocked', type: 'text', value: true },
+      { name: 'newDetail.value', type: 'text', value: '' }
+    ])
+
+    $form.append($newDetailFields)
+    await this._onSubmit(event)
+    this.render(true)
   }
 
   async _addTrait (event) {
@@ -235,17 +275,17 @@ export default class TraitSettings extends FormApplication {
   _mergeTraitSets (formSets, currentSets) {
     return formSets
       ? Object.keys(formSets).reduce((sets, setKey) => {
-        const setsKeys = Object.keys(sets)
+          const setsKeys = Object.keys(sets)
 
-        if (setsKeys.every(i => sets[i].name !== formSets[setKey].name)) {
-          return {
-            ...sets,
-            [setsKeys.length]: formSets[setKey]
+          if (setsKeys.every(i => sets[i].name !== formSets[setKey].name)) {
+            return {
+              ...sets,
+              [setsKeys.length]: formSets[setKey]
+            }
           }
-        }
 
-        return sets
-      }, {})
+          return sets
+        }, {})
       : {}
   }
 

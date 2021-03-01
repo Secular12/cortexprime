@@ -1,0 +1,18 @@
+li.detail-item {
+  list-style: none;
+
+  &::before {
+    content: "\25CF";
+    color: color('primary');
+    font-weight: bold;
+    font-size: 1rem;
+    margin-left: -1em;
+    margin-right: 0.5rem;
+  }
+
+  &.locked {
+    &::before {
+      content: "\25CB"
+    }
+  }
+}
