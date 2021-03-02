@@ -4,6 +4,11 @@
       <div class="ba-1-secondary flex-container py-2">
         <header class="flex-row flex-ac">
           <h2 class="section-heading flex-col col-12">{{traitSet.name}}</h2>
+          <div class="flex-col">
+            <button class="btn btn-icon text-primary toggle-trait-set-shutdown" data-trait-set-key="{{traitSetIndex}}" type="button">
+              <i class="fas {{ifString traitSet.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
+            </button>
+          </div>
           {{#if (and ../data.showEdit traitSet.allowCustomTraits)}}
             <div class="flex-col">
               <button class="btn btn-icon btn-secondary add-new-trait" data-set-key="{{traitSetIndex}}" type="button">
@@ -22,8 +27,8 @@
           {{#each traitSet.traits as |trait traitIndex|}}
             <div>
               {{#if (or (and ../../data.showEdit traitSet.hasLabel) (and traitSet.hasLabel trait.label))}}
-                <div>
-                  <p class="section-sub-heading mt-1">{{trait.name}}</p>
+                <div class="flex-row">
+                  <p class="section-sub-heading mt-1 flex-col col-12">{{trait.name}}</p>
                 </div>
               {{/if}}
               <div class="flex-row {{ifString ../../data.showEdit 'flex-ae' 'flex-ac'}}">
@@ -41,15 +46,23 @@
                   </div>
                 {{else}}
                   <div class="flex-col">
-                    {{#unless (and traitSet.hasLabel trait.label)}}
-                      <p class="add-trait-to-pool trait-label"
-                        data-label="{{trait.name}}"
-                        data-trait-target="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}">{{trait.name}}</p>
-                    {{else}}
-                      <p class="add-trait-to-pool trait-label"
-                        data-label="{{trait.label}}"
-                        data-trait-target="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}">{{trait.label}}</p>
-                    {{/unless}}
+                    <div class="flex-row">
+                      {{#unless (and traitSet.hasLabel trait.label)}}
+                        <p class="add-trait-to-pool trait-label flex-col col-12"
+                          data-label="{{trait.name}}"
+                          data-trait-target="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}">{{trait.name}}</p>
+                      {{else}}
+                        <p class="add-trait-to-pool trait-label flex-col col-12"
+                          data-label="{{trait.label}}"
+                          data-trait-target="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}">{{trait.label}}</p>
+                      {{/unless}}
+                      <div class="flex-col">
+                        <button class="btn btn-icon text  -primary toggle-trait-shutdown" data-trait-set-key="{{traitSetIndex}}"
+                          data-trait-key="{{traitIndex}}" type="button">
+                          <i class="fas {{ifString trait.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 {{/if}}
                 <div class="flex-col">
