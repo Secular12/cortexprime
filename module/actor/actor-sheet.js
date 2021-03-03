@@ -66,7 +66,9 @@ export class CortexPrimeActorSheet extends ActorSheet {
           }
         })
     })
-    html.find('.toggle-edit-view').click(this._toggleEditView.bind(this))
+    html.find('.toggle-simple-trait-edit').click(this._toggleSimpleTraitEdit.bind(this))
+    html.find('.toggle-trait-edit').click(this._toggleTraitEdit.bind(this))
+    html.find('.toggle-trait-set-edit').click(this._toggleTraitSetEdit.bind(this))
   }
 
   /* -------------------------------------------- */
@@ -337,9 +339,35 @@ export class CortexPrimeActorSheet extends ActorSheet {
     await ChatMessage.create({ content: message })
   }
 
-  async _toggleEditView() {
+  async _toggleSimpleTraitEdit(event) {
+    event.preventDefault()
+    const $target = $(event.currentTarget)
+    const simpleTraitType = $target.data('simpleTraitType')
+    const simpleTraitKey = $target.data('simpleTrait')
+
     await this.actor.update({
-      'data.showEdit': !this.actor.data.data.showEdit,
+      [`data.${simpleTraitType}.${simpleTraitKey}.edit`]: !this.actor.data.data[simpleTraitType][simpleTraitKey].edit
+    })
+  }
+
+  async _toggleTraitEdit(event) {
+    event.preventDefault()
+    const $target = $(event.currentTarget)
+    const traitSetKey = $target.data('traitSet')
+    const traitKey = $target.data('trait')
+
+    await this.actor.update({
+      [`data.traitSets.${traitSetKey}.traits.${traitKey}.edit`]: !this.actor.data.data.traitSets[traitSetKey].traits[traitKey].edit
+    })
+  }
+
+  async _toggleTraitSetEdit (event) {
+    event.preventDefault()
+    const $target = $(event.currentTarget)
+    const traitSetKey = $target.data('traitSet')
+
+    await this.actor.update({
+      [`data.traitSets.${traitSetKey}.edit`]: !this.actor.data.data.traitSets[traitSetKey].edit
     })
   }
 }

@@ -19,8 +19,7 @@
             }
           },
           "pool": {}
-        },
-        "showEdit": true
+        }
       },
       "assetsAndComplications": {
         "assets": {},
