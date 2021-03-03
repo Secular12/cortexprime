@@ -16,12 +16,13 @@
 }
 
 .btn-icon {
+  border-radius: 50%;
+  font-size: toRem(14px);
   height: toRem(30px);
   line-height: 0;
-  padding: toRem(8px);
+  padding: toRem(4px);
   text-align: center;
-  border-radius: 50%;
-  width: toRem(30px);
+  width: toRem(24px);
 
   i.fa {
     margin-right: 0;

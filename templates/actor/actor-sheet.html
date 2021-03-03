@@ -1,12 +1,4 @@
 <form class="{{cssClass}}" autocomplete="off">
-  <button class="btn btn-secondary toggle-edit-view">
-    {{#if data.showEdit}}
-      Normal View
-    {{else}}
-      Edit View
-    {{/if}}
-  </button>
-
   {{!-- Sheet Header --}}
   <header class="sheet-header">
     <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
@@ -41,7 +33,7 @@
             name=(localize 'CortexPrime.Assets')
             path="data.assets"
             removeClass="remove-asset"
-            showEdit=data.showEdit
+            type="assets"
           }}
           {{> "systems/cortexprime/templates/partials/simple-trait.html"
             addClass="add-new-complication"
@@ -50,7 +42,7 @@
             name=(localize 'CortexPrime.Complications')
             path="data.complications"
             removeClass="remove-complication"
-            showEdit=data.showEdit
+            type="complications"
           }}
           {{#if settings.hasStress}}
             {{> "systems/cortexprime/templates/partials/simple-trait.html"
@@ -60,7 +52,7 @@
               name=(localize 'CortexPrime.Stress')
               path="data.stress"
               removeClass="remove-stress"
-              showEdit=data.showEdit
+              type="stress"
             }}
           {{/if}}
           {{#if settings.hasTrauma}}
@@ -71,7 +63,7 @@
               name=(localize 'CortexPrime.Trauma')
               path="data.trauma"
               removeClass="remove-trauma"
-              showEdit=data.showEdit
+              type="trauma"
             }}
           {{/if}}
         </div>
