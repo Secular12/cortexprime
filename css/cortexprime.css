@@ -988,12 +988,13 @@ input {
 }
 
 .btn-icon {
-  height: 1.875rem;
-  line-height: 0;
-  padding: 0.5rem;
-  text-align: center;
   border-radius: 50%;
-  width: 1.875rem;
+  font-size: 0.875rem;
+  height: 1.5rem;
+  line-height: 0;
+  padding: 0.25rem;
+  text-align: center;
+  width: 1.5rem;
 }
 
 .btn-icon i.fa {

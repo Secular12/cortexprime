@@ -11,15 +11,15 @@
     <div>
       {{#each data as |value index|}}
       <div class="flex-row flex-ac">
-        {{#if ../showEdit}}
-        <div class="flex-col col-12">
-          <label class="label">{{../label}}</label>
-          <input name="{{../path}}.{{index}}.name" type="text" value="{{value.name}}">
-        </div>
+        {{#if value.edit}}
+          <div class="flex-col col-12">
+            <label class="label">{{../label}}</label>
+            <input name="{{../path}}.{{index}}.name" type="text" value="{{value.name}}">
+          </div>
         {{else}}
-        <div class="flex-col">
-          <p class="add-trait-to-pool trait-label" data-label="{{value.name}}" data-trait-target="{{../path}}.{{index}}">{{value.name}}</p>
-        </div>
+          <div class="flex-col">
+            <p class="add-trait-to-pool trait-label" data-label="{{value.name}}" data-trait-target="{{../path}}.{{index}}">{{value.name}}</p>
+          </div>
         {{/if}}
         <div class="flex-col">
           {{> "systems/cortexprime/templates/partials/dice/select.html" dice=value.dice.values selectName=(concat
@@ -28,6 +28,12 @@
         <div class="flex-col">
           <button class="{{../removeClass}} btn btn-icon btn-small btn-black" data-key="{{index}}">
             <i class="fa fa-times"></i>
+          </button>
+        </div>
+        <div class="flex-col">
+          <button class="toggle-simple-trait-edit btn btn-icon" data-simple-trait="{{index}}"
+            data-simple-trait-type="{{../type}}">
+            <i class="{{ifString value.edit 'fas' 'far'}} fa-edit"></i>
           </button>
         </div>
       </div>
