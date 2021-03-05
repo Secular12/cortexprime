@@ -379,8 +379,6 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const traitKey = $target.data('traitKey')
     const traitSetKey = $target.data('traitSetKey')
 
-    console.log(traitKey)
-
     const target = traitKey || traitKey === 0
       ? `data.traitSets.${traitSetKey}.traits.${traitKey}.shutdown`
       : `data.traitSets.${traitSetKey}.shutdown`

@@ -72,6 +72,10 @@ input {
   cursor: pointer;
 }
 
+.shutdown.trait-label, .shutdown .trait-label {
+  cursor: not-allowed;
+}
+
 .ba-1-accent {
   border: 0.0625rem solid #c0e2ca;
 }
@@ -2146,6 +2150,14 @@ input {
 
 .text-white {
   color: #f5f8fa;
+}
+
+.shutdown {
+  opacity: 0.5;
+}
+
+.shutdown .shutdown {
+  opacity: 1;
 }
 
 /* Styles limited to cortexprime sheets */
