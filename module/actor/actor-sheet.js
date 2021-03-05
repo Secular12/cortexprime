@@ -66,6 +66,8 @@ export class CortexPrimeActorSheet extends ActorSheet {
           }
         })
     })
+    html.find('.toggle-trait-shutdown').click(this._toggleShutdown.bind(this))
+    html.find('.toggle-trait-set-shutdown').click(this._toggleShutdown.bind(this))
     html.find('.toggle-simple-trait-edit').click(this._toggleSimpleTraitEdit.bind(this))
     html.find('.toggle-trait-edit').click(this._toggleTraitEdit.bind(this))
     html.find('.toggle-trait-set-edit').click(this._toggleTraitSetEdit.bind(this))
@@ -368,6 +370,25 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
     await this.actor.update({
       [`data.traitSets.${traitSetKey}.edit`]: !this.actor.data.data.traitSets[traitSetKey].edit
+    })
+  }
+
+  async _toggleShutdown (event) {
+    event.preventDefault()
+    const $target = $(event.currentTarget)
+    const traitKey = $target.data('traitKey')
+    const traitSetKey = $target.data('traitSetKey')
+
+    const target = traitKey || traitKey === 0
+      ? `data.traitSets.${traitSetKey}.traits.${traitKey}.shutdown`
+      : `data.traitSets.${traitSetKey}.shutdown`
+
+    const value = traitKey || traitKey === 0
+      ? !this.actor.data.data.traitSets[traitSetKey].traits[traitKey].shutdown
+      : !this.actor.data.data.traitSets[traitSetKey].shutdown
+
+    await this.actor.update({
+      [target]: value
     })
   }
 }

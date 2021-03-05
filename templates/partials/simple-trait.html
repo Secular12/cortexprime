@@ -25,11 +25,13 @@
           {{> "systems/cortexprime/templates/partials/dice/select.html" dice=value.dice.values selectName=(concat
           ../path "." index ".dice") }}
         </div>
-        <div class="flex-col">
-          <button class="{{../removeClass}} btn btn-icon btn-small btn-black" data-key="{{index}}">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
+        {{#if value.edit}}
+          <div class="flex-col">
+            <button class="{{../removeClass}} btn btn-icon btn-small btn-black" data-key="{{index}}">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        {{/if}}
         <div class="flex-col">
           <button class="toggle-simple-trait-edit btn btn-icon" data-simple-trait="{{index}}"
             data-simple-trait-type="{{../type}}">

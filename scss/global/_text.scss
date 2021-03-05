@@ -40,3 +40,9 @@
   font-size: 1rem;
   cursor: pointer;
 }
+
+.shutdown {
+  &.trait-label, .trait-label {
+    cursor: not-allowed;
+  }
+}
