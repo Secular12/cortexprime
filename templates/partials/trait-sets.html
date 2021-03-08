@@ -1,33 +1,33 @@
 <div>
-  {{#each data.traitSets as |traitSet traitSetIndex|}}
+  {{#each data.traitSets as |traitSet traitSetKey|}}
     <section class="my-2">
       <div class="ba-1-secondary flex-container py-2">
         <header class="flex-row flex-ac">
           <h2 class="section-heading flex-col col-12">{{traitSet.name}}</h2>
           {{#if traitSet.edit}}
             <div class="flex-col">
-              <button class="btn btn-icon text-primary toggle-trait-set-shutdown" data-trait-set-key="{{traitSetIndex}}"
+              <button class="btn btn-icon text-primary toggle-trait-set-shutdown" data-trait-set-key="{{traitSetKey}}"
                 type="button">
                 <i class="fas {{ifString traitSet.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
               </button>
             </div>
             {{#if traitSet.allowCustomTraits}}
               <div class="flex-col">
-                <button class="btn btn-icon btn-secondary add-new-trait" data-set-key="{{traitSetIndex}}" type="button">
+                <button class="btn btn-icon btn-secondary add-new-trait" data-set-key="{{traitSetKey}}" type="button">
                   <i class="fa fa-plus"></i>
                 </button>
               </div>
             {{/if}}
           {{/if}}
           <div class="flex-col">
-            <button class="toggle-trait-set-edit btn btn-icon" data-trait-set="{{traitSetIndex}}">
+            <button class="toggle-trait-set-edit btn btn-icon" data-trait-set="{{traitSetKey}}">
               <i class="{{ifString traitSet.edit 'fas' 'far'}} fa-edit"></i>
             </button>
           </div>
         </header>
         {{#if traitSet.edit}}
           <label class="label">{{localize "CortexPrime.TraitSetDescription"}}</label>
-          <textarea name="data.traitSets.{{traitSetIndex}}.description">{{traitSet.description}}</textarea>
+          <textarea name="data.traitSets.{{traitSetKey}}.description">{{traitSet.description}}</textarea>
         {{else}}
           <div class="{{ifString traitSet.shutdown 'shutdown' ''}}">
             {{#if traitSet.description}}
@@ -36,7 +36,7 @@
           </div>
         {{/if}}
         <div>
-          {{#each traitSet.traits as |trait traitIndex|}}
+          {{#each traitSet.traits as |trait traitKey|}}
             <section>
               <header>
                 {{#if (or (and trait.edit traitSet.hasLabel) (and traitSet.hasLabel trait.label))}}
@@ -47,15 +47,15 @@
                     <div class="flex-col col-12">
                       {{#unless traitSet.hasLabel}}
                         <label class="label">{{localize 'CortexPrime.TraitName'}}</label>
-                        <input name="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.name" type="text" value="{{trait.name}}">
+                        <input name="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.name" type="text" value="{{trait.name}}">
                       {{else}}
                         <label class="label">{{localize 'CortexPrime.TraitLabel'}}</label>
-                        <input name="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.label" type="text" value="{{trait.label}}">
+                        <input name="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.label" type="text" value="{{trait.label}}">
                       {{/unless}}
                     </div>
                     <div class="flex-col">
-                      <button class="btn btn-icon text-primary toggle-trait-shutdown" data-trait-set-key="{{traitSetIndex}}"
-                        data-trait-key="{{traitIndex}}" type="button">
+                      <button class="btn btn-icon text-primary toggle-trait-shutdown" data-trait-set-key="{{traitSetKey}}"
+                        data-trait-key="{{traitKey}}" type="button">
                         <i class="fas {{ifString trait.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
                       </button>
                     </div>
@@ -64,29 +64,29 @@
                       <div class="flex-row">
                         {{#unless (and traitSet.hasLabel trait.label)}}
                         <p class="{{ifString (and (not traitSet.shutdown) (not trait.shutdown)) 'add-trait-to-pool ' ''}}trait-label flex-col col-12" data-label="{{trait.name}}"
-                          data-trait-target="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}">{{trait.name}}</p>
+                          data-trait-target="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}">{{trait.name}}</p>
                         {{else}}
                         <p class="{{ifString (and (not traitSet.shutdown) (not trait.shutdown)) 'add-trait-to-pool ' ''}}trait-label flex-col col-12" data-label="{{trait.label}}"
-                          data-trait-target="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}">{{trait.label}}</p>
+                          data-trait-target="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}">{{trait.label}}</p>
                         {{/unless}}
                       </div>
                     </div>
                   {{/if}}
                   <div class="flex-col">
                     {{> "systems/cortexprime/templates/partials/dice/select.html" dice=trait.dice.values selectName=(concat
-                    "data.traitSets." traitSetIndex ".traits." traitIndex ".dice") max=traitSet.maxDieRating min=traitSet.minDieRating
+                    "data.traitSets." traitSetKey ".traits." traitKey ".dice") max=traitSet.maxDieRating min=traitSet.minDieRating
                     maxDice=traitSet.maxDice minDice=traitSet.minDice }}
                   </div>
                   {{#if (and trait.edit trait.isCustomTrait)}}
                     <div class="flex-col flex-ac-self">
-                      <button class="remove-trait btn btn-icon btn-small btn-black" data-set-key="{{traitSetIndex}}"
-                        data-key="{{traitIndex}}">
+                      <button class="remove-trait btn btn-icon btn-small btn-black" data-set-key="{{traitSetKey}}"
+                        data-key="{{traitKey}}">
                         <i class="fa fa-times"></i>
                       </button>
                     </div>
                   {{/if}}
                   <div class="flex-col">
-                    <button class="toggle-trait-edit btn btn-icon" data-trait-set="{{traitSetIndex}}" data-trait="{{traitIndex}}">
+                    <button class="toggle-trait-edit btn btn-icon" data-trait-set="{{traitSetKey}}" data-trait="{{traitKey}}">
                       <i class="{{ifString trait.edit 'fas' 'far'}} fa-edit"></i>
                     </button>
                   </div>
@@ -97,42 +97,42 @@
                   <div class="mt-1">
                     <label class="label">{{localize "CortexPrime.TraitDescription"}}</label>
                     <textarea class="mt-1"
-                      name="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.description">{{trait.description}}</textarea>
+                      name="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.description">{{trait.description}}</textarea>
                   </div>
                 </div>
                 {{#if traitSet.hasDetails}}
                   <div class="mt-1">
                     <div class="flex-row flex-ac">
-                      <h3 class="section-sub-heading flex-col col-12">Detail List</h3>
+                      <h3 class="section-sub-heading flex-col col-12">{{localize 'CortexPrime.DetailList'}}</h3>
                       <div class="flex-col">
-                        <button class="add-new-detail btn btn-icon btn-secondary" data-trait-set="{{traitSetIndex}}"
-                          data-trait="{{traitIndex}}">
+                        <button class="add-new-detail btn btn-icon btn-secondary" data-trait-set="{{traitSetKey}}"
+                          data-trait="{{traitKey}}">
                           <i class="fa fa-plus"></i>
                         </button>
                       </div>
                     </div>
-                    {{#each trait.details as |detail detailIndex|}}
-                      <div class="detail mt-2{{ifString (gt detailIndex 0) ' pt-2 bt-1-primary' ''}}">
+                    {{#each trait.details as |detail detailKey|}}
+                      <div class="detail mt-2{{ifString (gt detailKey 0) ' pt-2 bt-1-primary' ''}}">
                         <div class="flex-row flex-as">
                           <div class="flex-col">
                             <label class="label">{{localize 'CortexPrime.Name'}}</label>
-                            <input type="text" name="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.details.{{detailIndex}}.name"
+                            <input type="text" name="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.details.{{detailKey}}.name"
                               value="{{detail.name}}">
                           </div>
                           <div class="flex-col">
                             <label class="label">{{localize 'CortexPrime.Type'}}</label>
-                            <input type="text" name="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.details.{{detailIndex}}.type"
+                            <input type="text" name="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.details.{{detailKey}}.type"
                               value="{{detail.type}}">
                           </div>
                           <div class="flex-col">
                             <label class="label">{{localize 'CortexPrime.Unlocked'}}</label>
                             <input type="checkbox"
-                              name="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.details.{{detailIndex}}.unlocked" {{checked
+                              name="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.details.{{detailKey}}.unlocked" {{checked
                               detail.unlocked}}>
                           </div>
                           <div class="flex-col">
-                            <button class="remove-detail btn btn-icon btn-small btn-black" data-trait-set="{{traitSetIndex}}"
-                              data-trait="{{traitIndex}}" data-detail="{{detailIndex}}">
+                            <button class="remove-detail btn btn-icon btn-small btn-black" data-trait-set="{{traitSetKey}}"
+                              data-trait="{{traitKey}}" data-detail="{{detailKey}}">
                               <i class="fa fa-times"></i>
                             </button>
                           </div>
@@ -140,7 +140,7 @@
                         <div>
                           <label class="label">{{localize 'CortexPrime.Value'}}</label>
                           <textarea type="text"
-                            name="data.traitSets.{{traitSetIndex}}.traits.{{traitIndex}}.details.{{detailIndex}}.value">{{detail.value}}</textarea>
+                            name="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.details.{{detailKey}}.value">{{detail.value}}</textarea>
                         </div>
                       </div>
                     {{/each}}
@@ -153,8 +153,8 @@
                   {{/if}}
                   {{#if traitSet.hasDetails}}
                     <div class="mt-1">
-                      <div class="no-style-list">
-                        {{#each trait.details as |detail detailIndex|}}
+                      <div>
+                        {{#each trait.details as |detail detailKey|}}
                         <div class="my-2">
                           <i class="text-primary mr-2 {{ifString detail.unlocked 'fas' 'far'}} fa-circle"></i>
                           {{#if detail.type}}

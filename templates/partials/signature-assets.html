@@ -1,0 +1,128 @@
+<section>
+  <header class="flex-row flex-ac">
+    <h2 class="section-heading flex-col col-12">Signature Assets</h2>
+    <div class="flex-col">
+      <button class="btn btn-icon btn-secondary add-new-signature-asset" type="button">
+        <i class="fa fa-plus"></i>
+      </button>
+    </div>
+  </header>
+  <div>
+    {{#each signatureAssets as |signatureAsset signatureAssetKey|}}
+      <section>
+        <header class="flex-row flex-ac">
+          {{#if signatureAsset.edit}}
+            <div class="flex-col col-12">
+              <label class="label">{{../label}}</label>
+              <input name="data.signatureAssets.{{signatureAssetKey}}.name" type="text" value="{{signatureAsset.name}}">
+            </div>
+          {{else}}
+            <div class="flex-col{{ifString signatureAsset.shutdown ' shutdown' ''}}">
+              <p class="{{ifString signatureAsset.shutdown '' 'add-trait-to-pool '}}trait-label" data-label="{{signatureAsset.name}}" data-trait-target="data.signatureAssets.{{signatureAssetKey}}">
+                {{signatureAsset.name}}</p>
+            </div>
+          {{/if}}
+          <div class="flex-col">
+            {{> "systems/cortexprime/templates/partials/dice/select.html"
+              dice=signatureAsset.dice.values
+              selectName=(concat "data.signatureAssets." signatureAssetKey ".dice")
+            }}
+          </div>
+          {{#if signatureAsset.edit}}
+            <div class="flex-col">
+              <button class="btn btn-icon text-primary toggle-signature-asset-shutdown"
+                data-signature-asset-key="{{signatureAssetKey}}" type="button">
+                <i class="fas {{ifString signatureAsset.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
+              </button>
+            </div>
+            <div class="flex-col">
+              <button class="remove-signature-asset btn btn-icon btn-small btn-black" data-key="{{signatureAssetKey}}">
+                <i class="fa fa-times"></i>
+              </button>
+            </div>
+          {{/if}}
+          <div class="flex-col">
+            <button class="toggle-simple-trait-edit btn btn-icon" data-simple-trait-type="signatureAssets" data-simple-trait="{{signatureAssetKey}}">
+              <i class="{{ifString signatureAsset.edit 'fas' 'far'}} fa-edit"></i>
+            </button>
+          </div>
+        </header>
+        {{#if signatureAsset.edit}}
+          <div>
+            <div>
+              <label class="label">{{localize 'CortexPrime.Description'}}</label>
+              <textarea name="data.signatureAssets.{{signatureAssetKey}}.description">{{signatureAsset.description}}</textarea>
+            </div>
+            <div class="mt-1">
+              <div class="flex-row flex-ac">
+                <h3 class="section-sub-heading flex-col col-12">{{localize 'CortexPrime.DetailList'}}</h3>
+                <div class="flex-col">
+                  <button class="add-new-signature-asset-detail btn btn-icon btn-secondary"
+                    data-signature-asset="{{signatureAssetKey}}">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+              {{#each signatureAsset.details as |detail detailKey|}}
+              <div class="detail mt-2{{ifString (gt detailKey 0) ' pt-2 bt-1-primary' ''}}">
+                <div class="flex-row flex-as">
+                  <div class="flex-col">
+                    <label class="label">{{localize 'CortexPrime.Name'}}</label>
+                    <input type="text" name="data.signatureAssets.{{signatureAssetKey}}.details.{{detailKey}}.name"
+                      value="{{detail.name}}">
+                  </div>
+                  <div class="flex-col">
+                    <label class="label">{{localize 'CortexPrime.Type'}}</label>
+                    <input type="text" name="data.signatureAssets.{{signatureAssetKey}}.details.{{detailKey}}.type"
+                      value="{{detail.type}}">
+                  </div>
+                  <div class="flex-col">
+                    <label class="label">{{localize 'CortexPrime.Unlocked'}}</label>
+                    <input type="checkbox" name="data.signatureAssets.{{signatureAssetKey}}.details.{{detailKey}}.unlocked"
+                      {{checked detail.unlocked}}>
+                  </div>
+                  <div class="flex-col">
+                    <button class="remove-signature-asset-detail btn btn-icon btn-small btn-black"
+                      data-signature-asset="{{signatureAssetKey}}" data-detail="{{detailKey}}">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <label class="label">{{localize 'CortexPrime.Value'}}</label>
+                  <textarea type="text"
+                    name="data.signatureAssets.{{signatureAssetKey}}.details.{{detailKey}}.value">{{detail.value}}</textarea>
+                </div>
+              </div>
+              {{/each}}
+            </div>
+          </div>
+        {{else}}
+          <div class="{{ifString signatureAsset.shutdown 'shutdown' ''}}">
+            <div>
+              <p>{{signatureAsset.description}}</p>
+            </div>
+            <div class="mt-1">
+              <div>
+                {{#each signatureAsset.details as |detail detailKey|}}
+                <div class="my-2">
+                  <i class="text-primary mr-2 {{ifString detail.unlocked 'fas' 'far'}} fa-circle"></i>
+                  {{#if detail.type}}
+                  <span class="bold mr-1 text-secondary">{{detail.type}}</span>
+                  {{/if}}
+                  {{#if detail.name}}
+                  <span class="bold text-dark-grey mr-1">{{detail.name}}</span>
+                  {{/if}}
+                  {{#if detail.value}}
+                  <p class="ml-7 mt-1">{{{detail.value}}}</p>
+                  {{/if}}
+                </div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+        {{/if}}
+      </section>
+    {{/each}}
+  </div>
+</section>

@@ -40,6 +40,8 @@ export class CortexPrimeActorSheet extends ActorSheet {
     html.find('.add-new-asset').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.assets, 'assets', 'New Asset'))
     html.find('.add-new-complication').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.complications, 'complications', 'New Complication'))
     html.find('.add-new-detail').click(this._addNewDetail.bind(this))
+    html.find('.add-new-signature-asset').click(this._addNewSignatureAsset.bind(this))
+    html.find('.add-new-signature-asset-detail').click(this._addNewSignatureAssetDetail.bind(this))
     html.find('.add-new-stress').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.stress, 'stress', 'New Stress'))
     html.find('.add-new-trait').click(this._addNewTrait.bind(this))
     html.find('.add-new-trauma').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.trauma, 'trauma', 'New Trauma'))
@@ -52,6 +54,8 @@ export class CortexPrimeActorSheet extends ActorSheet {
     html.find('.remove-complication').click(async event => await this._removeSimpleTrait(event, this.actor.data.data.complications, '', 'complications'))
     html.find('.remove-detail').click(this._removeDetail.bind(this))
     html.find('.remove-pool-trait').click(this._removePoolTrait.bind(this))
+    html.find('.remove-signature-asset').click(async event => await this._removeSimpleTrait(event, this.actor.data.data.signatureAssets, '', 'signatureAssets'))
+    html.find('.remove-signature-asset-detail').click(this._removeSignatureAssetDetail.bind(this))
     html.find('.remove-stress').click(async event => await this._removeSimpleTrait(event, this.actor.data.data.stress, '', 'stress'))
     html.find('.remove-trait').click(this._removeTrait.bind(this))
     html.find('.remove-trauma').click(async event => await this._removeSimpleTrait(event, this.actor.data.data.trauma, '', 'trauma'))
@@ -66,6 +70,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
           }
         })
     })
+    html.find('.toggle-signature-asset-shutdown').click(this._toggleSignatureAssetShutdown.bind(this))
     html.find('.toggle-trait-shutdown').click(this._toggleShutdown.bind(this))
     html.find('.toggle-trait-set-shutdown').click(this._toggleShutdown.bind(this))
     html.find('.toggle-simple-trait-edit').click(this._toggleSimpleTraitEdit.bind(this))
@@ -119,6 +124,40 @@ export class CortexPrimeActorSheet extends ActorSheet {
     }
 
     await this._addNewDataPoint(trait.details, `traitSets.${traitSetKey}.traits.${traitKey}.details`, value)
+  }
+
+  async _addNewSignatureAsset(event) {
+    event.preventDefault()
+
+    const value = {
+      description: '',
+      details: {},
+      dice: {
+        values: {
+          0: 6
+        }
+      },
+      edit: false,
+      name: 'New Signature Asset',
+      shutdown: false
+    }
+
+    await this._addNewDataPoint(this.actor.data.data.signatureAssets, 'signatureAssets', value)
+  }
+
+  async _addNewSignatureAssetDetail(event) {
+    event.preventDefault()
+    const $addDetailButton = $(event.currentTarget)
+    const signatureAssetKey = $addDetailButton.data('signatureAsset').toString()
+    const signatureAsset = this.actor.data.data.signatureAssets[signatureAssetKey]
+
+    const value = {
+      name: '',
+      type: '',
+      value: ''
+    }
+
+    await this._addNewDataPoint(signatureAsset.details, `signatureAssets.${signatureAssetKey}.details`, value)
   }
 
   async _addNewTrait (event) {
@@ -264,6 +303,15 @@ export class CortexPrimeActorSheet extends ActorSheet {
     await this._removeDataPoint(this.actor.data.data.dice.pool, 'dice', 'pool', targetKey)
   }
 
+  async _removeSignatureAssetDetail(event) {
+    event.preventDefault()
+    const $button = $(event.currentTarget)
+    const signatureAssetKey = $button.data('signatureAsset').toString()
+    const detailKey = $button.data('detail').toString()
+
+    await this._removeDataPoint(this.actor.data.data.signatureAssets[signatureAssetKey].details, `signatureAssets.${signatureAssetKey}`, 'details', detailKey)
+  }
+
   async _removeTrait(event) {
     event.preventDefault()
     const $button = $(event.currentTarget)
@@ -389,6 +437,17 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
     await this.actor.update({
       [target]: value
+    })
+  }
+
+  async _toggleSignatureAssetShutdown(event) {
+    event.preventDefault()
+    const $target = $(event.currentTarget)
+    const signatureAssetKey = $target.data('signatureAssetKey')
+    const value = !this.actor.data.data.signatureAssets[signatureAssetKey].shutdown
+
+    await this.actor.update({
+      [`data.signatureAssets.${signatureAssetKey}.shutdown`]: value
     })
   }
 }

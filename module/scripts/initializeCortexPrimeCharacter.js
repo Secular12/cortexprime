@@ -14,18 +14,18 @@ export default async (data) => {
   const traitSetSettings = game.settings.get('cortexprime', 'traitSets')
 
   characterData.traitSets = Object.keys(traitSetSettings)
-    .reduce((traitSets, traitSetIndex) => {
+    .reduce((traitSets, traitSetKey) => {
       return {
         ...traitSets,
-        [traitSetIndex]: {
-          ...traitSetSettings[traitSetIndex],
-          traits: Object.keys(traitSetSettings[traitSetIndex].traits || {})
-            .reduce((traits, traitIndex) => {
+        [traitSetKey]: {
+          ...traitSetSettings[traitSetKey],
+          traits: Object.keys(traitSetSettings[traitSetKey].traits || {})
+            .reduce((traits, traitKey) => {
               return {
                 ...traits,
-                [traitIndex]: {
-                  ...traitSetSettings[traitSetIndex].traits[traitIndex],
-                  dice: getDefaultDice(traitSetSettings[traitSetIndex]),
+                [traitKey]: {
+                  ...traitSetSettings[traitSetKey].traits[traitKey],
+                  dice: getDefaultDice(traitSetSettings[traitSetKey]),
                   label: ''
                 }
               }
