@@ -39,12 +39,15 @@
           "0": 6
         }
       },
+      "signatureAssets": {
+        "signatureAssets": {}
+      },
       "traitSets": {
         "traitSets": {}
       }
     },
     "major-character": {
-      "templates": ["common", "pp", "assetsAndComplications", "scale", "stressAndTrauma", "traitSets"]
+      "templates": ["common", "pp", "assetsAndComplications", "scale", "signatureAssets", "stressAndTrauma", "traitSets"]
     }
   },
   "Item": {

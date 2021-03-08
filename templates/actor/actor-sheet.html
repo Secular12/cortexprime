@@ -26,6 +26,9 @@
           {{#if settings.hasScaleDie}}
             {{> "systems/cortexprime/templates/partials/single-trait.html" big=true name="Scale" path="data.scale" value=data.scale }}
           {{/if}}
+          {{> "systems/cortexprime/templates/partials/signature-assets.html"
+            signatureAssets=data.signatureAssets
+          }}
           {{> "systems/cortexprime/templates/partials/simple-trait.html"
             addClass="add-new-asset"
             data=data.assets
