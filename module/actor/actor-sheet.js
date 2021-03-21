@@ -406,8 +406,6 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const $target = $(event.currentTarget)
     const singleTrait = $target.data('singleTrait')
 
-    console.log(this.actor.data.data[singleTrait])
-
     await this.actor.update({
       [`data.${singleTrait}.edit`]: !this.actor.data.data[singleTrait].edit
     })
