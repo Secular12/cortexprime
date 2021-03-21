@@ -24,7 +24,7 @@
         <div class="flex-col col-5">
           {{> "systems/cortexprime/templates/partials/pp.html" data=data }}
           {{#if settings.hasScaleDie}}
-            {{> "systems/cortexprime/templates/partials/single-trait.html" big=true name="Scale" path="data.scale" value=data.scale }}
+            {{> "systems/cortexprime/templates/partials/single-trait.html" big=true name="Scale" path="data.scale" type="scale" value=data.scale }}
           {{/if}}
           {{> "systems/cortexprime/templates/partials/signature-assets.html"
             signatureAssets=data.signatureAssets

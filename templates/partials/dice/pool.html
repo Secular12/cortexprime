@@ -12,8 +12,11 @@
             </label>
             <div class="flex-col">
               <span class="label">{{localize 'CortexPrime.Dice'}}</span>
-              {{> "systems/cortexprime/templates/partials/dice/select.html" dice=data.dice.customAdd.values
-              selectName="data.dice.customAdd" }}
+              {{> "systems/cortexprime/templates/partials/dice/select.html"
+                dice=data.dice.customAdd.values
+                edit=true
+                selectName="data.dice.customAdd"
+              }}
             </div>
           </div>
         </div>
@@ -40,8 +43,11 @@
             </div>
             {{/if}}
             <div class="flex-col pr-0">
-              {{> "systems/cortexprime/templates/partials/dice/select.html" dice=trait.values
-              selectName=(concat 'data.dice.pool.' traitKey) }}
+              {{> "systems/cortexprime/templates/partials/dice/select.html"
+                dice=trait.values
+                edit=true
+                selectName=(concat 'data.dice.pool.' traitKey)
+              }}
             </div>
             <div class="flex-col">
               <button class="remove-pool-trait btn btn-icon btn-small btn-black" data-key="{{traitKey}}">

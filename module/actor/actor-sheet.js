@@ -74,6 +74,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     html.find('.toggle-trait-shutdown').click(this._toggleShutdown.bind(this))
     html.find('.toggle-trait-set-shutdown').click(this._toggleShutdown.bind(this))
     html.find('.toggle-simple-trait-edit').click(this._toggleSimpleTraitEdit.bind(this))
+    html.find('.toggle-single-trait-edit').click(this._toggleSingleTraitEdit.bind(this))
     html.find('.toggle-trait-edit').click(this._toggleTraitEdit.bind(this))
     html.find('.toggle-trait-set-edit').click(this._toggleTraitSetEdit.bind(this))
   }
@@ -397,6 +398,16 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
     await this.actor.update({
       [`data.${simpleTraitType}.${simpleTraitKey}.edit`]: !this.actor.data.data[simpleTraitType][simpleTraitKey].edit
+    })
+  }
+
+  async _toggleSingleTraitEdit(event) {
+    event.preventDefault()
+    const $target = $(event.currentTarget)
+    const singleTrait = $target.data('singleTrait')
+
+    await this.actor.update({
+      [`data.${singleTrait}.edit`]: !this.actor.data.data[singleTrait].edit
     })
   }
 
