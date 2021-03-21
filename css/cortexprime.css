@@ -2201,6 +2201,22 @@ input {
   content: "\25CB";
 }
 
+.cortexprime header.sheet-header {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: start;
+}
+
+.cortexprime header.sheet-header .profile-img {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  max-height: 12.5rem;
+  max-width: 12.5rem;
+  height: auto;
+  width: auto;
+}
+
 .die-icon-wrapper {
   display: inline-block;
   line-height: 0;
