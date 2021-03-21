@@ -11,6 +11,7 @@ export default async (data) => {
   const workingData = duplicate(data.data)
   const characterData = workingData.data
 
+  const hasScale = game.settings.get('cortexprime', 'majorCharacterScale')
   const traitSetSettings = game.settings.get('cortexprime', 'traitSets')
 
   characterData.traitSets = Object.keys(traitSetSettings)
@@ -33,6 +34,13 @@ export default async (data) => {
         }
       }
     }, {})
+
+  if (hasScale) {
+    characterData.scale = {
+      edit: false,
+      values: {}
+    }
+  }
 
   workingData.data = characterData
 

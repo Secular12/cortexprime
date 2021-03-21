@@ -25,6 +25,7 @@
           <div class="flex-col">
             {{> "systems/cortexprime/templates/partials/dice/select.html"
               dice=signatureAsset.dice.values
+              edit=signatureAsset.edit
               selectName=(concat "data.signatureAssets." signatureAssetKey ".dice")
             }}
           </div>

@@ -3,8 +3,6 @@ $dieSides: 4, 6, 8, 10, 12;
 .die-icon-wrapper {
   display: inline-block;
   line-height: 0;
-  margin-left: toRem(2px);
-  margin-right: toRem(2px);
   vertical-align: middle;
 }
 
@@ -14,28 +12,26 @@ $dieSides: 4, 6, 8, 10, 12;
   background-repeat: no-repeat;
   background-size: contain;
   display: flex;
-  height: 2.5rem;
+  height: toRem(28px);
   justify-content: center;
+  margin-left: toRem(2px);
+  margin-right: toRem(2px);
   position: relative;
-  width: 2.5rem;
+  width: toRem(28px);
+
+  &.lg {
+    height: toRem(40px);
+    width: toRem(40px);
+  }
 
   &.d4 {
-    height: 2.25rem;
-    width: 2.25rem;
-
     .value {
       padding-bottom: 0.35rem;
     }
   }
 
   &.d6 {
-    height: 2rem;
-    width: 2rem;
-  }
-
-  &.d10, &.d12 {
-    height: 2.25rem;
-    width: 2.25rem;
+    background-size: 75%;
   }
 
   @each $i in $dieSides {

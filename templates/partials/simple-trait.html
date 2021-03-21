@@ -22,8 +22,11 @@
             </div>
           {{/if}}
           <div class="flex-col">
-            {{> "systems/cortexprime/templates/partials/dice/select.html" dice=value.dice.values selectName=(concat
-            ../path "." index ".dice") }}
+            {{>
+              "systems/cortexprime/templates/partials/dice/select.html"
+              dice=value.dice.values
+              edit=value.edit
+              selectName=(concat ../path "." index ".dice") }}
           </div>
           {{#if value.edit}}
             <div class="flex-col">

@@ -8,7 +8,16 @@
       {{name}}
     </div>
     <div class="flex-col">
-      {{> "systems/cortexprime/templates/partials/dice/select.html" dice=value.values selectName=path }}
+      {{> "systems/cortexprime/templates/partials/dice/select.html"
+        dice=value.values
+        edit=value.edit
+        selectName=path
+      }}
+    </div>
+    <div class="flex-col">
+      <button class="toggle-single-trait-edit btn btn-icon" data-single-trait="{{type}}">
+        <i class="{{ifString value.edit 'fas' 'far'}} fa-edit"></i>
+      </button>
     </div>
   </div>
 </div>
