@@ -64,7 +64,7 @@ export default class TraitSettings extends FormApplication {
     // const traitSets = this._handleDeletableAttributes(traitSetsUpdated, traitSets)
 
     if (expandedFormData.newTraitSet) {
-      const currentTraitSetLength = Object.keys(traitSets).length
+      const currentTraitSetLength = Object.keys(traitSets ?? {}).length
 
       const saveValue = {
         ...traitSets,
