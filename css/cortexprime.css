@@ -44,6 +44,16 @@ input {
   color: #424C59;
 }
 
+.primary-heading {
+  border: 0;
+  color: #424C59;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
 .section-heading {
   border: 0;
   color: #B30044;
