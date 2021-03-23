@@ -20,7 +20,7 @@
       </button>
     {{/if}}
   {{else}}
-    <div class="dice-icon-wrapper flex flex-ac">
+    <div class="dice-icon-wrapper flex flex-ac{{ifString shutdown ' shutdown' ''}}">
       {{#each dice as |dieRating index|}}
         <span class="die-icon d{{dieRating}}"></span>
       {{/each}}

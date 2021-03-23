@@ -3,7 +3,7 @@
     <section class="my-2">
       <div class="ba-1-secondary flex-container py-2">
         <header class="flex-row flex-ac">
-          <h2 class="section-heading flex-col col-12">{{traitSet.name}}</h2>
+          <h3 class="section-heading flex-col col-12{{ifString traitSet.shutdown ' shutdown' ''}}">{{traitSet.name}}</h3>
           {{#if traitSet.edit}}
             <div class="flex-col">
               <button class="btn btn-icon text-primary toggle-trait-set-shutdown" data-trait-set-key="{{traitSetKey}}"
@@ -73,9 +73,14 @@
                     </div>
                   {{/if}}
                   <div class="flex-col">
-                    {{> "systems/cortexprime/templates/partials/dice/select.html" dice=trait.dice.values selectName=(concat
-                    "data.traitSets." traitSetKey ".traits." traitKey ".dice") max=traitSet.maxDieRating min=traitSet.minDieRating
-                    maxDice=traitSet.maxDice minDice=traitSet.minDice }}
+                    {{> "systems/cortexprime/templates/partials/dice/select.html"
+                      dice=trait.dice.values selectName=(concat "data.traitSets." traitSetKey ".traits." traitKey ".dice")
+                      max=traitSet.maxDieRating
+                      min=traitSet.minDieRating
+                      maxDice=traitSet.maxDice
+                      minDice=traitSet.minDice
+                      shutdown=(or traitSet.shutdown trait.shutdown)
+                    }}
                   </div>
                   {{#if (and trait.edit trait.isCustomTrait)}}
                     <div class="flex-col flex-ac-self">
@@ -103,7 +108,7 @@
                 {{#if traitSet.hasDetails}}
                   <div class="mt-1">
                     <div class="flex-row flex-ac">
-                      <h3 class="section-sub-heading flex-col col-12">{{localize 'CortexPrime.DetailList'}}</h3>
+                      <h4 class="section-sub-heading flex-col col-12">{{localize 'CortexPrime.DetailList'}}</h4>
                       <div class="flex-col">
                         <button class="add-new-detail btn btn-icon btn-secondary" data-trait-set="{{traitSetKey}}"
                           data-trait="{{traitKey}}">

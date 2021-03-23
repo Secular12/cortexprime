@@ -3,6 +3,7 @@ export const preloadHandlebarsTemplates = async function () {
     'partials/dice/pool',
     'partials/dice/select',
     'partials/dice/select-options',
+    'partials/mc-help',
     'partials/pp',
     'partials/settings-trait-sets',
     'partials/signature-assets',
