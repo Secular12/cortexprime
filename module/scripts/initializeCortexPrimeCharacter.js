@@ -6,15 +6,13 @@ const getDefaultDice = ({ minDieRating, maxDieRating }) => {
   }
 }
 
-export default async (data) => {
-  const actor = new Actor(data)
-  const workingData = duplicate(data.data)
-  const characterData = workingData.data
-
+export default (data) => {
   const hasScale = game.settings.get('cortexprime', 'majorCharacterScale')
   const traitSetSettings = game.settings.get('cortexprime', 'traitSets')
 
-  characterData.traitSets = Object.keys(traitSetSettings)
+  data.data = {}
+
+  data.data.traitSets = Object.keys(traitSetSettings)
     .reduce((traitSets, traitSetKey) => {
       return {
         ...traitSets,
@@ -36,14 +34,9 @@ export default async (data) => {
     }, {})
 
   if (hasScale) {
-    characterData.scale = {
+    data.data.scale = {
       edit: false,
       values: {}
     }
   }
-
-  workingData.data = characterData
-
-  await actor.update(workingData)
-  await actor.sheet.render(false)
 }
