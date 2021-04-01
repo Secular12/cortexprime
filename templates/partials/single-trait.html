@@ -1,9 +1,9 @@
 <div>
   <div class="flex-row flex-ac my-2">
     <div
-      class="{{ifString big 'section-heading' 'label'}} add-trait-to-pool flex-col"
+      class="{{ternary big 'section-heading' 'label'}} add-trait-to-pool flex-col"
       data-label="{{name}}"
-      data-trait-target="{{path}}"
+      data-trait-target="{{path}}.{{type}}"
     >
       {{name}}
     </div>
@@ -11,12 +11,12 @@
       {{> "systems/cortexprime/templates/partials/dice/select.html"
         dice=value.values
         edit=value.edit
-        selectName=path
+        selectName=(concat path "." type)
       }}
     </div>
     <div class="flex-col">
-      <button class="toggle-single-trait-edit btn btn-icon" data-single-trait="{{type}}">
-        <i class="{{ifString value.edit 'fas' 'far'}} fa-edit"></i>
+      <button class="toggle-item btn btn-icon" data-path="data.{{type}}.edit">
+        <i class="{{ternary value.edit 'fas' 'far'}} fa-edit"></i>
       </button>
     </div>
   </div>

@@ -1,19 +1,21 @@
 import TraitSettings from './TraitSettings.js'
 
+import { localizer } from '../scripts/foundryHelpers.js'
+
 export const registerSettings = () => {
   game.settings.registerMenu('cortexprime', 'TraitSettings', {
-    hint: game.i18n.localize('CortexPrime.TraitSettingsH'),
+    hint: localizer('TraitSettingsH'),
     icon: 'fas fa-globe',
-    label: game.i18n.localize('CortexPrime.TraitSettingsL'),
-    name: game.i18n.localize('CortexPrime.TraitSettingsN'),
+    label: localizer('TraitSettingsL'),
+    name: localizer('TraitSettingsN'),
     restricted: true,
     type: TraitSettings
   })
 
   game.settings.register('cortexprime', 'hasStress', {
     config: true,
-    name: game.i18n.localize('CortexPrime.HasStressN'),
-    hint: game.i18n.localize('CortexPrime.HasStressD'),
+    name: localizer('HasStressN'),
+    hint: localizer('HasStressD'),
     default: false,
     restricted: true,
     scope: 'world',
@@ -22,8 +24,8 @@ export const registerSettings = () => {
 
   game.settings.register('cortexprime', 'hasTrauma', {
     config: true,
-    name: game.i18n.localize('CortexPrime.HasTraumaN'),
-    hint: game.i18n.localize('CortexPrime.HasTraumaD'),
+    name: localizer('HasTraumaN'),
+    hint: localizer('HasTraumaD'),
     default: false,
     restricted: true,
     scope: 'world',
@@ -32,8 +34,8 @@ export const registerSettings = () => {
 
   game.settings.register('cortexprime', 'majorCharacterScale', {
     config: true,
-    name: game.i18n.localize('CortexPrime.MajorCharactersHaveScaleN'),
-    hint: game.i18n.localize('CortexPrime.MajorCharactersHaveScaleD'),
+    name: localizer('MajorCharactersHaveScaleN'),
+    hint: localizer('MajorCharactersHaveScaleD'),
     default: false,
     restricted: true,
     scope: 'world',

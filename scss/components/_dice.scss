@@ -7,16 +7,11 @@ $dieSides: 4, 6, 8, 10, 12;
 }
 
 .die-icon {
+  @extend .icon;
   align-items: center;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
   display: flex;
   height: toRem(28px);
   justify-content: center;
-  margin-left: toRem(2px);
-  margin-right: toRem(2px);
-  position: relative;
   width: toRem(28px);
 
   &.lg {

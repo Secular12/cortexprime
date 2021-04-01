@@ -11,9 +11,7 @@ export const preloadHandlebarsTemplates = async function () {
     'partials/single-trait',
     'partials/trait-sets'
   ]
+    .map(template => `systems/cortexprime/templates/${template}.html`)
 
-  return loadTemplates(
-    templatePaths
-      .map(template => `systems/cortexprime/templates/${template}.html`)
-  )
+  return loadTemplates(templatePaths)
 }

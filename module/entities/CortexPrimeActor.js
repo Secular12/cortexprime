@@ -1,39 +1,39 @@
+import { localizer } from '../scripts/foundryHelpers.js'
+
 export class CortexPrimeActor extends Actor {
-  async getPp() {
-    const message = await renderTemplate('systems/cortexprime/templates/chat/get-pp.html', {
-      target: this,
-      speaker: game.user
-    })
+  // add or subtract plot point value assigned to the actor by specified amount
+  async changePpBy (value) {
+    // ensure current value is an integer
+    const currentValue = +(this.data.data.pp.value ?? 0)
 
-    ChatMessage.create({ content: message })
+    const newValue = currentValue + value
 
-    const actorData = this.data
+    // action only taken if value will be different and won't result in negative plot points
+    if (currentValue !== newValue && newValue >= 0) {
+      await this.updatePpValue(newValue)
+      // determin if it is spending a plot point or receiving a plot point
+      const valueChangeType = currentValue > newValue ? localizer('Spent') : localizer('Received')
 
-    await this.update({
-      'data.pp.value': actorData.data.pp.value + 1
-    })
-  }
-
-  async setActorTraitSets (data) {
-    await this.update({
-      'data.traitSets': data
-    })
-  }
-
-  async spendPp() {
-    const message = await renderTemplate('systems/cortexprime/templates/chat/spent-pp.html', {
-      target: this,
-      speaker: game.user
-    })
-
-    ChatMessage.create({ content: message })
-
-    const actorData = this.data
-
-    if (actorData.data.pp.value > 0) {
-      await this.update({
-        'data.pp.value': actorData.data.pp.value - 1
-      })
+      await this.createPpMessage(valueChangeType, Math.abs(currentValue - newValue))
     }
+  }
+
+  // Send a message to the chat on the pp change
+  async createPpMessage (changeType, value) {
+    const message = await renderTemplate(`systems/cortexprime/templates/chat/change-pp.html`, {
+      changeType,
+      speaker: game.user,
+      target: this,
+      value
+    })
+
+    ChatMessage.create({ content: message })
+  }
+
+  // Update plot point value of the actor
+  async updatePpValue (value) {
+    await this.update({
+      'data.pp.value': value
+    })
   }
 }

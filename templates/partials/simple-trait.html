@@ -14,11 +14,11 @@
           {{#if value.edit}}
             <div class="flex-col col-12">
               <label class="label">{{../label}}</label>
-              <input name="{{../path}}.{{index}}.name" type="text" value="{{value.name}}">
+              <input name="{{../path}}.{{../type}}.{{index}}.name" type="text" value="{{value.name}}">
             </div>
           {{else}}
             <div class="flex-col">
-              <p class="add-trait-to-pool trait-label" data-label="{{value.name}}" data-trait-target="{{../path}}.{{index}}">{{value.name}}</p>
+              <p class="add-trait-to-pool trait-label" data-label="{{value.name}}" data-trait-target="{{../path}}.{{../type}}.{{index}}">{{value.name}}</p>
             </div>
           {{/if}}
           <div class="flex-col">
@@ -26,19 +26,18 @@
               "systems/cortexprime/templates/partials/dice/select.html"
               dice=value.dice.values
               edit=value.edit
-              selectName=(concat ../path "." index ".dice") }}
+              selectName=(concat ../path "." ../type "." index ".dice") }}
           </div>
           {{#if value.edit}}
             <div class="flex-col">
-              <button class="{{../removeClass}} btn btn-icon btn-small btn-black" data-key="{{index}}">
+              <button class="remove-item btn btn-icon btn-small btn-black" data-path="{{../path}}" data-key="{{index}}" data-target="{{../type}}">
                 <i class="fa fa-times"></i>
               </button>
             </div>
           {{/if}}
           <div class="flex-col">
-            <button class="toggle-simple-trait-edit btn btn-icon" data-simple-trait="{{index}}"
-              data-simple-trait-type="{{../type}}">
-              <i class="{{ifString value.edit 'fas' 'far'}} fa-edit"></i>
+            <button class="toggle-item btn btn-icon" data-path="data.{{../type}}.{{index}}.edit" type="button">
+              <i class="{{ternary value.edit 'fas' 'far'}} fa-edit"></i>
             </button>
           </div>
         </div>

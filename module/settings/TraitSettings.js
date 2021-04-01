@@ -1,17 +1,22 @@
-import createNewFieldElements from '../scripts/createNewFieldElements.js'
-import isBetween from '../scripts/isBetween.js'
+import { localizer } from '../scripts/foundryHelpers.js'
+import { resetDataObject } from '../../lib/helpers.js'
+import {
+  addFormElements,
+  collapseToggle,
+  displayToggle,
+  removeParentElements
+} from '../scripts/settingsHelpers.js'
 
 export default class TraitSettings extends FormApplication {
   constructor(object = {}, options = { parent: null }) {
     super(object, options);
-    this.config = CONFIG.CP.traitSettingsConfig;
   }
 
   static get defaultOptions () {
     return mergeObject(super.defaultOptions, {
-      id: CONFIG.CP.traitSettingsConfig.id,
+      id: 'traitSettings',
       template: 'systems/cortexprime/templates/trait-settings.html',
-      title: game.i18n.localize('CortexPrime.TraitSettingsT'),
+      title: localizer('TraitSettingsT'),
       classes: ['cortex-prime', 'trait-settings'],
       width: 600,
       height: 1000,
@@ -24,33 +29,22 @@ export default class TraitSettings extends FormApplication {
     })
   }
 
-  // @TODO: Add Order Sorting capabilities
-
   activateListeners (html) {
     super.activateListeners(html)
-    html.find('.add-detail').click(this._addDetail.bind(this))
-    html.find('.add-trait').click(this._addTrait.bind(this))
-    html.find('#add-trait-set').click(this._addTraitSet.bind(this))
+    html.find('.add-detail').click(event => addFormElements.call(this, event, this._detailFields))
+    html.find('.add-trait').click(event => addFormElements.call(this, event, this._traitFields))
+    html.find('#add-trait-set').click(event => addFormElements.call(this, event, this._traitSetFields))
     html.find('#submit').click(() => this.close())
-    html.find('.collapse-toggle').click(this._collapseToggle.bind(this))
-    html.find('button.display-toggle').click(event => this._displayToggle(event, html))
-    html.find('input.display-toggle').change(event => this._displayToggle(event, html))
-    html.find('.remove-parent-element').click(this._removeParentElement.bind(this))
-    html.find('#reset').click(event => this._resetSettings(event))
-
-    // html.find('.die-select').change(event => this._onTraitDieChange(event))
-    // html.find('.new-die').click(this._newTraitDie.bind(this))
+    // The below listeners could probably be external to settings but require a bind of 'this'
+    collapseToggle.call(this, html)
+    displayToggle(html)
+    removeParentElements.call(this, html)
   }
 
   getData () {
-    // @TODO: If never used, remove from CONFIG.CP.traitSettingsConfig and all other commented out areas in this file
-    // const settingRules = this.config.traitSettingsConfig.reduce((acc, setting) => {
-    //   return { ...acc, [setting]: game.settings.get('cortexprime', setting) }
-    // }, {})
     const traitSets = game.settings.get('cortexprime', 'traitSets')
 
     return {
-      // settingRules
       traitSets
     }
   }
@@ -58,112 +52,96 @@ export default class TraitSettings extends FormApplication {
   async _updateObject (_, formData) {
     const expandedFormData = expandObject(formData)
 
-    const traitSets = expandedFormData.traitSets
-
-    // const traitSetsUpdated = this._handleTraitSetsUpdate(expandedFormData.traitSets, traitSets)
-    // const traitSets = this._handleDeletableAttributes(traitSetsUpdated, traitSets)
+    const source = expandedFormData.traitSets ?? {}
 
     if (expandedFormData.newTraitSet) {
-      const currentTraitSetLength = Object.keys(traitSets ?? {}).length
-
-      const saveValue = {
-        ...traitSets,
-        [currentTraitSetLength]: {
-          ...expandedFormData.newTraitSet,
-          traits: {}
-        }
-      }
-
-      await game.settings.set('cortexprime', 'traitSets', saveValue)
+      await this._addNewTraitSet(source, expandedFormData.newTraitSet)
     } else if (expandedFormData.newTrait) {
-      const currentTraitLength = Object.keys(traitSets[expandedFormData.newTrait.traitSet]?.traits || {}).length
+      await this._addNewTrait(source, expandedFormData.newTrait)
+    } else if (expandedFormData.newDetail) {
+      await this._addNewDetail(source, expandedFormData.newDetail)
+    } else {
+      const serializedData = expandedFormData.reset ? this._serializeData(expandedFormData) : expandedFormData
+      await game.settings.set('cortexprime', 'traitSets', serializedData.traitSets)
+    }
+  }
 
-      const {
-        description,
-        dice,
-        name
-      } = expandedFormData.newTrait
+  async _addNewDetail(source, { name, traitSet, trait, type, unlocked, value: detailValue }) {
+    const detailKey = Object.keys(source[traitSet].traits[trait].details || {}).length
 
-      const saveValue = {
-        ...traitSets,
-        [expandedFormData.newTrait.traitSet]: {
-          ...traitSets[expandedFormData.newTrait.traitSet],
-          traits: {
-            ...traitSets[expandedFormData.newTrait.traitSet].traits || {},
-            [currentTraitLength]: { description, details: {}, dice: { values: dice }, name }
+    const value = {
+      [traitSet]: {
+        traits: {
+          [trait]: {
+            details: {
+              [detailKey]: { name, type, unlocked, value: detailValue }
+            }
           }
         }
       }
-      await game.settings.set('cortexprime', 'traitSets', saveValue)
-    } else if (expandedFormData.newDetail) {
-      const {
-        name,
-        traitSet,
-        trait,
-        type,
-        unlocked,
-        value
-      } = expandedFormData.newDetail
-
-      const currentDetails = traitSets[traitSet].traits[trait].details
-
-      const currentDetailLength = Object.keys(currentDetails || {}).length
-
-      traitSets[traitSet].traits[trait].details = {
-        ...currentDetails,
-        [currentDetailLength]: { name, type, unlocked, value }
-      }
-
-      await game.settings.set('cortexprime', 'traitSets', traitSets)
-    } else {
-      await game.settings.set('cortexprime', 'traitSets', traitSets)
     }
 
+    await game.settings.set('cortexprime', 'traitSets', mergeObject(source, value))
   }
 
-  async _addDetail (event) {
-    event.preventDefault()
-    const dataset = event.currentTarget.dataset
-    const $form = this.form
-    const trait = game.settings.get('cortexprime', 'traitSets')[dataset.traitSet].traits[dataset.trait]
+  async _addNewTrait(source, { description, dice, name, traitSet }) {
+    const traitKey = Object.keys(source[traitSet]?.traits || {}).length
 
-    const $newDetailFields = createNewFieldElements([
-      { name: 'newDetail.name', type: 'text', value: `New ${trait.name} Detail` },
+    const value = {
+      [traitSet]: {
+        traits: {
+          [traitKey]: {
+            description,
+            details: {},
+            dice: {
+              values: dice
+            },
+            name
+          }
+        }
+      }
+    }
+
+    await game.settings.set('cortexprime', 'traitSets', mergeObject(source, value))
+  }
+
+  async _addNewTraitSet (source, data) {
+    const traitSetKey = [Object.keys(source).length]
+    const value = {
+      [traitSetKey]: {
+        ...data
+      }
+    }
+
+    await game.settings.set('cortexprime', 'traitSets', mergeObject(source, value))
+  }
+
+  _detailFields (dataset) {
+    return [
+      { name: 'newDetail.name', type: 'text', value: `New Detail` },
       { name: 'newDetail.traitSet', type: 'text', value: dataset.traitSet },
       { name: 'newDetail.trait', type: 'text', value: dataset.trait },
       { name: 'newDetail.type', type: 'text', value: '' },
       { name: 'newDetail.unlocked', type: 'text', value: true },
       { name: 'newDetail.value', type: 'text', value: '' }
-    ])
-
-    $form.append($newDetailFields)
-    await this._onSubmit(event)
-    this.render(true)
+    ]
   }
 
-  async _addTrait (event) {
-    event.preventDefault()
-    const dataset = event.currentTarget.dataset
-    const $form = this.form
-    const traitSet = game.settings.get('cortexprime', 'traitSets')[dataset.traitSet]
+  _serializeData (formData) {
+    return resetDataObject({ path: ['traitSets', 'traits', 'details'], source: formData })
+  }
 
-    const $newTraitFields = createNewFieldElements([
+  _traitFields (dataset) {
+    return [
       { name: 'newTrait.description', type: 'text', value: '' },
-      { name: 'newTrait.name', type: 'text', value: `New ${traitSet.name} Trait` },
+      { name: 'newTrait.name', type: 'text', value: `New Trait` },
       { name: 'newTrait.traitSet', type: 'text', value: dataset.traitSet },
       { name: 'newTrait.dice', type: 'number', value: [8] }
-    ])
-
-    $form.append($newTraitFields)
-    await this._onSubmit(event)
-    this.render(true)
+    ]
   }
 
-  async _addTraitSet (event) {
-    event.preventDefault()
-    const $form = this.form
-
-    const $newTraitSetFields = createNewFieldElements([
+  _traitSetFields () {
+    return [
       { name: 'newTraitSet.allowCustomTraits', type: 'checkbox', value: true },
       { name: 'newTraitSet.description', type: 'text', value: '' },
       { name: 'newTraitSet.hasDetails', type: 'checkbox', value: false },
@@ -175,177 +153,6 @@ export default class TraitSettings extends FormApplication {
       { name: 'newTraitSet.minDice', type: 'number', value: 1 },
       { name: 'newTraitSet.minDieRating', type: 'number', value: 4 },
       { name: 'newTraitSet.name', type: 'text', value: 'New Trait Set' }
-    ])
-
-    $form.append($newTraitSetFields)
-    await this._onSubmit(event)
-    this.render(true)
+    ]
   }
-
-  _displayToggle (event, html) {
-    event.preventDefault()
-    const dataset = event.currentTarget.dataset
-    if (dataset.scope) {
-      $(event.currentTarget)
-        .closest(dataset.scope)
-        .find(dataset.selector)
-        .toggle()
-    } else {
-      html.find(dataset.selector).toggle()
-    }
-  }
-
-  async _collapseToggle (event) {
-    event.preventDefault()
-    const $element = $(event.currentTarget)
-    const $collapseValue = $element
-      .next('.collapse-value')
-
-    $collapseValue.prop('checked', !($collapseValue.is(':checked')))
-
-    await this._onSubmit(event)
-    this.render(true)
-  }
-
-  _getDefaultTraitDieRating (traitSet) {
-    const traitSetData = game.settings.get('cortexprime', 'traitSets')
-
-    const maxDieRating = parseInt(traitSetData[traitSet].maxDieRating || 12)
-    const minDieRating = parseInt(traitSetData[traitSet].minDieRating || 4)
-
-    return [8, 6, 10, 4, 12].reduce((defaultDie, option) => {
-      if (!defaultDie && isBetween(option, minDieRating, maxDieRating)) {
-        return option
-      }
-
-      return defaultDie
-    }, null) || 8
-  }
-
-  _getTraitDieRatingOptions (traitSet) {
-    const traitSetData = game.settings.get('cortexprime', 'traitSets')
-
-    const maxDieRating = parseInt(traitSetData[traitSet].maxDieRating || 12)
-    const minDieRating = parseInt(traitSetData[traitSet].minDieRating || 4)
-
-    return [4, 6, 8, 10, 12].filter(x => isBetween(x, minDieRating, maxDieRating))
-  }
-
-  /**
-   * Remove attributes which are no longer used
-   * @param attributes
-   * @param base
-   */
-  _handleDeletableAttributes (attributes, base) {
-    for (let k of Object.keys(base)) {
-      if (!attributes.hasOwnProperty(k)) {
-        delete attributes[k];
-      }
-    }
-    return attributes;
-  }
-
-  /**
-   * Update attributes and attribute structure
-   * @param attributes
-   * @param base
-   */
-  _handleTraitSetsUpdate (attributes, base) {
-    // @TODO: Validate min/max dice and die ratings
-    // @TODO: Update traits to fulfill any new requirements
-    return attributes
-      ? Object.keys(attributes).reduce((acc, key) => {
-          const { name } = attributes[key]
-
-          if (!name) {
-            ui.notifications.error('Trait Set name is required; reverting.')
-
-            $(`input[name="traitSets.${key}.name"]`).val(key)
-
-            return { ...acc, [key]: { ...attributes[key], name: key } }
-          }
-
-          if (key === name || !name) return { ...acc, [key]: attributes[key] }
-
-          return { ...acc, [name]: attributes[key] }
-        }, {})
-      : {}
-  }
-
-  _mergeTraitSets (formSets, currentSets) {
-    return formSets
-      ? Object.keys(formSets).reduce((sets, setKey) => {
-          const setsKeys = Object.keys(sets)
-
-          if (setsKeys.every(i => sets[i].name !== formSets[setKey].name)) {
-            return {
-              ...sets,
-              [setsKeys.length]: formSets[setKey]
-            }
-          }
-
-          return sets
-        }, {})
-      : {}
-  }
-
-  _newDieHtml (traitSet, name, value) {
-    const select = `<select class="die-select cp-option d${value}" name="${name}" value="${value}">`
-    const options = this._getTraitDieRatingOptions(traitSet).reduce((options, option) => {
-      const selected = value === option ? ' selected' : ''
-      return `${options}<option value="${option}"${selected}>d${option}</option>`
-    }, '<option value="0">X</option>')
-
-    return `${select}${options}</select>`
-  }
-
-  _newTraitDie (event) {
-    event.preventDefault()
-    const $element = $(event.currentTarget)
-
-    const diceLength = $element.parent().find('.die-select').length
-    const targetTraitName = $element.data('target')
-
-    const traitSet = targetTraitName.split('.')[1]
-
-    const defaultValue = this._getDefaultTraitDieRating(traitSet)
-
-    const $newDieElement = $(this._newDieHtml(traitSet, `${targetTraitName}.${diceLength}`, defaultValue))
-
-    $element
-      .before($newDieElement)
-
-    $newDieElement.change(event => this._onTraitDieChange(event))
-  }
-
-  _onTraitDieChange (event) {
-    event.preventDefault()
-    const $element = event.currentTarget
-
-    if ($element.value === '0') {
-      $element.remove()
-    }
-  }
-
-  async _removeParentElement (event) {
-    event.preventDefault()
-    const $element = event.currentTarget
-    const dataset = $element.dataset
-    const $parent = $element.closest(dataset.selector)
-
-    $parent.parentElement.removeChild($parent)
-    await this._onSubmit(event)
-    this.render(true)
-  }
-
-  // async _resetSettings (event) {
-  //   for (const setting of this.config.settings) {
-  //     const resetValue = game.settings.settings.get(`cortexprime.${setting}`).default
-
-  //     if (game.settings.get('cortexprime', setting) !== resetValue) {
-  //       await game.settings.set('cortexprime', setting, resetValue);
-  //     }
-  //   }
-  //   this.render(true)
-  // }
 }

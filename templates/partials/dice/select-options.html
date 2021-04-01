@@ -1,5 +1,5 @@
-{{#if (or (and (gte 0 min) (lte 0 max)) (hasMore dice minDice))}}
-  <option value="0">{{existsOr zeroOption 'X'}}</option>
+{{#if (or (and (gte 0 min) (lte 0 max)) (listHasMore dice minDice))}}
+  <option value="0">{{?? zeroOption 'X'}}</option>
 {{/if}}
 {{#if (and (gte 4 min) (lte 4 max))}}
   <option value="4">d4</option>
