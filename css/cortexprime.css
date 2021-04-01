@@ -2188,8 +2188,12 @@ input {
 }
 
 /* Styles limited to cortexprime sheets */
-.cortexprime .item-form {
+.cortexprime .item-form, .cortexprime input, .cortexprime textarea {
   font-family: "Roboto", sans-serif;
+}
+
+.cortexprime .notes-field {
+  min-height: 25rem;
 }
 
 .cortexprime .resource-label {

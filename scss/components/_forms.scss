@@ -1,3 +1,7 @@
-.item-form {
+.item-form, input, textarea {
   font-family: $font-primary;
+}
+
+.notes-field {
+  min-height: toRem(400px);
 }
