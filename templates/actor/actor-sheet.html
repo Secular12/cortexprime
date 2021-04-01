@@ -23,7 +23,7 @@
         <div class="flex-col col-5">
           {{> "systems/cortexprime/templates/partials/pp.html" data=data }}
           {{#if settings.hasScaleDie}}
-            {{> "systems/cortexprime/templates/partials/single-trait.html" big=true name="Scale" path="data.scale" type="scale" value=data.scale }}
+            {{> "systems/cortexprime/templates/partials/single-trait.html" big=true name="Scale" path="data" type="scale" value=data.scale }}
           {{/if}}
           {{> "systems/cortexprime/templates/partials/signature-assets.html"
             signatureAssets=data.signatureAssets
@@ -33,8 +33,7 @@
             data=data.assets
             label=(localize 'CortexPrime.AssetName')
             name=(localize 'CortexPrime.Assets')
-            path="data.assets"
-            removeClass="remove-asset"
+            path="data"
             type="assets"
           }}
           {{> "systems/cortexprime/templates/partials/simple-trait.html"
@@ -42,8 +41,7 @@
             data=data.complications
             label=(localize 'CortexPrime.ComplicationName')
             name=(localize 'CortexPrime.Complications')
-            path="data.complications"
-            removeClass="remove-complication"
+            path="data"
             type="complications"
           }}
           {{#if settings.hasStress}}
@@ -52,8 +50,7 @@
               data=data.stress
               label=(localize 'CortexPrime.StressName')
               name=(localize 'CortexPrime.Stress')
-              path="data.stress"
-              removeClass="remove-stress"
+              path="data"
               type="stress"
             }}
           {{/if}}
@@ -63,8 +60,7 @@
               data=data.trauma
               label=(localize 'CortexPrime.TraumaName')
               name=(localize 'CortexPrime.Trauma')
-              path="data.trauma"
-              removeClass="remove-trauma"
+              path="data"
               type="trauma"
             }}
           {{/if}}

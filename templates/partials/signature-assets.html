@@ -17,8 +17,8 @@
               <input name="data.signatureAssets.{{signatureAssetKey}}.name" type="text" value="{{signatureAsset.name}}">
             </div>
           {{else}}
-            <div class="flex-col{{ifString signatureAsset.shutdown ' shutdown' ''}}">
-              <p class="{{ifString signatureAsset.shutdown '' 'add-trait-to-pool '}}trait-label" data-label="{{signatureAsset.name}}" data-trait-target="data.signatureAssets.{{signatureAssetKey}}">
+            <div class="flex-col{{ternary signatureAsset.shutdown ' shutdown' ''}}">
+              <p class="{{ternary signatureAsset.shutdown '' 'add-trait-to-pool '}}trait-label" data-label="{{signatureAsset.name}}" data-trait-target="data.signatureAssets.{{signatureAssetKey}}">
                 {{signatureAsset.name}}</p>
             </div>
           {{/if}}
@@ -32,20 +32,19 @@
           </div>
           {{#if signatureAsset.edit}}
             <div class="flex-col">
-              <button class="btn btn-icon text-primary toggle-signature-asset-shutdown"
-                data-signature-asset-key="{{signatureAssetKey}}" type="button">
-                <i class="fas {{ifString signatureAsset.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
+              <button class="btn btn-icon text-primary toggle-item" data-path="data.signatureAssets.{{signatureAssetKey}}.shutdown" type="button">
+                <i class="fas {{ternary signatureAsset.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
               </button>
             </div>
             <div class="flex-col">
-              <button class="remove-signature-asset btn btn-icon btn-small btn-black" data-key="{{signatureAssetKey}}">
+              <button class="remove-item btn btn-icon btn-small btn-black" data-path="data" data-key="{{signatureAssetKey}}" data-target="signatureAssets">
                 <i class="fa fa-times"></i>
               </button>
             </div>
           {{/if}}
           <div class="flex-col">
-            <button class="toggle-simple-trait-edit btn btn-icon" data-simple-trait-type="signatureAssets" data-simple-trait="{{signatureAssetKey}}">
-              <i class="{{ifString signatureAsset.edit 'fas' 'far'}} fa-edit"></i>
+            <button class="toggle-item btn btn-icon" data-path="data.signatureAssets.{{signatureAssetKey}}.edit" type="button">
+              <i class="{{ternary signatureAsset.edit 'fas' 'far'}} fa-edit"></i>
             </button>
           </div>
         </header>
@@ -66,7 +65,7 @@
                 </div>
               </div>
               {{#each signatureAsset.details as |detail detailKey|}}
-              <div class="detail mt-2{{ifString (gt detailKey 0) ' pt-2 bt-1-primary' ''}}">
+              <div class="detail mt-2{{ternary (gt detailKey 0) ' pt-2 bt-1-primary' ''}}">
                 <div class="flex-row flex-as">
                   <div class="flex-col">
                     <label class="label">{{localize 'CortexPrime.Name'}}</label>
@@ -84,8 +83,7 @@
                       {{checked detail.unlocked}}>
                   </div>
                   <div class="flex-col">
-                    <button class="remove-signature-asset-detail btn btn-icon btn-small btn-black"
-                      data-signature-asset="{{signatureAssetKey}}" data-detail="{{detailKey}}">
+                    <button class="remove-item btn btn-icon btn-small btn-black" data-path="data.signatureAssets.{{signatureAssetKey}}" data-key="{{detailKey}}" data-target="details">
                       <i class="fa fa-times"></i>
                     </button>
                   </div>
@@ -100,7 +98,7 @@
             </div>
           </div>
         {{else}}
-          <div class="{{ifString signatureAsset.shutdown 'shutdown' ''}}">
+          <div class="{{ternary signatureAsset.shutdown 'shutdown' ''}}">
             <div>
               <p>{{signatureAsset.description}}</p>
             </div>
@@ -108,7 +106,7 @@
               <div>
                 {{#each signatureAsset.details as |detail detailKey|}}
                 <div class="my-2">
-                  <i class="text-primary mr-2 {{ifString detail.unlocked 'fas' 'far'}} fa-circle"></i>
+                  <i class="text-primary mr-2 {{ternary detail.unlocked 'fas' 'far'}} fa-circle"></i>
                   {{#if detail.type}}
                   <span class="bold mr-1 text-secondary italic">{{detail.type}}</span>
                   {{/if}}

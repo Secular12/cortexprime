@@ -3,12 +3,11 @@
     <section class="my-2">
       <div class="ba-1-secondary flex-container py-2">
         <header class="flex-row flex-ac">
-          <h3 class="section-heading flex-col col-12{{ifString traitSet.shutdown ' shutdown' ''}}">{{traitSet.name}}</h3>
+          <h3 class="section-heading flex-col col-12{{ternary traitSet.shutdown ' shutdown' ''}}">{{traitSet.name}}</h3>
           {{#if traitSet.edit}}
             <div class="flex-col">
-              <button class="btn btn-icon text-primary toggle-trait-set-shutdown" data-trait-set-key="{{traitSetKey}}"
-                type="button">
-                <i class="fas {{ifString traitSet.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
+              <button class="btn btn-icon text-primary toggle-item" data-path="data.traitSets.{{traitSetKey}}.shutdown" type="button">
+                <i class="fas {{ternary traitSet.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
               </button>
             </div>
             {{#if traitSet.allowCustomTraits}}
@@ -20,8 +19,8 @@
             {{/if}}
           {{/if}}
           <div class="flex-col">
-            <button class="toggle-trait-set-edit btn btn-icon" data-trait-set="{{traitSetKey}}">
-              <i class="{{ifString traitSet.edit 'fas' 'far'}} fa-edit"></i>
+            <button class="toggle-item btn btn-icon" data-path="data.traitSets.{{traitSetKey}}.edit" type="button">
+              <i class="{{ternary traitSet.edit 'fas' 'far'}} fa-edit"></i>
             </button>
           </div>
         </header>
@@ -29,7 +28,7 @@
           <label class="label">{{localize "CortexPrime.TraitSetDescription"}}</label>
           <textarea name="data.traitSets.{{traitSetKey}}.description">{{traitSet.description}}</textarea>
         {{else}}
-          <div class="{{ifString traitSet.shutdown 'shutdown' ''}}">
+          <div class="{{ternary traitSet.shutdown 'shutdown' ''}}">
             {{#if traitSet.description}}
               <p>{{traitSet.description}}</p>
             {{/if}}
@@ -40,9 +39,9 @@
             <section>
               <header>
                 {{#if (or (and trait.edit traitSet.hasLabel) (and traitSet.hasLabel trait.label))}}
-                  <p class="section-sub-heading mt-1 flex-col col-12{{ifString (and (not trait.edit) (or traitSet.shutdown trait.shutdown)) ' shutdown' ''}}">{{trait.name}}</p>
+                  <p class="section-sub-heading mt-1 flex-col col-12{{ternary (and (not trait.edit) (or traitSet.shutdown trait.shutdown)) ' shutdown' ''}}">{{trait.name}}</p>
                 {{/if}}
-                <div class="flex-row {{ifString trait.edit 'flex-ae' 'flex-ac'}}">
+                <div class="flex-row {{ternary trait.edit 'flex-ae' 'flex-ac'}}">
                   {{#if trait.edit}}
                     <div class="flex-col col-12">
                       {{#unless traitSet.hasLabel}}
@@ -54,19 +53,18 @@
                       {{/unless}}
                     </div>
                     <div class="flex-col">
-                      <button class="btn btn-icon text-primary toggle-trait-shutdown" data-trait-set-key="{{traitSetKey}}"
-                        data-trait-key="{{traitKey}}" type="button">
-                        <i class="fas {{ifString trait.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
+                      <button class="btn btn-icon text-primary toggle-item" data-path="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.shutdown" type="button">
+                        <i class="fas {{ternary trait.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
                       </button>
                     </div>
                   {{else}}
-                    <div class="flex-col{{ifString (or traitSet.shutdown trait.shutdown) ' shutdown' ''}}">
+                    <div class="flex-col{{ternary (or traitSet.shutdown trait.shutdown) ' shutdown' ''}}">
                       <div class="flex-row">
                         {{#unless (and traitSet.hasLabel trait.label)}}
-                        <p class="{{ifString (and (not traitSet.shutdown) (not trait.shutdown)) 'add-trait-to-pool ' ''}}trait-label flex-col col-12" data-label="{{trait.name}}"
+                        <p class="{{ternary (and (not traitSet.shutdown) (not trait.shutdown)) 'add-trait-to-pool ' ''}}trait-label flex-col col-12" data-label="{{trait.name}}"
                           data-trait-target="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}">{{trait.name}}</p>
                         {{else}}
-                        <p class="{{ifString (and (not traitSet.shutdown) (not trait.shutdown)) 'add-trait-to-pool ' ''}}trait-label flex-col col-12" data-label="{{trait.label}}"
+                        <p class="{{ternary (and (not traitSet.shutdown) (not trait.shutdown)) 'add-trait-to-pool ' ''}}trait-label flex-col col-12" data-label="{{trait.label}}"
                           data-trait-target="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}">{{trait.label}}</p>
                         {{/unless}}
                       </div>
@@ -84,15 +82,14 @@
                   </div>
                   {{#if (and trait.edit trait.isCustomTrait)}}
                     <div class="flex-col flex-ac-self">
-                      <button class="remove-trait btn btn-icon btn-small btn-black" data-set-key="{{traitSetKey}}"
-                        data-key="{{traitKey}}">
+                      <button class="remove-item btn btn-icon btn-small btn-black" data-path="data.traitSets.{{traitSetKey}}" data-target="traits" data-key="{{traitKey}}">
                         <i class="fa fa-times"></i>
                       </button>
                     </div>
                   {{/if}}
                   <div class="flex-col">
-                    <button class="toggle-trait-edit btn btn-icon" data-trait-set="{{traitSetKey}}" data-trait="{{traitKey}}">
-                      <i class="{{ifString trait.edit 'fas' 'far'}} fa-edit"></i>
+                    <button class="toggle-item btn btn-icon" data-path="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.edit" type="button">
+                      <i class="{{ternary trait.edit 'fas' 'far'}} fa-edit"></i>
                     </button>
                   </div>
                 </div>
@@ -117,7 +114,7 @@
                       </div>
                     </div>
                     {{#each trait.details as |detail detailKey|}}
-                      <div class="detail mt-2{{ifString (gt detailKey 0) ' pt-2 bt-1-primary' ''}}">
+                      <div class="detail mt-2{{ternary (gt detailKey 0) ' pt-2 bt-1-primary' ''}}">
                         <div class="flex-row flex-as">
                           <div class="flex-col">
                             <label class="label">{{localize 'CortexPrime.Name'}}</label>
@@ -136,8 +133,7 @@
                               detail.unlocked}}>
                           </div>
                           <div class="flex-col">
-                            <button class="remove-detail btn btn-icon btn-small btn-black" data-trait-set="{{traitSetKey}}"
-                              data-trait="{{traitKey}}" data-detail="{{detailKey}}">
+                            <button class="remove-item btn btn-icon btn-small btn-black" data-path="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}" data-target="details" data-key="{{detailKey}}">
                               <i class="fa fa-times"></i>
                             </button>
                           </div>
@@ -152,7 +148,7 @@
                   </div>
                 {{/if}}
               {{else}}
-                <div class="{{ifString (or traitSet.shutdown trait.shutdown) 'shutdown' ''}}">
+                <div class="{{ternary (or traitSet.shutdown trait.shutdown) 'shutdown' ''}}">
                   {{#if trait.description}}
                     <div class="mt-1">{{trait.description}}</div>
                   {{/if}}
@@ -161,7 +157,7 @@
                       <div>
                         {{#each trait.details as |detail detailKey|}}
                         <div class="my-2">
-                          <i class="text-primary mr-2 {{ifString detail.unlocked 'fas' 'far'}} fa-circle"></i>
+                          <i class="text-primary mr-2 {{ternary detail.unlocked 'fas' 'far'}} fa-circle"></i>
                           {{#if detail.type}}
                           <span class="bold mr-1 text-secondary italic">{{detail.type}}</span>
                           {{/if}}

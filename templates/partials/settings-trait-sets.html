@@ -1,4 +1,5 @@
 <section class="trait-sets-container my-4">
+  <input class="reset-field" type="hidden" name="reset" value="">
   {{#each traitSets as |traitSet traitSetKey|}}
   <div class="trait-set collapse-parent">
     <div class="trait-set-header flex flex-ac collapse-header">
@@ -7,11 +8,11 @@
         <i class="fa fa-trash"></i>
       </button>
       <button class="btn btn-icon collapse-toggle" data-target="traitSets.{{traitSetKey}}" type="button">
-        <i class="fa {{ifString traitSet.isHidden 'fa-chevron-down' 'fa-chevron-up'}}"></i>
+        <i class="fa {{ternary traitSet.isHidden 'fa-chevron-down' 'fa-chevron-up'}}"></i>
       </button>
       <input class="collapse-value hide" type="checkbox" name="traitSets.{{traitSetKey}}.isHidden" {{checked traitSet.isHidden}} />
     </div>
-    <div class="flex-row flex-wrap collapse-body{{ifString traitSet.isHidden ' hide' ''}}">
+    <div class="flex-row flex-wrap collapse-body{{ternary traitSet.isHidden ' hide' ''}}">
       <label class="flex-col col-12 my-1">
         <span>{{localize 'CortexPrime.Description'}}</span>
         <textarea name="traitSets.{{traitSetKey}}.description">{{traitSet.description}}</textarea>
@@ -22,7 +23,7 @@
           name="traitSets.{{traitSetKey}}.hasDice" type="checkbox" {{checked traitSet.hasDice}} />
       </label>
       <div class="flex-col col-12 my-1">
-        <fieldset class="dice-field-set{{ifString traitSet.hasDice '' ' hide'}}">
+        <fieldset class="dice-field-set{{ternary traitSet.hasDice '' ' hide'}}">
           <legend class="section-sub-heading">{{localize 'CortexPrime.Dice'}}</legend>
           <div class="flex-row flex-wrap flex-as">
             <div class="flex-col col-6 my-1">
@@ -107,24 +108,24 @@
                 <i class="fa fa-trash"></i>
               </button>
               <button class="btn btn-icon collapse-toggle" data-target="traitSets.{{traitSetKey}}.traits.{{traitKey}}" type="button">
-                <i class="fa {{ifString trait.isHidden 'fa-chevron-down' 'fa-chevron-up'}}"></i>
+                <i class="fa {{ternary trait.isHidden 'fa-chevron-down' 'fa-chevron-up'}}"></i>
               </button>
               <input class="collapse-value hide" type="checkbox" name="traitSets.{{traitSetKey}}.traits.{{traitKey}}.isHidden" {{checked
                 trait.isHidden}} />
             </div>
-            <div class="trait-body collapse-body{{ifString trait.isHidden ' hide' ''}}">
+            <div class="trait-body collapse-body{{ternary trait.isHidden ' hide' ''}}">
               <label>
                 <span>{{localize 'CortexPrime.Description'}}</span>
                 <textarea
                   name="traitSets.{{traitSetKey}}.traits.{{traitKey}}.description">{{trait.description}}</textarea>
               </label>
-              <div class="flex-col col-12 my-1 details-container{{ifString traitSet.hasDetails '' ' hide'}}">
+              <div class="flex-col col-12 my-1 details-container{{ternary traitSet.hasDetails '' ' hide'}}">
                 <fieldset>
                   <legend>{{localize 'CortexPrime.Details'}}</legend>
                   <div class="details">
                     <button class="btn btn-secondary add-detail" data-trait-set="{{traitSetKey}}" data-trait="{{traitKey}}">{{localize 'CortexPrime.AddDetail'}}</button>
                     {{#each trait.details as |detail detailKey|}}
-                      <div class="detail{{ifString (gt detailKey 0) ' bt-1-primary mt-2 pt-2' ''}}">
+                      <div class="detail{{ternary (gt detailKey 0) ' bt-1-primary mt-2 pt-2' ''}}">
                         <div class="flex-row flex-ae">
                           <div class="flex-col">
                             <label class="label">{{localize 'CortexPrime.Name'}}</label>

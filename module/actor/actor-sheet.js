@@ -2,6 +2,12 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
+import {
+  addNewDataPoint,
+  removeItems,
+  resetDataPoint,
+  toggleItems
+} from '../scripts/sheetHelpers.js'
 
 export class CortexPrimeActorSheet extends ActorSheet {
 
@@ -45,38 +51,24 @@ export class CortexPrimeActorSheet extends ActorSheet {
     html.find('.add-new-stress').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.stress, 'stress', 'New Stress'))
     html.find('.add-new-trait').click(this._addNewTrait.bind(this))
     html.find('.add-new-trauma').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.trauma, 'trauma', 'New Trauma'))
-    html.find('.add-pp').click(() => { this.actor.getPp() })
+    html.find('.add-pp').click(() => { this.actor.changePpBy(1) })
     html.find('.add-trait-to-pool').click(this._addTraitToPool.bind(this))
-    html.find('.clear-dice-pool').click(this._clearDicePool.bind(this))
+    html.find('.clear-dice-pool').click(resetDataPoint.bind(this, 'data.dice', 'pool', {}))
     html.find('.die-select').change(this._onDieChange.bind(this))
     html.find('.new-die').click(this._newDie.bind(this))
-    html.find('.remove-asset').click(async event => await this._removeSimpleTrait(event, this.actor.data.data.assets, '', 'assets'))
-    html.find('.remove-complication').click(async event => await this._removeSimpleTrait(event, this.actor.data.data.complications, '', 'complications'))
-    html.find('.remove-detail').click(this._removeDetail.bind(this))
-    html.find('.remove-pool-trait').click(this._removePoolTrait.bind(this))
-    html.find('.remove-signature-asset').click(async event => await this._removeSimpleTrait(event, this.actor.data.data.signatureAssets, '', 'signatureAssets'))
-    html.find('.remove-signature-asset-detail').click(this._removeSignatureAssetDetail.bind(this))
-    html.find('.remove-stress').click(async event => await this._removeSimpleTrait(event, this.actor.data.data.stress, '', 'stress'))
-    html.find('.remove-trait').click(this._removeTrait.bind(this))
-    html.find('.remove-trauma').click(async event => await this._removeSimpleTrait(event, this.actor.data.data.trauma, '', 'trauma'))
     html.find('.reset-custom-pool-trait').click(this._resetCustomPoolTrait.bind(this))
+    removeItems.call(this, html)
     html.find('.roll-dice-pool').click(this._rollDicePool.bind(this))
     html.find('.spend-pp').click(() => {
       this.actor
-        .spendPp()
+        .changePpBy(-1)
         .then(() => {
           if (game.dice3d) {
             game.dice3d.show({ throws: [{ dice: [{ result: 1, resultLabel: 1, type: 'dp', vectors: [], options: {} }] }] })
           }
         })
     })
-    html.find('.toggle-signature-asset-shutdown').click(this._toggleSignatureAssetShutdown.bind(this))
-    html.find('.toggle-trait-shutdown').click(this._toggleShutdown.bind(this))
-    html.find('.toggle-trait-set-shutdown').click(this._toggleShutdown.bind(this))
-    html.find('.toggle-simple-trait-edit').click(this._toggleSimpleTraitEdit.bind(this))
-    html.find('.toggle-single-trait-edit').click(this._toggleSingleTraitEdit.bind(this))
-    html.find('.toggle-trait-edit').click(this._toggleTraitEdit.bind(this))
-    html.find('.toggle-trait-set-edit').click(this._toggleTraitSetEdit.bind(this))
+    toggleItems.call(this, html)
   }
 
   /* -------------------------------------------- */
@@ -97,18 +89,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
       }
     }
 
-    await this._addNewDataPoint(data, target, value)
-  }
-
-  async _addNewDataPoint(data, path, value) {
-    const currentData = data || {}
-
-    await this.actor.update({
-      [`data.${path}`]: {
-        ...currentData,
-        [Object.keys(currentData).length]: value
-      }
-    })
+    await addNewDataPoint.call(this, data, target, value)
   }
 
   async _addNewDetail(event) {
@@ -124,7 +105,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
       value: ''
     }
 
-    await this._addNewDataPoint(trait.details, `traitSets.${traitSetKey}.traits.${traitKey}.details`, value)
+    await addNewDataPoint.call(this, trait.details, `traitSets.${traitSetKey}.traits.${traitKey}.details`, value)
   }
 
   async _addNewSignatureAsset(event) {
@@ -143,7 +124,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
       shutdown: false
     }
 
-    await this._addNewDataPoint(this.actor.data.data.signatureAssets, 'signatureAssets', value)
+    await addNewDataPoint.call(this, this.actor.data.data.signatureAssets, 'signatureAssets', value)
   }
 
   async _addNewSignatureAssetDetail(event) {
@@ -158,7 +139,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
       value: ''
     }
 
-    await this._addNewDataPoint(signatureAsset.details, `signatureAssets.${signatureAssetKey}.details`, value)
+    await addNewDataPoint.call(this, signatureAsset.details, `signatureAssets.${signatureAssetKey}.details`, value)
   }
 
   async _addNewTrait (event) {
@@ -176,7 +157,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
       name: `New ${traitSet.name} Trait`
     }
 
-    await this._addNewDataPoint(traitSet.traits, `traitSets.${traitSetKey}.traits`, value)
+    await addNewDataPoint.call(this, traitSet.traits, `traitSets.${traitSetKey}.traits`, value)
   }
 
   async _addTraitToPool(event) {
@@ -202,12 +183,6 @@ export class CortexPrimeActorSheet extends ActorSheet {
     })
   }
 
-  async _clearDicePool(event) {
-    event.preventDefault()
-
-    await this._resetDataPoint('data.dice', 'pool', {})
-  }
-
   _getRollFormula(dicePool) {
     return Object.keys(dicePool).reduce((formula, trait) => {
       const innerFormula = Object.keys(dicePool[trait].values)
@@ -228,8 +203,6 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
     if ($targetDieSelect.val() === '0') {
       $targetDieSelect.remove()
-
-      const newValue =
 
       await this.actor.update({
         [`${target}.-=values`]: null
@@ -263,62 +236,6 @@ export class CortexPrimeActorSheet extends ActorSheet {
     await this.actor.update({
       [`${target}.values`]: [...values, values.length > 0 ? values[0] : '8']
     })
-  }
-
-  async _removeSimpleTrait(event, data, path, target) {
-    event.preventDefault()
-    const $button = $(event.currentTarget)
-    const targetKey = $button.data('key').toString()
-    await this._removeDataPoint(data, path, target, targetKey)
-  }
-
-  async _removeDataPoint (data, path, target, key) {
-    const currentData = data || {}
-
-    const newData = Object.keys(currentData)
-      .reduce((acc, currentKey) => {
-        if (currentKey !== key) {
-          return { ...acc, [Object.keys(acc).length]: currentData[currentKey] }
-        }
-
-        return acc
-      }, {})
-
-    await this._resetDataPoint(`data${path ? '.' + path : ''}`, target, newData)
-  }
-
-  async _removeDetail(event) {
-    event.preventDefault()
-    const $button = $(event.currentTarget)
-    const traitSetKey = $button.data('traitSet').toString()
-    const traitKey = $button.data('trait').toString()
-    const detailKey = $button.data('detail').toString()
-
-    await this._removeDataPoint(this.actor.data.data.traitSets[traitSetKey].traits[traitKey].details, `traitSets.${traitSetKey}.traits.${traitKey}`, 'details', detailKey)
-  }
-
-  async _removePoolTrait(event) {
-    event.preventDefault()
-    const $button = $(event.currentTarget)
-    const targetKey = $button.data('key').toString()
-    await this._removeDataPoint(this.actor.data.data.dice.pool, 'dice', 'pool', targetKey)
-  }
-
-  async _removeSignatureAssetDetail(event) {
-    event.preventDefault()
-    const $button = $(event.currentTarget)
-    const signatureAssetKey = $button.data('signatureAsset').toString()
-    const detailKey = $button.data('detail').toString()
-
-    await this._removeDataPoint(this.actor.data.data.signatureAssets[signatureAssetKey].details, `signatureAssets.${signatureAssetKey}`, 'details', detailKey)
-  }
-
-  async _removeTrait(event) {
-    event.preventDefault()
-    const $button = $(event.currentTarget)
-    const targetSetKey = $button.data('setKey').toString()
-    const targetKey = $button.data('key').toString()
-    await this._removeDataPoint(this.actor.data.data.traitSets[targetSetKey].traits, `traitSets.${targetSetKey}`, 'traits', targetKey)
   }
 
   async _resetDataPoint (path, target, value) {
@@ -388,77 +305,5 @@ export class CortexPrimeActorSheet extends ActorSheet {
     })
 
     await ChatMessage.create({ content: message })
-  }
-
-  async _toggleSimpleTraitEdit(event) {
-    event.preventDefault()
-    const $target = $(event.currentTarget)
-    const simpleTraitType = $target.data('simpleTraitType')
-    const simpleTraitKey = $target.data('simpleTrait')
-
-    await this.actor.update({
-      [`data.${simpleTraitType}.${simpleTraitKey}.edit`]: !this.actor.data.data[simpleTraitType][simpleTraitKey].edit
-    })
-  }
-
-  async _toggleSingleTraitEdit(event) {
-    event.preventDefault()
-    const $target = $(event.currentTarget)
-    const singleTrait = $target.data('singleTrait')
-
-    await this.actor.update({
-      [`data.${singleTrait}.edit`]: !this.actor.data.data[singleTrait].edit
-    })
-  }
-
-  async _toggleTraitEdit(event) {
-    event.preventDefault()
-    const $target = $(event.currentTarget)
-    const traitSetKey = $target.data('traitSet')
-    const traitKey = $target.data('trait')
-
-    await this.actor.update({
-      [`data.traitSets.${traitSetKey}.traits.${traitKey}.edit`]: !this.actor.data.data.traitSets[traitSetKey].traits[traitKey].edit
-    })
-  }
-
-  async _toggleTraitSetEdit (event) {
-    event.preventDefault()
-    const $target = $(event.currentTarget)
-    const traitSetKey = $target.data('traitSet')
-
-    await this.actor.update({
-      [`data.traitSets.${traitSetKey}.edit`]: !this.actor.data.data.traitSets[traitSetKey].edit
-    })
-  }
-
-  async _toggleShutdown (event) {
-    event.preventDefault()
-    const $target = $(event.currentTarget)
-    const traitKey = $target.data('traitKey')
-    const traitSetKey = $target.data('traitSetKey')
-
-    const target = traitKey || traitKey === 0
-      ? `data.traitSets.${traitSetKey}.traits.${traitKey}.shutdown`
-      : `data.traitSets.${traitSetKey}.shutdown`
-
-    const value = traitKey || traitKey === 0
-      ? !this.actor.data.data.traitSets[traitSetKey].traits[traitKey].shutdown
-      : !this.actor.data.data.traitSets[traitSetKey].shutdown
-
-    await this.actor.update({
-      [target]: value
-    })
-  }
-
-  async _toggleSignatureAssetShutdown(event) {
-    event.preventDefault()
-    const $target = $(event.currentTarget)
-    const signatureAssetKey = $target.data('signatureAssetKey')
-    const value = !this.actor.data.data.signatureAssets[signatureAssetKey].shutdown
-
-    await this.actor.update({
-      [`data.signatureAssets.${signatureAssetKey}.shutdown`]: value
-    })
   }
 }
