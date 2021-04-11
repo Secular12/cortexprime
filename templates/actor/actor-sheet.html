@@ -1,6 +1,7 @@
 <form class="{{cssClass}}" autocomplete="off">
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item active" data-tab="traits">Traits</a>
+    <a class="item active" data-tab="sets">Sets</a>
+    <a class="item" data-tab="traits">Traits</a>
     <a class="item" data-tab="notes">Notes</a>
     <a class="item" data-tab="help"><i class="fas fa-question-circle"></i></a>
   </nav>
@@ -9,26 +10,35 @@
     <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
     <div class="header-fields">
       <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+      <div class="col-3">
+        {{> "systems/cortexprime/templates/partials/pp.html" data=data }}
+      </div>
     </div>
   </header>
   <div class="sheet-body">
-    <article class="tab traits active" data-group="primary" data-tab="traits">
+    <article class="tab sets active" data-group="primary" data-tab="sets">
+      <header class="my-2">
+        <h2 class="primary-heading">Sets</h2>
+      </header>
+      {{> "systems/cortexprime/templates/partials/trait-sets.html" data=data }}
+    </article>
+    <article class="tab traits" data-group="primary" data-tab="traits">
       <header class="my-2">
         <h2 class="primary-heading">Traits</h2>
       </header>
-      {{!-- Sheet Body --}}
-      <div class="flex-row">
-        <div class="flex-col col-7">
-          {{> "systems/cortexprime/templates/partials/trait-sets.html" data=data }}
-        </div>
-        <div class="flex-col col-5">
-          {{> "systems/cortexprime/templates/partials/pp.html" data=data }}
-          {{#if settings.hasScaleDie}}
-            {{> "systems/cortexprime/templates/partials/single-trait.html" big=true name="Scale" path="data" type="scale" value=data.scale }}
-          {{/if}}
+      <div class="columns-2 column-gap-2">
+        {{#if settings.hasScaleDie}}
+          <div class="column-item mb-2">
+            {{> "systems/cortexprime/templates/partials/single-trait.html" big=true name="Scale" path="data" type="scale"
+            value=data.scale }}
+          </div>
+        {{/if}}
+        <div class="column-item mb-2">
           {{> "systems/cortexprime/templates/partials/signature-assets.html"
             signatureAssets=data.signatureAssets
           }}
+        </div>
+        <div class="column-item mb-2">
           {{> "systems/cortexprime/templates/partials/simple-trait.html"
             addClass="add-new-asset"
             data=data.assets
@@ -37,6 +47,8 @@
             path="data"
             type="assets"
           }}
+        </div>
+        <div class="column-item mb-2">
           {{> "systems/cortexprime/templates/partials/simple-trait.html"
             addClass="add-new-complication"
             data=data.complications
@@ -45,7 +57,9 @@
             path="data"
             type="complications"
           }}
-          {{#if settings.hasStress}}
+        </div>
+        {{#if settings.hasStress}}
+          <div class="column-item mb-2">
             {{> "systems/cortexprime/templates/partials/simple-trait.html"
               addClass="add-new-stress"
               data=data.stress
@@ -54,8 +68,10 @@
               path="data"
               type="stress"
             }}
-          {{/if}}
-          {{#if settings.hasTrauma}}
+          </div>
+        {{/if}}
+        {{#if settings.hasTrauma}}
+          <div class="column-item mb-2">
             {{> "systems/cortexprime/templates/partials/simple-trait.html"
               addClass="add-new-trauma"
               data=data.trauma
@@ -64,8 +80,8 @@
               path="data"
               type="trauma"
             }}
-          {{/if}}
-        </div>
+          </div>
+        {{/if}}
       </div>
     </article>
     <article class="tab notes" data-group="primary" data-tab="notes">

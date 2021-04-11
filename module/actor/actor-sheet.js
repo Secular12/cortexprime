@@ -22,7 +22,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
       template: "systems/cortexprime/templates/actor/actor-sheet.html",
       width: 900,
       height: 1000,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "traits" }]
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "sets" }]
     })
   }
 
