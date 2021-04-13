@@ -21,7 +21,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
       classes: ["cortexprime", "sheet", "actor"],
       template: "systems/cortexprime/templates/actor/actor-sheet.html",
       width: 900,
-      height: 1000,
+      height: 900,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "traits" }]
     })
   }
