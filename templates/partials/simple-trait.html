@@ -24,6 +24,7 @@
           {{>
             "systems/cortexprime/templates/partials/dice/select.html"
             dice=value.dice.values
+            minDice=(?? minDice 0)
             edit=value.edit
             selectName=(concat ../path "." ../type "." index ".dice") }}
         </div>
