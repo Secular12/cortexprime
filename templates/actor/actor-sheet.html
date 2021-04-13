@@ -1,90 +1,93 @@
 <form class="{{cssClass}}" autocomplete="off">
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item active" data-tab="sets">Sets</a>
     <a class="item" data-tab="traits">Traits</a>
     <a class="item" data-tab="notes">Notes</a>
     <a class="item" data-tab="help"><i class="fas fa-question-circle"></i></a>
   </nav>
-  {{!-- Sheet Header --}}
-  <header class="sheet-header py-3 mb-2 by-2-primary">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
-    <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
-      <div class="col-3">
-        {{> "systems/cortexprime/templates/partials/pp.html" data=data }}
-      </div>
-    </div>
-  </header>
   <div class="sheet-body">
-    <article class="tab sets active" data-group="primary" data-tab="sets">
-      <header class="my-2">
-        <h2 class="primary-heading">Sets</h2>
-      </header>
-      {{> "systems/cortexprime/templates/partials/trait-sets.html" data=data }}
-    </article>
-    <article class="tab traits" data-group="primary" data-tab="traits">
-      <header class="my-2">
-        <h2 class="primary-heading">Traits</h2>
-      </header>
-      <div class="columns-2 column-gap-2">
-        {{#if settings.hasScaleDie}}
-          <div class="column-item mb-2">
-            {{> "systems/cortexprime/templates/partials/single-trait.html" big=true name="Scale" path="data" type="scale"
-            value=data.scale }}
-          </div>
-        {{/if}}
-        <div class="column-item mb-2">
-          {{> "systems/cortexprime/templates/partials/signature-assets.html"
-            signatureAssets=data.signatureAssets
-          }}
+    <article class="tab sets active" data-group="primary" data-tab="traits">
+      <div class="flex-row">
+        <div class="flex-col col-3">
+          <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+          <div class="section-sub-heading mt-2">{{localize 'CortexPrime.Name'}}</div>
+          <h1 class="bb-0"><input class="py-1" name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+          {{> "systems/cortexprime/templates/partials/pp.html" data=data }}
+          {{#if settings.hasScaleDie}}
+            <div class="mb-2">
+              {{> "systems/cortexprime/templates/partials/single-trait.html" big=true name="Scale" path="data" type="scale"
+              value=data.scale }}
+            </div>
+          {{/if}}
         </div>
-        <div class="column-item mb-2">
-          {{> "systems/cortexprime/templates/partials/simple-trait.html"
-            addClass="add-new-asset"
-            data=data.assets
-            label=(localize 'CortexPrime.AssetName')
-            name=(localize 'CortexPrime.Assets')
-            path="data"
-            type="assets"
-          }}
+        <div class="flex-col col-9">
+          <section>
+            <header class="my-2">
+              <h2 class="primary-heading">Sets</h2>
+            </header>
+            {{> "systems/cortexprime/templates/partials/trait-sets.html" data=data }}
+          </section>
+          <section class="mt-2">
+            <header class="my-2">
+              <h2 class="primary-heading">Other Traits</h2>
+            </header>
+            <div class="columns-2 column-gap-2">
+              <div class="column-item mb-2">
+                {{> "systems/cortexprime/templates/partials/signature-assets.html"
+                signatureAssets=data.signatureAssets
+                }}
+              </div>
+              <div class="column-item mb-2">
+                {{> "systems/cortexprime/templates/partials/simple-trait.html"
+                addClass="add-new-asset"
+                data=data.assets
+                label=(localize 'CortexPrime.AssetName')
+                name=(localize 'CortexPrime.Assets')
+                path="data"
+                type="assets"
+                }}
+              </div>
+              <div class="column-item mb-2">
+                {{> "systems/cortexprime/templates/partials/simple-trait.html"
+                addClass="add-new-complication"
+                data=data.complications
+                label=(localize 'CortexPrime.ComplicationName')
+                name=(localize 'CortexPrime.Complications')
+                path="data"
+                type="complications"
+                }}
+              </div>
+              {{#if settings.hasStress}}
+                <div class="column-item mb-2">
+                  {{> "systems/cortexprime/templates/partials/simple-trait.html"
+                  addClass="add-new-stress"
+                  data=data.stress
+                  label=(localize 'CortexPrime.StressName')
+                  name=(localize 'CortexPrime.Stress')
+                  path="data"
+                  type="stress"
+                  }}
+                </div>
+              {{/if}}
+              {{#if settings.hasTrauma}}
+                <div class="column-item mb-2">
+                  {{> "systems/cortexprime/templates/partials/simple-trait.html"
+                  addClass="add-new-trauma"
+                  data=data.trauma
+                  label=(localize 'CortexPrime.TraumaName')
+                  name=(localize 'CortexPrime.Trauma')
+                  path="data"
+                  type="trauma"
+                  }}
+                </div>
+              {{/if}}
+            </div>
+          </section>
         </div>
-        <div class="column-item mb-2">
-          {{> "systems/cortexprime/templates/partials/simple-trait.html"
-            addClass="add-new-complication"
-            data=data.complications
-            label=(localize 'CortexPrime.ComplicationName')
-            name=(localize 'CortexPrime.Complications')
-            path="data"
-            type="complications"
-          }}
-        </div>
-        {{#if settings.hasStress}}
-          <div class="column-item mb-2">
-            {{> "systems/cortexprime/templates/partials/simple-trait.html"
-              addClass="add-new-stress"
-              data=data.stress
-              label=(localize 'CortexPrime.StressName')
-              name=(localize 'CortexPrime.Stress')
-              path="data"
-              type="stress"
-            }}
-          </div>
-        {{/if}}
-        {{#if settings.hasTrauma}}
-          <div class="column-item mb-2">
-            {{> "systems/cortexprime/templates/partials/simple-trait.html"
-              addClass="add-new-trauma"
-              data=data.trauma
-              label=(localize 'CortexPrime.TraumaName')
-              name=(localize 'CortexPrime.Trauma')
-              path="data"
-              type="trauma"
-            }}
-          </div>
-        {{/if}}
       </div>
+      {{> "systems/cortexprime/templates/partials/dice/pool.html" data=data }}
     </article>
     <article class="tab notes" data-group="primary" data-tab="notes">
+
       <header class="my-2">
         <h2 class="primary-heading">Notes</h2>
       </header>
@@ -93,6 +96,5 @@
     <div class="tab help" data-group="primary" data-tab="help">
       {{> "systems/cortexprime/templates/partials/mc-help.html" }}
     </div>
-    {{> "systems/cortexprime/templates/partials/dice/pool.html" data=data }}
   </div>
 </form>
