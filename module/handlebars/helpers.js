@@ -18,13 +18,8 @@ export const registerHandlebarHelpers = () => {
     return length > -1 && length < parsedMax
   })
 
-  Handlebars.registerHelper('listHasMore', (value, min = -1) => {
-    const parsedMin = parseInt(min)
-    if (parsedMin < 0) return true
-
-    const length = listLength(value)
-
-    return length > -1 && length < parsedMin
+  Handlebars.registerHelper('listHasMore', (value, min = 0) => {
+    return listLength(value) > parseInt(min)
   })
 
   Handlebars.registerHelper({
