@@ -1,5 +1,45 @@
-.item-form, input, textarea {
+.item-form, 
+input, 
+textarea {
   font-family: $font-primary;
+}
+
+textarea
+{
+  resize: none;
+
+  &.form-control
+  {
+    height: auto;
+    overflow-y: hidden;
+
+    &:focus,
+    &:hover
+    {
+      height: toRem(64px);
+      overflow-y: scroll;
+    }
+  }
+
+  &.character-name
+  {
+    font-weight: 500;
+    font-size: 1.5rem;
+  }
+}
+
+.form-control
+{
+  padding: toRem(8px) toRem(4px);
+  border: 0;
+  background-color: transparent;
+
+  &:focus,
+  &:hover
+  {
+    background-color: #fff;
+    border: initial;
+  }
 }
 
 .notes-field {

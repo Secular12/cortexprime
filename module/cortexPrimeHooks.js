@@ -14,7 +14,7 @@ export default () => {
 
   Hooks.on("preCreateActor", (data) => {
     if (game.user == game.users.find(user => user.isGM && user.active)) {
-      if (data.type === 'major-character') {
+      if (data.type === 'player-character') {
         initializeCortexPrimeCharacter(data)
       }
     }
