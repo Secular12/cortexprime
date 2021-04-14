@@ -1,47 +1,46 @@
-<div>
-  <section class="my-2">
-    <header class="flex-row flex-ac">
-      <h2 class="section-heading flex-col col-12">{{name}}</h2>
-      <div class="flex-col">
-        <button class="btn btn-icon btn-secondary {{addClass}}" type="button">
-          <i class="fa fa-plus"></i>
-        </button>
-      </div>
-    </header>
-    <div>
-      {{#each data as |value index|}}
-        <div class="flex-row flex-ac">
-          {{#if value.edit}}
-            <div class="flex-col col-12">
-              <label class="label">{{../label}}</label>
-              <input name="{{../path}}.{{../type}}.{{index}}.name" type="text" value="{{value.name}}">
-            </div>
-          {{else}}
-            <div class="flex-col">
-              <p class="add-trait-to-pool trait-label" data-label="{{value.name}}" data-trait-target="{{../path}}.{{../type}}.{{index}}">{{value.name}}</p>
-            </div>
-          {{/if}}
-          <div class="flex-col">
-            {{>
-              "systems/cortexprime/templates/partials/dice/select.html"
-              dice=value.dice.values
-              edit=value.edit
-              selectName=(concat ../path "." ../type "." index ".dice") }}
+<section class="ba-1-secondary pa-2">
+  <header class="flex-row flex-ac">
+    <h2 class="section-heading flex-col col-12">{{name}}</h2>
+    <div class="flex-col">
+      <button class="btn btn-icon btn-secondary {{addClass}}" type="button">
+        <i class="fa fa-plus"></i>
+      </button>
+    </div>
+  </header>
+  <div>
+    {{#each data as |value index|}}
+      <div class="flex-row flex-ac">
+        {{#if value.edit}}
+          <div class="flex-col col-12">
+            <label class="label">{{../label}}</label>
+            <input name="{{../path}}.{{../type}}.{{index}}.name" type="text" value="{{value.name}}">
           </div>
-          {{#if value.edit}}
-            <div class="flex-col">
-              <button class="remove-item btn btn-icon btn-small btn-black" data-path="{{../path}}" data-key="{{index}}" data-target="{{../type}}">
-                <i class="fa fa-times"></i>
-              </button>
-            </div>
-          {{/if}}
+        {{else}}
           <div class="flex-col">
-            <button class="toggle-item btn btn-icon" data-path="data.{{../type}}.{{index}}.edit" type="button">
-              <i class="{{ternary value.edit 'fas' 'far'}} fa-edit"></i>
+            <p class="add-trait-to-pool trait-label" data-label="{{value.name}}" data-trait-target="{{../path}}.{{../type}}.{{index}}">{{value.name}}</p>
+          </div>
+        {{/if}}
+        <div class="flex-col">
+          {{>
+            "systems/cortexprime/templates/partials/dice/select.html"
+            dice=value.dice.values
+            minDice=(?? minDice 0)
+            edit=value.edit
+            selectName=(concat ../path "." ../type "." index ".dice") }}
+        </div>
+        {{#if value.edit}}
+          <div class="flex-col">
+            <button class="remove-item btn btn-icon btn-small btn-black" data-path="{{../path}}" data-key="{{index}}" data-target="{{../type}}">
+              <i class="fa fa-times"></i>
             </button>
           </div>
+        {{/if}}
+        <div class="flex-col">
+          <button class="toggle-item btn btn-icon" data-path="data.{{../type}}.{{index}}.edit" type="button">
+            <i class="{{ternary value.edit 'fas' 'far'}} fa-edit"></i>
+          </button>
         </div>
-      {{/each}}
-    </div>
-  </section>
-</div>
+      </div>
+    {{/each}}
+  </div>
+</section>

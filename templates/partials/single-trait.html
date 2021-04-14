@@ -1,5 +1,5 @@
-<div>
-  <div class="flex-row flex-ac my-2">
+<div class="ba-1-secondary pa-2">
+  <div class="flex-row flex-ac">
     <div
       class="{{ternary big 'section-heading' 'label'}} add-trait-to-pool flex-col"
       data-label="{{name}}"
@@ -11,6 +11,7 @@
       {{> "systems/cortexprime/templates/partials/dice/select.html"
         dice=value.values
         edit=value.edit
+        minDice=minDice
         selectName=(concat path "." type)
       }}
     </div>

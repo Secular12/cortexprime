@@ -20,8 +20,8 @@ export class CortexPrimeActorSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["cortexprime", "sheet", "actor"],
       template: "systems/cortexprime/templates/actor/actor-sheet.html",
-      width: 800,
-      height: 800,
+      width: 900,
+      height: 900,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "traits" }]
     })
   }

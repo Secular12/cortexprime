@@ -1,6 +1,6 @@
-<div>
+<div class="columns-2 column-gap-2">
   {{#each data.traitSets as |traitSet traitSetKey|}}
-    <section class="my-2">
+    <section class="column-item mb-2">
       <div class="ba-1-secondary flex-container py-2">
         <header class="flex-row flex-ac">
           <h3 class="section-heading flex-col col-12{{ternary traitSet.shutdown ' shutdown' ''}}">{{traitSet.name}}</h3>

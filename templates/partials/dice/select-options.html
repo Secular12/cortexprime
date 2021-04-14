@@ -1,4 +1,4 @@
-{{#if (or (and (gte 0 min) (lte 0 max)) (listHasMore dice minDice))}}
+{{#if (listHasMore dice minDice)}}
   <option value="0">{{?? zeroOption 'X'}}</option>
 {{/if}}
 {{#if (and (gte 4 min) (lte 4 max))}}
