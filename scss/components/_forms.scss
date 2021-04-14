@@ -4,12 +4,38 @@ textarea {
   font-family: $font-primary;
 }
 
+textarea
+{
+  resize: none;
+
+  &.form-control
+  {
+    height: auto;
+    overflow-y: hidden;
+
+    &:focus,
+    &:hover
+    {
+      height: toRem(64px);
+      overflow-y: scroll;
+    }
+  }
+
+  &.character-name
+  {
+    font-weight: 500;
+    font-size: 1.5rem;
+  }
+}
+
 .form-control
 {
-   border: 0;
-   background-color: transparent;
+  padding: toRem(8px) toRem(4px);
+  border: 0;
+  background-color: transparent;
 
-  &:focus
+  &:focus,
+  &:hover
   {
     background-color: #fff;
     border: initial;

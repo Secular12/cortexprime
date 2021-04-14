@@ -7,10 +7,10 @@
   <div class="sheet-body">
     <article class="tab sets active" data-group="primary" data-tab="traits">
       <div class="flex-row">
-        <div class="flex-col col-3">
+        <div id="actor-summary" class="flex-col col-3">
           <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
           <div class="section-sub-heading mt-2">{{localize 'CortexPrime.Name'}}</div>
-          <h1 class="bb-0"><input class="py-1" name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+          <h1 class="bb-0"><textarea class="form-control w-100 character-name" name="name" placeholder="Name">{{actor.name}}</textarea></h1>
           {{> "systems/cortexprime/templates/partials/pp.html" data=data }}
           {{#if settings.hasScaleDie}}
             <div class="mb-2">
@@ -26,16 +26,27 @@
             </div>
           {{/if}}
         </div>
-        <div class="flex-col col-9">
+        <div id="trait-container" class="flex-col col-9">
           <section>
-            <header class="my-2">
-              <h2 class="primary-heading">Sets</h2>
-            </header>
-            {{> "systems/cortexprime/templates/partials/trait-sets.html" data=data }}
+            {{#if settings.isGameMasterCharacter}}
+              {{> "systems/cortexprime/templates/partials/simple-trait.html"
+                addClass="add-generic-trait"
+                data=data.traits
+                label=(localize 'CortexPrime.Traits')
+                name=(localize 'CortexPrime.Traits')
+                path="data"
+                type="traits"
+              }}
+            {{^}}
+              <header class="my-2">
+                <h2 class="primary-heading">{{localize 'CortexPrime.Sets'}}</h2>
+              </header>
+              {{> "systems/cortexprime/templates/partials/trait-sets.html" data=data }}
+            {{/if}}
           </section>
-          <section class="mt-2">
+          <section class="mt-4">
             <header class="my-2">
-              <h2 class="primary-heading">Other Traits</h2>
+              <h2 class="primary-heading">{{localize 'CortexPrime.OtherTraits'}}</h2>
             </header>
             <div class="columns-2 column-gap-2">
               <div class="column-item mb-2">

@@ -2323,12 +2323,32 @@ input {
   font-family: "Roboto", sans-serif;
 }
 
+.system-cortexprime textarea {
+  resize: none;
+}
+
+.system-cortexprime textarea.form-control {
+  height: auto;
+  overflow-y: hidden;
+}
+
+.system-cortexprime textarea.form-control:focus, .system-cortexprime textarea.form-control:hover {
+  height: 4rem;
+  overflow-y: scroll;
+}
+
+.system-cortexprime textarea.character-name {
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
 .system-cortexprime .form-control {
+  padding: 0.5rem 0.25rem;
   border: 0;
   background-color: transparent;
 }
 
-.system-cortexprime .form-control:focus {
+.system-cortexprime .form-control:focus, .system-cortexprime .form-control:hover {
   background-color: #fff;
   border: initial;
 }
