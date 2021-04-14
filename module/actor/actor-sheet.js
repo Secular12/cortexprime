@@ -20,8 +20,8 @@ export class CortexPrimeActorSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["cortexprime", "sheet", "actor"],
       template: "systems/cortexprime/templates/actor/actor-sheet.html",
-      width: 900,
-      height: 1000,
+      width: 800,
+      height: 800,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "traits" }]
     })
   }
@@ -37,7 +37,6 @@ export class CortexPrimeActorSheet extends ActorSheet {
       isPlayerCharacter: (data.entity.type === 'player-character')
     }
 
-    console.log(data);
     return data
   }
 
@@ -179,7 +178,6 @@ export class CortexPrimeActorSheet extends ActorSheet {
       name: `New Trait`
     }
 
-    console.log(this);
     await addNewDataPoint.call(this, this.actor.data.data.traits, `traits`, value)
   }
 

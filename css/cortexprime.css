@@ -2187,68 +2187,73 @@ input {
   vertical-align: bottom;
 }
 
-.editor-content {
+.editor {
+  height: 100%;
+}
+
+.editor > .editor-content {
   min-height: 6.25rem;
 }
 
 /* Styles limited to cortexprime sheets */
-.cortexprime .item-form,
-.cortexprime input,
-.cortexprime textarea {
+.system-cortexprime .item-form,
+.system-cortexprime input,
+.system-cortexprime textarea {
   font-family: "Roboto", sans-serif;
 }
 
-.cortexprime .form-control {
+.system-cortexprime .form-control {
   border: 0;
   background-color: transparent;
 }
 
-.cortexprime .form-control:focus {
+.system-cortexprime .form-control:focus {
   background-color: #fff;
   border: initial;
 }
 
-.cortexprime .notes-field {
+.system-cortexprime .notes-field {
   min-height: 25rem;
 }
 
-.cortexprime .resource-label {
+.system-cortexprime .resource-label {
   margin-bottom: 0.25rem;
   font-weight: bold;
   text-transform: uppercase;
 }
 
-.cortexprime .flex-row > .resource {
+.system-cortexprime .flex-row > .resource {
   margin-right: 0.3125rem;
 }
 
-.cortexprime .flex-row > .resource:last-child {
+.system-cortexprime .flex-row > .resource:last-child {
   margin-right: 0;
 }
 
-.cortexprime .tabs {
+.system-cortexprime .tabs {
   height: 2.5rem;
   line-height: 2.5rem;
 }
 
-.cortexprime .tabs .item {
+.system-cortexprime .tabs .item {
   font-weight: bold;
 }
 
-.cortexprime .tabs .item.active {
+.system-cortexprime .tabs .item.active {
   text-decoration: underline;
   text-shadow: none;
 }
 
-.cortexprime .tab {
+.system-cortexprime .tab {
+  height: 100%;
   padding: 0.625rem;
 }
 
-.cortexprime li.detail-item {
+.system-cortexprime li.detail-item {
   list-style: none;
 }
 
-.cortexprime li.detail-item::before {
+.system-cortexprime li.detail-item::before {
   content: "\25CF";
   color: #B30044;
   font-weight: bold;
@@ -2257,32 +2262,26 @@ input {
   margin-right: 0.5rem;
 }
 
-.cortexprime li.detail-item.locked::before {
+.system-cortexprime li.detail-item.locked::before {
   content: "\25CB";
 }
 
-.cortexprime header.sheet-header {
+.system-cortexprime header.sheet-header {
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: start;
 }
 
-.cortexprime header.sheet-header .profile-img {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  max-height: 12.5rem;
-  max-width: 12.5rem;
+.system-cortexprime header.sheet-header .profile-img {
+  max-height: 9.375rem;
+  max-width: 9.375rem;
   height: auto;
   width: auto;
 }
 
-.cortexprime header.sheet-header .item-img {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  max-height: 7.8125rem;
-  max-width: 7.8125rem;
+.system-cortexprime header.sheet-header .item-img {
+  max-height: 4.6875rem;
+  max-width: 4.6875rem;
   height: auto;
   width: auto;
 }

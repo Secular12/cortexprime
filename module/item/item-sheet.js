@@ -19,7 +19,7 @@ export class CortexPrimeItemSheet extends ItemSheet {
   get template() {
     const path = "systems/cortexprime/templates/item";
     // Return a single sheet for all item types.
-    return `${path}/item-sheet.html`;
+    return `${path}/${this.entity.data.type}.html`;
     // Alternatively, you could use the following return statement to do a
     // unique item sheet by type, like `weapon-sheet.html`.
 
@@ -31,6 +31,9 @@ export class CortexPrimeItemSheet extends ItemSheet {
   /** @override */
   getData() {
     const data = super.getData();
+
+    data.cssClass = "item-sheet";
+
     return data;
   }
 
@@ -40,7 +43,7 @@ export class CortexPrimeItemSheet extends ItemSheet {
   setPosition(options = {}) {
     const position = super.setPosition(options);
     const sheetBody = this.element.find(".sheet-body");
-    const bodyHeight = position.height - 192;
+    const bodyHeight = position.height - 220;
     sheetBody.css("height", bodyHeight);
     return position;
   }
@@ -84,10 +87,12 @@ export class CortexPrimeItemSheet extends ItemSheet {
       const hasButton = button && button.classList.contains("editor-edit");
       const wrap = div.parentElement.parentElement;
       const wc = $(div).parents(".window-content")[0];
+
       // Determine the preferred editor height
       const heights = [wrap.offsetHeight, wc ? wc.offsetHeight : null];
       if ( div.offsetHeight > 0 ) heights.push(div.offsetHeight);
       let height = Math.min(...heights.filter(h => Number.isFinite(h)));
+      
       // Get initial content
       const data = this.object instanceof Entity ? this.object.data : this.object;
       const initialContent = getProperty(data, name);
@@ -96,6 +101,7 @@ export class CortexPrimeItemSheet extends ItemSheet {
         height: height,
         save_onsavecallback: mce => this.saveEditor(name)
       };
+      
       // Add record to editors registry
       this.editors[name] = {
         target: name,

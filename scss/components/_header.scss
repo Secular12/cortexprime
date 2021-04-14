@@ -1,21 +1,18 @@
 header {
-
   &.sheet-header
   {
     align-items: start;
 
     .profile-img {
-      flex: 0 0 auto;
-      max-height: toRem(200px);
-      max-width: toRem(200px);
+      max-height: toRem(150px);
+      max-width: toRem(150px);
       height: auto;
       width: auto;
     }
-  
+
     .item-img {
-      flex: 0 0 auto;
-      max-height: toRem(125px);
-      max-width: toRem(125px);
+      max-height: toRem(75px);
+      max-width: toRem(75px);
       height: auto;
       width: auto;
     }

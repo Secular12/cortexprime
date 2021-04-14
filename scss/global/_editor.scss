@@ -1,4 +1,9 @@
-.editor-content
+.editor
 {
-    min-height: toRem(100px);
+    height: 100%;
+
+    & > .editor-content
+    {
+        min-height: toRem(100px);
+    }
 }
