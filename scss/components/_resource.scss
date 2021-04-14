@@ -1,4 +1,18 @@
 .resource-label {
+  margin-bottom: toRem(4px);
   font-weight: bold;
   text-transform: uppercase;
+}
+
+.flex-row
+{
+  & > .resource
+  {
+    margin-right: toRem(5px);
+
+    &:last-child
+    {
+      margin-right: 0;
+    }
+  }  
 }

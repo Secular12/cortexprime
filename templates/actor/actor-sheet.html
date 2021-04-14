@@ -13,13 +13,26 @@
   </header>
   <div class="sheet-body">
     <article class="tab traits active" data-group="primary" data-tab="traits">
+      {{#if settings.isPlayerCharacter}}
       <header class="my-2">
-        <h2 class="primary-heading">Traits</h2>
+        <h2 class="primary-heading">{{localize "CortexPrime.Traits"}}</h2>
       </header>
+      {{/if}}
       {{!-- Sheet Body --}}
       <div class="flex-row">
         <div class="flex-col col-7">
+          {{#if settings.isGameMasterCharacter}}
+          {{> "systems/cortexprime/templates/partials/simple-trait.html"
+            addClass="add-generic-trait"
+            data=data.traits
+            label=(localize 'CortexPrime.Traits')
+            name=(localize 'CortexPrime.Traits')
+            path="data"
+            type="traits"
+          }}
+          {{^}}
           {{> "systems/cortexprime/templates/partials/trait-sets.html" data=data }}
+          {{/if}}
         </div>
         <div class="flex-col col-5">
           {{> "systems/cortexprime/templates/partials/pp.html" data=data }}
@@ -72,7 +85,7 @@
       <header class="my-2">
         <h2 class="primary-heading">Notes</h2>
       </header>
-      <textarea class="notes-field" name="data.notes">{{{data.notes}}}</textarea>
+      {{editor content=data.notes target="data.notes" button=true owner=owner editable=editable}}
     </article>
     <div class="tab help" data-group="primary" data-tab="help">
       {{> "systems/cortexprime/templates/partials/mc-help.html" }}

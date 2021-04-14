@@ -2187,9 +2187,25 @@ input {
   vertical-align: bottom;
 }
 
+.editor-content {
+  min-height: 6.25rem;
+}
+
 /* Styles limited to cortexprime sheets */
-.cortexprime .item-form, .cortexprime input, .cortexprime textarea {
+.cortexprime .item-form,
+.cortexprime input,
+.cortexprime textarea {
   font-family: "Roboto", sans-serif;
+}
+
+.cortexprime .form-control {
+  border: 0;
+  background-color: transparent;
+}
+
+.cortexprime .form-control:focus {
+  background-color: #fff;
+  border: initial;
 }
 
 .cortexprime .notes-field {
@@ -2197,22 +2213,35 @@ input {
 }
 
 .cortexprime .resource-label {
+  margin-bottom: 0.25rem;
   font-weight: bold;
   text-transform: uppercase;
 }
 
+.cortexprime .flex-row > .resource {
+  margin-right: 0.3125rem;
+}
+
+.cortexprime .flex-row > .resource:last-child {
+  margin-right: 0;
+}
+
 .cortexprime .tabs {
   height: 2.5rem;
+  line-height: 2.5rem;
 }
 
 .cortexprime .tabs .item {
-  line-height: 2.5rem;
   font-weight: bold;
 }
 
 .cortexprime .tabs .item.active {
   text-decoration: underline;
   text-shadow: none;
+}
+
+.cortexprime .tab {
+  padding: 0.625rem;
 }
 
 .cortexprime li.detail-item {
@@ -2244,6 +2273,16 @@ input {
   flex: 0 0 auto;
   max-height: 12.5rem;
   max-width: 12.5rem;
+  height: auto;
+  width: auto;
+}
+
+.cortexprime header.sheet-header .item-img {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  max-height: 7.8125rem;
+  max-width: 7.8125rem;
   height: auto;
   width: auto;
 }

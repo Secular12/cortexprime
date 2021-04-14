@@ -1,13 +1,19 @@
 .tabs {
   height: toRem(40px);
+  line-height: toRem(40px);
 
   .item {
-    line-height: toRem(40px);
     font-weight: bold;
-  }
 
-  .item.active {
-    text-decoration: underline;
-    text-shadow: none;
+    &.active
+    {
+      text-decoration: underline;
+      text-shadow: none;
+    }
   }
+}
+
+.tab
+{
+  padding: toRem(10px);
 }

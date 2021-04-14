@@ -1,5 +1,19 @@
-.item-form, input, textarea {
+.item-form, 
+input, 
+textarea {
   font-family: $font-primary;
+}
+
+.form-control
+{
+   border: 0;
+   background-color: transparent;
+
+  &:focus
+  {
+    background-color: #fff;
+    border: initial;
+  }
 }
 
 .notes-field {

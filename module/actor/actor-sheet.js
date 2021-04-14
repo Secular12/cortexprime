@@ -32,9 +32,12 @@ export class CortexPrimeActorSheet extends ActorSheet {
     data.settings = {
       hasScaleDie: game.settings.get('cortexprime', 'majorCharacterScale'),
       hasStress: game.settings.get('cortexprime', 'hasStress'),
-      hasTrauma: game.settings.get('cortexprime', 'hasTrauma')
+      hasTrauma: game.settings.get('cortexprime', 'hasTrauma'),
+      isGameMasterCharacter: (data.entity.type === 'gmc'),
+      isPlayerCharacter: (data.entity.type === 'player-character')
     }
 
+    console.log(data);
     return data
   }
 
@@ -50,6 +53,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     html.find('.add-new-signature-asset-detail').click(this._addNewSignatureAssetDetail.bind(this))
     html.find('.add-new-stress').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.stress, 'stress', 'New Stress'))
     html.find('.add-new-trait').click(this._addNewTrait.bind(this))
+    html.find('.add-generic-trait').click(this._addGenericTrait.bind(this))
     html.find('.add-new-trauma').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.trauma, 'trauma', 'New Trauma'))
     html.find('.add-pp').click(() => { this.actor.changePpBy(1) })
     html.find('.add-trait-to-pool').click(this._addTraitToPool.bind(this))
@@ -158,6 +162,25 @@ export class CortexPrimeActorSheet extends ActorSheet {
     }
 
     await addNewDataPoint.call(this, traitSet.traits, `traitSets.${traitSetKey}.traits`, value)
+  }
+
+  async _addGenericTrait (event) {
+    event.preventDefault()
+    //const $addTraitButton = $(event.currentTarget)
+    //console.log($addTraitButton);
+    //const traitSetKey = $addTraitButton.data('setKey').toString()
+    const diceValues = { 0: 6 }
+
+    const value = {
+      description: '',
+      details: {},
+      dice: { values: diceValues },
+      isCustomTrait: true,
+      name: `New Trait`
+    }
+
+    console.log(this);
+    await addNewDataPoint.call(this, this.actor.data.data.traits, `traits`, value)
   }
 
   async _addTraitToPool(event) {

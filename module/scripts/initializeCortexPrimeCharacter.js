@@ -1,7 +1,7 @@
 const getDefaultDice = ({ minDieRating, maxDieRating }) => {
   return {
     values: {
-      0: [8, 6, 10, 4, 12, 0].find(option => option >= minDieRating && option <= maxDieRating) || 0
+      0: [4, 6, 8, 10, 12, 0].find(option => option >= minDieRating && option <= maxDieRating) || 0
     }
   }
 }
@@ -38,5 +38,10 @@ export default (data) => {
       edit: false,
       values: {}
     }
+  }
+
+  data.data.traits = {
+    edit: false,
+    values: {}
   }
 }

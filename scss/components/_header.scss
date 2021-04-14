@@ -1,10 +1,23 @@
-header.sheet-header {
-  align-items: start;
-  .profile-img {
-    flex: 0 0 auto;
-    max-height: toRem(200px);
-    max-width: toRem(200px);
-    height: auto;
-    width: auto;
+header {
+
+  &.sheet-header
+  {
+    align-items: start;
+
+    .profile-img {
+      flex: 0 0 auto;
+      max-height: toRem(200px);
+      max-width: toRem(200px);
+      height: auto;
+      width: auto;
+    }
+  
+    .item-img {
+      flex: 0 0 auto;
+      max-height: toRem(125px);
+      max-width: toRem(125px);
+      height: auto;
+      width: auto;
+    }
   }
 }
