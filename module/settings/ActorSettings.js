@@ -1,0 +1,139 @@
+import { localizer } from '../scripts/foundryHelpers.js'
+import { objectFindKey, objectMapValues, objectReduce } from '../../lib/helpers.js'
+import { addFormElements, removeItem } from '../scripts/settingsHelpers.js'
+
+export default class ActorSettings extends FormApplication {
+  constructor(object = {}, options = { parent: null }) {
+    super(object, options);
+  }
+
+  static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      id: 'actor-settings',
+      template: 'systems/cortexprime/templates/actor/settings.html',
+      title: localizer('ActorSettings'),
+      classes: ['cortexprime', 'actor-settings'],
+      width: 600,
+      height: 900,
+      top: 200,
+      left: 400,
+      resizable: true,
+      closeOnSubmit: false,
+      submitOnClose: true,
+      submitOnChange: true,
+    })
+  }
+
+  getData() {
+    console.log(game.settings.get('cortexprime', 'actorTypes'))
+    return {
+      actorTypes: game.settings.get('cortexprime', 'actorTypes'),
+      breadcrumbs: game.settings.get('cortexprime', 'actorBreadcrumbs')
+    }
+  }
+
+  async _updateObject(_, formData) {
+    const expandedFormData = expandObject(formData)
+    const currentActorTypes = game.settings.get('cortexprime', 'actorTypes') ?? {}
+
+    if (expandedFormData.newActorType) {
+      await this._addNewActorType(currentActorTypes, expandedFormData.newActorType)
+    } else {
+      await game.settings.set('cortexprime', 'actorTypes', mergeObject(currentActorTypes, expandedFormData.actorTypes))
+    }
+  }
+
+  activateListeners(html) {
+    super.activateListeners(html)
+    html.find('.breadcrumb:not(.active)').click(this._breadcrumbChange.bind(this))
+    html.find('#add-new-actor-type').click(event => addFormElements.call(this, event, this._actorTypeFields))
+    html.find('.view-change').click(this._viewChange.bind(this))
+    html.find('#submit').click(() => this.close())
+    removeItem.call(this, html)
+  }
+
+  _actorTypeFields () {
+    return [
+      { name: 'newActorType.name', type: 'text', value: 'New Actor Type' }
+    ]
+  }
+
+  async _addNewActorType(source, data) {
+    const actorTypeKey = Object.keys(source).length
+    const value = {
+      [actorTypeKey]: {
+        ...data
+      }
+    }
+
+    await game.settings.set(
+      'cortexprime',
+      'actorBreadcrumbs',
+      {
+        0: {
+          active: false,
+          name: 'ActorTypes',
+          localize: true
+        },
+        1: {
+          active: true,
+          name: data.name,
+          localize: false
+        }
+      }
+    )
+
+    await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, value))
+  }
+
+  async _breadcrumbChange (event) {
+    const currentBreadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs')
+
+    const targetKey = objectFindKey(currentBreadcrumbs, breadcrumb => breadcrumb.name === $(event.currentTarget).data('to'))
+
+    const value = objectReduce(currentBreadcrumbs, (breadcrumbs, breadcrumb, key) => {
+      if (key > targetKey) return breadcrumbs
+
+      breadcrumb.active = key === targetKey
+
+      return {
+        ...breadcrumbs,
+        [key]: breadcrumb
+      }
+    }, {})
+
+    await game.settings.set('cortexprime', 'actorBreadcrumbs', value)
+
+    await this._onSubmit(event)
+    this.render(true)
+  }
+
+  async _viewChange (event) {
+    const currentBreadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs')
+
+    await game.settings.set('cortexprime', 'actorBreadcrumbs', {
+      ...objectMapValues(currentBreadcrumbs, breadcrumb => {
+        breadcrumb.active = false
+        return breadcrumb
+      }),
+      [Object.keys(currentBreadcrumbs).length]: { active: true, localize: false, name: $(event.currentTarget).data('to') }
+    })
+
+    await this._onSubmit(event)
+    this.render(true)
+  }
+}
+
+Hooks.on('closeActorSettings', async () => {
+  await game.settings.set(
+    'cortexprime',
+    'actorBreadcrumbs',
+    {
+      0: {
+        active: true,
+        name: 'ActorTypes',
+        localize: true
+      }
+    }
+  )
+})

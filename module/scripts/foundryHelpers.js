@@ -1,1 +1,1 @@
-export const localizer = target => game.i18n.localize(`CortexPrime.${target}`)
+export const localizer = target => game.i18n.localize(target)

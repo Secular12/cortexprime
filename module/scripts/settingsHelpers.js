@@ -1,3 +1,5 @@
+import { indexObjectValues, objectFilter, objectReduce } from '../../lib/helpers.js'
+
 export const collapseToggle = function (html) {
   html.find('.collapse-toggle').click(async (event) => {
     event.preventDefault()
@@ -57,6 +59,40 @@ export const displayToggle = html => {
   })
 }
 
+export const removeItem = function (html) {
+  html.find('.remove-item').click(async event => {
+    event.preventDefault()
+    const {
+      group,
+      itemKey,
+      itemName,
+      setting
+    } = event.currentTarget.dataset
+    if (confirm(`Are you sure you want to remove ${itemName}`)) {
+      if (setting) {
+        const currentBreadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs')
+        const currentSettings = game.settings.get('cortexprime', setting)
+        const currentGroupSettings = group ? await getProperty(currentSettings, group) : currentSettings
+        const settingValue = indexObjectValues(objectFilter(currentGroupSettings, (_, key) => key !== itemKey))
+        const breadcrumbsValue = objectReduce(currentBreadcrumbs, (acc, value, key, length) => {
+          if (+key === length - 1) return acc
+          return {
+            ...acc,
+            [key]: {
+              ...value,
+              active: +key === (length - 2)
+            }
+          }
+        })
+
+        await game.settings.set('cortexprime', setting, settingValue)
+        await game.settings.set('cortexprime', 'actorBreadcrumbs', breadcrumbsValue)
+        this.render(true)
+      }
+    }
+  })
+}
+
 export const removeParentElements = function (html) {
   html.find('.remove-parent-element').click(async event => {
     event.preventDefault()
@@ -77,6 +113,8 @@ export const removeParentElements = function (html) {
 export const addFormElements = async function (event, fieldsArrayCb) {
   event.preventDefault()
   const $form = this.form
+
+  console.log(fieldsArrayCb(event.currentTarget.dataset))
 
   const htmlString = createNewFieldElements(fieldsArrayCb(event.currentTarget.dataset))
 

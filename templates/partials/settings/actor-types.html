@@ -1,0 +1,29 @@
+<section class="{{viewClasses 'ActorTypes' breadcrumbs}} actor-types">
+  <header class="mb-4">
+    <div class="bkg-primary flex-row flex-ac flex-jsb mb-2 py-1">
+      <h1 class="flex-col col primary-heading text-white">
+        {{localize "ActorTypes"}}
+      </h1>
+      <div class="flex-col">
+        <button class="btn btn-secondary btn-icon" id="add-new-actor-type" type="button">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </div>
+    <div class="bkg-light-grey pa-2">
+      <p class="my-1">{{localize "ActorTypesDescription"}}</p>
+      <p><strong>{{localize "Note"}}:</strong> {{localize "ActorTypesNote"}}</p>
+    </div>
+  </header>
+  {{!-- actor-types list here --}}
+  <ul class="list-style-none px-0">
+    {{#each actorTypes as |actorType|}}
+      <li class="my-2">
+        <span class="section-sub-heading text-primary">{{actorType.name}}</span>
+        <button class="view-change btn pa-1 ml-2" data-to="{{actorType.name}}">
+          <i class="fa fa-edit ma-0"></i>
+        </button>
+      </li>
+    {{/each}}
+  </ul>
+</section>

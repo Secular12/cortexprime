@@ -1,4 +1,4 @@
-import initializeCortexPrimeCharacter from './scripts/initializeCortexPrimeCharacter.js'
+import initializeCortexPrimeCharacter from './scripts/initializeCortexPrimeCharacter.old.js'
 
 export default () => {
   Hooks.once('diceSoNiceReady', dice3d => {
@@ -12,11 +12,11 @@ export default () => {
     }, 'd2')
   })
 
-  Hooks.on("preCreateActor", (data) => {
-    if (game.user == game.users.find(user => user.isGM && user.active)) {
-      if (data.type === 'major-character') {
-        initializeCortexPrimeCharacter(data)
-      }
-    }
-  })
+  // Hooks.on("preCreateActor", (data) => {
+  //   if (game.user == game.users.find(user => user.isGM && user.active)) {
+  //     if (data.type === 'character') {
+  //       initializeCortexPrimeCharacter(data)
+  //     }
+  //   }
+  // })
 }

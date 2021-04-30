@@ -1,0 +1,17 @@
+<section class="flex-col col-9">
+  <div class="flex-row">
+    {{#each traitSets as |traitSet traitSetIndex|}}
+      <div class="flex-col col-6{{ternary (and (not traitSet.edit) traitSet.shutdown) 'shutdown' ''}}">
+        {{#unless traitSet.edit}}
+          <div class="ba-1-primary pa-2">
+            <div>{{traitSet.label}}</div>
+            {{#if traitSet.description}}
+              <div>{{traitSet.description}}</div>
+            {{/if}}
+          </div>
+        {{else}}
+        {{/unless}}
+      </div>
+    {{/each}}
+  </div>
+</article>

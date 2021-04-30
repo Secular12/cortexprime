@@ -27,6 +27,15 @@ export const registerHandlebarHelpers = () => {
     return length > -1 && length < parsedMin
   })
 
+  Handlebars.registerHelper('viewClasses', (value, breadcrumbs = {}) => {
+    const activeBreadcrumbIndex = Object.keys(breadcrumbs)
+      .find(breadcrumb => breadcrumbs[breadcrumb].active)
+
+    const activeBreadcrumb = breadcrumbs?.[activeBreadcrumbIndex]?.name || null
+
+    return activeBreadcrumb && activeBreadcrumb === value ? 'view' : 'view hide'
+  })
+
   Handlebars.registerHelper({
     '??': (a, b) => a ?? b,
     and: (a, b) => a && b,

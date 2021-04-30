@@ -1,0 +1,17 @@
+.breadcrumb {
+  color: color('primary');
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  &.active {
+    color: color('black');
+
+    &:hover {
+      text-decoration: none;
+      cursor: default;
+    }
+  }
+}

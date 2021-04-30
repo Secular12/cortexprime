@@ -1,0 +1,31 @@
+<form class="flex-container" autocomplete="off" style="background-color: #fff;">
+  <header class="mb-4 mt-2">
+    {{> "systems/cortexprime/templates/partials/breadcrumbs.html" breadcrumbs=breadcrumbs }}
+  </header>
+  <main>
+    {{> "systems/cortexprime/templates/partials/settings/actor-types.html"
+      actorTypes=actorTypes
+      breadcrumbs=breadcrumbs
+    }}
+    {{#each actorTypes as |actorType actorTypeIndex|}}
+      {{> "systems/cortexprime/templates/partials/settings/actor-type.html"
+        actorType=actorType
+        actorTypeIndex=actorTypeIndex
+        breadcrumbs=../breadcrumbs
+      }}
+      {{#each actorType.traitSets as |traitSet traitSetIndex|}}
+        {{> "systems/cortexprime/templates/partials/settings/trait-set.html"
+          actorTypeIndex=../actorTypeIndex
+          breadcrumbs=../../breadcrumbs
+          traitSet=traitSet
+          traitSetIndex=traitSetIndex
+        }}
+      {{/each}}
+    {{/each}}
+  </main>
+  <footer>
+    <button class="btn btn-secondary" id="submit" type="button">
+      {{localize 'Submit'}}
+    </button>
+  </footer>
+</form>

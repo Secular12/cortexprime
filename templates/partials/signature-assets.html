@@ -51,12 +51,12 @@
         {{#if signatureAsset.edit}}
           <div>
             <div>
-              <label class="label">{{localize 'CortexPrime.Description'}}</label>
+              <label class="label">{{localize 'Description'}}</label>
               <textarea name="data.signatureAssets.{{signatureAssetKey}}.description">{{signatureAsset.description}}</textarea>
             </div>
             <div class="mt-1">
               <div class="flex-row flex-ac">
-                <h3 class="section-sub-heading flex-col col-12">{{localize 'CortexPrime.DetailList'}}</h3>
+                <h3 class="section-sub-heading flex-col col-12">{{localize 'DetailList'}}</h3>
                 <div class="flex-col">
                   <button class="add-new-signature-asset-detail btn btn-icon btn-secondary"
                     data-signature-asset="{{signatureAssetKey}}">
@@ -68,17 +68,17 @@
               <div class="detail mt-2{{ternary (gt detailKey 0) ' pt-2 bt-1-primary' ''}}">
                 <div class="flex-row flex-as">
                   <div class="flex-col">
-                    <label class="label">{{localize 'CortexPrime.Name'}}</label>
+                    <label class="label">{{localize 'Name'}}</label>
                     <input type="text" name="data.signatureAssets.{{signatureAssetKey}}.details.{{detailKey}}.name"
                       value="{{detail.name}}">
                   </div>
                   <div class="flex-col">
-                    <label class="label">{{localize 'CortexPrime.Type'}}</label>
+                    <label class="label">{{localize 'Type'}}</label>
                     <input type="text" name="data.signatureAssets.{{signatureAssetKey}}.details.{{detailKey}}.type"
                       value="{{detail.type}}">
                   </div>
                   <div class="flex-col">
-                    <label class="label">{{localize 'CortexPrime.Unlocked'}}</label>
+                    <label class="label">{{localize 'Unlocked'}}</label>
                     <input type="checkbox" name="data.signatureAssets.{{signatureAssetKey}}.details.{{detailKey}}.unlocked"
                       {{checked detail.unlocked}}>
                   </div>
@@ -89,7 +89,7 @@
                   </div>
                 </div>
                 <div>
-                  <label class="label">{{localize 'CortexPrime.Value'}}</label>
+                  <label class="label">{{localize 'Value'}}</label>
                   <textarea type="text"
                     name="data.signatureAssets.{{signatureAssetKey}}.details.{{detailKey}}.value">{{detail.value}}</textarea>
                 </div>

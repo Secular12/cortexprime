@@ -1,0 +1,42 @@
+<article class="{{viewClasses actorType.name breadcrumbs}} actor-type">
+  <header class="primary-heading flex-row flex-ac">
+    <div class="flex-col col-12">
+      <input type="text" name="actorTypes.{{actorTypeIndex}}.name" value="{{actorType.name}}">
+    </div>
+    <div class="flex-col">
+      {{> "systems/cortexprime/templates/partials/remove-button.html"
+        itemKey=actorTypeIndex
+        itemName=actorType.name
+        setting="actorTypes"
+        type="trash"
+      }}
+    </div>
+  </header>
+  <div>
+    <label>
+      <span class="label">{{localize "HasPlotPoints"}}</span>
+      <input name="actorTypes.{{actorTypeIndex}}.hasPlotPoints" type="checkbox" {{checked actorType.hasPlotPoints}}>
+    </label>
+    <section>
+      <header>
+        <h3 class="section-heading text-secondary">{{localize "TraitSets"}}</h3>
+      </header>
+      <ul class="list-style-none px-0">
+        {{#each actorType.traitSets as |traitSet traitSetIndex|}}
+          <li class="my-2">
+            <span class="section-sub-heading text-primary">{{traitSet.label}}</span>
+            <button class="view-change btn pa-1 ml-2" data-to="traitSet-{{traitSetIndex}}">
+              <i class="fa fa-edit ma-0"></i>
+            </button>
+          </li>
+        {{/each}}
+      </ul>
+    </section>
+    <section>
+      <header>
+        <h3 class="section-heading">{{localize "SimpleTraits"}}</h3>
+        <p>{{localize "SimpleTraitsDescription"}}</p>
+      </header>
+    </section>
+  </div>
+</article>
