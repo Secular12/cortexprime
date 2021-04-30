@@ -1,4 +1,4 @@
-import { listLength } from '../../lib/helpers.js'
+import { listLength, objectFindValue } from '../../lib/helpers.js'
 
 export const registerHandlebarHelpers = () => {
   Handlebars.registerHelper('concat', function (...args) {
@@ -28,12 +28,9 @@ export const registerHandlebarHelpers = () => {
   })
 
   Handlebars.registerHelper('viewClasses', (value, breadcrumbs = {}) => {
-    const activeBreadcrumbIndex = Object.keys(breadcrumbs)
-      .find(breadcrumb => breadcrumbs[breadcrumb].active)
+    const activeBreadcrumb = objectFindValue(breadcrumbs, breadcrumb => breadcrumb.active)
 
-    const activeBreadcrumb = breadcrumbs?.[activeBreadcrumbIndex]?.name || null
-
-    return activeBreadcrumb && activeBreadcrumb === value ? 'view' : 'view hide'
+    return (activeBreadcrumb?.target || null) === value ? 'view' : 'view hide'
   })
 
   Handlebars.registerHelper({

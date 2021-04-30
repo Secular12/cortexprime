@@ -114,8 +114,6 @@ export const addFormElements = async function (event, fieldsArrayCb) {
   event.preventDefault()
   const $form = this.form
 
-  console.log(fieldsArrayCb(event.currentTarget.dataset))
-
   const htmlString = createNewFieldElements(fieldsArrayCb(event.currentTarget.dataset))
 
   $form.append(htmlString)

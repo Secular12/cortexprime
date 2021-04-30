@@ -38,8 +38,6 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
     data.actorTypeOptions = objectMapValues(game.settings.get('cortexprime', 'actorTypes'), val => val.name)
 
-    console.log(data)
-
     return data
   }
 

@@ -6,7 +6,7 @@
     {{#if breadcrumb.active}}
       <span class="breadcrumb active">{{ ternary breadcrumb.localize (localize breadcrumb.name) breadcrumb.name }}</span>
     {{else}}
-      <span class="breadcrumb" data-to="{{breadcrumb.name}}">{{ ternary breadcrumb.localize (localize breadcrumb.name) breadcrumb.name }}</span>
+      <span class="breadcrumb" data-to="{{breadcrumb.target}}">{{ ternary breadcrumb.localize (localize breadcrumb.name) breadcrumb.name }}</span>
     {{/if}}
   {{/each}}
 </div>

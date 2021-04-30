@@ -23,7 +23,7 @@ export const registerSettings = () => {
 
   game.settings.register('cortexprime', 'actorBreadcrumbs', {
     name: localizer('ActorBreadcrumbs'),
-    default: { 0: { active: true, name: 'ActorTypes', localize: true } },
+    default: { 0: { active: true, name: 'ActorTypes', localize: true, target: 'actorTypes' } },
     scope: 'world',
     type: Object,
     config: false,

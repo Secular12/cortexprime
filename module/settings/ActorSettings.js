@@ -25,7 +25,6 @@ export default class ActorSettings extends FormApplication {
   }
 
   getData() {
-    console.log(game.settings.get('cortexprime', 'actorTypes'))
     return {
       actorTypes: game.settings.get('cortexprime', 'actorTypes'),
       breadcrumbs: game.settings.get('cortexprime', 'actorBreadcrumbs')
@@ -73,12 +72,14 @@ export default class ActorSettings extends FormApplication {
         0: {
           active: false,
           name: 'ActorTypes',
+          target: 'actorTypes',
           localize: true
         },
         1: {
           active: true,
           name: data.name,
-          localize: false
+          localize: false,
+          target: `actorType-${actorTypeKey}`
         }
       }
     )
@@ -89,12 +90,13 @@ export default class ActorSettings extends FormApplication {
   async _breadcrumbChange (event) {
     const currentBreadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs')
 
-    const targetKey = objectFindKey(currentBreadcrumbs, breadcrumb => breadcrumb.name === $(event.currentTarget).data('to'))
+    const target = $(event.currentTarget).data('to')
+    const targetKey = +objectFindKey(currentBreadcrumbs, breadcrumb => breadcrumb.target === target)
 
     const value = objectReduce(currentBreadcrumbs, (breadcrumbs, breadcrumb, key) => {
-      if (key > targetKey) return breadcrumbs
+      if (+key > targetKey) return breadcrumbs
 
-      breadcrumb.active = key === targetKey
+      breadcrumb.active = breadcrumb.target === target
 
       return {
         ...breadcrumbs,
@@ -116,7 +118,12 @@ export default class ActorSettings extends FormApplication {
         breadcrumb.active = false
         return breadcrumb
       }),
-      [Object.keys(currentBreadcrumbs).length]: { active: true, localize: false, name: $(event.currentTarget).data('to') }
+      [Object.keys(currentBreadcrumbs).length]: {
+        active: true,
+        localize: false,
+        name: $(event.currentTarget).data('name'),
+        target: `${$(event.currentTarget).data('to')}`
+      }
     })
 
     await this._onSubmit(event)
