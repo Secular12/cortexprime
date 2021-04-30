@@ -139,6 +139,7 @@ Hooks.on('closeActorSettings', async () => {
       0: {
         active: true,
         name: 'ActorTypes',
+        target: 'actorTypes',
         localize: true
       }
     }
