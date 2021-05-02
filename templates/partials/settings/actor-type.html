@@ -19,13 +19,21 @@
     </label>
     <section>
       <header>
-        <h3 class="section-heading text-secondary">{{localize "TraitSets"}}</h3>
+        <div class="bkg-primary flex-row flex-ac flex-jsb mb-2 py-1">
+          <h3 class="flex-col col-12 primary-heading text-white">{{localize "TraitSets"}}</h3>
+          <div class="flex-col">
+            <button class="btn btn-secondary btn-icon add-trait-set" data-actor-type="{{actorTypeIndex}}" type="button">
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+        </div>
+
       </header>
       <ul class="list-style-none px-0">
         {{#each actorType.traitSets as |traitSet traitSetIndex|}}
           <li class="my-2">
             <span class="section-sub-heading text-primary">{{traitSet.label}}</span>
-            <button class="view-change btn pa-1 ml-2" data-name="{{traitSet.label}}" data-to="traitSet-{{traitSetIndex}}">
+            <button class="view-change btn pa-1 ml-2" data-name="{{traitSet.label}}" data-to="traitSet-{{../actorTypeIndex}}-{{traitSetIndex}}">
               <i class="fa fa-edit ma-0"></i>
             </button>
           </li>

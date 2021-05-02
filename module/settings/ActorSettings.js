@@ -44,6 +44,7 @@ export default class ActorSettings extends FormApplication {
 
   activateListeners(html) {
     super.activateListeners(html)
+    html.find('.add-trait-set').click(this._addTraitSet.bind(this))
     html.find('.breadcrumb:not(.active)').click(this._breadcrumbChange.bind(this))
     html.find('#add-new-actor-type').click(event => addFormElements.call(this, event, this._actorTypeFields))
     html.find('.view-change').click(this._viewChange.bind(this))
@@ -87,6 +88,27 @@ export default class ActorSettings extends FormApplication {
     await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, value))
   }
 
+  async _addTraitSet (event) {
+    event.preventDefault()
+    const source = game.settings.get('cortexprime', 'actorTypes')
+    const actorTypeKey = $(event.currentTarget).data('actorType')
+    const newKey = Object.keys(source[actorTypeKey]?.traitSets || {}).length
+
+    const newTraitSet = {
+      [actorTypeKey]: {
+        traitSets: {
+          [newKey]: {
+            label: 'New Trait Set'
+          }
+        }
+      }
+    }
+
+    await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, newTraitSet))
+    await this.changeView('New Trait Set', `traitSet-${actorTypeKey}-${newKey}`)
+    this.render(true)
+  }
+
   async _breadcrumbChange (event) {
     const currentBreadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs')
 
@@ -110,7 +132,7 @@ export default class ActorSettings extends FormApplication {
     this.render(true)
   }
 
-  async _viewChange (event) {
+  async changeView (name, target) {
     const currentBreadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs')
 
     await game.settings.set('cortexprime', 'actorBreadcrumbs', {
@@ -121,13 +143,17 @@ export default class ActorSettings extends FormApplication {
       [Object.keys(currentBreadcrumbs).length]: {
         active: true,
         localize: false,
-        name: $(event.currentTarget).data('name'),
-        target: `${$(event.currentTarget).data('to')}`
+        name,
+        target
       }
     })
 
-    await this._onSubmit(event)
     this.render(true)
+  }
+
+  async _viewChange (event) {
+    event.preventDefault()
+    this.changeView($(event.currentTarget).data('name'), $(event.currentTarget).data('to'))
   }
 }
 

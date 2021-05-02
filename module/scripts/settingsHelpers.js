@@ -70,23 +70,35 @@ export const removeItem = function (html) {
     } = event.currentTarget.dataset
     if (confirm(`Are you sure you want to remove ${itemName}`)) {
       if (setting) {
-        const currentBreadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs')
-        const currentSettings = game.settings.get('cortexprime', setting)
-        const currentGroupSettings = group ? await getProperty(currentSettings, group) : currentSettings
-        const settingValue = indexObjectValues(objectFilter(currentGroupSettings, (_, key) => key !== itemKey))
-        const breadcrumbsValue = objectReduce(currentBreadcrumbs, (acc, value, key, length) => {
-          if (+key === length - 1) return acc
-          return {
-            ...acc,
-            [key]: {
-              ...value,
-              active: +key === (length - 2)
-            }
-          }
-        })
+        let settings = game.settings.get('cortexprime', setting)
 
-        await game.settings.set('cortexprime', setting, settingValue)
-        await game.settings.set('cortexprime', 'actorBreadcrumbs', breadcrumbsValue)
+        const currentGroupSettings = group ? await getProperty(settings, group) : settings
+        const groupSettingValue = indexObjectValues(objectFilter(currentGroupSettings, (_, key) => +key !== +itemKey))
+
+        if (group) {
+          setProperty(settings, group, groupSettingValue)
+        } else {
+          settings = groupSettingValue
+        }
+        await game.settings.set('cortexprime', setting, settings)
+
+        if (setting === 'actorTypes') {
+          const currentBreadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs')
+
+          const breadcrumbsValue = objectReduce(currentBreadcrumbs, (acc, value, key, length) => {
+            if (+key === length - 1) return acc
+            return {
+              ...acc,
+              [key]: {
+                ...value,
+                active: +key === (length - 2)
+              }
+            }
+          })
+
+          await game.settings.set('cortexprime', 'actorBreadcrumbs', breadcrumbsValue)
+        }
+
         this.render(true)
       }
     }
