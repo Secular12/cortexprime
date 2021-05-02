@@ -13,9 +13,9 @@
     </div>
   {{else}}
     <nav class="sheet-tabs tabs" data-group="primary">
-      <a class="item" data-tab="traits">Traits</a>
-      <a class="item" data-tab="notes">Notes</a>
-      <a class="item" data-tab="help"><i class="fas fa-question-circle"></i></a>
+      <a class="item" data-tab="traits">{{localize 'Traits'}}</a>
+      <!-- <a class="item" data-tab="notes">{{localize 'Notes'}}</a> -->
+      <!-- <a class="item" data-tab="help"><i class="fas fa-question-circle"></i></a> -->
     </nav>
     <div class="sheet-body">
       <article class="tab sets active" data-group="primary" data-tab="traits">
@@ -29,16 +29,9 @@
           }}
         </div>
       </article>
-      <!-- <article class="tab notes" data-group="primary" data-tab="notes">
-
-        <header class="my-2">
-          <h2 class="primary-heading">Notes</h2>
-        </header>
-        <textarea class="notes-field" name="data.notes">{{{data.notes}}}</textarea>
-      </article> -->
-      <div class="tab help" data-group="primary" data-tab="help">
+      <!-- <div class="tab help" data-group="primary" data-tab="help">
         {{> "systems/cortexprime/templates/partials/mc-help.html" }}
-      </div>
+      </div> -->
     </div>
   {{/unless}}
 </form>

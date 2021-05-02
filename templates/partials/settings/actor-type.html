@@ -27,12 +27,14 @@
             </button>
           </div>
         </div>
-
+        <div class="bkg-light-grey pa-2">
+          <p>{{localize 'TraitSetsSettingDescription'}}</p>
+        </div>
       </header>
       <ul class="list-style-none px-0">
         {{#each actorType.traitSets as |traitSet traitSetIndex|}}
           <li class="my-2">
-            <span class="section-sub-heading text-primary">{{or traitSet.label (concat '[' (localize 'No Name' ) ']')}}</span>
+            <span class="section-sub-heading text-primary">{{or traitSet.label (concat '[' (localize 'NoName' ) ']')}}</span>
             <button class="view-change btn pa-1 ml-2" data-name="{{traitSet.label}}" data-to="traitSet-{{../actorTypeIndex}}-{{traitSetIndex}}">
               <i class="fa fa-edit ma-0"></i>
             </button>
