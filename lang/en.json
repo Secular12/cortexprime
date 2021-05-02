@@ -37,6 +37,7 @@
   "MinDieRating": "Min Die Rating",
   "MinDieRatingD": "The smallest any die can be set to a trait in this trait set. A zero means it can have no dice.",
   "Name": "Name",
+  "NoName": "No Name",
   "Note": "Note",
   "NoTraitsInPool": "There are currently no traits or dice in this pool.",
   "Order": "Order",

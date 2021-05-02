@@ -5,7 +5,7 @@
         <label class="section-sub-heading text-primary col-12">{{localize 'ActorType'}}</label>
         <select class="actor-type-select col-12 my-2">
           {{#each actorTypeOptions as |actorType actorTypeIndex|}}
-            <option value="{{actorTypeIndex}}">{{actorType}}</option>
+            <option value="{{actorTypeIndex}}">{{or actorType (concat '[' (localize 'NoName') ']')}}</option>
           {{/each}}
         </select>
         <button class="btn btn-secondary actor-type-confirm col-12" type="button">{{localize 'Confirm'}}</button>
