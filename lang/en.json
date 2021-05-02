@@ -57,7 +57,7 @@
   "TraitName": "Trait Name",
   "Traits": "Traits",
   "TraitSetDescription": "Set Description",
-  "TraitSetsSettingDescription": "Add or edit trait sets for this actor type. You will then have settings for its own traits. Additionally, you can set the default traits each character of this type will have on creation. All of the trait sets will appear in the main section of a character sheet in the traits tab.",
+  "TraitSetsSettingDescription": "Add or edit trait sets for this actor type. Each trait set has settings for its own traits. Additionally, you can set the default traits each character of this type will have on creation. All of the trait sets will appear in the main section of a character sheet in the traits tab.",
   "TraitSets": "Trait Sets",
   "Trauma": "Trauma",
   "TraumaName": "Trauma Name",
