@@ -3,12 +3,12 @@
  * @extends {ActorSheet}
  */
 import { objectMapValues } from '../../lib/helpers.js'
-// import {
+import {
 //   addNewDataPoint,
 //   removeItems,
 //   resetDataPoint,
-//   toggleItems
-// } from '../scripts/sheetHelpers.js'
+  toggleItems
+} from '../scripts/sheetHelpers.js'
 
 export class CortexPrimeActorSheet extends ActorSheet {
 
@@ -72,7 +72,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     //       }
     //     })
     // })
-    // toggleItems.call(this, html)
+    toggleItems.call(this, html)
   }
 
   /* -------------------------------------------- */
