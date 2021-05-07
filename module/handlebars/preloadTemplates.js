@@ -9,6 +9,7 @@ export const preloadHandlebarsTemplates = async function () {
     'partials/mc-help',
     'partials/pp',
     'partials/remove-button',
+    'partials/reorder',
     'partials/settings/actor-types',
     'partials/settings/actor-type',
     'partials/settings/trait-set',

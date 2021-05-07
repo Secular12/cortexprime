@@ -1,4 +1,4 @@
-import { indexObjectValues, objectFilter, objectReduce } from '../../lib/helpers.js'
+import { indexObjectValues, objectFilter, objectMapKeys, objectReduce, objectSortByKeys } from '../../lib/helpers.js'
 
 export const collapseToggle = function (html) {
   html.find('.collapse-toggle').click(async (event) => {
@@ -105,19 +105,43 @@ export const removeItem = function (html) {
   })
 }
 
-export const removeParentElements = function (html) {
-  html.find('.remove-parent-element').click(async event => {
+export const reorderItem = async function (html) {
+  html.find('.reorder').click(async event => {
     event.preventDefault()
-    const $target = $(event.currentTarget)
-    const selector = $target.data('selector')
+    const {
+      currentIndex,
+      newIndex,
+      path,
+      setting
+    } = event.currentTarget.dataset
 
-    html.find('.reset-field').val('true')
+    const settings = game.settings.get('cortexprime', setting)
+    const targetObject = getProperty(settings, path)
+    const maxKey = Object.keys(targetObject).length - 1
 
-    $target
-      .closest(selector)
-      .remove()
+    const key = +newIndex < 0
+      ? maxKey
+      : maxKey < +newIndex
+        ? 0
+        : +newIndex
 
-    await this._onSubmit(event)
+    const value = objectReduce(targetObject, (acc, target, targetKey) => {
+      const newTargetKey = +targetKey === +currentIndex
+        ? key
+        : +currentIndex > key
+          ? +targetKey < +currentIndex && +targetKey >= key
+            ? +targetKey + 1
+            : +targetKey
+          : +targetKey > +currentIndex && +targetKey <= key
+            ? +targetKey - 1
+            : +targetKey
+
+      return { ...acc, [newTargetKey]: target }
+    }, {})
+
+    setProperty(settings, path, value)
+
+    await game.settings.set('cortexprime', setting, settings)
     this.render(true)
   })
 }

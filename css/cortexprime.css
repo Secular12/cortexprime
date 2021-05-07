@@ -1234,6 +1234,10 @@ input {
   cursor: pointer;
 }
 
+.d-block {
+  display: block;
+}
+
 .columns-1 {
   -webkit-column-count: 2;
   -moz-column-count: 2;

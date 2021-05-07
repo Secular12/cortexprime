@@ -34,6 +34,12 @@
       <ul class="list-style-none px-0">
         {{#each actorType.traitSets as |traitSet traitSetIndex|}}
           <li class="my-2">
+            {{> "systems/cortexprime/templates/partials/reorder.html"
+              class="flex-col pa-0"
+              path=(concat ../actorTypeIndex '.traitSets')
+              currentIndex=traitSetIndex
+              setting="actorTypes"
+            }}
             <span class="section-sub-heading text-primary">{{or traitSet.label (concat '[' (localize 'NoName' ) ']')}}</span>
             <button class="view-change btn pa-1 ml-2" data-name="{{traitSet.label}}" data-to="traitSet-{{../actorTypeIndex}}-{{traitSetIndex}}">
               <i class="fa fa-edit ma-0"></i>

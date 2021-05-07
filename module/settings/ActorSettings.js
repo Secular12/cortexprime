@@ -1,6 +1,6 @@
 import { localizer } from '../scripts/foundryHelpers.js'
 import { objectFindKey, objectMapValues, objectReduce } from '../../lib/helpers.js'
-import { addFormElements, removeItem } from '../scripts/settingsHelpers.js'
+import { addFormElements, removeItem, reorderItem } from '../scripts/settingsHelpers.js'
 
 export default class ActorSettings extends FormApplication {
   constructor(object = {}, options = { parent: null }) {
@@ -50,6 +50,7 @@ export default class ActorSettings extends FormApplication {
     html.find('.view-change').click(this._viewChange.bind(this))
     html.find('#submit').click(() => this.close())
     removeItem.call(this, html)
+    reorderItem.call(this, html)
   }
 
   _actorTypeFields () {
