@@ -25,9 +25,11 @@ export default class ActorSettings extends FormApplication {
   }
 
   getData() {
+    const breadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs') ?? {}
     return {
       actorTypes: game.settings.get('cortexprime', 'actorTypes'),
-      breadcrumbs: game.settings.get('cortexprime', 'actorBreadcrumbs')
+      breadcrumbs,
+      goBack: breadcrumbs[Object.keys(breadcrumbs).length - 2]?.target ?? 0
     }
   }
 
@@ -45,10 +47,9 @@ export default class ActorSettings extends FormApplication {
   activateListeners(html) {
     super.activateListeners(html)
     html.find('.add-trait-set').click(this._addTraitSet.bind(this))
-    html.find('.breadcrumb:not(.active)').click(this._breadcrumbChange.bind(this))
+    html.find('.breadcrumb:not(.active), .go-back').click(this._breadcrumbChange.bind(this))
     html.find('#add-new-actor-type').click(event => addFormElements.call(this, event, this._actorTypeFields))
     html.find('.view-change').click(this._viewChange.bind(this))
-    html.find('#submit').click(() => this.close())
     removeItem.call(this, html)
     reorderItem.call(this, html)
   }
@@ -114,6 +115,7 @@ export default class ActorSettings extends FormApplication {
     const currentBreadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs')
 
     const target = $(event.currentTarget).data('to')
+    console.log(target)
     const targetKey = +objectFindKey(currentBreadcrumbs, breadcrumb => breadcrumb.target === target)
 
     const value = objectReduce(currentBreadcrumbs, (breadcrumbs, breadcrumb, key) => {
