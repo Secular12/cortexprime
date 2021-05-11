@@ -12,6 +12,25 @@ export default () => {
     }, 'd2')
   })
 
+  Hooks.on('renderSceneControls', (controls, html) => {
+    const $dicePoolButton = $(
+      `<li class="scene-control dice-pool-control" data-control="dice-pool" title="${game.i18n.localize("DicePool")}">
+          <i class="fas fa-dice"></i>
+          <ol class="control-tools">
+          </ol>
+      </li>`
+    );
+
+    html.prepend($dicePoolButton);
+    $dicePoolButton[0].addEventListener('click', async ev => {
+      const userDicePool = game.user.getFlag('cortexprime', 'dicePool')
+
+      if (!userDicePool) {
+        await game.user.setFlag('cortexprime', 'dicePool', { label: '', dice: {} })
+      }
+    });
+  })
+
   // Hooks.on("preCreateActor", (data) => {
   //   if (game.user == game.users.find(user => user.isGM && user.active)) {
   //     if (data.type === 'character') {
