@@ -1,4 +1,5 @@
 import initializeCortexPrimeCharacter from './scripts/initializeCortexPrimeCharacter.old.js'
+import { UserDicePool } from './applications/UserDicePool.js'
 
 export default () => {
   Hooks.once('diceSoNiceReady', dice3d => {
@@ -12,6 +13,11 @@ export default () => {
     }, 'd2')
   })
 
+  Hooks.on('ready', async () => {
+    game.cortexprime.UserDicePool = new UserDicePool()
+    await game.cortexprime.UserDicePool.initPool()
+  })
+
   Hooks.on('renderSceneControls', (controls, html) => {
     const $dicePoolButton = $(
       `<li class="scene-control dice-pool-control" data-control="dice-pool" title="${game.i18n.localize("DicePool")}">
@@ -22,12 +28,8 @@ export default () => {
     );
 
     html.prepend($dicePoolButton);
-    $dicePoolButton[0].addEventListener('click', async ev => {
-      const userDicePool = game.user.getFlag('cortexprime', 'dicePool')
-
-      if (!userDicePool) {
-        await game.user.setFlag('cortexprime', 'dicePool', { label: '', dice: {} })
-      }
+    $dicePoolButton[0].addEventListener('click', async () => {
+      await game.cortexprime.UserDicePool.toggle()
     });
   })
 

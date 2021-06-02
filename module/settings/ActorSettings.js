@@ -7,7 +7,7 @@ export default class ActorSettings extends FormApplication {
     super(object, options);
   }
 
-  static get defaultOptions() {
+  static get defaultOptions () {
     return mergeObject(super.defaultOptions, {
       id: 'actor-settings',
       template: 'systems/cortexprime/templates/actor/settings.html',
@@ -20,7 +20,7 @@ export default class ActorSettings extends FormApplication {
       resizable: true,
       closeOnSubmit: false,
       submitOnClose: true,
-      submitOnChange: true,
+      submitOnChange: true
     })
   }
 
@@ -33,7 +33,7 @@ export default class ActorSettings extends FormApplication {
     }
   }
 
-  async _updateObject(_, formData) {
+  async _updateObject(event, formData) {
     const expandedFormData = expandObject(formData)
     const currentActorTypes = game.settings.get('cortexprime', 'actorTypes') ?? {}
 

@@ -68,7 +68,7 @@ export const removeItem = function (html) {
       itemName,
       setting
     } = event.currentTarget.dataset
-    if (confirm(`Are you sure you want to remove ${itemName}`)) {
+    // if (confirm(`Are you sure you want to remove ${itemName}`)) {
       if (setting) {
         let settings = game.settings.get('cortexprime', setting)
 
@@ -101,7 +101,7 @@ export const removeItem = function (html) {
 
         this.render(true)
       }
-    }
+    // }
   })
 }
 
