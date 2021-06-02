@@ -1,11 +1,5 @@
 $dieSides: 4, 6, 8, 10, 12;
 
-.die-icon-wrapper {
-  display: inline-block;
-  line-height: 0;
-  vertical-align: middle;
-}
-
 .die-icon {
   @extend .icon;
   align-items: center;

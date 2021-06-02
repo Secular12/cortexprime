@@ -1,19 +1,21 @@
 <div>
-  <div class="flex flex-c">
+  <div class="flex flex-c flex-wrap">
     {{#each rollResults.hitches as |rollResult|}}
-      <div class="die-icon-wrapper">
+      <div class="die-icon-wrapper mb-2">
         <div class="die-icon d{{rollResult.faces}} lg hitch">
           <div class="value">1</div>
         </div>
+        <div class="bold text-primary">d{{rollResult.faces}}</div>
       </div>
     {{/each}}
   </div>
-  <div class="flex flex-c">
+  <div class="flex flex-c flex-wrap">
     {{#each rollResults.results as |rollResult|}}
-      <div class="die-icon-wrapper">
+      <div class="die-icon-wrapper mb-2">
         <div class="die-icon lg d{{rollResult.faces}} result">
           <div class="value">{{rollResult.result}}</div>
         </div>
+        <div class="bold text-primary">d{{rollResult.faces}}</div>
       </div>
     {{/each}}
   </div>
