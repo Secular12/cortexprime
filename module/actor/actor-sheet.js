@@ -55,7 +55,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     // html.find('.add-new-stress').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.stress, 'stress', 'New Stress'))
     // html.find('.add-new-trait').click(this._addNewTrait.bind(this))
     // html.find('.add-new-trauma').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.trauma, 'trauma', 'New Trauma'))
-    // html.find('.add-pp').click(() => { this.actor.changePpBy(1) })
+    html.find('.add-pp').click(() => { this.actor.changePpBy(1) })
     // html.find('.add-trait-to-pool').click(this._addTraitToPool.bind(this))
     // html.find('.clear-dice-pool').click(resetDataPoint.bind(this, 'data.dice', 'pool', {}))
     // html.find('.die-select').change(this._onDieChange.bind(this))
@@ -63,15 +63,15 @@ export class CortexPrimeActorSheet extends ActorSheet {
     // html.find('.reset-custom-pool-trait').click(this._resetCustomPoolTrait.bind(this))
     // removeItems.call(this, html)
     // html.find('.roll-dice-pool').click(this._rollDicePool.bind(this))
-    // html.find('.spend-pp').click(() => {
-    //   this.actor
-    //     .changePpBy(-1)
-    //     .then(() => {
-    //       if (game.dice3d) {
-    //         game.dice3d.show({ throws: [{ dice: [{ result: 1, resultLabel: 1, type: 'dp', vectors: [], options: {} }] }] })
-    //       }
-    //     })
-    // })
+    html.find('.spend-pp').click(() => {
+      this.actor
+        .changePpBy(-1)
+        .then(() => {
+          if (game.dice3d) {
+            game.dice3d.show({ throws: [{ dice: [{ result: 1, resultLabel: 1, type: 'dp', vectors: [], options: {} }] }] })
+          }
+        })
+    })
     toggleItems.call(this, html)
   }
 
@@ -91,7 +91,8 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const actorType = actorTypes[actorTypeIndex]
 
     await this.actor.update({
-      'data.actorType': actorType
+      'data.actorType': actorType,
+      'data.pp.value': actorType.hasPlotPoints ? 1 : 0
     })
   }
 

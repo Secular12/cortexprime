@@ -2,5 +2,14 @@
   <p class="mb-1"><b class="text-primary">{{localize "ActorType"}}</b> {{actorType.name}}</p>
   <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
   <div class="section-sub-heading mt-2">{{localize 'Name'}}</div>
-  <div><input class="py-1" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Name'}}" /></div>
+  <div class="mb-2">
+    {{#if owner}}
+      <input class="py-1" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Name'}}" />
+    {{else}}
+      <p class="bold">{{actor.name}}</p>
+    {{/if}}
+  </div>
+  {{#if actorType.hasPlotPoints}}
+    {{> "systems/cortexprime/templates/partials/pp.html" pp=pp }}
+  {{/if}}
 </div>
