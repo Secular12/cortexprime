@@ -24,7 +24,7 @@ export const registerHandlebarHelpers = () => {
 
     const length = listLength(value)
 
-    return length > -1 && length < parsedMin
+    return length > -1 && length > parsedMin
   })
 
   Handlebars.registerHelper('viewClasses', (value, breadcrumbs = {}) => {
