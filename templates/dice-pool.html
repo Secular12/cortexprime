@@ -72,14 +72,16 @@
           </div>
         {{/each}}
       </div>
-      <div class="flex-col col-12 flex flex-je mt-2 pt-2 bt-1-dark-grey">
-        <div class="flex-col">
-          <button class="clear-dice-pool btn btn-primary" type="button">{{localize "Clear"}}</button>
+      {{#if (listHasMore pool 0)}}
+        <div class="flex-col col-12 flex flex-je mt-2 pt-2 bt-1-dark-grey">
+          <div class="flex-col">
+            <button class="clear-dice-pool btn btn-primary" type="button">{{localize "Clear"}}</button>
+          </div>
+          <div class="flex-col pl-0">
+            <button class="roll-dice-pool btn btn-secondary" type="button">{{localize "Roll"}}</button>
+          </div>
         </div>
-        <div class="flex-col pl-0">
-          <button class="roll-dice-pool btn btn-secondary" type="button">{{localize "Roll"}}</button>
-        </div>
-      </div>
+      {{/if}}
     </div>
   </div>
 </form>
