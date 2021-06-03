@@ -26,6 +26,12 @@ export default class ActorSettings extends FormApplication {
 
   getData() {
     const breadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs') ?? {}
+
+    console.log({
+      actorTypes: game.settings.get('cortexprime', 'actorTypes'),
+      breadcrumbs,
+      goBack: breadcrumbs[Object.keys(breadcrumbs).length - 2]?.target ?? 0
+    })
     return {
       actorTypes: game.settings.get('cortexprime', 'actorTypes'),
       breadcrumbs,
@@ -47,6 +53,7 @@ export default class ActorSettings extends FormApplication {
   activateListeners(html) {
     super.activateListeners(html)
     html.find('.add-trait-set').click(this._addTraitSet.bind(this))
+    html.find('.add-simple-trait').click(this._addSimpleTrait.bind(this))
     html.find('.breadcrumb:not(.active), .go-back').click(this._breadcrumbChange.bind(this))
     html.find('#add-new-actor-type').click(event => addFormElements.call(this, event, this._actorTypeFields))
     html.find('.view-change').click(this._viewChange.bind(this))
@@ -90,6 +97,27 @@ export default class ActorSettings extends FormApplication {
     await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, value))
   }
 
+  async _addSimpleTrait (event) {
+    event.preventDefault()
+    const source = game.settings.get('cortexprime', 'actorTypes')
+    const actorTypeKey = $(event.currentTarget).data('actorType')
+    const newKey = Object.keys(source[actorTypeKey]?.simpleTraits || {}).length
+
+    const newSimpleTrait = {
+      [actorTypeKey]: {
+        simpleTraits: {
+          [newKey]: {
+            label: 'New Simple Trait'
+          }
+        }
+      }
+    }
+
+    await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, newSimpleTrait))
+    await this.changeView('New Simple Trait', `simpleTrait-${actorTypeKey}-${newKey}`)
+    this.render(true)
+  }
+
   async _addTraitSet (event) {
     event.preventDefault()
     const source = game.settings.get('cortexprime', 'actorTypes')
@@ -115,7 +143,7 @@ export default class ActorSettings extends FormApplication {
     const currentBreadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs')
 
     const target = $(event.currentTarget).data('to')
-    console.log(target)
+
     const targetKey = +objectFindKey(currentBreadcrumbs, breadcrumb => breadcrumb.target === target)
 
     const value = objectReduce(currentBreadcrumbs, (breadcrumbs, breadcrumb, key) => {

@@ -62,6 +62,24 @@
           <p>{{localize "SimpleTraitsDescription"}}</p>
         </div>
       </header>
+      <ul class="list-style-none px-0 list-alt-bkg">
+        {{#each actorType.simpleTraits as |simpleTrait simpleTraitIndex|}}
+          <li class="pa-1 flex-row flex-ac">
+            {{> "systems/cortexprime/templates/partials/reorder.html"
+              class="flex-col pa-0"
+              path=(concat ../actorTypeIndex '.simpleTraits')
+              currentIndex=simpleTraitIndex
+              setting="actorTypes"
+            }}
+            <span class="section-sub-heading text-primary flex-col">{{or simpleTrait.label (concat '[' (localize 'NoName' )
+              ']')}}</span>
+            <button class="view-change btn flex-col" data-name="{{simpleTrait.label}}"
+              data-to="simpleTrait-{{../actorTypeIndex}}-{{simpleTraitIndex}}">
+              <i class="fa fa-edit ma-0"></i>
+            </button>
+          </li>
+        {{/each}}
+      </ul>
     </section>
   </div>
 </article>

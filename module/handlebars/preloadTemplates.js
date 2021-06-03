@@ -13,6 +13,7 @@ export const preloadHandlebarsTemplates = async function () {
     'partials/settings/actor-types',
     'partials/settings/actor-type',
     'partials/settings/trait-set',
+    'partials/settings/simple-trait',
     'partials/signature-assets',
     'partials/simple-trait',
     'partials/single-trait',
