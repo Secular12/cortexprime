@@ -1,5 +1,5 @@
 <article class="{{viewClasses (concat 'actorType-' actorTypeIndex) breadcrumbs}} actor-type">
-  <header class="primary-heading flex-row flex-ac">
+  <header class="primary-heading flex-row flex-ac mb-4">
     <div class="flex-col col-12">
       <input type="text" name="actorTypes.{{actorTypeIndex}}.name" value="{{actorType.name}}">
     </div>
@@ -17,7 +17,7 @@
       <span class="label">{{localize "HasPlotPoints"}}</span>
       <input name="actorTypes.{{actorTypeIndex}}.hasPlotPoints" type="checkbox" {{checked actorType.hasPlotPoints}}>
     </label>
-    <section>
+    <section class="my-4">
       <header>
         <div class="bkg-primary flex-row flex-ac flex-jsb mb-2 py-1">
           <h3 class="flex-col col-12 primary-heading text-white">{{localize "TraitSets"}}</h3>
@@ -31,27 +31,36 @@
           <p>{{localize 'TraitSetsSettingDescription'}}</p>
         </div>
       </header>
-      <ul class="list-style-none px-0">
+      <ul class="list-style-none px-0 list-alt-bkg">
         {{#each actorType.traitSets as |traitSet traitSetIndex|}}
-          <li class="my-2">
+          <li class="pa-1 flex-row flex-ac">
             {{> "systems/cortexprime/templates/partials/reorder.html"
               class="flex-col pa-0"
               path=(concat ../actorTypeIndex '.traitSets')
               currentIndex=traitSetIndex
               setting="actorTypes"
             }}
-            <span class="section-sub-heading text-primary">{{or traitSet.label (concat '[' (localize 'NoName' ) ']')}}</span>
-            <button class="view-change btn pa-1 ml-2" data-name="{{traitSet.label}}" data-to="traitSet-{{../actorTypeIndex}}-{{traitSetIndex}}">
+            <span class="section-sub-heading text-primary flex-col">{{or traitSet.label (concat '[' (localize 'NoName' ) ']')}}</span>
+            <button class="view-change btn flex-col" data-name="{{traitSet.label}}" data-to="traitSet-{{../actorTypeIndex}}-{{traitSetIndex}}">
               <i class="fa fa-edit ma-0"></i>
             </button>
           </li>
         {{/each}}
       </ul>
     </section>
-    <section>
+    <section class="my-4">
       <header>
-        <h3 class="section-heading">{{localize "SimpleTraits"}}</h3>
-        <p>{{localize "SimpleTraitsDescription"}}</p>
+        <div class="bkg-primary flex-row flex-ac flex-jsb mb-2 py-1">
+          <h3 class="flex-col col-12 primary-heading text-white">{{localize "SimpleTraits"}}</h3>
+          <div class="flex-col">
+            <button class="btn btn-secondary btn-icon add-simple-trait" data-actor-type="{{actorTypeIndex}}" type="button">
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="bkg-light-grey pa-2">
+          <p>{{localize "SimpleTraitsDescription"}}</p>
+        </div>
       </header>
     </section>
   </div>
