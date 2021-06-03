@@ -59,7 +59,7 @@ export const displayToggle = html => {
   })
 }
 
-export const removeItem = function (html) {
+export const removeItem = async function (html) {
   html.find('.remove-item').click(async event => {
     event.preventDefault()
     const {
@@ -68,7 +68,18 @@ export const removeItem = function (html) {
       itemName,
       setting
     } = event.currentTarget.dataset
-    // if (confirm(`Are you sure you want to remove ${itemName}`)) {
+
+    let confirmed
+
+    await Dialog.confirm({
+      title: `Confirm removal`,
+      content: `Are you sure you want to remove ${itemName}`,
+      yes: () => { confirmed = true },
+      no: () => { confirmed = false },
+      defaultYes: false
+    })
+
+    if (confirmed) {
       if (setting) {
         let settings = game.settings.get('cortexprime', setting)
 
@@ -101,7 +112,7 @@ export const removeItem = function (html) {
 
         this.render(true)
       }
-    // }
+    }
   })
 }
 
