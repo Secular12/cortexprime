@@ -206,16 +206,16 @@ export class UserDicePool extends FormApplication {
 
     const rollFormula = this._getRollFormula(dicePool)
 
-    console.log(rollFormula)
-    const roll = new Roll(rollFormula).roll()
+    const r = new Roll(rollFormula)
+
+    const roll = await r.evaluate({ async: true })
 
     if (game.dice3d) {
       await game.dice3d.showForRoll(roll, game.user, true)
     }
 
-    const rollResults = roll.terms
-      .filter(term => typeof term !== 'string')
-      .map(term => ({ faces: term.faces, result: term.results[0].result }))
+    const rollResults = roll.dice
+      .map(die => ({ faces: die.faces, result: die.results[0].result }))
       .reduce((acc, result) => {
         if (result.result > 1) {
           return { ...acc, results: [...acc.results, result] }

@@ -27,18 +27,13 @@ export class CortexPrimeActorSheet extends ActorSheet {
     })
   }
 
-  getData () {
-    const data = super.getData()
+  getData (options) {
+    const data = super.getData(options)
 
-    // data.settings = {
-    //   hasScaleDie: game.settings.get('cortexprime', 'majorCharacterScale'),
-    //   hasStress: game.settings.get('cortexprime', 'hasStress'),
-    //   hasTrauma: game.settings.get('cortexprime', 'hasTrauma')
-    // }
-
-    data.actorTypeOptions = objectMapValues(game.settings.get('cortexprime', 'actorTypes'), val => val.name)
-
-    return data
+    return {
+      ...data,
+      actorTypeOptions: objectMapValues(game.settings.get('cortexprime', 'actorTypes'), val => val.name)
+    }
   }
 
   /* -------------------------------------------- */

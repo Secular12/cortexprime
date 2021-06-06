@@ -1,5 +1,5 @@
 <form class="{{cssClass}}" autocomplete="off">
-  {{#unless data.actorType}}
+  {{#unless data.data.actorType}}
     <div class="flex-row flex-c bkg-grey" style="height: 100%">
       <div class="flex-col ba-1-primary bkg-white pa-4">
         <label class="section-sub-heading text-primary col-12">{{localize 'ActorType'}}</label>
@@ -22,11 +22,11 @@
         <div class="flex-row">
           {{> "systems/cortexprime/templates/partials/actor-sheet/sidebar.html"
             actor=actor
-            actorType=data.actorType
-            pp=data.pp
+            actorType=data.data.actorType
+            pp=data.data.pp
           }}
           {{> "systems/cortexprime/templates/partials/actor-sheet/trait-sets.html"
-            traitSets=data.actorType.traitSets
+            traitSets=data.data.actorType.traitSets
             path="data.actorType.traitSets"
           }}
         </div>
