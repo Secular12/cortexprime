@@ -1,0 +1,41 @@
+<form class="flex-container" autocomplete="off" style="background-color: #fff;">
+  <header class="mb-4 mt-2">
+    {{> "systems/cortexprime/templates/partials/breadcrumbs.html" breadcrumbs=breadcrumbs }}
+  </header>
+  <main>
+    {{> "systems/cortexprime/templates/partials/settings/actor-types.html"
+      actorTypes=actorTypes
+      breadcrumbs=breadcrumbs
+    }}
+    {{#each actorTypes as |actorType actorTypeIndex|}}
+      {{> "systems/cortexprime/templates/partials/settings/actor-type.html"
+        actorType=actorType
+        actorTypeIndex=actorTypeIndex
+        breadcrumbs=../breadcrumbs
+      }}
+      {{#each actorType.traitSets as |traitSet traitSetIndex|}}
+        {{> "systems/cortexprime/templates/partials/settings/trait-set.html"
+          actorTypeIndex=actorTypeIndex
+          breadcrumbs=../../breadcrumbs
+          path=(concat actorTypeIndex '.traitSets')
+          traitSet=traitSet
+          traitSetIndex=traitSetIndex
+        }}
+      {{/each}}
+      {{#each actorType.simpleTraits as |simpleTrait simpleTraitIndex|}}
+        {{> "systems/cortexprime/templates/partials/settings/simple-trait.html"
+          actorTypeIndex=actorTypeIndex
+          breadcrumbs=../../breadcrumbs
+          path=(concat actorTypeIndex '.simpleTraits')
+          simpleTrait=simpleTrait
+          simpleTraitIndex=simpleTraitIndex
+        }}
+      {{/each}}
+    {{/each}}
+  </main>
+  <footer>
+    <button class="btn btn-secondary go-back" type="button" data-to="{{goBack}}">
+      {{localize 'Save'}}
+    </button>
+  </footer>
+</form>

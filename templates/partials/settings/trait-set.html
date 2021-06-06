@@ -1,0 +1,24 @@
+<article class="{{viewClasses (concat 'traitSet-' actorTypeIndex '-' traitSetIndex) breadcrumbs}} trait-set">
+  <header class="primary-heading flex-row flex-ac">
+    <div class="flex-col col-12">
+      <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.label'}}" type="text" value="{{traitSet.label}}">
+    </div>
+    <div class="flex-col">
+      {{> "systems/cortexprime/templates/partials/remove-button.html"
+        group=path
+        itemKey=traitSetIndex
+        itemName=traitSet.label
+        setting='actorTypes'
+        type="trash"
+      }}
+    </div>
+  </header>
+  <div>
+    <div>
+      <label>
+        <span class="label">Description</span>
+        <textarea name="{{concat 'actorTypes.' path '.' traitSetIndex '.description'}}">{{traitSet.description}}</textarea>
+      </label>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,12 @@
+<div class="breadcrumbs">
+  {{#each breadcrumbs as |breadcrumb breadcrumbIndex|}}
+    {{#if (gt breadcrumbIndex  0)}}
+      <span class="mb-2">/</span>
+    {{/if}}
+    {{#if breadcrumb.active}}
+      <span class="breadcrumb active">{{ or (ternary breadcrumb.localize (localize breadcrumb.name) breadcrumb.name) (concat '[' breadcrumb.target ']') }}</span>
+    {{else}}
+      <span class="breadcrumb" data-to="{{breadcrumb.target}}">{{ or (ternary breadcrumb.localize (localize breadcrumb.name) breadcrumb.name) (concat '[' breadcrumb.target ']') }}</span>
+    {{/if}}
+  {{/each}}
+</div>

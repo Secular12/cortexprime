@@ -1,3 +1,5 @@
+import { indexObjectValues, objectFilter, objectMapKeys, objectReduce, objectSortByKeys } from '../../lib/helpers.js'
+
 export const collapseToggle = function (html) {
   html.find('.collapse-toggle').click(async (event) => {
     event.preventDefault()
@@ -57,19 +59,100 @@ export const displayToggle = html => {
   })
 }
 
-export const removeParentElements = function (html) {
-  html.find('.remove-parent-element').click(async event => {
+export const removeItem = async function (html) {
+  html.find('.remove-item').click(async event => {
     event.preventDefault()
-    const $target = $(event.currentTarget)
-    const selector = $target.data('selector')
+    const {
+      group,
+      itemKey,
+      itemName,
+      setting
+    } = event.currentTarget.dataset
 
-    html.find('.reset-field').val('true')
+    let confirmed
 
-    $target
-      .closest(selector)
-      .remove()
+    await Dialog.confirm({
+      title: `Confirm removal`,
+      content: `Are you sure you want to remove ${itemName}`,
+      yes: () => { confirmed = true },
+      no: () => { confirmed = false },
+      defaultYes: false
+    })
 
-    await this._onSubmit(event)
+    if (confirmed) {
+      if (setting) {
+        let settings = game.settings.get('cortexprime', setting)
+
+        const currentGroupSettings = group ? await getProperty(settings, group) : settings
+        const groupSettingValue = indexObjectValues(objectFilter(currentGroupSettings, (_, key) => +key !== +itemKey))
+
+        if (group) {
+          setProperty(settings, group, groupSettingValue)
+        } else {
+          settings = groupSettingValue
+        }
+        await game.settings.set('cortexprime', setting, settings)
+
+        if (setting === 'actorTypes') {
+          const currentBreadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs')
+
+          const breadcrumbsValue = objectReduce(currentBreadcrumbs, (acc, value, key, length) => {
+            if (+key === length - 1) return acc
+            return {
+              ...acc,
+              [key]: {
+                ...value,
+                active: +key === (length - 2)
+              }
+            }
+          })
+
+          await game.settings.set('cortexprime', 'actorBreadcrumbs', breadcrumbsValue)
+        }
+
+        this.render(true)
+      }
+    }
+  })
+}
+
+export const reorderItem = async function (html) {
+  html.find('.reorder').click(async event => {
+    event.preventDefault()
+    const {
+      currentIndex,
+      newIndex,
+      path,
+      setting
+    } = event.currentTarget.dataset
+
+    const settings = game.settings.get('cortexprime', setting)
+    const targetObject = getProperty(settings, path)
+    const maxKey = Object.keys(targetObject).length - 1
+
+    const key = +newIndex < 0
+      ? maxKey
+      : maxKey < +newIndex
+        ? 0
+        : +newIndex
+
+    const value = objectReduce(targetObject, (acc, target, targetKey) => {
+      const newTargetKey = +targetKey === +currentIndex
+        ? key
+        : +currentIndex > key
+          ? +targetKey < +currentIndex && +targetKey >= key
+            ? +targetKey + 1
+            : +targetKey
+          : +targetKey > +currentIndex && +targetKey <= key
+            ? +targetKey - 1
+            : +targetKey
+
+      return { ...acc, [newTargetKey]: target }
+    }, {})
+
+    setProperty(settings, path, value)
+
+    await game.settings.set('cortexprime', setting, settings)
     this.render(true)
   })
 }

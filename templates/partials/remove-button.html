@@ -1,0 +1,10 @@
+<button
+  class="remove-item btn {{ternary (eq type 'trash') 'text-primary' 'btn-icon btn-black'}}"
+  data-group="{{group}}"
+  data-group-name="{{groupName}}"
+  data-item-key="{{itemKey}}"
+  data-item-name="{{itemName}}"
+  data-setting="{{setting}}"
+>
+  <i class="fa {{ternary (eq type 'trash') 'fa-trash' 'fa-times'}}"></i>
+</button>

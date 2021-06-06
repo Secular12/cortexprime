@@ -1,3 +1,7 @@
+.d-block {
+  display: block;
+}
+
 @for $i from 1 through 4 {
   .columns-#{$i} {
     column-count: 2;

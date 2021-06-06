@@ -9,7 +9,7 @@ import {
 
 export default class TraitSettings extends FormApplication {
   constructor(object = {}, options = { parent: null }) {
-    super(object, options);
+    super();
   }
 
   static get defaultOptions () {

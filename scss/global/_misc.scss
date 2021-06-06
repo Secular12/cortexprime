@@ -31,3 +31,15 @@
     opacity: 1;
   }
 }
+
+.list-style-none {
+  list-style: none;
+}
+
+.list-alt-bkg {
+  li {
+    &:nth-child(even) {
+      background-color: color('lighter-grey');
+    }
+  }
+}

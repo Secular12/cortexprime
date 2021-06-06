@@ -1,17 +1,17 @@
 <section class="bt-2-secondary my-3">
-  <h2 class="section-heading my-2">{{localize "CortexPrime.DicePool"}}</h2>
+  <h2 class="section-heading my-2">{{localize "DicePool"}}</h2>
   <div class="ba-2-primary">
     <div class="bkg-white pb-2 pt-1 bb-2-primary">
-      <h3 class="section-sub-heading px-2 mb-1">{{localize "CortexPrime.AddCustomDice"}}</h3>
+      <h3 class="section-sub-heading px-2 mb-1">{{localize "AddCustomDice"}}</h3>
       <div class="flex flex-ae">
         <div class="flex-col col-12">
           <div class="flex-row flex-ac">
             <label class="flex-col col-12">
-              <span class="label">{{localize 'CortexPrime.Label'}}</span>
+              <span class="label">{{localize 'Label'}}</span>
               <input name="data.dice.customAdd.label" type="text" value="{{data.dice.customAdd.label}}" />
             </label>
             <div class="flex-col">
-              <span class="label">{{localize 'CortexPrime.Dice'}}</span>
+              <span class="label">{{localize 'Dice'}}</span>
               {{> "systems/cortexprime/templates/partials/dice/select.html"
                 dice=data.dice.customAdd.values
                 edit=true
@@ -58,16 +58,16 @@
         </div>
         {{else}}
         <div class="flex-col my-2">
-          <p class="text-white trait-name">{{localize "CortexPrime.NoTraitsInPool"}}</p>
+          <p class="text-white trait-name">{{localize "NoTraitsInPool"}}</p>
         </div>
         {{/each}}
       </div>
       <div class="flex-col col-12 flex flex-je mt-2 pt-2 bt-1-dark-grey">
         <div class="flex-col">
-          <button class="clear-dice-pool btn btn-primary">{{localize "CortexPrime.Clear"}}</button>
+          <button class="clear-dice-pool btn btn-primary">{{localize "Clear"}}</button>
         </div>
         <div class="flex-col pl-0">
-          <button class="roll-dice-pool btn btn-secondary">{{localize "CortexPrime.Roll"}}</button>
+          <button class="roll-dice-pool btn btn-secondary">{{localize "Roll"}}</button>
         </div>
       </div>
     </div>

@@ -1,0 +1,24 @@
+<article class="{{viewClasses (concat 'simpleTrait-' actorTypeIndex '-' simpleTraitIndex) breadcrumbs}} simple-trait">
+  <header class="primary-heading flex-row flex-ac">
+    <div class="flex-col col-12">
+      <input name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.label'}}" type="text" value="{{simpleTrait.label}}">
+    </div>
+    <div class="flex-col">
+      {{> "systems/cortexprime/templates/partials/remove-button.html"
+        group=path
+        itemKey=simpleTraitIndex
+        itemName=simpleTrait.label
+        setting='actorTypes'
+        type="trash"
+      }}
+    </div>
+  </header>
+  <div>
+    <div>
+      <label>
+        <span class="label">Description</span>
+        <textarea name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
+      </label>
+    </div>
+  </div>
+</article>

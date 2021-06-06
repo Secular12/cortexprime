@@ -1,4 +1,4 @@
-import { listLength } from '../../lib/helpers.js'
+import { listLength, objectFindValue } from '../../lib/helpers.js'
 
 export const registerHandlebarHelpers = () => {
   Handlebars.registerHelper('concat', function (...args) {
@@ -18,8 +18,19 @@ export const registerHandlebarHelpers = () => {
     return length > -1 && length < parsedMax
   })
 
-  Handlebars.registerHelper('listHasMore', (value, min = 0) => {
-    return listLength(value) > parseInt(min)
+  Handlebars.registerHelper('listHasMore', (value, min = -1) => {
+    const parsedMin = parseInt(min)
+    if (parsedMin < 0) return true
+
+    const length = listLength(value)
+
+    return length > -1 && length > parsedMin
+  })
+
+  Handlebars.registerHelper('viewClasses', (value, breadcrumbs = {}) => {
+    const activeBreadcrumb = objectFindValue(breadcrumbs, breadcrumb => breadcrumb.active)
+
+    return (activeBreadcrumb?.target || null) === value ? 'view' : 'view hide'
   })
 
   Handlebars.registerHelper({
@@ -30,9 +41,11 @@ export const registerHandlebarHelpers = () => {
     gte: (a, b) => a >= b,
     lt: (a, b) => a < b,
     lte: (a, b) => a <= b,
+    minus: (a, b) => (+a) - (+b),
     ne: (a, b) => a !== b,
     not: a => !a,
     or: (a, b) => a || b,
+    plus: (a, b) => +a + b,
     ternary: (conditional, a, b) => conditional ? a : b
   })
 }

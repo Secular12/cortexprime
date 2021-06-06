@@ -1,4 +1,5 @@
-import initializeCortexPrimeCharacter from './scripts/initializeCortexPrimeCharacter.js'
+import initializeCortexPrimeCharacter from './scripts/initializeCortexPrimeCharacter.old.js'
+import { UserDicePool } from './applications/UserDicePool.js'
 
 export default () => {
   Hooks.once('diceSoNiceReady', dice3d => {
@@ -12,11 +13,31 @@ export default () => {
     }, 'd2')
   })
 
-  Hooks.on("preCreateActor", (data) => {
-    if (game.user == game.users.find(user => user.isGM && user.active)) {
-      if (data.type === 'major-character') {
-        initializeCortexPrimeCharacter(data)
-      }
-    }
+  Hooks.on('ready', async () => {
+    game.cortexprime.UserDicePool = new UserDicePool()
+    await game.cortexprime.UserDicePool.initPool()
   })
+
+  Hooks.on('renderSceneControls', (controls, html) => {
+    const $dicePoolButton = $(
+      `<li class="scene-control dice-pool-control" data-control="dice-pool" title="${game.i18n.localize("DicePool")}">
+          <i class="fas fa-dice"></i>
+          <ol class="control-tools">
+          </ol>
+      </li>`
+    );
+
+    html.prepend($dicePoolButton);
+    $dicePoolButton[0].addEventListener('click', async () => {
+      await game.cortexprime.UserDicePool.toggle()
+    });
+  })
+
+  // Hooks.on("preCreateActor", (data) => {
+  //   if (game.user == game.users.find(user => user.isGM && user.active)) {
+  //     if (data.type === 'character') {
+  //       initializeCortexPrimeCharacter(data)
+  //     }
+  //   }
+  // })
 }

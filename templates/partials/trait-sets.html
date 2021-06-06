@@ -25,7 +25,7 @@
           </div>
         </header>
         {{#if traitSet.edit}}
-          <label class="label">{{localize "CortexPrime.TraitSetDescription"}}</label>
+          <label class="label">{{localize "TraitSetDescription"}}</label>
           <textarea name="data.traitSets.{{traitSetKey}}.description">{{traitSet.description}}</textarea>
         {{else}}
           <div class="{{ternary traitSet.shutdown 'shutdown' ''}}">
@@ -45,10 +45,10 @@
                   {{#if trait.edit}}
                     <div class="flex-col col-12">
                       {{#unless traitSet.hasLabel}}
-                        <label class="label">{{localize 'CortexPrime.TraitName'}}</label>
+                        <label class="label">{{localize 'TraitName'}}</label>
                         <input name="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.name" type="text" value="{{trait.name}}">
                       {{else}}
-                        <label class="label">{{localize 'CortexPrime.TraitLabel'}}</label>
+                        <label class="label">{{localize 'TraitLabel'}}</label>
                         <input name="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.label" type="text" value="{{trait.label}}">
                       {{/unless}}
                     </div>
@@ -97,7 +97,7 @@
               {{#if trait.edit}}
                 <div>
                   <div class="mt-1">
-                    <label class="label">{{localize "CortexPrime.TraitDescription"}}</label>
+                    <label class="label">{{localize "TraitDescription"}}</label>
                     <textarea class="mt-1"
                       name="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.description">{{trait.description}}</textarea>
                   </div>
@@ -105,7 +105,7 @@
                 {{#if traitSet.hasDetails}}
                   <div class="mt-1">
                     <div class="flex-row flex-ac">
-                      <h4 class="section-sub-heading flex-col col-12">{{localize 'CortexPrime.DetailList'}}</h4>
+                      <h4 class="section-sub-heading flex-col col-12">{{localize 'DetailList'}}</h4>
                       <div class="flex-col">
                         <button class="add-new-detail btn btn-icon btn-secondary" data-trait-set="{{traitSetKey}}"
                           data-trait="{{traitKey}}">
@@ -117,17 +117,17 @@
                       <div class="detail mt-2{{ternary (gt detailKey 0) ' pt-2 bt-1-primary' ''}}">
                         <div class="flex-row flex-as">
                           <div class="flex-col">
-                            <label class="label">{{localize 'CortexPrime.Name'}}</label>
+                            <label class="label">{{localize 'Name'}}</label>
                             <input type="text" name="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.details.{{detailKey}}.name"
                               value="{{detail.name}}">
                           </div>
                           <div class="flex-col">
-                            <label class="label">{{localize 'CortexPrime.Type'}}</label>
+                            <label class="label">{{localize 'Type'}}</label>
                             <input type="text" name="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.details.{{detailKey}}.type"
                               value="{{detail.type}}">
                           </div>
                           <div class="flex-col">
-                            <label class="label">{{localize 'CortexPrime.Unlocked'}}</label>
+                            <label class="label">{{localize 'Unlocked'}}</label>
                             <input type="checkbox"
                               name="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.details.{{detailKey}}.unlocked" {{checked
                               detail.unlocked}}>
@@ -139,7 +139,7 @@
                           </div>
                         </div>
                         <div>
-                          <label class="label">{{localize 'CortexPrime.Value'}}</label>
+                          <label class="label">{{localize 'Value'}}</label>
                           <textarea type="text"
                             name="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.details.{{detailKey}}.value">{{detail.value}}</textarea>
                         </div>
