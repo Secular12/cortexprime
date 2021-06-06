@@ -27,11 +27,6 @@ export default class ActorSettings extends FormApplication {
   getData() {
     const breadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs') ?? {}
 
-    console.log({
-      actorTypes: game.settings.get('cortexprime', 'actorTypes'),
-      breadcrumbs,
-      goBack: breadcrumbs[Object.keys(breadcrumbs).length - 2]?.target ?? 0
-    })
     return {
       actorTypes: game.settings.get('cortexprime', 'actorTypes'),
       breadcrumbs,
