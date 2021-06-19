@@ -3,8 +3,8 @@ import { objectFindKey, objectMapValues, objectReduce } from '../../lib/helpers.
 import { addFormElements, removeItem, reorderItem } from '../scripts/settingsHelpers.js'
 
 export default class ActorSettings extends FormApplication {
-  constructor(object = {}, options = { parent: null }) {
-    super(object, options);
+  constructor() {
+    super()
   }
 
   static get defaultOptions () {
@@ -43,14 +43,19 @@ export default class ActorSettings extends FormApplication {
     } else {
       await game.settings.set('cortexprime', 'actorTypes', mergeObject(currentActorTypes, expandedFormData.actorTypes))
     }
+
+    this.render(true)
   }
 
   activateListeners(html) {
     super.activateListeners(html)
-    html.find('.add-trait-set').click(this._addTraitSet.bind(this))
-    html.find('.add-simple-trait').click(this._addSimpleTrait.bind(this))
-    html.find('.breadcrumb:not(.active), .go-back').click(this._breadcrumbChange.bind(this))
     html.find('#add-new-actor-type').click(event => addFormElements.call(this, event, this._actorTypeFields))
+    html.find('.add-new-tag').click(this._addNewTag.bind(this))
+    html.find('.add-simple-trait').click(this._addSimpleTrait.bind(this))
+    html.find('.add-trait-set').click(this._addTraitSet.bind(this))
+    html.find('.breadcrumb:not(.active), .go-back').click(this._breadcrumbChange.bind(this))
+    html.find('.die-select').change(this._onDieChange.bind(this))
+    html.find('.new-die').click(this._newDie.bind(this))
     html.find('.view-change').click(this._viewChange.bind(this))
     removeItem.call(this, html)
     reorderItem.call(this, html)
@@ -92,6 +97,22 @@ export default class ActorSettings extends FormApplication {
     await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, value))
   }
 
+  async _addNewTag (event) {
+    event.preventDefault()
+    const $addButton = $(event.currentTarget)
+    const path = $addButton.data('path')
+    const source = game.settings.get('cortexprime', 'actorTypes')
+    const currentTags = getProperty(source, path) || {}
+    const tagValue = currentTags.newTagValue
+
+    if (tagValue) {
+      setProperty(source, `${path}.value`, { ...currentTags.value, [Object.keys(currentTags.value ?? {}).length]: tagValue })
+      setProperty(source, `${path}.newTagValue`, '')
+      await game.settings.set('cortexprime', 'actorTypes', source)
+      this.render(true)
+    }
+  }
+
   async _addSimpleTrait (event) {
     event.preventDefault()
     const source = game.settings.get('cortexprime', 'actorTypes')
@@ -102,6 +123,7 @@ export default class ActorSettings extends FormApplication {
       [actorTypeKey]: {
         simpleTraits: {
           [newKey]: {
+            editable: true,
             label: 'New Simple Trait'
           }
         }

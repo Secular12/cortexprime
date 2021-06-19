@@ -26,10 +26,7 @@
           <div class="ba-1-primary pa-2">
             <div class="flex-row flex-jsb">
               <div class="flex-col">
-                <label>
-                  {{localize 'Label'}}
-                  <input name="{{concat ../path '.' traitSetIndex '.label'}}" type="text" value="{{traitSet.label}}">
-                </label>
+                {{or traitSet.label "[Trait Set]"}}
               </div>
               <div class="flex-col">
                 <button class="btn btn-icon text-primary toggle-item" data-path="{{concat ../path '.' traitSetIndex '.shutdown'}}" type="button">

@@ -1,25 +1,34 @@
 export const preloadHandlebarsTemplates = async function () {
   const templatePaths = [
-    'partials/actor-sheet/sidebar',
-    'partials/actor-sheet/trait-sets',
-    'partials/breadcrumbs',
-    'partials/dice/pool',
-    'partials/dice/select',
-    'partials/dice/select-options',
-    'partials/mc-help',
-    'partials/pp',
-    'partials/remove-button',
-    'partials/reorder',
-    'partials/settings/actor-types',
-    'partials/settings/actor-type',
-    'partials/settings/trait-set',
-    'partials/settings/simple-trait',
-    'partials/signature-assets',
-    'partials/simple-trait',
-    'partials/single-trait',
-    'partials/trait-sets'
+    'actor-sheet/sidebar',
+    'actor-sheet/simple-traits',
+    'actor-sheet/trait-sets',
+    'breadcrumbs',
+    'dice/pool',
+    'dice/select',
+    'dice/select-options',
+    'mc-help',
+    'pp',
+    'remove-button',
+    'reorder',
+    'settings/actor-types',
+    'settings/actor-type',
+    'settings/trait-set',
+    'settings/simple-trait',
+    'signature-assets',
+    'trait-sets',
+    'settings/value-types/crossOutDiceTracker',
+    'settings/value-types/dice',
+    'settings/value-types/number',
+    'settings/value-types/tags',
+    'settings/value-types/text',
+    'value-types/crossOutDiceTracker',
+    'value-types/dice',
+    'value-types/number',
+    'value-types/tags',
+    'value-types/text',
   ]
-    .map(template => `systems/cortexprime/templates/${template}.html`)
+    .map(template => `systems/cortexprime/templates/partials/${template}.html`)
 
   return loadTemplates(templatePaths)
 }

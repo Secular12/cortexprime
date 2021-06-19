@@ -16,9 +16,36 @@
   <div>
     <div>
       <label>
-        <span class="label">Description</span>
+        <span class="label">{{localize 'Description'}}</span>
         <textarea name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
       </label>
     </div>
+    <div>
+      <label>
+        <span class="label">{{localize 'ValueType'}}</span>
+        <select
+          name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.valueType'}}"
+        >
+          {{#select (?? simpleTrait.valueType 'text')}}
+            <option value="text">{{localize 'Text'}}</option>
+            <option value="number">{{localize 'Number'}}</option>
+            <option value="dice">{{localize 'Dice'}}</option>
+            <option value="tags">{{localize 'Tags'}}</option>
+            <option value="crossOutDiceTracker">{{localize 'CrossOutDiceTracker'}}</option>
+          {{/select}}
+        </select>
+      </label>
+    </div>
+    <div>
+      <label>
+        <span class="label">{{localize 'Editable'}}</span>
+        <input name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.editable'}}" type="checkbox" {{checked simpleTrait.editable}}>
+      </label>
+    </div>
+    {{> (concat "systems/cortexprime/templates/partials/settings/value-types/" (?? simpleTrait.valueType 'text') ".html")
+      fieldPath=(concat 'actorTypes.' path '.' simpleTraitIndex '.' (?? simpleTrait.valueType 'text'))
+      path=(concat path '.' simpleTraitIndex '.' (?? simpleTrait.valueType 'text'))
+      data=simpleTrait
+    }}
   </div>
 </article>

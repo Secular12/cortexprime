@@ -66,7 +66,8 @@ export const removeItem = async function (html) {
       group,
       itemKey,
       itemName,
-      setting
+      setting,
+      stayOnPage
     } = event.currentTarget.dataset
 
     let confirmed
@@ -93,7 +94,7 @@ export const removeItem = async function (html) {
         }
         await game.settings.set('cortexprime', setting, settings)
 
-        if (setting === 'actorTypes') {
+        if (setting === 'actorTypes' && !stayOnPage) {
           const currentBreadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs')
 
           const breadcrumbsValue = objectReduce(currentBreadcrumbs, (acc, value, key, length) => {

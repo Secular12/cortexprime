@@ -50,13 +50,14 @@ export const removeDataPoint = async function (data, path, target, key) {
 export const removeItems = async function (html) {
   html.find('.remove-item').click(async event => {
     event.preventDefault()
-    const $target = $(event.currentTarget)
-    const key = $target.data('key')
-    const path = $target.data('path')
-    const target = $target.data('target')
+    const {
+      path,
+      itemKey,
+      target
+    } = event.currentTarget.dataset
 
     const data = getProperty(this.actor.data, `${path}.${target}`)
 
-    await removeDataPoint.call(this, data, path, target, key)
+    await removeDataPoint.call(this, data, path, target, itemKey)
   })
 }

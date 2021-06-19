@@ -1,0 +1,37 @@
+<div>
+  {{#if edit}}
+    <div class="new-tag-fields flex-row flex-ac">
+      <div class="flex-col">
+        <input class="new-tag" name="{{concat fieldPath '.newTagValue'}}" type="text" value="{{data.tags.newTagValue}}">
+      </div>
+      <div class="flex-col">
+        <button class="btn btn-icon btn-secondary add-new-tag" data-path="{{path}}" type="button"{{ternary data.tags.newTagValue '' ' disabled'}}>
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </div>
+  {{/if}}
+  <div>
+    <ul class="list-style-none flex-row flex-ac flex-wrap pa-0">
+      {{#each data.tags.value as |tag tagIndex|}}
+        <li class="flex-col">
+          <div class="ba-1-primary my-1 py-1 px-2">
+            <span class="label">{{tag}}</span>
+            {{#if ../edit}}
+              {{> "systems/cortexprime/templates/partials/remove-button.html"
+                group=(concat ../path '.value')
+                itemKey=tagIndex
+                itemName=tag
+                path=../path
+                setting='actorTypes'
+                stayOnPage=true
+                target='value'
+                type="times"
+              }}
+            {{/if}}
+          </div>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>

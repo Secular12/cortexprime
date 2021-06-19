@@ -86,6 +86,10 @@ input {
   font-style: italic;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .text-accent {
   color: #c0e2ca;
 }
@@ -1278,6 +1282,12 @@ input {
   text-transform: uppercase;
   white-space: nowrap;
   width: auto;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  color: #f5f8fa;
+  cursor: not-allowed;
 }
 
 .btn-accent {

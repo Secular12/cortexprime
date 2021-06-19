@@ -1,0 +1,39 @@
+<section class="my-3">
+  <h2 class="section-heading col-12 text-center">{{localize "SimpleTraits"}}</h2>
+  {{#each simpleTraits as |simpleTrait simpleTraitIndex|}}
+    <div>
+      <div class="my-2 flex-row flex-jsb">
+        <label class="flex-col">
+          <div class="section-sub-heading mt-1">{{simpleTrait.label}}</div>
+        </label>
+        {{#if (and ../owner simpleTrait.editable)}}
+          <div class="flex-col">
+            <button class="btn btn-icon toggle-item" data-path="{{concat ../path '.' simpleTraitIndex '.edit'}}" type="button">
+              {{#if simpleTrait.edit}}
+                <i class="fas fa-check"></i>
+              {{else}}
+                <i class="fas fa-edit"></i>
+              {{/if}}
+            </button>
+          </div>
+        {{/if}}
+      </div>
+      <div>
+        {{#if (and ../owner (and simpleTrait.editable simpleTrait.edit))}}
+          <label>
+            <div class="label">{{localize 'Description'}}</div>
+            <textarea name="{{concat ../path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
+          </label>
+        {{else if simpleTrait.description}}
+          <p>{{simpleTrait.description}}</p>
+        {{/if}}
+        {{> (concat "systems/cortexprime/templates/partials/value-types/" simpleTrait.valueType ".html")
+          fieldPath=(concat ../path '.' simpleTraitIndex '.' simpleTrait.valueType)
+          path=(concat ../path '.' simpleTraitIndex '.' simpleTrait.valueType)
+          data=simpleTrait
+          edit=(and ../owner (and simpleTrait.editable simpleTrait.edit))
+        }}
+      </div>
+    </div>
+  {{/each}}
+</section>

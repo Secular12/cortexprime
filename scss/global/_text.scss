@@ -65,6 +65,10 @@
   font-style: italic;
 }
 
+.text-center {
+  text-align: center;
+}
+
 @each $color, $value in $colors {
   .text-#{$color} {
     color: $value;

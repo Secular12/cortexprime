@@ -8,6 +8,12 @@
   text-transform: uppercase;
   white-space: nowrap;
   width: auto;
+
+  &:disabled {
+    opacity: 0.5;
+    color: color('white');
+    cursor: not-allowed;
+  }
 }
 
 @each $color, $hex in $colors {

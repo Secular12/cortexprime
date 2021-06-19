@@ -13,7 +13,7 @@ Hooks.once('init', () => {
     CortexPrimeActor
   }
 
-  CONFIG.Actor.entityClass = CortexPrimeActor
+  CONFIG.Actor.documentClass = CortexPrimeActor
   CONFIG.Dice.terms['p'] = PlotPoint
 
   registerHandlebarHelpers()
