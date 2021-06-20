@@ -1,22 +1,62 @@
 <div>
-  <div class="flex flex-c flex-wrap">
-    {{#each rollResults.hitches as |rollResult|}}
-      <div class="die-icon-wrapper mb-2">
-        <div class="die-icon d{{rollResult.faces}} lg hitch">
-          <div class="value">1</div>
+  <div class="mb-2">
+    {{#each dicePool as |sourcePool source|}}
+      <div class="source my-1" data-source="{{source}}">
+        <h2 class="section-sub-heading">{{source}}</h2>
+        <div class="flex flex-ac flex-wrap">
+          {{#each sourcePool as |dice|}}
+            <div class="die-label flex-col ma-1 py-1 bkg-white ba-1-primary" data-label="{{dice.label}}">
+              <div class="flex-row flex-ac">
+                {{#if dice.label}}
+                  <div class="flex-col pr-0">
+                    <p class="bold text-black">{{dice.label}}</p>
+                  </div>
+                {{/if}}
+                <div class="flex-col">
+                  <div class="flex flex-ac">
+                    {{#each dice.value as |dieRating|}}
+                      <div class="die-icon-wrapper">
+                        <div class="die-icon d{{dieRating}}" data-rating="{{dieRating}}">
+                        </div>
+                      </div>
+                    {{/each}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {{/each}}
         </div>
-        <div class="bold text-primary">d{{rollResult.faces}}</div>
       </div>
     {{/each}}
   </div>
-  <div class="flex flex-c flex-wrap">
-    {{#each rollResults.results as |rollResult|}}
-      <div class="die-icon-wrapper mb-2">
-        <div class="die-icon lg d{{rollResult.faces}} result">
-          <div class="value">{{rollResult.result}}</div>
+  <div class="pa-2 ba-1-primary bkg-light-grey">
+    <div class="flex flex-c flex-wrap">
+      {{#each rollResults.hitches as |rollResult|}}
+        <div class="die-icon-wrapper mb-2">
+          <div class="die-icon d{{rollResult.faces}} lg hitch">
+            <div class="value">1</div>
+          </div>
+          <div class="bold text-primary">d{{rollResult.faces}}</div>
         </div>
-        <div class="bold text-primary">d{{rollResult.faces}}</div>
-      </div>
-    {{/each}}
+      {{/each}}
+    </div>
+    <div class="flex flex-c flex-wrap">
+      {{#each rollResults.results as |rollResult|}}
+        <div class="die-icon-wrapper my-1">
+          <div class="die-icon lg d{{rollResult.faces}} result">
+            <div class="value">{{rollResult.result}}</div>
+          </div>
+          <div class="bold text-primary">d{{rollResult.faces}}</div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+  <div class="mt-2 flex flex-jsb">
+    <button class="btn btn-primary re-roll" type="button">
+      {{localize 'Reroll'}}
+    </button>
+    <button class="btn btn-secondary send-to-pool" type="button">
+      {{localize 'ToPool'}}
+    </button>
   </div>
 </div>

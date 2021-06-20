@@ -1,5 +1,6 @@
 import { localizer } from '../scripts/foundryHelpers.js'
 import { listLength } from '../../lib/helpers.js'
+import rollDice from '../scripts/rollDice.js'
 
 const blankPool = {
   customAdd: {
@@ -109,19 +110,6 @@ export class UserDicePool extends FormApplication {
     await this.render(true)
   }
 
-  _getRollFormula (dicePool) {
-    return Object.values(dicePool)
-    .reduce((formula, traitGroup) => {
-      const innerFormula = Object.values(traitGroup || {})
-        .reduce((acc, trait) => [...acc, ...Object.values(trait.value || {})], [])
-        .reduce((acc, value) => {
-          return `${acc}+d${value}`
-        }, '')
-
-      return formula ? `${formula}+${innerFormula}` : innerFormula
-    }, '')
-  }
-
   async _onDieChange (event) {
     event.preventDefault()
     const currentDice = game.user.getFlag('cortexprime', 'dicePool')
@@ -197,10 +185,22 @@ export class UserDicePool extends FormApplication {
 
     const currentDice = game.user.getFlag('cortexprime', 'dicePool')
 
-    setProperty(currentDice, `customAdd`, {
+    setProperty(currentDice, 'customAdd', {
       label: '',
       value: { 0: '8' }
     })
+
+    await game.user.setFlag('cortexprime', 'dicePool', null)
+
+    await game.user.setFlag('cortexprime', 'dicePool', currentDice)
+
+    await this.render(true)
+  }
+
+  async _setPool (pool) {
+    const currentDice = game.user.getFlag('cortexprime', 'dicePool')
+
+    setProperty(currentDice, 'pool', pool)
 
     await game.user.setFlag('cortexprime', 'dicePool', null)
 
@@ -216,44 +216,7 @@ export class UserDicePool extends FormApplication {
 
     const dicePool = currentDicePool.pool
 
-    const rollFormula = this._getRollFormula(dicePool)
-
-    const r = new Roll(rollFormula)
-
-    const roll = await r.evaluate({ async: true })
-
-    if (game.dice3d) {
-      await game.dice3d.showForRoll(roll, game.user, true)
-    }
-
-    const rollResults = roll.dice
-      .map(die => ({ faces: die.faces, result: die.results[0].result }))
-      .reduce((acc, result) => {
-        if (result.result > 1) {
-          return { ...acc, results: [...acc.results, result] }
-        }
-
-        return { ...acc, hitches: [...acc.hitches, result] }
-      }, { hitches: [], results: [] })
-
-    rollResults.hitches.sort((a, b) => {
-      return b.faces - a.faces
-    })
-
-    rollResults.results.sort((a, b) => {
-      if (a.result !== b.result) {
-        return b.result - a.result
-      }
-
-      return b.faces - a.faces
-    })
-
-    const message = await renderTemplate('systems/cortexprime/templates/chat/roll-result.html', {
-      rollResults,
-      speaker: game.user
-    })
-
-    await ChatMessage.create({ content: message })
+    await rollDice(dicePool)
   }
 
   async toggle () {
