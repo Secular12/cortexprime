@@ -22,7 +22,7 @@
   {{else}}
     <div class="dice-icon-wrapper flex flex-ac{{ternary shutdown ' shutdown' ''}}">
       {{#each dice as |dieRating index|}}
-        <span class="die-icon d{{dieRating}}{{ternary ../addToPool ' add-to-pool' ''}}" data-label="{{../label}}" data-path="{{../selectName}}"></span>
+        <span class="die-icon d{{dieRating}}{{ternary ../addToPool ' add-to-pool' ''}}" data-consumable="{{or ../consumable ''}}" data-label="{{../label}}" data-path="{{../selectName}}"></span>
       {{/each}}
     </div>
   {{/if}}

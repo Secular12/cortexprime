@@ -3,6 +3,8 @@
  * @extends {ActorSheet}
  */
 import { objectMapValues } from '../../lib/helpers.js'
+import { localizer } from '../scripts/foundryHelpers.js'
+import { displayToggle } from '../scripts/settingsHelpers.js'
 import {
   removeItems,
   toggleItems
@@ -27,8 +29,6 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
   getData (options) {
     const data = super.getData(options)
-
-    console.log(data)
 
     return {
       ...data,
@@ -98,9 +98,84 @@ export class CortexPrimeActorSheet extends ActorSheet {
   }
 
   async _addToPool (event) {
-    const { path, label } = event.currentTarget.dataset
-    const value = getProperty(this.actor.data, `${path}.value`)
-    await game.cortexprime.UserDicePool._addTraitToPool(this.actor.name, label, value)
+    const { consumable, path, label } = event.currentTarget.dataset
+    let value = getProperty(this.actor.data, `${path}.value`)
+    if (consumable) {
+      const selectedDice = await this._getConsumableDiceSelection(value, label)
+
+      if (selectedDice.remove?.length) {
+        const newValue = Object.values(value).reduce((acc, val, index) => {
+          return !selectedDice.remove.includes(index)
+              ? { ...acc, [Object.keys(acc).length]: val }
+              : acc
+        }, {})
+
+        await this._resetDataPoint(path, 'value', newValue)
+
+        console.log(getProperty(this.actor.data, `${path}.value`))
+      }
+
+      value = selectedDice.value
+    }
+
+    if (Object.keys(value ?? {}).length) {
+      await game.cortexprime.UserDicePool._addTraitToPool(this.actor.name, label, value)
+    }
+  }
+
+  async _getConsumableDiceSelection (options, label) {
+    const diceOptions = Object.values(options ?? {})
+      .map((option, index) => `<span class="cursor-pointer die-icon lg result d${option}" data-key="${index}" data-value="${option}"><span class="value">${option}</span></span>`)
+      .join('')
+
+    return new Promise((resolve, reject) => {
+      new Dialog({
+        title: label,
+        content: `<div><p class="section-sub-heading text-center">${localizer('SelectDiceToAdd')}</p><div class="flex flex-wrap flex-c">${diceOptions}</div><label><input class="remove-check" type="checkbox" checked><span class="label">${localizer('RemoveSelectedFromSheet')}</span></label></div>`,
+        buttons: {
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: localizer('Cancel'),
+            callback () {
+              resolve({ remove: [], value: {} })
+            }
+          },
+          done: {
+            icon: '<i class="fas fa-check"></i>',
+            label: localizer('AddToPool'),
+            callback (html) {
+              const remove = html.find('.remove-check').prop('checked')
+              const selectedDice = html.find('.die-icon.selected').get()
+
+              if (!selectedDice?.length) {
+                resolve({ remove: [], value: {} })
+              }
+
+              resolve(
+                selectedDice
+                  .reduce((selectedValues, selectedDie, index) => {
+                    const $selectedDie = $(selectedDie)
+
+                    if (remove) {
+                      selectedValues.remove = [...selectedValues.remove, $selectedDie.data('key')]
+                    }
+
+                    selectedValues.value = { ...selectedValues.value, [Object.keys(selectedValues.value).length]: $selectedDie.data('value') }
+
+                    return selectedValues
+                  }, { remove: [], value: {} })
+              )
+            }
+          }
+        },
+        default: 'cancel',
+        render(html) {
+          html.find('.die-icon').click(function () {
+            $(this).toggleClass('result selected')
+          })
+        }
+      }, { jQuery: true }).render(true)
+    })
   }
 
   async _newDie (event) {

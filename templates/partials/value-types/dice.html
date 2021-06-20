@@ -1,6 +1,7 @@
 <div>
   {{> "systems/cortexprime/templates/partials/dice/select.html"
-    addToPool=(ternary addToPool true false)
+    addToPool=addToPool
+    consumable=data.dice.consumable
     dice=data.dice.value
     edit=edit
     minDice=0

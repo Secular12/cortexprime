@@ -2561,6 +2561,10 @@ input {
   padding: 0.5rem;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .hide {
   display: none;
 }
@@ -2772,14 +2776,6 @@ input {
   width: 2.5rem;
 }
 
-.die-icon.d4 .value {
-  padding-bottom: 0.35rem;
-}
-
-.die-icon.d6 {
-  background-size: 75%;
-}
-
 .die-icon.d4 {
   background-image: url("../assets/dice/d4.svg");
 }
@@ -2900,6 +2896,14 @@ input {
   background-image: url("../assets/dice/unchosen-d12.svg");
 }
 
+.die-icon.d4 .value {
+  padding-bottom: 0.35rem;
+}
+
+.die-icon.d6 {
+  background-size: 75%;
+}
+
 .die-icon .value {
   color: #f5f8fa;
   font-weight: bold;
@@ -2908,10 +2912,6 @@ input {
 
 .die-icon.result .value {
   color: #424C59;
-}
-
-.die-icon.selected .value {
-  color: #141c27;
 }
 
 .die-icon.unchosen .value {
