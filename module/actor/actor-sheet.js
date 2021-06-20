@@ -43,6 +43,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     html.find('.actor-type-confirm').click(this._actorTypeConfirm.bind(this))
     html.find('.add-new-tag').click(this._addNewTag.bind(this))
     html.find('.add-pp').click(() => { this.actor.changePpBy(1) })
+    html.find('.add-to-pool').click(this._addToPool.bind(this))
     html.find('.die-select').change(this._onDieChange.bind(this))
     html.find('.new-die').click(this._newDie.bind(this))
     html.find('.spend-pp').click(() => {
@@ -94,6 +95,12 @@ export class CortexPrimeActorSheet extends ActorSheet {
         value: newTags
       }
     })
+  }
+
+  async _addToPool (event) {
+    const { path, label } = event.currentTarget.dataset
+    const value = getProperty(this.actor.data, `${path}.value`)
+    await game.cortexprime.UserDicePool._addTraitToPool(this.actor.name, label, value)
   }
 
   async _newDie (event) {

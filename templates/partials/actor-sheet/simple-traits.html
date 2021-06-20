@@ -4,7 +4,13 @@
     <div>
       <div class="my-2 flex-row flex-jsb">
         <label class="flex-col">
-          <div class="section-sub-heading mt-1">{{simpleTrait.label}}</div>
+          <div
+            class="section-sub-heading mt-1{{ternary (eq simpleTrait.valueType 'dice') ' add-to-pool' ''}}"
+            data-label="{{simpleTrait.label}}"
+            data-path="{{concat ../path '.' simpleTraitIndex '.dice'}}"
+          >
+            {{simpleTrait.label}}
+          </div>
         </label>
         {{#if (and ../owner simpleTrait.editable)}}
           <div class="flex-col">
@@ -28,10 +34,12 @@
           <p>{{simpleTrait.description}}</p>
         {{/if}}
         {{> (concat "systems/cortexprime/templates/partials/value-types/" simpleTrait.valueType ".html")
+          addToPool=true
           fieldPath=(concat ../path '.' simpleTraitIndex '.' simpleTrait.valueType)
           path=(concat ../path '.' simpleTraitIndex '.' simpleTrait.valueType)
           data=simpleTrait
           edit=(and ../owner (and simpleTrait.editable simpleTrait.edit))
+          label=simpleTrait.label
         }}
       </div>
     </div>

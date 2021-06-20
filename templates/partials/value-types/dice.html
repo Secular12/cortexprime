@@ -1,8 +1,10 @@
 <div>
   {{> "systems/cortexprime/templates/partials/dice/select.html"
+    addToPool=(ternary addToPool true false)
     dice=data.dice.value
     edit=edit
     minDice=0
+    label=label
     selectName=path
   }}
 </div>

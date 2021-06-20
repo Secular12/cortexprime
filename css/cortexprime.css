@@ -2653,6 +2653,10 @@ input {
   background-color: #e7eef3;
 }
 
+.add-to-pool {
+  cursor: pointer;
+}
+
 .icon, .die-icon {
   background-position: center;
   background-repeat: no-repeat;

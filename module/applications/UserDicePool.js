@@ -87,6 +87,18 @@ export class UserDicePool extends FormApplication {
     await this.render(true)
   }
 
+  async _addTraitToPool (source, label, value) {
+    const currentDice = game.user.getFlag('cortexprime', 'dicePool')
+    const currentDiceLength = Object.keys(currentDice.pool[source] || {}).length
+    setProperty(currentDice, `pool.${source}.${currentDiceLength}`, { label, value })
+
+    await game.user.setFlag('cortexprime', 'dicePool', null)
+
+    await game.user.setFlag('cortexprime', 'dicePool', currentDice)
+
+    await this.render(true)
+  }
+
   async _clearDicePool (event) {
     if (event) event.preventDefault()
 
