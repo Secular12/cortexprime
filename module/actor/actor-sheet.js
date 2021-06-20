@@ -51,7 +51,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
         .changePpBy(-1)
         .then(() => {
           if (game.dice3d) {
-            game.dice3d.show({ throws: [{ dice: [{ result: 1, resultLabel: 1, type: 'dp', vectors: [], options: {} }] }] })
+            game.dice3d.show({ throws: [{ dice: [{ result: 1, resultLabel: 1, type: 'dp', vectors: [], options: {} }] }] }, game.user, true)
           }
         })
     })
