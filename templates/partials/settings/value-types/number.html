@@ -1,7 +1,7 @@
 <div>
   <label>
-    <span class="label">{{localize 'HasMaxNumber'}}</span>
     <input name="{{concat path '.hasMaxNumber'}}" type="checkbox" {{checked data.number.hasMaxNumber}}>
+    <span class="label">{{localize 'HasMaxNumber'}}</span>
   </label>
   {{> "systems/cortexprime/templates/partials/value-types/number.html"
     data=data

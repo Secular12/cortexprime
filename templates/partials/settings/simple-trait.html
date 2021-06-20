@@ -38,8 +38,9 @@
     </div>
     <div>
       <label>
+        <input name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.editable'}}" type="checkbox" {{checked
+          simpleTrait.editable}}>
         <span class="label">{{localize 'Editable'}}</span>
-        <input name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.editable'}}" type="checkbox" {{checked simpleTrait.editable}}>
       </label>
     </div>
     {{> (concat "systems/cortexprime/templates/partials/settings/value-types/" (?? simpleTrait.valueType 'text') ".html")
