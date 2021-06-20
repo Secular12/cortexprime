@@ -94,7 +94,7 @@ export default class TraitSettings extends FormApplication {
             description,
             details: {},
             dice: {
-              values: dice
+              value: dice
             },
             name
           }

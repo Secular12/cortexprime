@@ -1,6 +1,6 @@
 const getDefaultDice = ({ minDieRating, maxDieRating }) => {
   return {
-    values: {
+    value: {
       0: [8, 6, 10, 4, 12, 0].find(option => option >= minDieRating && option <= maxDieRating) || 0
     }
   }

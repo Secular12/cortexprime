@@ -85,7 +85,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const value = {
       name,
       dice: {
-        values: { 0: die }
+        value: { 0: die }
       }
     }
 
@@ -115,7 +115,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
       description: '',
       details: {},
       dice: {
-        values: {
+        value: {
           0: 6
         }
       },
@@ -152,7 +152,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const value = {
       description: '',
       details: {},
-      dice: { values: diceValues },
+      dice: { value: diceValues },
       isCustomTrait: true,
       name: `New ${traitSet.name} Trait`
     }
@@ -177,7 +177,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
       'data.dice.pool': {
         ...currentPool,
         [newKey]: dataTarget.dice
-          ? { label, values: dataTarget.dice.values }
+          ? { label, value: dataTarget.dice.value }
           : { ...dataTarget, label }
       }
     })
@@ -185,9 +185,9 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
   _getRollFormula(dicePool) {
     return Object.keys(dicePool).reduce((formula, trait) => {
-      const innerFormula = Object.keys(dicePool[trait].values)
+      const innerFormula = Object.keys(dicePool[trait].value)
         .reduce((acc, value) => {
-          return `${acc}+d${dicePool[trait].values[value]}`
+          return `${acc}+d${dicePool[trait].value[value]}`
         }, '')
 
       return formula ? `${formula}+${innerFormula}` : innerFormula
@@ -199,17 +199,17 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const $targetDieSelect = $(event.currentTarget)
     const target = $targetDieSelect.data('target')
     const targetKey = $targetDieSelect.data('key')
-    const dataTargetValue = Object.values(getProperty(this.actor.data, `${target}.values`) || {})
+    const dataTargetValue = Object.values(getProperty(this.actor.data, `${target}.value`) || {})
 
     if ($targetDieSelect.val() === '0') {
       $targetDieSelect.remove()
 
       await this.actor.update({
-        [`${target}.-=values`]: null
+        [`${target}.-=value`]: null
       })
 
       await this.actor.update({
-        [`${target}.values`]: dataTargetValue.reduce((acc, value, index) => {
+        [`${target}.value`]: dataTargetValue.reduce((acc, value, index) => {
           if (index !== targetKey) {
             return { ...acc, [index]: value }
           }
@@ -219,7 +219,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
       })
     } else {
       await this.actor.update({
-        [`${target}.values`]: dataTargetValue.reduce((acc, value, index) => {
+        [`${target}.value`]: dataTargetValue.reduce((acc, value, index) => {
           return { ...acc, [index]: value }
         }, {})
       })
@@ -231,10 +231,10 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const $button = $(event.currentTarget)
     const target = $button.data('target')
     const data = getProperty(this.actor.data, target)
-    const values = Object.values(data?.values || {})
+    const values = Object.values(data?.value || {})
 
     await this.actor.update({
-      [`${target}.values`]: [...values, values.length > 0 ? values[0] : '8']
+      [`${target}.value`]: [...values, values.length > 0 ? values[0] : '8']
     })
   }
 
@@ -254,11 +254,11 @@ export class CortexPrimeActorSheet extends ActorSheet {
     }
 
     await this.actor.update({
-      'data.dice.customAdd.-=values': null
+      'data.dice.customAdd.-=value': null
     })
 
     await this.actor.update({
-      'data.dice.customAdd.values': { 0: '8' },
+      'data.dice.customAdd.value': { 0: '8' },
       'data.dice.customAdd.label': ''
     })
   }

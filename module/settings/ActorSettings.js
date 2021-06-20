@@ -123,6 +123,11 @@ export default class ActorSettings extends FormApplication {
       [actorTypeKey]: {
         simpleTraits: {
           [newKey]: {
+            dice: {
+              value: {
+                0: '8'
+              }
+            },
             editable: true,
             label: 'New Simple Trait'
           }
@@ -196,6 +201,48 @@ export default class ActorSettings extends FormApplication {
       }
     })
 
+    this.render(true)
+  }
+
+  async _newDie (event) {
+    event.preventDefault()
+    const source = game.settings.get('cortexprime', 'actorTypes')
+    const { target: path } = event.currentTarget.dataset
+    const currentDice = getProperty(source, path) || {}
+    const values = Object.values(currentDice.value ?? {})
+    const newKey = values.length
+    const newValue = newKey > 0 ? values[newKey - 1] : '8'
+
+    setProperty(source, `${path}.value`, { ...currentDice.value, [newKey]: newValue })
+    await game.settings.set('cortexprime', 'actorTypes', source)
+    this.render(true)
+  }
+
+  async _onDieChange (event) {
+    event.preventDefault()
+    const source = game.settings.get('cortexprime', 'actorTypes')
+    const $dieSelect = $(event.currentTarget)
+    const target = $dieSelect.data('target')
+    const targetKey = $dieSelect.data('key')
+    const targetValue = $dieSelect.val()
+    const currentDiceValues = Object.values(getProperty(source, `${target}.value`) || {})
+
+    if (targetValue === '0') {
+      setProperty(source, `${target}.value`, currentDiceValues.reduce((acc, value, index) => {
+
+        if (index !== targetKey) {
+          return { ...acc, [Object.keys(acc).length]: value }
+        }
+
+        return acc
+      }, {}))
+    } else {
+      setProperty(source, `${target}.value`, currentDiceValues.reduce((acc, value, index) => {
+        return { ...acc, [index]: index === targetKey ? targetValue : value }
+      }, {}))
+    }
+
+    await game.settings.set('cortexprime', 'actorTypes', source)
     this.render(true)
   }
 

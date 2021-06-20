@@ -27,7 +27,7 @@ export default (data) => {
   if (hasScale) {
     data.data.scale = {
       edit: false,
-      values: {}
+      value: {}
     }
   }
 }

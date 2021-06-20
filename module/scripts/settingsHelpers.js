@@ -1,4 +1,4 @@
-import { indexObjectValues, objectFilter, objectMapKeys, objectReduce, objectSortByKeys } from '../../lib/helpers.js'
+import { indexObjectValues, objectFilter, objectReduce } from '../../lib/helpers.js'
 
 export const collapseToggle = function (html) {
   html.find('.collapse-toggle').click(async (event) => {

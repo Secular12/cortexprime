@@ -28,6 +28,8 @@ export class CortexPrimeActorSheet extends ActorSheet {
   getData (options) {
     const data = super.getData(options)
 
+    console.log(data)
+
     return {
       ...data,
       actorTypeOptions: objectMapValues(game.settings.get('cortexprime', 'actorTypes'), val => val.name)
@@ -41,6 +43,8 @@ export class CortexPrimeActorSheet extends ActorSheet {
     html.find('.actor-type-confirm').click(this._actorTypeConfirm.bind(this))
     html.find('.add-new-tag').click(this._addNewTag.bind(this))
     html.find('.add-pp').click(() => { this.actor.changePpBy(1) })
+    html.find('.die-select').change(this._onDieChange.bind(this))
+    html.find('.new-die').click(this._newDie.bind(this))
     html.find('.spend-pp').click(() => {
       this.actor
         .changePpBy(-1)
@@ -79,16 +83,67 @@ export class CortexPrimeActorSheet extends ActorSheet {
     event.preventDefault()
     const $addButton = $(event.currentTarget)
     const path = $addButton.data('path')
-    const currentTagSettings = getProperty(this.actor.data, path)
-    const currentTags = currentTagSettings.value ?? {}
+    const currentTagData = getProperty(this.actor.data, path)
+    const currentTags = currentTagData.value ?? {}
     const newIndex = Object.keys(currentTags).length
-    const newTags = { ...currentTags, [newIndex]: currentTagSettings.newTagValue }
+    const newTags = { ...currentTags, [newIndex]: currentTagData.newTagValue }
 
     await this.actor.update({
       [path]: {
         newTagValue: '',
         value: newTags
       }
+    })
+  }
+
+  async _newDie (event) {
+    event.preventDefault()
+    const $targetNewDie = $(event.currentTarget)
+    const target = $targetNewDie.data('target')
+    const currentDiceData = getProperty(this.actor.data, target)
+    const currentDice = currentDiceData.value ?? {}
+    const dataTargetValue = Object.values(currentDice)
+    const newIndex = dataTargetValue.length
+    const newValue = dataTargetValue[newIndex - 1] || '8'
+
+    await this.actor.update({
+      [target]: {
+        value: {
+          ...currentDice,
+          [newIndex]: newValue
+        }
+      }
+    })
+  }
+
+  async _onDieChange (event) {
+    event.preventDefault()
+    const $targetNewDie = $(event.currentTarget)
+    const target = $targetNewDie.data('target')
+    const targetKey = $targetNewDie.data('key')
+    const targetValue = $targetNewDie.val()
+    const currentDiceData = getProperty(this.actor.data, target)
+    const currentDice = currentDiceData.value ?? {}
+    const currentDiceValues = Object.values(currentDice)
+
+    const newValue = currentDiceValues.reduce((acc, value, index) => {
+      return targetValue === '0'
+        ? index !== targetKey
+          ? { ...acc, [Object.keys(acc).length]: value }
+          : acc
+        : { ...acc, [index]: index === targetKey ? targetValue : value }
+    }, {})
+
+    await this._resetDataPoint(target, 'value', newValue)
+  }
+
+  async _resetDataPoint(path, target, value) {
+    await this.actor.update({
+      [`${path}.-=${target}`]: null
+    })
+
+    await this.actor.update({
+      [`${path}.${target}`]: value
     })
   }
 }

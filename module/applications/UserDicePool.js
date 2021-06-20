@@ -4,7 +4,7 @@ import { listLength } from '../../lib/helpers.js'
 const blankPool = {
   customAdd: {
     label: '',
-    values: { 0: '8' }
+    value: { 0: '8' }
   },
   pool: {}
 }
@@ -77,7 +77,7 @@ export class UserDicePool extends FormApplication {
 
     setProperty(currentDice, `customAdd`, {
       label: '',
-      values: { 0: '8' }
+      value: { 0: '8' }
     })
 
     await game.user.setFlag('cortexprime', 'dicePool', null)
@@ -101,7 +101,7 @@ export class UserDicePool extends FormApplication {
     return Object.values(dicePool)
     .reduce((formula, traitGroup) => {
       const innerFormula = Object.values(traitGroup || {})
-        .reduce((acc, trait) => [...acc, ...Object.values(trait.values || {})], [])
+        .reduce((acc, trait) => [...acc, ...Object.values(trait.value || {})], [])
         .reduce((acc, value) => {
           return `${acc}+d${value}`
         }, '')
@@ -117,7 +117,7 @@ export class UserDicePool extends FormApplication {
     const target = $targetDieSelect.data('target')
     const targetKey = $targetDieSelect.data('key')
     const targetValue = $targetDieSelect.val()
-    const dataTargetValue = Object.values(getProperty(currentDice, `${target}.values`) || {})
+    const dataTargetValue = Object.values(getProperty(currentDice, `${target}.value`) || {})
 
     await this.submit()
 
@@ -126,15 +126,15 @@ export class UserDicePool extends FormApplication {
     if ($targetDieSelect.val() === '0') {
       $targetDieSelect.remove()
 
-      setProperty(currentDice, `${target}.values`, dataTargetValue.reduce((acc, value, index) => {
+      setProperty(currentDice, `${target}.value`, dataTargetValue.reduce((acc, value, index) => {
         if (index !== targetKey) {
-          return { ...acc, [index]: value }
+          return { ...acc, [Object.keys(acc).length]: value }
         }
 
         return acc
       }, {}))
     } else {
-      setProperty(currentDice, `${target}.values`, dataTargetValue.reduce((acc, value, index) => {
+      setProperty(currentDice, `${target}.value`, dataTargetValue.reduce((acc, value, index) => {
         return { ...acc, [index]: index === targetKey ? targetValue : value }
       }, {}))
     }
@@ -149,11 +149,11 @@ export class UserDicePool extends FormApplication {
     const currentDice = game.user.getFlag('cortexprime', 'dicePool')
     const $targetNewDie = $(event.currentTarget)
     const target = $targetNewDie.data('target')
-    const dataTargetValue = Object.values(getProperty(currentDice, `${target}.values`) || {})
+    const dataTargetValue = Object.values(getProperty(currentDice, `${target}.value`) || {})
     const currentLength = dataTargetValue.length
     const lastValue = dataTargetValue[currentLength - 1] || '8'
 
-    setProperty(currentDice, `${target}.values`, { ...dataTargetValue, [currentLength]: lastValue })
+    setProperty(currentDice, `${target}.value`, { ...dataTargetValue, [currentLength]: lastValue })
 
     await game.user.setFlag('cortexprime', 'dicePool', null)
 
@@ -187,7 +187,7 @@ export class UserDicePool extends FormApplication {
 
     setProperty(currentDice, `customAdd`, {
       label: '',
-      values: { 0: '8' }
+      value: { 0: '8' }
     })
 
     await game.user.setFlag('cortexprime', 'dicePool', null)

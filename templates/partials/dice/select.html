@@ -6,7 +6,7 @@
           class="die-select d{{dieRating}}"
           data-key="{{index}}"
           data-target="{{../selectName}}"
-          name="{{../selectName}}.values.{{index}}"
+          name="{{../selectName}}.value.{{index}}"
         >
           {{#select dieRating}}
             {{> "systems/cortexprime/templates/partials/dice/select-options.html" dice=../dice max=(?? ../max 12) min=(?? ../min 0) minDice=(?? ../minDice 1)}}
