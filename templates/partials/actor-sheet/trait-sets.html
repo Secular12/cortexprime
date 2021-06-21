@@ -1,7 +1,7 @@
 <section class="flex-col col-9">
-  <div class="flex-row">
+  <div class="columns-2 column-gap-4">
     {{#each traitSets as |traitSet traitSetIndex|}}
-      <div class="flex-col col-6">
+      <div class="column-item mb-4">
         {{#unless (and traitSet.edit ../owner)}}
           <div class="ba-1-primary pa-2">
             <div class="flex-row flex-jsb">
