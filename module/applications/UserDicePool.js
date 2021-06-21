@@ -61,6 +61,7 @@ export class UserDicePool extends FormApplication {
     html.find('.remove-pool-trait').click(this._removePoolTrait.bind(this))
     html.find('.reset-custom-pool-trait').click(this._resetCustomPoolTrait.bind(this))
     html.find('.roll-dice-pool').click(this._rollDicePool.bind(this))
+    html.find('.clear-source').click(this._clearSource.bind(this))
   }
 
   async initPool () {
@@ -106,6 +107,24 @@ export class UserDicePool extends FormApplication {
     await game.user.setFlag('cortexprime', 'dicePool', null)
 
     await game.user.setFlag('cortexprime', 'dicePool', blankPool)
+
+    await this.render(true)
+  }
+
+  async _clearSource (event) {
+    event.preventDefault()
+    const { source } = event.currentTarget.dataset
+    const currentDice = game.user.getFlag('cortexprime', 'dicePool')
+
+    await game.user.setFlag('cortexprime', 'dicePool', null)
+
+    currentDice.pool = Object.keys(currentDice.pool).reduce((dice, dieSource) => {
+      if (source === dieSource) return dice
+
+      return { ...dice, [dieSource]: currentDice.pool[dieSource] }
+    }, {})
+
+    await game.user.setFlag('cortexprime', 'dicePool', currentDice)
 
     await this.render(true)
   }

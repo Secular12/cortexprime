@@ -36,8 +36,15 @@
     <div class="bkg-grey pa-1">
       <div>
         {{#each pool as |source sourceName|}}
-          <p class="section-sub-heading bkg-accent text-black px-2 py-1">{{sourceName}}</p>
-          <div class="flex flex-ac flex-wrap">
+          <div class="bkg-accent flex flex-ac flex-jsb py-1">
+            <span class="section-sub-heading flex-col text-black">{{sourceName}}</span>
+            <div class="flex-col">
+              <button class="btn btn-primary clear-source" data-source="{{sourceName}}">
+                {{localize 'Clear'}}
+              </button>
+            </div>
+          </div>
+          <div class="flex flex-ac flex-wrap py-2">
             {{#each source as |trait traitKey|}}
               <div class="flex-col ma-1 py-1 bkg-white ba-1-primary">
                 <div class="flex-row flex-ac">
