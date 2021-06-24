@@ -17,7 +17,7 @@
               {{/if}}
             </div>
             <div class="{{ternary traitSet.shutdown 'shutdown' ''}}">
-              {{#if traitSet.description}}
+              {{#if (and traitSet.hasDescription traitSet.description)}}
                 <div>{{traitSet.description}}</div>
               {{/if}}
             </div>
@@ -39,10 +39,12 @@
               </div>
             </div>
             <div>
-              <label>
-                {{localize 'Description'}}
-                <textarea name="{{concat ../path '.' traitSetIndex '.description'}}">{{traitSet.description}}</textarea>
-              </label>
+              {{#if traitSet.hasDescription}}
+                <label>
+                  {{localize 'Description'}}
+                  <textarea name="{{concat ../path '.' traitSetIndex '.description'}}">{{traitSet.description}}</textarea>
+                </label>
+              {{/if}}
             </div>
           </div>
         {{/unless}}

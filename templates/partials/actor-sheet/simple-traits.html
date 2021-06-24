@@ -30,12 +30,12 @@
         {{/if}}
       </div>
       <div>
-        {{#if (and ../owner (and simpleTrait.editable simpleTrait.edit))}}
+        {{#if (and ../owner (and simpleTrait.hasDescription (and simpleTrait.editable simpleTrait.edit)))}}
           <label>
             <div class="label">{{localize 'Description'}}</div>
             <textarea name="{{concat ../path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
           </label>
-        {{else if simpleTrait.description}}
+        {{else if (and simpleTrait.hasDescription simpleTrait.description)}}
           <p>{{simpleTrait.description}}</p>
         {{/if}}
         {{> (concat "systems/cortexprime/templates/partials/value-types/" simpleTrait.valueType ".html")

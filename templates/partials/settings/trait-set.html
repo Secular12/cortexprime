@@ -16,9 +16,13 @@
   <div>
     <div>
       <label>
+        <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.hasDescription'}}" type="checkbox" {{checked
+          traitSet.hasDescription}}>
         <span class="label">Description</span>
-        <textarea name="{{concat 'actorTypes.' path '.' traitSetIndex '.description'}}">{{traitSet.description}}</textarea>
       </label>
+      {{#if traitSet.hasDescription}}
+        <textarea name="{{concat 'actorTypes.' path '.' traitSetIndex '.description'}}">{{traitSet.description}}</textarea>
+      {{/if}}
     </div>
   </div>
 </article>

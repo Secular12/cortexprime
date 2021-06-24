@@ -16,9 +16,13 @@
   <div>
     <div>
       <label>
+        <input name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.hasDescription'}}" type="checkbox" {{checked
+          simpleTrait.hasDescription}}>
         <span class="label">{{localize 'Description'}}</span>
-        <textarea name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
       </label>
+      {{#if simpleTrait.hasDescription}}
+        <textarea name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
+      {{/if}}
     </div>
     <div>
       <label>
