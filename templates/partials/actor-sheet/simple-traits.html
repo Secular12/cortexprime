@@ -9,7 +9,12 @@
             data-label="{{simpleTrait.label}}"
             data-path="{{concat ../path '.' simpleTraitIndex '.dice'}}"
           >
-            {{simpleTrait.label}}
+            {{#if simpleTrait.label}}
+              {{simpleTrait.label}}
+            {{/if}}
+            {{#if (and (not simpleTrait.label) (eq simpleTrait.valueType 'dice'))}}
+              <span class="fa fa-dice"></span>
+            {{/if}}
           </div>
         </label>
         {{#if (and ../owner simpleTrait.editable)}}
