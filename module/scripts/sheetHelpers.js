@@ -1,10 +1,12 @@
+import { getLength, objectReindexFilter } from '../../lib/helpers.js'
+
 export const addNewDataPoint = async function (data, path, value) {
   const currentData = data || {}
 
   await this.actor.update({
     [`data.${path}`]: {
       ...currentData,
-      [Object.keys(currentData).length]: value
+      [getLength(currentData)]: value
     }
   })
 }
@@ -35,14 +37,7 @@ export const toggleItems = async function (html) {
 export const removeDataPoint = async function (data, path, target, key) {
   const currentData = data || {}
 
-  const newData = Object.keys(currentData)
-    .reduce((acc, currentKey) => {
-      if (+currentKey !== +key) {
-        return { ...acc, [Object.keys(acc).length]: currentData[currentKey] }
-      }
-
-      return acc
-    }, {})
+  const newData = objectReindexFilter(currentData, (_, currentKey) => parseInt(currentKey, 10) !== parseInt(key, 10))
 
   await resetDataPoint.call(this, path, target, newData)
 }

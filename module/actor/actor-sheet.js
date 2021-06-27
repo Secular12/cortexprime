@@ -2,7 +2,7 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-import { objectMapValues } from '../../lib/helpers.js'
+import { getLength, objectMapValues, objectReindexFilter, objectReduce } from '../../lib/helpers.js'
 import { localizer } from '../scripts/foundryHelpers.js'
 import { displayToggle } from '../scripts/settingsHelpers.js'
 import {
@@ -86,7 +86,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const path = $addButton.data('path')
     const currentTagData = getProperty(this.actor.data, path)
     const currentTags = currentTagData.value ?? {}
-    const newIndex = Object.keys(currentTags).length
+    const newIndex = getLength(currentTags)
     const newTags = { ...currentTags, [newIndex]: currentTagData.newTagValue }
 
     await this.actor.update({
@@ -104,21 +104,15 @@ export class CortexPrimeActorSheet extends ActorSheet {
       const selectedDice = await this._getConsumableDiceSelection(value, label)
 
       if (selectedDice.remove?.length) {
-        const newValue = Object.values(value).reduce((acc, val, index) => {
-          return !selectedDice.remove.includes(index)
-              ? { ...acc, [Object.keys(acc).length]: val }
-              : acc
-        }, {})
+        const newValue = objectReindexFilter(value, (_, key) => !selectedDice.remove.includes(key))
 
         await this._resetDataPoint(path, 'value', newValue)
-
-        console.log(getProperty(this.actor.data, `${path}.value`))
       }
 
       value = selectedDice.value
     }
 
-    if (Object.keys(value ?? {}).length) {
+    if (getLength(value)) {
       await game.cortexprime.UserDicePool._addTraitToPool(this.actor.name, label, value)
     }
   }
@@ -160,7 +154,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
                       selectedValues.remove = [...selectedValues.remove, $selectedDie.data('key')]
                     }
 
-                    selectedValues.value = { ...selectedValues.value, [Object.keys(selectedValues.value).length]: $selectedDie.data('value') }
+                    selectedValues.value = { ...selectedValues.value, [getLength(selectedValues.value)]: $selectedDie.data('value') }
 
                     return selectedValues
                   }, { remove: [], value: {} })
@@ -184,9 +178,8 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const target = $targetNewDie.data('target')
     const currentDiceData = getProperty(this.actor.data, target)
     const currentDice = currentDiceData.value ?? {}
-    const dataTargetValue = Object.values(currentDice)
-    const newIndex = dataTargetValue.length
-    const newValue = dataTargetValue[newIndex - 1] || '8'
+    const newIndex = getLength(currentDice)
+    const newValue = currentDice[newIndex - 1] ?? '8'
 
     await this.actor.update({
       [target]: {
@@ -205,16 +198,9 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const targetKey = $targetNewDie.data('key')
     const targetValue = $targetNewDie.val()
     const currentDiceData = getProperty(this.actor.data, target)
-    const currentDice = currentDiceData.value ?? {}
-    const currentDiceValues = Object.values(currentDice)
 
-    const newValue = currentDiceValues.reduce((acc, value, index) => {
-      return targetValue === '0'
-        ? index !== targetKey
-          ? { ...acc, [Object.keys(acc).length]: value }
-          : acc
-        : { ...acc, [index]: index === targetKey ? targetValue : value }
-    }, {})
+    const mappedValue = objectMapValues(currentDiceData.value ?? {}, (value, index) => parseInt(index, 10) === targetKey ? targetValue : value)
+    const newValue = objectReindexFilter(mappedValue, value => value !== '0')
 
     await this._resetDataPoint(target, 'value', newValue)
   }

@@ -1,4 +1,4 @@
-import initializeCortexPrimeCharacter from './scripts/initializeCortexPrimeCharacter.old.js'
+// import initializeCortexPrimeCharacter from './scripts/initializeCortexPrimeCharacter.js'
 import { UserDicePool } from './applications/UserDicePool.js'
 import rollDice from './scripts/rollDice.js'
 

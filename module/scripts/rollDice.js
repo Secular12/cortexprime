@@ -1,18 +1,15 @@
-const getRollFormula = (pool) => {
-  return Object.values(pool)
-    .reduce((formula, traitGroup) => {
-      const innerFormula = Object.values(traitGroup || {})
-        .reduce((acc, trait) => [...acc, ...Object.values(trait.value || {})], [])
-        .reduce((acc, value) => {
-          return `${acc}+d${value}`
-        }, '')
+import { objectReduce } from '../../lib/helpers.js'
 
-      return formula ? `${formula}+${innerFormula}` : innerFormula
-    }, '')
+const getRollFormula = (pool) => {
+  return objectReduce(pool, (formula, traitGroup) => {
+    const innerFormula = objectReduce(traitGroup || {}, (acc, trait) => [...acc, ...Object.values(trait.value || {})], [])
+      .reduce((acc, value) => `${acc}+d${value}`, '')
+
+    return formula ? `${formula}+${innerFormula}` : innerFormula
+  }, '')
 }
 
 export default async pool => {
-  console.log(pool)
   const rollFormula = getRollFormula(pool)
 
   const r = new Roll(rollFormula)

@@ -3,7 +3,7 @@ import PlotPoint from './module/PlotPoint.js'
 import { preloadHandlebarsTemplates } from './module/handlebars/preloadTemplates.js'
 import { registerHandlebarHelpers } from './module/handlebars/helpers.js'
 import { registerSettings } from './module/settings/settings.js'
-import { CortexPrimeActorSheet } from "./module/actor/actor-sheet.js"
+import { CortexPrimeActorSheet } from './module/actor/actor-sheet.js'
 import cortexPrimeHooks from './module/cortexPrimeHooks.js'
 
 Hooks.once('init', () => {

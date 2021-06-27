@@ -1,5 +1,5 @@
 import { localizer } from '../scripts/foundryHelpers.js'
-import { listLength } from '../../lib/helpers.js'
+import { getLength, objectFilter, objectMapValues, objectReindexFilter } from '../../lib/helpers.js'
 import rollDice from '../scripts/rollDice.js'
 
 const blankPool = {
@@ -73,7 +73,7 @@ export class UserDicePool extends FormApplication {
     event.preventDefault()
 
     const currentDice = game.user.getFlag('cortexprime', 'dicePool')
-    const currentCustomLength = Object.keys(currentDice.pool.custom || {}).length
+    const currentCustomLength = getLength(currentDice.pool.custom ?? {})
 
     setProperty(currentDice, `pool.custom.${currentCustomLength}`, currentDice.customAdd)
 
@@ -91,7 +91,7 @@ export class UserDicePool extends FormApplication {
 
   async _addTraitToPool (source, label, value) {
     const currentDice = game.user.getFlag('cortexprime', 'dicePool')
-    const currentDiceLength = Object.keys(currentDice.pool[source] || {}).length
+    const currentDiceLength = getLength(currentDice.pool[source] || {})
     setProperty(currentDice, `pool.${source}.${currentDiceLength}`, { label, value })
 
     await game.user.setFlag('cortexprime', 'dicePool', null)
@@ -118,11 +118,7 @@ export class UserDicePool extends FormApplication {
 
     await game.user.setFlag('cortexprime', 'dicePool', null)
 
-    currentDice.pool = Object.keys(currentDice.pool).reduce((dice, dieSource) => {
-      if (source === dieSource) return dice
-
-      return { ...dice, [dieSource]: currentDice.pool[dieSource] }
-    }, {})
+    currentDice.pool = objectFilter(currentDice.pool, (_, dieSource) => source !== dieSource)
 
     await game.user.setFlag('cortexprime', 'dicePool', currentDice)
 
@@ -136,26 +132,17 @@ export class UserDicePool extends FormApplication {
     const target = $targetDieSelect.data('target')
     const targetKey = $targetDieSelect.data('key')
     const targetValue = $targetDieSelect.val()
-    const dataTargetValue = Object.values(getProperty(currentDice, `${target}.value`) || {})
+    const dataTargetValue = getProperty(currentDice, `${target}.value`) || {}
 
     await this.submit()
 
     await game.user.setFlag('cortexprime', 'dicePool', null)
 
     if ($targetDieSelect.val() === '0') {
-      $targetDieSelect.remove()
-
-      setProperty(currentDice, `${target}.value`, dataTargetValue.reduce((acc, value, index) => {
-        if (index !== targetKey) {
-          return { ...acc, [Object.keys(acc).length]: value }
-        }
-
-        return acc
-      }, {}))
+      setProperty(currentDice, `${target}.value`, objectReindexFilter(dataTargetValue, (_, index) => parseInt(index, 10) !== parseInt(targetKey, 10)))
     } else {
-      setProperty(currentDice, `${target}.value`, dataTargetValue.reduce((acc, value, index) => {
-        return { ...acc, [index]: index === targetKey ? targetValue : value }
-      }, {}))
+
+      setProperty(currentDice, `${target}.value`, objectMapValues(dataTargetValue, (value, index) => parseInt(index, 10) === parseInt(targetKey, 10) ? targetValue : value))
     }
 
     await game.user.setFlag('cortexprime', 'dicePool', currentDice)
@@ -168,8 +155,8 @@ export class UserDicePool extends FormApplication {
     const currentDice = game.user.getFlag('cortexprime', 'dicePool')
     const $targetNewDie = $(event.currentTarget)
     const target = $targetNewDie.data('target')
-    const dataTargetValue = Object.values(getProperty(currentDice, `${target}.value`) || {})
-    const currentLength = dataTargetValue.length
+    const dataTargetValue = getProperty(currentDice, `${target}.value`) || {}
+    const currentLength = getLength(dataTargetValue)
     const lastValue = dataTargetValue[currentLength - 1] || '8'
 
     setProperty(currentDice, `${target}.value`, { ...dataTargetValue, [currentLength]: lastValue })
@@ -187,7 +174,7 @@ export class UserDicePool extends FormApplication {
     const source = $target.data('source')
     const currentDicePool = game.user.getFlag('cortexprime', 'dicePool')
 
-    if (listLength(currentDicePool.pool[source]) < 2) {
+    if (getLength(currentDicePool.pool[source] || {}) < 2) {
       delete currentDicePool.pool[source]
     } else {
       delete currentDicePool.pool[source][$target.data('key')]

@@ -1,5 +1,5 @@
 import { localizer } from '../scripts/foundryHelpers.js'
-import { objectFindKey, objectMapValues, objectReduce } from '../../lib/helpers.js'
+import { getLength, objectFindKey, objectMapValues, objectReduce, objectReindexFilter } from '../../lib/helpers.js'
 import { addFormElements, removeItem, reorderItem } from '../scripts/settingsHelpers.js'
 
 export default class ActorSettings extends FormApplication {
@@ -30,7 +30,7 @@ export default class ActorSettings extends FormApplication {
     return {
       actorTypes: game.settings.get('cortexprime', 'actorTypes'),
       breadcrumbs,
-      goBack: breadcrumbs[Object.keys(breadcrumbs).length - 2]?.target ?? 0
+      goBack: breadcrumbs[getLength(breadcrumbs ?? {}) - 2]?.target ?? 0
     }
   }
 
@@ -68,7 +68,7 @@ export default class ActorSettings extends FormApplication {
   }
 
   async _addNewActorType(source, data) {
-    const actorTypeKey = Object.keys(source).length
+    const actorTypeKey = getLength(source ?? {})
     const value = {
       [actorTypeKey]: {
         ...data
@@ -106,7 +106,7 @@ export default class ActorSettings extends FormApplication {
     const tagValue = currentTags.newTagValue
 
     if (tagValue) {
-      setProperty(source, `${path}.value`, { ...currentTags.value, [Object.keys(currentTags.value ?? {}).length]: tagValue })
+      setProperty(source, `${path}.value`, { ...currentTags.value, [getLength(currentTags.value ?? {})]: tagValue })
       setProperty(source, `${path}.newTagValue`, '')
       await game.settings.set('cortexprime', 'actorTypes', source)
       this.render(true)
@@ -117,7 +117,7 @@ export default class ActorSettings extends FormApplication {
     event.preventDefault()
     const source = game.settings.get('cortexprime', 'actorTypes')
     const actorTypeKey = $(event.currentTarget).data('actorType')
-    const newKey = Object.keys(source[actorTypeKey]?.simpleTraits || {}).length
+    const newKey = getLength(source[actorTypeKey]?.simpleTraits || {})
 
     const newSimpleTrait = {
       [actorTypeKey]: {
@@ -144,7 +144,7 @@ export default class ActorSettings extends FormApplication {
     event.preventDefault()
     const source = game.settings.get('cortexprime', 'actorTypes')
     const actorTypeKey = $(event.currentTarget).data('actorType')
-    const newKey = Object.keys(source[actorTypeKey]?.traitSets || {}).length
+    const newKey = getLength(source[actorTypeKey]?.traitSets || {})
 
     const newTraitSet = {
       [actorTypeKey]: {
@@ -193,7 +193,7 @@ export default class ActorSettings extends FormApplication {
         breadcrumb.active = false
         return breadcrumb
       }),
-      [Object.keys(currentBreadcrumbs).length]: {
+      [getLength(currentBreadcrumbs)]: {
         active: true,
         localize: false,
         name,
@@ -209,11 +209,11 @@ export default class ActorSettings extends FormApplication {
     const source = game.settings.get('cortexprime', 'actorTypes')
     const { target: path } = event.currentTarget.dataset
     const currentDice = getProperty(source, path) || {}
-    const values = Object.values(currentDice.value ?? {})
-    const newKey = values.length
+    const values = currentDice.value ?? {}
+    const newKey = getLength(values)
     const newValue = newKey > 0 ? values[newKey - 1] : '8'
 
-    setProperty(source, `${path}.value`, { ...currentDice.value, [newKey]: newValue })
+    setProperty(source, `${path}.value`, { ...values, [newKey]: newValue })
     await game.settings.set('cortexprime', 'actorTypes', source)
     this.render(true)
   }
@@ -225,21 +225,12 @@ export default class ActorSettings extends FormApplication {
     const target = $dieSelect.data('target')
     const targetKey = $dieSelect.data('key')
     const targetValue = $dieSelect.val()
-    const currentDiceValues = Object.values(getProperty(source, `${target}.value`) || {})
+    const currentDiceValues = getProperty(source, `${target}.value`) ?? {}
 
     if (targetValue === '0') {
-      setProperty(source, `${target}.value`, currentDiceValues.reduce((acc, value, index) => {
-
-        if (index !== targetKey) {
-          return { ...acc, [Object.keys(acc).length]: value }
-        }
-
-        return acc
-      }, {}))
+      setProperty(source, `${target}.value`, objectReindexFilter(currentDiceValues, (_, index) => parseInt(index, 10) !== parseInt(targetKey, 10)))
     } else {
-      setProperty(source, `${target}.value`, currentDiceValues.reduce((acc, value, index) => {
-        return { ...acc, [index]: index === targetKey ? targetValue : value }
-      }, {}))
+      setProperty(source, `${target}.value`, objectMapValues(currentDiceValues, (value, index) => parseInt(index, 10) === parseInt(targetKey, 10) ? targetValue : value))
     }
 
     await game.settings.set('cortexprime', 'actorTypes', source)
