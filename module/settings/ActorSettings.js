@@ -1,6 +1,6 @@
 import { localizer } from '../scripts/foundryHelpers.js'
 import { getLength, objectFindKey, objectMapValues, objectReduce, objectReindexFilter } from '../../lib/helpers.js'
-import { addFormElements, removeItem, reorderItem } from '../scripts/settingsHelpers.js'
+import { removeItem, reorderItem } from '../scripts/settingsHelpers.js'
 
 export default class ActorSettings extends FormApplication {
   constructor() {
@@ -38,18 +38,14 @@ export default class ActorSettings extends FormApplication {
     const expandedFormData = expandObject(formData)
     const currentActorTypes = game.settings.get('cortexprime', 'actorTypes') ?? {}
 
-    if (expandedFormData.newActorType) {
-      await this._addNewActorType(currentActorTypes, expandedFormData.newActorType)
-    } else {
-      await game.settings.set('cortexprime', 'actorTypes', mergeObject(currentActorTypes, expandedFormData.actorTypes))
-    }
+    await game.settings.set('cortexprime', 'actorTypes', mergeObject(currentActorTypes, expandedFormData.actorTypes))
 
     this.render(true)
   }
 
   activateListeners(html) {
     super.activateListeners(html)
-    html.find('#add-new-actor-type').click(event => addFormElements.call(this, event, this._actorTypeFields))
+    html.find('#add-new-actor-type').click(this._addNewActorType.bind(this))
     html.find('.add-new-tag').click(this._addNewTag.bind(this))
     html.find('.add-simple-trait').click(this._addSimpleTrait.bind(this))
     html.find('.add-trait-set').click(this._addTraitSet.bind(this))
@@ -61,40 +57,20 @@ export default class ActorSettings extends FormApplication {
     reorderItem.call(this, html)
   }
 
-  _actorTypeFields () {
-    return [
-      { name: 'newActorType.name', type: 'text', value: 'New Actor Type' }
-    ]
-  }
+  async _addNewActorType(event) {
+    event.preventDefault()
+    const source = game.settings.get('cortexprime', 'actorTypes')
+    const newKey = getLength(source ?? {})
 
-  async _addNewActorType(source, data) {
-    const actorTypeKey = getLength(source ?? {})
-    const value = {
-      [actorTypeKey]: {
-        ...data
+    const newActorType = {
+      [newKey]: {
+        name: 'New Actor Type'
       }
     }
 
-    await game.settings.set(
-      'cortexprime',
-      'actorBreadcrumbs',
-      {
-        0: {
-          active: false,
-          name: 'ActorTypes',
-          target: 'actorTypes',
-          localize: true
-        },
-        1: {
-          active: true,
-          name: data.name,
-          localize: false,
-          target: `actorType-${actorTypeKey}`
-        }
-      }
-    )
-
-    await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, value))
+    await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, newActorType))
+    await this.changeView('New Actor Type', `actorType-${newKey}`)
+    this.render(true)
   }
 
   async _addNewTag (event) {

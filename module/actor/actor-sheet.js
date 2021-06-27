@@ -4,7 +4,6 @@
  */
 import { getLength, objectMapValues, objectReindexFilter, objectReduce } from '../../lib/helpers.js'
 import { localizer } from '../scripts/foundryHelpers.js'
-import { displayToggle } from '../scripts/settingsHelpers.js'
 import {
   removeItems,
   toggleItems

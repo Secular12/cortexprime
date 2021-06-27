@@ -14,33 +14,6 @@ export const collapseToggle = function (html) {
   })
 }
 
-export const createNewField = ({ name, type = 'text', value: v }) => {
-  const values = !Array.isArray(v)
-    ? v !== null ? [v] : ['']
-    : v
-
-  return values.reduce((acc, value) => {
-    if (type === 'textarea') {
-      return `${acc}<textarea name="${name}">${value}</textarea>`
-    }
-
-    if (type === 'checkbox') {
-      const checked = value ? ' checked' : ''
-      return `${acc}<input type="checkbox" name="${name}"${checked} />`
-    }
-
-    return `${acc}<input type="${type}" name="${name}" value="${value}" />`
-  }, '')
-}
-
-export const createNewFieldElements = (items = []) => {
-  const fieldContainer = document.createElement('div')
-
-  fieldContainer.innerHTML = items.map(item => createNewField(item)).join('')
-
-  return fieldContainer
-}
-
 export const displayToggle = html => {
   html.find('input.display-toggle').change((event) => {
     event.preventDefault()
@@ -155,15 +128,4 @@ export const reorderItem = async function (html) {
     await game.settings.set('cortexprime', setting, settings)
     this.render(true)
   })
-}
-
-export const addFormElements = async function (event, fieldsArrayCb) {
-  event.preventDefault()
-  const $form = this.form
-
-  const htmlString = createNewFieldElements(fieldsArrayCb(event.currentTarget.dataset))
-
-  $form.append(htmlString)
-  await this._onSubmit(event)
-  this.render(true)
 }
