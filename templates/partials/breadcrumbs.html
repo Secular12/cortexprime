@@ -1,6 +1,11 @@
 <div class="breadcrumbs">
+  {{#unless breadcrumbs.0.active}}
+    <button class="btn btn-secondary go-back" type="button" data-to="{{goBack}}">
+      {{localize 'Back'}}
+    </button>
+  {{/unless}}
   {{#each breadcrumbs as |breadcrumb breadcrumbIndex|}}
-    {{#if (gt breadcrumbIndex  0)}}
+    {{#if (gt breadcrumbIndex 0)}}
       <span class="mb-2">/</span>
     {{/if}}
     {{#if breadcrumb.active}}

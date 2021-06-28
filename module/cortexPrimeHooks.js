@@ -1,5 +1,6 @@
-import initializeCortexPrimeCharacter from './scripts/initializeCortexPrimeCharacter.old.js'
+// import initializeCortexPrimeCharacter from './scripts/initializeCortexPrimeCharacter.js'
 import { UserDicePool } from './applications/UserDicePool.js'
+import rollDice from './scripts/rollDice.js'
 
 export default () => {
   Hooks.once('diceSoNiceReady', dice3d => {
@@ -16,6 +17,44 @@ export default () => {
   Hooks.on('ready', async () => {
     game.cortexprime.UserDicePool = new UserDicePool()
     await game.cortexprime.UserDicePool.initPool()
+  })
+
+  Hooks.on('renderChatMessage', async (message, html, data) => {
+    const getPool = html => {
+      return html.find('.source').get().reduce((sources, source) => {
+        const $source = $(source)
+        return {
+          ...sources,
+          [$source.data('source')]: $source.find('.die-label').get()
+            .reduce((dice, die, dieIndex) => {
+              const $die = $(die)
+              return {
+                ...dice,
+                [dieIndex]: {
+                  label: $die.data('label'),
+                  value: $die.find('.die-icon').get()
+                    .reduce((diceValues, dieValue, dieValueIndex) => {
+                      return {
+                        ...diceValues,
+                        [dieValueIndex]: $(dieValue).data('rating')
+                      }
+                    }, {})
+                }
+              }
+            }, {})
+        }
+      }, {})
+    }
+    html.find('.re-roll').click(async (event) => {
+      event.preventDefault()
+      const pool = getPool(html)
+      await rollDice(pool)
+    })
+    html.find('.send-to-pool').click(async (event) => {
+      event.preventDefault()
+      const pool = getPool(html)
+      await game.cortexprime.UserDicePool._setPool(pool)
+    })
   })
 
   Hooks.on('renderSceneControls', (controls, html) => {

@@ -86,6 +86,10 @@ input {
   font-style: italic;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .text-accent {
   color: #c0e2ca;
 }
@@ -1278,6 +1282,12 @@ input {
   text-transform: uppercase;
   white-space: nowrap;
   width: auto;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  color: #f5f8fa;
+  cursor: not-allowed;
 }
 
 .btn-accent {
@@ -2551,6 +2561,10 @@ input {
   padding: 0.5rem;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .hide {
   display: none;
 }
@@ -2641,6 +2655,10 @@ input {
 
 .list-alt-bkg li:nth-child(even) {
   background-color: #e7eef3;
+}
+
+.add-to-pool {
+  cursor: pointer;
 }
 
 .icon, .die-icon {
@@ -2756,14 +2774,6 @@ input {
 .die-icon.lg {
   height: 2.5rem;
   width: 2.5rem;
-}
-
-.die-icon.d4 .value {
-  padding-bottom: 0.35rem;
-}
-
-.die-icon.d6 {
-  background-size: 75%;
 }
 
 .die-icon.d4 {
@@ -2886,6 +2896,14 @@ input {
   background-image: url("../assets/dice/unchosen-d12.svg");
 }
 
+.die-icon.d4 .value {
+  padding-bottom: 0.35rem;
+}
+
+.die-icon.d6 {
+  background-size: 75%;
+}
+
 .die-icon .value {
   color: #f5f8fa;
   font-weight: bold;
@@ -2894,10 +2912,6 @@ input {
 
 .die-icon.result .value {
   color: #424C59;
-}
-
-.die-icon.selected .value {
-  color: #141c27;
 }
 
 .die-icon.unchosen .value {

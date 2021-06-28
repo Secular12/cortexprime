@@ -1,5 +1,5 @@
 import { localizer } from '../scripts/foundryHelpers.js'
-import { resetDataObject } from '../../lib/helpers.js'
+import { getLength, resetDataObject } from '../../lib/helpers.js'
 import {
   addFormElements,
   collapseToggle,
@@ -67,7 +67,7 @@ export default class TraitSettings extends FormApplication {
   }
 
   async _addNewDetail(source, { name, traitSet, trait, type, unlocked, value: detailValue }) {
-    const detailKey = Object.keys(source[traitSet].traits[trait].details || {}).length
+    const detailKey = getLength(source[traitSet].traits[trait].details || {})
 
     const value = {
       [traitSet]: {
@@ -85,7 +85,7 @@ export default class TraitSettings extends FormApplication {
   }
 
   async _addNewTrait(source, { description, dice, name, traitSet }) {
-    const traitKey = Object.keys(source[traitSet]?.traits || {}).length
+    const traitKey = getLength(source[traitSet]?.traits || {})
 
     const value = {
       [traitSet]: {
@@ -94,7 +94,7 @@ export default class TraitSettings extends FormApplication {
             description,
             details: {},
             dice: {
-              values: dice
+              value: dice
             },
             name
           }
@@ -106,7 +106,7 @@ export default class TraitSettings extends FormApplication {
   }
 
   async _addNewTraitSet (source, data) {
-    const traitSetKey = [Object.keys(source).length]
+    const traitSetKey = [getLength(source)]
     const value = {
       [traitSetKey]: {
         ...data

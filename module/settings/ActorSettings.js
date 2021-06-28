@@ -1,10 +1,10 @@
 import { localizer } from '../scripts/foundryHelpers.js'
-import { objectFindKey, objectMapValues, objectReduce } from '../../lib/helpers.js'
-import { addFormElements, removeItem, reorderItem } from '../scripts/settingsHelpers.js'
+import { getLength, objectFindKey, objectMapValues, objectReduce, objectReindexFilter } from '../../lib/helpers.js'
+import { removeItem, reorderItem } from '../scripts/settingsHelpers.js'
 
 export default class ActorSettings extends FormApplication {
-  constructor(object = {}, options = { parent: null }) {
-    super(object, options);
+  constructor() {
+    super()
   }
 
   static get defaultOptions () {
@@ -30,7 +30,7 @@ export default class ActorSettings extends FormApplication {
     return {
       actorTypes: game.settings.get('cortexprime', 'actorTypes'),
       breadcrumbs,
-      goBack: breadcrumbs[Object.keys(breadcrumbs).length - 2]?.target ?? 0
+      goBack: breadcrumbs[getLength(breadcrumbs ?? {}) - 2]?.target ?? 0
     }
   }
 
@@ -38,70 +38,73 @@ export default class ActorSettings extends FormApplication {
     const expandedFormData = expandObject(formData)
     const currentActorTypes = game.settings.get('cortexprime', 'actorTypes') ?? {}
 
-    if (expandedFormData.newActorType) {
-      await this._addNewActorType(currentActorTypes, expandedFormData.newActorType)
-    } else {
-      await game.settings.set('cortexprime', 'actorTypes', mergeObject(currentActorTypes, expandedFormData.actorTypes))
-    }
+    await game.settings.set('cortexprime', 'actorTypes', mergeObject(currentActorTypes, expandedFormData.actorTypes))
+
+    this.render(true)
   }
 
   activateListeners(html) {
     super.activateListeners(html)
-    html.find('.add-trait-set').click(this._addTraitSet.bind(this))
+    html.find('#add-new-actor-type').click(this._addNewActorType.bind(this))
+    html.find('.add-new-tag').click(this._addNewTag.bind(this))
     html.find('.add-simple-trait').click(this._addSimpleTrait.bind(this))
+    html.find('.add-trait-set').click(this._addTraitSet.bind(this))
     html.find('.breadcrumb:not(.active), .go-back').click(this._breadcrumbChange.bind(this))
-    html.find('#add-new-actor-type').click(event => addFormElements.call(this, event, this._actorTypeFields))
+    html.find('.die-select').change(this._onDieChange.bind(this))
+    html.find('.new-die').click(this._newDie.bind(this))
     html.find('.view-change').click(this._viewChange.bind(this))
     removeItem.call(this, html)
     reorderItem.call(this, html)
   }
 
-  _actorTypeFields () {
-    return [
-      { name: 'newActorType.name', type: 'text', value: 'New Actor Type' }
-    ]
-  }
+  async _addNewActorType(event) {
+    event.preventDefault()
+    const source = game.settings.get('cortexprime', 'actorTypes')
+    const newKey = getLength(source ?? {})
 
-  async _addNewActorType(source, data) {
-    const actorTypeKey = Object.keys(source).length
-    const value = {
-      [actorTypeKey]: {
-        ...data
+    const newActorType = {
+      [newKey]: {
+        name: 'New Actor Type'
       }
     }
 
-    await game.settings.set(
-      'cortexprime',
-      'actorBreadcrumbs',
-      {
-        0: {
-          active: false,
-          name: 'ActorTypes',
-          target: 'actorTypes',
-          localize: true
-        },
-        1: {
-          active: true,
-          name: data.name,
-          localize: false,
-          target: `actorType-${actorTypeKey}`
-        }
-      }
-    )
+    await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, newActorType))
+    await this.changeView('New Actor Type', `actorType-${newKey}`)
+    this.render(true)
+  }
 
-    await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, value))
+  async _addNewTag (event) {
+    event.preventDefault()
+    const $addButton = $(event.currentTarget)
+    const path = $addButton.data('path')
+    const source = game.settings.get('cortexprime', 'actorTypes')
+    const currentTags = getProperty(source, path) || {}
+    const tagValue = currentTags.newTagValue
+
+    if (tagValue) {
+      setProperty(source, `${path}.value`, { ...currentTags.value, [getLength(currentTags.value ?? {})]: tagValue })
+      setProperty(source, `${path}.newTagValue`, '')
+      await game.settings.set('cortexprime', 'actorTypes', source)
+      this.render(true)
+    }
   }
 
   async _addSimpleTrait (event) {
     event.preventDefault()
     const source = game.settings.get('cortexprime', 'actorTypes')
     const actorTypeKey = $(event.currentTarget).data('actorType')
-    const newKey = Object.keys(source[actorTypeKey]?.simpleTraits || {}).length
+    const newKey = getLength(source[actorTypeKey]?.simpleTraits || {})
 
     const newSimpleTrait = {
       [actorTypeKey]: {
         simpleTraits: {
           [newKey]: {
+            dice: {
+              value: {
+                0: '8'
+              }
+            },
+            editable: true,
             label: 'New Simple Trait'
           }
         }
@@ -117,7 +120,7 @@ export default class ActorSettings extends FormApplication {
     event.preventDefault()
     const source = game.settings.get('cortexprime', 'actorTypes')
     const actorTypeKey = $(event.currentTarget).data('actorType')
-    const newKey = Object.keys(source[actorTypeKey]?.traitSets || {}).length
+    const newKey = getLength(source[actorTypeKey]?.traitSets || {})
 
     const newTraitSet = {
       [actorTypeKey]: {
@@ -166,7 +169,7 @@ export default class ActorSettings extends FormApplication {
         breadcrumb.active = false
         return breadcrumb
       }),
-      [Object.keys(currentBreadcrumbs).length]: {
+      [getLength(currentBreadcrumbs)]: {
         active: true,
         localize: false,
         name,
@@ -174,6 +177,39 @@ export default class ActorSettings extends FormApplication {
       }
     })
 
+    this.render(true)
+  }
+
+  async _newDie (event) {
+    event.preventDefault()
+    const source = game.settings.get('cortexprime', 'actorTypes')
+    const { target: path } = event.currentTarget.dataset
+    const currentDice = getProperty(source, path) || {}
+    const values = currentDice.value ?? {}
+    const newKey = getLength(values)
+    const newValue = newKey > 0 ? values[newKey - 1] : '8'
+
+    setProperty(source, `${path}.value`, { ...values, [newKey]: newValue })
+    await game.settings.set('cortexprime', 'actorTypes', source)
+    this.render(true)
+  }
+
+  async _onDieChange (event) {
+    event.preventDefault()
+    const source = game.settings.get('cortexprime', 'actorTypes')
+    const $dieSelect = $(event.currentTarget)
+    const target = $dieSelect.data('target')
+    const targetKey = $dieSelect.data('key')
+    const targetValue = $dieSelect.val()
+    const currentDiceValues = getProperty(source, `${target}.value`) ?? {}
+
+    if (targetValue === '0') {
+      setProperty(source, `${target}.value`, objectReindexFilter(currentDiceValues, (_, index) => parseInt(index, 10) !== parseInt(targetKey, 10)))
+    } else {
+      setProperty(source, `${target}.value`, objectMapValues(currentDiceValues, (value, index) => parseInt(index, 10) === parseInt(targetKey, 10) ? targetValue : value))
+    }
+
+    await game.settings.set('cortexprime', 'actorTypes', source)
     this.render(true)
   }
 

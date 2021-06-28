@@ -16,9 +16,75 @@
   <div>
     <div>
       <label>
-        <span class="label">Description</span>
-        <textarea name="{{concat 'actorTypes.' path '.' traitSetIndex '.description'}}">{{traitSet.description}}</textarea>
+        <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.hasDescription'}}" type="checkbox" {{checked
+          traitSet.hasDescription}}>
+        <span class="label">{{localize 'Description'}}</span>
       </label>
+      {{#if traitSet.hasDescription}}
+        <textarea name="{{concat 'actorTypes.' path '.' traitSetIndex '.description'}}">{{traitSet.description}}</textarea>
+      {{/if}}
     </div>
   </div>
+  <section>
+    <header>
+      <h2 class="sub-heading">{{localize 'TraitSettings'}}</h2>
+    </header>
+    <div class="flex-row flex-wrap">
+      <div class="flex-col col-6">
+        <label>
+          <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.traitSettings.hasDescription'}}" type="checkbox" {{checked
+            traitSet.traitSettings.hasDescription}}>
+          <span class="label">{{localize 'HasDescription'}}</span>
+        </label>
+      </div>
+      <div class="flex-col col-6">
+        <label>
+          <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.traitSettings.hasLabel'}}" type="checkbox"
+            {{checked traitSet.traitSettings.hasLabel}}>
+          <span class="label">{{localize 'HasLabel'}}</span>
+        </label>
+      </div>
+      <div class="flex-col col-6">
+        <label>
+          <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.traitSettings.hasTags'}}" type="checkbox" {{checked
+            traitSet.traitSettings.hasTags}}>
+          <span class="label">{{localize 'HasTags'}}</span>
+        </label>
+      </div>
+      <div class="flex-col col-6">
+        <label>
+          <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.traitSettings.hasCustomTraits'}}" type="checkbox" {{checked
+            traitSet.traitSettings.hasCustomTraits}}>
+          <span class="label">{{localize 'HasCustomTraits'}}</span>
+        </label>
+      </div>
+      <div class="flex-col col-6">
+        <label>
+          <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.traitSettings.hasSubTraits'}}" type="checkbox"
+            {{checked traitSet.traitSettings.hasSubTraits}}>
+          <span class="label">{{localize 'HasSubTraits'}}</span>
+        </label>
+      </div>
+      <div class="flex-col col-6">
+        <label>
+          <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.traitSettings.hasDice'}}" type="checkbox"
+            {{checked traitSet.traitSettings.hasDice}}>
+          <span class="label">{{localize 'HasDice'}}</span>
+        </label>
+      </div>
+    </div>
+    <div>
+      <button class="btn btn-primary">{{localize 'AddTrait'}}</button>
+    </div>
+    <ul class="list-style-none px-0">
+      {{#each traitSet.traits as |trait traitIndex|}}
+        <li class="my-2">
+          <span class="section-sub-heading text-primary">{{or trait.name (concat '[' (localize 'NoName' ) ']')}}</span>
+          <button class="view-change btn pa-1 ml-2" data-name="{{trait.name}}" data-to="trait-{{traitIndex}}">
+            <i class="fa fa-edit ma-0"></i>
+          </button>
+        </li>
+      {{/each}}
+    </ul>
+  </section>
 </article>

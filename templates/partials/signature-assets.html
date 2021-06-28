@@ -24,7 +24,7 @@
           {{/if}}
           <div class="flex-col">
             {{> "systems/cortexprime/templates/partials/dice/select.html"
-              dice=signatureAsset.dice.values
+              dice=signatureAsset.dice.value
               minDice=(?? minDice 0)
               edit=signatureAsset.edit
               selectName=(concat "data.signatureAssets." signatureAssetKey ".dice")

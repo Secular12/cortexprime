@@ -1,0 +1,11 @@
+<div>
+  <label>
+    <input name="{{concat 'actorTypes.' path '.hasMaxNumber'}}" type="checkbox" {{checked data.number.hasMaxNumber}}>
+    <span class="label">{{localize 'HasMaxNumber'}}</span>
+  </label>
+  {{> "systems/cortexprime/templates/partials/value-types/number.html"
+    data=data
+    edit=true
+    path=path
+  }}
+</div>

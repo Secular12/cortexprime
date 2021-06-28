@@ -1,10 +1,11 @@
 import { localizer } from '../scripts/foundryHelpers.js'
-import { listLength } from '../../lib/helpers.js'
+import { getLength, objectFilter, objectMapValues, objectReindexFilter } from '../../lib/helpers.js'
+import rollDice from '../scripts/rollDice.js'
 
 const blankPool = {
   customAdd: {
     label: '',
-    values: { 0: '8' }
+    value: { 0: '8' }
   },
   pool: {}
 }
@@ -60,6 +61,7 @@ export class UserDicePool extends FormApplication {
     html.find('.remove-pool-trait').click(this._removePoolTrait.bind(this))
     html.find('.reset-custom-pool-trait').click(this._resetCustomPoolTrait.bind(this))
     html.find('.roll-dice-pool').click(this._rollDicePool.bind(this))
+    html.find('.clear-source').click(this._clearSource.bind(this))
   }
 
   async initPool () {
@@ -71,14 +73,26 @@ export class UserDicePool extends FormApplication {
     event.preventDefault()
 
     const currentDice = game.user.getFlag('cortexprime', 'dicePool')
-    const currentCustomLength = Object.keys(currentDice.pool.custom || {}).length
+    const currentCustomLength = getLength(currentDice.pool.custom ?? {})
 
     setProperty(currentDice, `pool.custom.${currentCustomLength}`, currentDice.customAdd)
 
     setProperty(currentDice, `customAdd`, {
       label: '',
-      values: { 0: '8' }
+      value: { 0: '8' }
     })
+
+    await game.user.setFlag('cortexprime', 'dicePool', null)
+
+    await game.user.setFlag('cortexprime', 'dicePool', currentDice)
+
+    await this.render(true)
+  }
+
+  async _addTraitToPool (source, label, value) {
+    const currentDice = game.user.getFlag('cortexprime', 'dicePool')
+    const currentDiceLength = getLength(currentDice.pool[source] || {})
+    setProperty(currentDice, `pool.${source}.${currentDiceLength}`, { label, value })
 
     await game.user.setFlag('cortexprime', 'dicePool', null)
 
@@ -97,17 +111,18 @@ export class UserDicePool extends FormApplication {
     await this.render(true)
   }
 
-  _getRollFormula (dicePool) {
-    return Object.values(dicePool)
-    .reduce((formula, traitGroup) => {
-      const innerFormula = Object.values(traitGroup || {})
-        .reduce((acc, trait) => [...acc, ...Object.values(trait.values || {})], [])
-        .reduce((acc, value) => {
-          return `${acc}+d${value}`
-        }, '')
+  async _clearSource (event) {
+    event.preventDefault()
+    const { source } = event.currentTarget.dataset
+    const currentDice = game.user.getFlag('cortexprime', 'dicePool')
 
-      return formula ? `${formula}+${innerFormula}` : innerFormula
-    }, '')
+    await game.user.setFlag('cortexprime', 'dicePool', null)
+
+    currentDice.pool = objectFilter(currentDice.pool, (_, dieSource) => source !== dieSource)
+
+    await game.user.setFlag('cortexprime', 'dicePool', currentDice)
+
+    await this.render(true)
   }
 
   async _onDieChange (event) {
@@ -117,26 +132,17 @@ export class UserDicePool extends FormApplication {
     const target = $targetDieSelect.data('target')
     const targetKey = $targetDieSelect.data('key')
     const targetValue = $targetDieSelect.val()
-    const dataTargetValue = Object.values(getProperty(currentDice, `${target}.values`) || {})
+    const dataTargetValue = getProperty(currentDice, `${target}.value`) || {}
 
     await this.submit()
 
     await game.user.setFlag('cortexprime', 'dicePool', null)
 
     if ($targetDieSelect.val() === '0') {
-      $targetDieSelect.remove()
-
-      setProperty(currentDice, `${target}.values`, dataTargetValue.reduce((acc, value, index) => {
-        if (index !== targetKey) {
-          return { ...acc, [index]: value }
-        }
-
-        return acc
-      }, {}))
+      setProperty(currentDice, `${target}.value`, objectReindexFilter(dataTargetValue, (_, index) => parseInt(index, 10) !== parseInt(targetKey, 10)))
     } else {
-      setProperty(currentDice, `${target}.values`, dataTargetValue.reduce((acc, value, index) => {
-        return { ...acc, [index]: index === targetKey ? targetValue : value }
-      }, {}))
+
+      setProperty(currentDice, `${target}.value`, objectMapValues(dataTargetValue, (value, index) => parseInt(index, 10) === parseInt(targetKey, 10) ? targetValue : value))
     }
 
     await game.user.setFlag('cortexprime', 'dicePool', currentDice)
@@ -149,11 +155,11 @@ export class UserDicePool extends FormApplication {
     const currentDice = game.user.getFlag('cortexprime', 'dicePool')
     const $targetNewDie = $(event.currentTarget)
     const target = $targetNewDie.data('target')
-    const dataTargetValue = Object.values(getProperty(currentDice, `${target}.values`) || {})
-    const currentLength = dataTargetValue.length
+    const dataTargetValue = getProperty(currentDice, `${target}.value`) || {}
+    const currentLength = getLength(dataTargetValue)
     const lastValue = dataTargetValue[currentLength - 1] || '8'
 
-    setProperty(currentDice, `${target}.values`, { ...dataTargetValue, [currentLength]: lastValue })
+    setProperty(currentDice, `${target}.value`, { ...dataTargetValue, [currentLength]: lastValue })
 
     await game.user.setFlag('cortexprime', 'dicePool', null)
 
@@ -168,7 +174,7 @@ export class UserDicePool extends FormApplication {
     const source = $target.data('source')
     const currentDicePool = game.user.getFlag('cortexprime', 'dicePool')
 
-    if (listLength(currentDicePool.pool[source]) < 2) {
+    if (getLength(currentDicePool.pool[source] || {}) < 2) {
       delete currentDicePool.pool[source]
     } else {
       delete currentDicePool.pool[source][$target.data('key')]
@@ -185,10 +191,22 @@ export class UserDicePool extends FormApplication {
 
     const currentDice = game.user.getFlag('cortexprime', 'dicePool')
 
-    setProperty(currentDice, `customAdd`, {
+    setProperty(currentDice, 'customAdd', {
       label: '',
-      values: { 0: '8' }
+      value: { 0: '8' }
     })
+
+    await game.user.setFlag('cortexprime', 'dicePool', null)
+
+    await game.user.setFlag('cortexprime', 'dicePool', currentDice)
+
+    await this.render(true)
+  }
+
+  async _setPool (pool) {
+    const currentDice = game.user.getFlag('cortexprime', 'dicePool')
+
+    setProperty(currentDice, 'pool', pool)
 
     await game.user.setFlag('cortexprime', 'dicePool', null)
 
@@ -204,44 +222,7 @@ export class UserDicePool extends FormApplication {
 
     const dicePool = currentDicePool.pool
 
-    const rollFormula = this._getRollFormula(dicePool)
-
-    const r = new Roll(rollFormula)
-
-    const roll = await r.evaluate({ async: true })
-
-    if (game.dice3d) {
-      await game.dice3d.showForRoll(roll, game.user, true)
-    }
-
-    const rollResults = roll.dice
-      .map(die => ({ faces: die.faces, result: die.results[0].result }))
-      .reduce((acc, result) => {
-        if (result.result > 1) {
-          return { ...acc, results: [...acc.results, result] }
-        }
-
-        return { ...acc, hitches: [...acc.hitches, result] }
-      }, { hitches: [], results: [] })
-
-    rollResults.hitches.sort((a, b) => {
-      return b.faces - a.faces
-    })
-
-    rollResults.results.sort((a, b) => {
-      if (a.result !== b.result) {
-        return b.result - a.result
-      }
-
-      return b.faces - a.faces
-    })
-
-    const message = await renderTemplate('systems/cortexprime/templates/chat/roll-result.html', {
-      rollResults,
-      speaker: game.user
-    })
-
-    await ChatMessage.create({ content: message })
+    await rollDice(dicePool)
   }
 
   async toggle () {

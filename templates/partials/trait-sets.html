@@ -72,7 +72,7 @@
                   {{/if}}
                   <div class="flex-col">
                     {{> "systems/cortexprime/templates/partials/dice/select.html"
-                      dice=trait.dice.values selectName=(concat "data.traitSets." traitSetKey ".traits." traitKey ".dice")
+                      dice=trait.dice.value selectName=(concat "data.traitSets." traitSetKey ".traits." traitKey ".dice")
                       max=traitSet.maxDieRating
                       min=traitSet.minDieRating
                       maxDice=traitSet.maxDice
@@ -127,10 +127,10 @@
                               value="{{detail.type}}">
                           </div>
                           <div class="flex-col">
-                            <label class="label">{{localize 'Unlocked'}}</label>
                             <input type="checkbox"
                               name="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}.details.{{detailKey}}.unlocked" {{checked
                               detail.unlocked}}>
+                            <label class="label">{{localize 'Unlocked'}}</label>
                           </div>
                           <div class="flex-col">
                             <button class="remove-item btn btn-icon btn-small btn-black" data-path="data.traitSets.{{traitSetKey}}.traits.{{traitKey}}" data-target="details" data-key="{{detailKey}}">

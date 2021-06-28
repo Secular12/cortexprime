@@ -1,4 +1,4 @@
-import { listLength, objectFindValue } from '../../lib/helpers.js'
+import { getLength, objectFindValue } from '../../lib/helpers.js'
 
 export const registerHandlebarHelpers = () => {
   Handlebars.registerHelper('concat', function (...args) {
@@ -13,7 +13,7 @@ export const registerHandlebarHelpers = () => {
     const parsedMax = parseInt(max)
     if (parsedMax < 0) return true
 
-    const length = listLength(value)
+    const length = getLength(value)
 
     return length > -1 && length < parsedMax
   })
@@ -22,7 +22,7 @@ export const registerHandlebarHelpers = () => {
     const parsedMin = parseInt(min)
     if (parsedMin < 0) return true
 
-    const length = listLength(value)
+    const length = getLength(value)
 
     return length > -1 && length > parsedMin
   })

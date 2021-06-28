@@ -13,8 +13,7 @@
             <div class="flex-col">
               <span class="label">{{localize 'Dice'}}</span>
               {{> "systems/cortexprime/templates/partials/dice/select.html"
-                dice=data.dice.customAdd.values
-                edit=true
+                dice=data.dice.customAdd.value
                 selectName="data.dice.customAdd"
               }}
             </div>
@@ -44,7 +43,7 @@
             {{/if}}
             <div class="flex-col pr-0">
               {{> "systems/cortexprime/templates/partials/dice/select.html"
-                dice=trait.values
+                dice=trait.value
                 edit=true
                 selectName=(concat 'data.dice.pool.' traitKey)
               }}

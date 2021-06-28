@@ -13,16 +13,6 @@ $dieSides: 4, 6, 8, 10, 12;
     width: toRem(40px);
   }
 
-  &.d4 {
-    .value {
-      padding-bottom: 0.35rem;
-    }
-  }
-
-  &.d6 {
-    background-size: 75%;
-  }
-
   @each $i in $dieSides {
     &.d#{$i} {
       background-image: url("../assets/dice/d#{$i}.svg");
@@ -49,6 +39,16 @@ $dieSides: 4, 6, 8, 10, 12;
     }
   }
 
+  &.d4 {
+    .value {
+      padding-bottom: 0.35rem;
+    }
+  }
+
+  &.d6 {
+    background-size: 75%;
+  }
+
   .value {
     color: color('white');
     font-weight: bold;
@@ -59,13 +59,6 @@ $dieSides: 4, 6, 8, 10, 12;
 
     .value {
       color: color('dark-grey');
-    }
-  }
-
-  &.selected {
-
-    .value {
-      color: color('black');
     }
   }
 
