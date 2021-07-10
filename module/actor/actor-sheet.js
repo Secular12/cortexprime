@@ -2,7 +2,7 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-import { getLength, objectMapValues, objectReindexFilter, objectReduce } from '../../lib/helpers.js'
+import { getLength, objectMapValues, objectReindexFilter, objectReduce, objectFindValue, objectSort } from '../../lib/helpers.js'
 import { localizer } from '../scripts/foundryHelpers.js'
 import {
   removeItems,
@@ -39,6 +39,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
   /** @override */
   activateListeners (html) {
     super.activateListeners(html)
+    html.find('.update-actor-settings').click(this._updateActorSettings.bind(this))
     html.find('.actor-type-confirm').click(this._actorTypeConfirm.bind(this))
     html.find('.add-new-tag').click(this._addNewTag.bind(this))
     html.find('.add-pp').click(() => { this.actor.changePpBy(1) })
@@ -212,5 +213,51 @@ export class CortexPrimeActorSheet extends ActorSheet {
     await this.actor.update({
       [`${path}.${target}`]: value
     })
+  }
+
+  async _updateActorSettings(event) {
+    event.preventDefault()
+
+    const actorData = this.actor.data.data.actorType
+    const actorTypeSettings = objectFindValue(game.settings.get('cortexprime', 'actorTypes'), actorType => actorType.id === actorData.id)
+
+    if (!actorTypeSettings) {
+      console.log('no matching actor type!')
+    }
+
+    const newData = objectMapValues(actorTypeSettings, (propValue, key) => {
+      if (key === 'simpleTraits') {
+        return objectMapValues(propValue, ({ hasDescription, id, label, settings }) => {
+          const matchingSetting = objectFindValue((actorData.simpleTraits ?? {}), ({ id: matchId }) => matchId === id) ?? {}
+
+          return {
+            ...matchingSetting,
+            hasDescription,
+            id,
+            label,
+            settings
+          }
+        })
+      }
+
+      if (key === 'traitSets') {
+        return objectMapValues(propValue, ({ hasDescription, id, label, settings, traits }) => {
+          const matchingSetting = objectFindValue((actorData.simpleTraits ?? {}), ({ id: matchId }) => matchId === id) ?? {}
+
+          return {
+            ...matchingSetting,
+            hasDescription,
+            id,
+            label,
+            settings,
+            traits: objectMapValues(traits ?? {}, trait => trait)
+          }
+        })
+      }
+
+      return propValue
+    })
+    this._resetDataPoint('data', 'actorType', newData)
+    this.actor.update()
   }
 }

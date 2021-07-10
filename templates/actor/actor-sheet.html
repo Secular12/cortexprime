@@ -12,11 +12,14 @@
       </div>
     </div>
   {{else}}
-    <nav class="sheet-tabs tabs mb-4" data-group="primary">
-      <a class="item" data-tab="traits">{{localize 'Traits'}}</a>
-      <!-- <a class="item" data-tab="notes">{{localize 'Notes'}}</a> -->
-      <!-- <a class="item" data-tab="help"><i class="fas fa-question-circle"></i></a> -->
-    </nav>
+    <div>
+      <nav class="sheet-tabs tabs mb-4" data-group="primary">
+        <a class="item" data-tab="traits">{{localize 'Traits'}}</a>
+        <!-- <a class="item" data-tab="notes">{{localize 'Notes'}}</a> -->
+        <!-- <a class="item" data-tab="help"><i class="fas fa-question-circle"></i></a> -->
+      </nav>
+      <button class="btn btn-primary update-actor-settings" type="button">Update Settings</button>
+    </div>
     <div class="sheet-body">
       <article class="tab sets active" data-group="primary" data-tab="traits">
         <div class="flex-row">

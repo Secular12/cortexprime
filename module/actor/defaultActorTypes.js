@@ -1,11 +1,12 @@
 export default {
   0: {
     hasPlotPoints: true,
+    id: '_1',
     name: 'PC',
     traitSets: {
       0: {
         description: 'Represents background, personality, or roles in the game.',
-        id: '_1',
+        id: '_11',
         label: 'Distinctions',
         shutdown: false,
         traits: {
@@ -15,8 +16,9 @@ export default {
                 0: '8'
               }
             },
-            label: 'Distinction 1',
-            name: '',
+            id: '_111',
+            label: '',
+            name: 'Distinction 1',
             sfx: {
               0: {
                 label: 'Hinder',
@@ -34,8 +36,9 @@ export default {
                 value: 8
               }
             },
-            label: 'Distinction 2',
-            name: '',
+            id: '_112',
+            label: '',
+            name: 'Distinction 2',
             sfx: {
               0: {
                 label: 'Hinder',
@@ -53,8 +56,9 @@ export default {
                 value: 8
               }
             },
-            label: 'Distinction 3',
-            name: '',
+            id: '_113',
+            label: '',
+            name: 'Distinction 3',
             sfx: {
               0: {
                 label: 'Hinder',
@@ -81,6 +85,7 @@ export default {
   },
   1: {
     hasPlotPoints: false,
+    id: '_2',
     name: 'Minor GMC'
   }
 }
