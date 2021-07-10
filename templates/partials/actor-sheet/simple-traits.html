@@ -1,23 +1,22 @@
 <section class="my-3">
-  <h2 class="section-heading col-12 text-center">{{localize "SimpleTraits"}}</h2>
   {{#each simpleTraits as |simpleTrait simpleTraitIndex|}}
     <div>
       <div class="my-2 flex-row flex-jsb">
         <label class="flex-col">
           <div
-            class="section-sub-heading mt-1{{ternary (eq simpleTrait.valueType 'dice') ' add-to-pool' ''}}"
+            class="section-sub-heading mt-1{{ternary (eq simpleTrait.settings.valueType 'dice') ' add-to-pool' ''}}"
             data-label="{{simpleTrait.label}}"
             data-path="{{concat ../path '.' simpleTraitIndex '.dice'}}"
           >
             {{#if simpleTrait.label}}
               {{simpleTrait.label}}
             {{/if}}
-            {{#if (and (not simpleTrait.label) (eq simpleTrait.valueType 'dice'))}}
+            {{#if (and (not simpleTrait.label) (eq simpleTrait.settings.valueType 'dice'))}}
               <span class="fa fa-dice"></span>
             {{/if}}
           </div>
         </label>
-        {{#if (and ../owner simpleTrait.editable)}}
+        {{#if (and ../owner simpleTrait.settings.editable)}}
           <div class="flex-col">
             <button class="btn btn-icon toggle-item" data-path="{{concat ../path '.' simpleTraitIndex '.edit'}}" type="button">
               {{#if simpleTrait.edit}}
@@ -30,7 +29,7 @@
         {{/if}}
       </div>
       <div>
-        {{#if (and ../owner (and simpleTrait.hasDescription (and simpleTrait.editable simpleTrait.edit)))}}
+        {{#if (and ../owner (and simpleTrait.hasDescription (and simpleTrait.settings.editable simpleTrait.edit)))}}
           <label>
             <div class="label">{{localize 'Description'}}</div>
             <textarea name="{{concat ../path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
@@ -38,12 +37,12 @@
         {{else if (and simpleTrait.hasDescription simpleTrait.description)}}
           <p>{{simpleTrait.description}}</p>
         {{/if}}
-        {{> (concat "systems/cortexprime/templates/partials/value-types/" simpleTrait.valueType ".html")
+        {{> (concat "systems/cortexprime/templates/partials/value-types/" simpleTrait.settings.valueType ".html")
           addToPool=true
-          fieldPath=(concat ../path '.' simpleTraitIndex '.' simpleTrait.valueType)
-          path=(concat ../path '.' simpleTraitIndex '.' simpleTrait.valueType)
+          fieldPath=(concat ../path '.' simpleTraitIndex '.' simpleTrait.settings.valueType)
+          path=(concat ../path '.' simpleTraitIndex '.' simpleTrait.settings.valueType)
           data=simpleTrait
-          edit=(and ../owner (and simpleTrait.editable simpleTrait.edit))
+          edit=(and ../owner (and simpleTrait.settings.editable simpleTrait.edit))
           label=simpleTrait.label
         }}
       </div>

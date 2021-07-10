@@ -67,7 +67,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
    */
 
   async _actorTypeConfirm (event) {
-    event.preventDefault
+    event.preventDefault()
     const actorTypes = game.settings.get('cortexprime', 'actorTypes')
     const actorTypeIndex = $('.actor-type-select').val()
 

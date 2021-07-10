@@ -64,6 +64,7 @@ export default class ActorSettings extends FormApplication {
 
     const newActorType = {
       [newKey]: {
+        id: `_${Date.now()}`,
         name: 'New Actor Type'
       }
     }
@@ -104,8 +105,12 @@ export default class ActorSettings extends FormApplication {
                 0: '8'
               }
             },
-            editable: true,
-            label: 'New Simple Trait'
+            id: `_${Date.now()}`,
+            label: 'New Simple Trait',
+            settings: {
+              editable: true,
+              valueType: 'text'
+            }
           }
         }
       }
@@ -126,6 +131,7 @@ export default class ActorSettings extends FormApplication {
       [actorTypeKey]: {
         traitSets: {
           [newKey]: {
+            id: `_${Date.now()}`,
             label: 'New Trait Set'
           }
         }

@@ -5,15 +5,14 @@ export default {
     traitSets: {
       0: {
         description: 'Represents background, personality, or roles in the game.',
+        id: '_1',
         label: 'Distinctions',
         shutdown: false,
         traits: {
-          description: '',
           0: {
             dice: {
-              0: {
-                current: 8,
-                value: 8
+              value: {
+                0: '8'
               }
             },
             label: 'Distinction 1',
@@ -66,33 +65,16 @@ export default {
             shutdown: false
           }
         },
-        traitSettings: {
-          diceSettings: {
-            defaultDice: {
-              0: {
-                current: 8,
-                value: 8
-              }
-            },
-            depletable: false,
-            has: true,
-            maxDice: 1,
-            maxDieRating: 8,
-            minDice: 1,
-            minDieRating: 8
-          },
+        settings: {
           hasCustomTraits: false,
+          hasDescription: false,
+          hasDice: true,
+          diceConsumable: false,
+          hasLabels: true,
           hasName: true,
-          sfxSettings: {
-            has: true,
-            defaultUnlocked: true
-          },
-          subTraitSettings: {
-            has: false
-          },
-          tagSettings: {
-            has: false
-          }
+          hasSfx: true,
+          hasSubTraits: false,
+          hasTags: false
         }
       }
     }
