@@ -104,7 +104,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
       const selectedDice = await this._getConsumableDiceSelection(value, label)
 
       if (selectedDice.remove?.length) {
-        const newValue = objectReindexFilter(value, (_, key) => !selectedDice.remove.includes(key))
+        const newValue = objectReindexFilter(value, (_, key) => !selectedDice.remove.map(x => parseInt(x, 10)).includes(parseInt(key, 10)))
 
         await this._resetDataPoint(path, 'value', newValue)
       }
@@ -125,7 +125,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     return new Promise((resolve, reject) => {
       new Dialog({
         title: label,
-        content: `<div><p class="section-sub-heading text-center">${localizer('SelectDiceToAdd')}</p><div class="flex flex-wrap flex-c">${diceOptions}</div><label><input class="remove-check" type="checkbox" checked><span class="label">${localizer('RemoveSelectedFromSheet')}</span></label></div>`,
+        content: `<div><p class="section-sub-heading text-center">${localizer('SelectDiceToAdd')}</p><div class="flex flex-wrap flex-c">${diceOptions}</div><label><input class="remove-check" type="checkbox"${game.user.isOwner ? ' checked' : ''}><span class="label">${localizer('RemoveSelectedFromSheet')}</span></label></div>`,
         buttons: {
           cancel: {
             icon: '<i class="fas fa-times"></i>',
@@ -226,11 +226,15 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
     const newData = objectMapValues(actorTypeSettings, (propValue, key) => {
       if (key === 'simpleTraits') {
-        return objectMapValues(propValue, ({ hasDescription, id, label, settings }) => {
+        return objectMapValues(propValue, ({ dice, hasDescription, id, label, settings }) => {
           const matchingSetting = objectFindValue((actorData.simpleTraits ?? {}), ({ id: matchId }) => matchId === id) ?? {}
 
           return {
             ...matchingSetting,
+            dice: {
+              ...matchingSetting.dice,
+              consumable: dice.consumable
+            },
             hasDescription,
             id,
             label,
