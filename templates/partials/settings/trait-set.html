@@ -78,9 +78,15 @@
     </div>
     <ul class="list-style-none px-0">
       {{#each traitSet.traits as |trait traitIndex|}}
-        <li class="my-2">
-          <span class="section-sub-heading text-primary">{{or trait.name (concat '[' (localize 'NoName' ) ']')}}</span>
-          <button class="view-change btn pa-1 ml-2" data-name="{{trait.name}}" data-to="trait-{{traitIndex}}">
+        <li class="pa-1 flex-row flex-ac">
+          {{> "systems/cortexprime/templates/partials/reorder.html"
+            class="flex-col pa-0"
+            path=(concat ../path '.' ../traitSetIndex '.traits')
+            currentIndex=traitIndex
+            setting="actorTypes"
+          }}
+          <span class="section-sub-heading text-primary flex-col">{{or trait.name (concat '[' (localize 'NoName' ) ']')}}</span>
+          <button class="view-change btn flex-col" data-name="{{trait.name}}" data-to="trait-{{traitIndex}}">
             <i class="fa fa-edit ma-0"></i>
           </button>
         </li>
