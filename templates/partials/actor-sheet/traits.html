@@ -1,0 +1,28 @@
+<div>
+  {{#each traits as |trait traitIndex|}}
+    <div>
+      <div class="section-sub-heading flex-row flex-ac">
+        <span
+          class="flex-col{{ternary (and ../settings.hasDice trait.dice.value) ' add-to-pool' ''}}"
+          data-label="{{ternary (and ../settings.hasLabel trait.label) trait.label trait.name}}"
+          data-path="{{concat ../path '.traits.' traitIndex '.dice'}}"
+        >
+          {{ternary (and ../settings.hasLabel trait.label) trait.label trait.name}}
+        </span>
+        {{#if ../settings.hasDice}}
+          {{> "systems/cortexprime/templates/partials/dice/select.html"
+            addToPool=true
+            consumable=../settings.consumableDice
+            dice=trait.dice.value
+            minDice=0
+            label=(ternary (and ../settings.hasLabel trait.label) trait.label trait.name)
+            selectName=(concat ../path '.traits.' traitIndex '.dice')
+          }}
+        {{/if}}
+      </div>
+      {{#if (and ../settings.hasLabel trait.label)}}
+        <span class="label">{{trait.name}}</span>
+      {{/if}}
+    </div>
+  {{/each}}
+</div>

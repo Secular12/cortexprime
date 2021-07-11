@@ -31,9 +31,8 @@ export default {
           1: {
             description: '',
             dice: {
-              0: {
-                current: 8,
-                value: 8
+              value: {
+                0: '8'
               }
             },
             id: '_112',
@@ -51,9 +50,8 @@ export default {
           2: {
             description: '',
             dice: {
-              0: {
-                current: 8,
-                value: 8
+              value: {
+                0: '8'
               }
             },
             id: '_113',

@@ -200,8 +200,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const currentDiceData = getProperty(this.actor.data, target)
 
     const mappedValue = objectMapValues(currentDiceData.value ?? {}, (value, index) => parseInt(index, 10) === targetKey ? targetValue : value)
-    const newValue = objectReindexFilter(mappedValue, value => value !== '0')
-
+    const newValue = objectReindexFilter(mappedValue, value => parseInt(value, 10) !== 0)
     await this._resetDataPoint(target, 'value', newValue)
   }
 

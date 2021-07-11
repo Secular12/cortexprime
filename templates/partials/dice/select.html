@@ -4,8 +4,7 @@
       <select
         class="die-select d{{dieRating}}"
         data-key="{{index}}"
-        data-target="{{../selectName}}"
-        name="{{../selectName}}.value.{{index}}"
+        data-target="{{or ../selectName ../path}}"
       >
         {{#select dieRating}}
           {{> "systems/cortexprime/templates/partials/dice/select-options.html" dice=../dice max=(?? ../max 12) min=(?? ../min 0) minDice=(?? ../minDice 1)}}

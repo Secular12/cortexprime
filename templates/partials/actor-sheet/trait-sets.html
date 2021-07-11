@@ -1,12 +1,12 @@
 <section class="flex-col col-9">
   <div class="columns-2 column-gap-4">
     {{#each traitSets as |traitSet traitSetIndex|}}
-      <div class="column-item mb-4">
+      <div class="column-item mb-4 ba-1-primary pa-2">
         {{#unless (and traitSet.edit ../owner)}}
-          <div class="ba-1-primary pa-2">
+          <div>
             <div class="flex-row flex-jsb">
               <div class="flex-col{{ternary traitSet.shutdown ' shutdown' ''}}">
-                {{or traitSet.label "[Trait Set]"}}
+                <span class="section-heading">{{or traitSet.label "[Trait Set]"}}</span>
               </div>
               {{#if ../owner}}
                 <div class="flex-col">
@@ -23,10 +23,10 @@
             </div>
           </div>
         {{else}}
-          <div class="ba-1-primary pa-2">
+          <div>
             <div class="flex-row flex-jsb">
               <div class="flex-col">
-                {{or traitSet.label "[Trait Set]"}}
+                <span class="section-heading">{{or traitSet.label "[Trait Set]"}}</span>
               </div>
               <div class="flex-col">
                 <button class="btn btn-icon text-primary toggle-item" data-path="{{concat ../path '.' traitSetIndex '.shutdown'}}" type="button">
@@ -48,6 +48,12 @@
             </div>
           </div>
         {{/unless}}
+        {{> "systems/cortexprime/templates/partials/actor-sheet/traits.html"
+          traitSetEdit=(and traitSet.edit ../owner)
+          settings=traitSet.settings
+          traits=traitSet.traits
+          path=(concat ../path '.' traitSetIndex)
+        }}
       </div>
     {{/each}}
   </div>
