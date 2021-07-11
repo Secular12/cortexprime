@@ -13,7 +13,7 @@
     {{/each}}
   </div>
   {{#if (or (listHasLess dice (?? maxDice -1)) (not dice)) }}
-    <button class="new-die btn btn-icon btn-circle btn-small ml-1" data-target="{{selectName}}" type="button">
+    <button class="new-die btn btn-icon btn-circle btn-small ml-1" data-target="{{or selectName path}}" type="button">
       <i class="fa fa-plus"></i>
     </button>
   {{/if}}

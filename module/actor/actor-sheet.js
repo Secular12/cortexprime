@@ -177,7 +177,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const $targetNewDie = $(event.currentTarget)
     const target = $targetNewDie.data('target')
     const currentDiceData = getProperty(this.actor.data, target)
-    const currentDice = currentDiceData.value ?? {}
+    const currentDice = currentDiceData?.value ?? {}
     const newIndex = getLength(currentDice)
     const newValue = currentDice[newIndex - 1] ?? '8'
 
