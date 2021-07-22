@@ -27,7 +27,7 @@
   </div>
   <section>
     <header>
-      <h2 class="sub-heading">{{localize 'TraitSettings'}}</h2>
+      <h2 class="section-sub-heading">{{localize 'TraitSettings'}}</h2>
     </header>
     <div class="flex-row flex-wrap">
       <div class="flex-col col-6">
@@ -46,16 +46,9 @@
       </div>
       <div class="flex-col col-6">
         <label>
-          <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.settings.hasTags'}}" type="checkbox" {{checked
-            traitSet.settings.hasTags}}>
-          <span class="label">{{localize 'HasTags'}}</span>
-        </label>
-      </div>
-      <div class="flex-col col-6">
-        <label>
-          <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.settings.hasCustomTraits'}}" type="checkbox" {{checked
-            traitSet.settings.hasCustomTraits}}>
-          <span class="label">{{localize 'HasCustomTraits'}}</span>
+          <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.settings.hasSfx'}}" type="checkbox" {{checked
+            traitSet.settings.hasSfx}}>
+          <span class="label">{{localize 'HasSfx'}}</span>
         </label>
       </div>
       <div class="flex-col col-6">
@@ -73,8 +66,54 @@
         </label>
       </div>
     </div>
-    <div>
-      <button class="btn btn-primary">{{localize 'AddTrait'}}</button>
+    {{#if traitSet.settings.hasSubTraits}}
+      <div>
+        <header>
+          <h3 class="section-sub-heading">{{localize 'SubTraitSettings'}}</h2>
+        </header>
+        <div class="flex-row flex-wrap">
+          <div class="flex-col col-6">
+            <label>
+              <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.settings.subTraitsHaveDice'}}" type="checkbox" {{checked
+                traitSet.settings.subTraitsHaveDice}}>
+              <span class="label">{{localize 'SubTraitsHaveDice'}}</span>
+            </label>
+          </div>
+          {{#if traitSet.settings.subTraitsHaveDice}}
+            <div class="flex-col col-6">
+              <label>
+                <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.settings.subTraitsDiceConsumable'}}" type="checkbox"
+                  {{checked traitSet.settings.subTraitsDiceConsumable}}>
+                <span class="label">{{localize 'ConsumableDice'}}</span>
+              </label>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+    {{/if}}
+    {{#if traitSet.settings.hasDice}}
+      <div>
+        <header>
+          <h3 class="section-sub-heading">{{localize 'DiceSettings'}}</h2>
+        </header>
+        <div class="flex-row flex-wrap">
+          <div class="flex-col col-6">
+            <label>
+              <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.settings.diceConsumable'}}" type="checkbox"
+                {{checked traitSet.settings.diceConsumable}}>
+              <span class="label">{{localize 'ConsumableDice'}}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    {{/if}}
+    <div class="bkg-primary flex-row flex-ac flex-jsb my-2 py-1">
+      <h3 class="flex-col col-12 primary-heading text-white">{{localize "PresetTraits"}}</h3>
+      <div class="flex-col">
+        <button class="btn btn-secondary btn-icon add-trait" data-path="{{path}}" data-actor-type="{{actorTypeIndex}}" data-trait-set="{{traitSetIndex}}" type="button">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
     </div>
     <ul class="list-style-none px-0">
       {{#each traitSet.traits as |trait traitIndex|}}
@@ -86,7 +125,7 @@
             setting="actorTypes"
           }}
           <span class="section-sub-heading text-primary flex-col">{{or trait.name (concat '[' (localize 'NoName' ) ']')}}</span>
-          <button class="view-change btn flex-col" data-name="{{trait.name}}" data-to="trait-{{traitIndex}}">
+          <button class="view-change btn flex-col" data-name="{{trait.name}}" data-to="trait-{{../actorTypeIndex}}-{{../traitSetIndex}}-{{traitIndex}}">
             <i class="fa fa-edit ma-0"></i>
           </button>
         </li>

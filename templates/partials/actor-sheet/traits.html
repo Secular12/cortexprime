@@ -2,13 +2,13 @@
   {{#each traits as |trait traitIndex|}}
     <div>
       <div class="section-sub-heading flex-row flex-ac">
-        <span
-          class="flex-col{{ternary (and ../settings.hasDice trait.dice.value) ' add-to-pool' ''}}"
-          data-label="{{ternary (and ../settings.hasLabel trait.label) trait.label trait.name}}"
-          data-path="{{concat ../path '.traits.' traitIndex '.dice'}}"
-        >
-          {{ternary (and ../settings.hasLabel trait.label) trait.label trait.name}}
-        </span>
+          <span
+            class="flex-col{{ternary (and (not trait.shutdown) (and ../settings.hasDice trait.dice.value)) ' add-to-pool' ''}}{{ternary trait.shutdown ' shutdown' ''}}"
+            data-label="{{ternary (and ../settings.hasLabel trait.label) trait.label trait.name}}"
+            data-path="{{concat ../path '.traits.' traitIndex '.dice'}}"
+          >
+            {{ternary (and ../settings.hasLabel trait.label) trait.label trait.name}}
+          </span>
         {{#if ../settings.hasDice}}
           {{> "systems/cortexprime/templates/partials/dice/select.html"
             addToPool=true
@@ -18,6 +18,12 @@
             label=(ternary (and ../settings.hasLabel trait.label) trait.label trait.name)
             selectName=(concat ../path '.traits.' traitIndex '.dice')
           }}
+        {{/if}}
+        {{#if ../traitSetEdit}}
+          <button class="btn btn-icon text-primary toggle-item" data-path="{{concat ../path '.traits.' traitIndex '.shutdown'}}"
+            type="button">
+            <i class="fas {{ternary trait.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
+          </button>
         {{/if}}
       </div>
       {{#if (and ../settings.hasLabel trait.label)}}

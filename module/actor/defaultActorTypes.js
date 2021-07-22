@@ -12,6 +12,7 @@ export default {
         traits: {
           0: {
             dice: {
+              consumable: false,
               value: {
                 0: '8'
               }
@@ -29,8 +30,8 @@ export default {
             shutdown: false
           },
           1: {
-            description: '',
             dice: {
+              consumable: false,
               value: {
                 0: '8'
               }
@@ -48,8 +49,8 @@ export default {
             shutdown: false
           },
           2: {
-            description: '',
             dice: {
+              consumable: false,
               value: {
                 0: '8'
               }
@@ -68,15 +69,13 @@ export default {
           }
         },
         settings: {
-          hasCustomTraits: false,
           hasDescription: false,
           hasDice: true,
-          diceConsumable: false,
           hasLabels: true,
-          hasName: true,
           hasSfx: true,
           hasSubTraits: false,
-          hasTags: false
+          hasSubTraitDice: true,
+          subTraitDiceConsumable: false,
         }
       }
     }

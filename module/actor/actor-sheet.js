@@ -41,7 +41,6 @@ export class CortexPrimeActorSheet extends ActorSheet {
     super.activateListeners(html)
     html.find('.update-actor-settings').click(this._updateActorSettings.bind(this))
     html.find('.actor-type-confirm').click(this._actorTypeConfirm.bind(this))
-    html.find('.add-new-tag').click(this._addNewTag.bind(this))
     html.find('.add-pp').click(() => { this.actor.changePpBy(1) })
     html.find('.add-to-pool').click(this._addToPool.bind(this))
     html.find('.die-select').change(this._onDieChange.bind(this))
@@ -77,23 +76,6 @@ export class CortexPrimeActorSheet extends ActorSheet {
     await this.actor.update({
       'data.actorType': actorType,
       'data.pp.value': actorType.hasPlotPoints ? 1 : 0
-    })
-  }
-
-  async _addNewTag (event) {
-    event.preventDefault()
-    const $addButton = $(event.currentTarget)
-    const path = $addButton.data('path')
-    const currentTagData = getProperty(this.actor.data, path)
-    const currentTags = currentTagData.value ?? {}
-    const newIndex = getLength(currentTags)
-    const newTags = { ...currentTags, [newIndex]: currentTagData.newTagValue }
-
-    await this.actor.update({
-      [path]: {
-        newTagValue: '',
-        value: newTags
-      }
     })
   }
 

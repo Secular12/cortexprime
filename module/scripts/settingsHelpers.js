@@ -111,7 +111,6 @@ export const reorderItem = async function (html) {
         : +newIndex
 
     const value = objectMapKeys(targetObject, (_, targetKey) => {
-      console.log(targetKey, currentIndex)
       return +targetKey === +currentIndex
         ? key
         : +currentIndex > key

@@ -1,0 +1,13 @@
+<div>
+  <span class="label">{{localize 'DefaultSubTraits'}}</span>
+  <button class="btn btn-secondary btn-icon add-sub-trait" type="button" data-path="{{concat path '.subTraits' }}">
+    <i class="fa fa-plus"></i>
+  </button>
+  {{> "systems/cortexprime/templates/partials/value-types/sub-traits.html"
+    data=data
+    edit=true
+    fieldPath=(concat 'actorTypes.' path '.subTraits')
+    path=(concat path '.subTraits')
+    settings=settings
+  }}
+</div>

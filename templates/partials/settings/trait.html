@@ -1,0 +1,45 @@
+<article class="{{viewClasses (concat 'trait-' actorTypeIndex '-' traitSetIndex '-' traitIndex) breadcrumbs}} trait">
+  <header class="primary-heading flex-row flex-ac">
+    <div class="flex-col col-12">
+      <input name="{{concat 'actorTypes.' path '.' traitIndex '.name'}}" type="text" value="{{trait.name}}">
+    </div>
+    <div class="flex-col">
+      {{> "systems/cortexprime/templates/partials/remove-button.html"
+        group=path
+        itemKey=traitIndex
+        itemName=trait.name
+        setting='actorTypes'
+        type="trash"
+      }}
+    </div>
+  </header>
+  <div>
+    {{#if settings.hasDice}}
+      {{> (concat "systems/cortexprime/templates/partials/settings/value-types/dice.html")
+        path=(concat path '.' traitIndex)
+        data=trait
+      }}
+    {{/if}}
+    {{#if settings.hasDescription}}
+      <div>
+        <label>
+          <span class="label">{{localize 'Description'}}</span>
+        </label>
+        <textarea name="{{concat 'actorTypes.' path '.' traitIndex '.description'}}">{{trait.description}}</textarea>
+      </div>
+    {{/if}}
+    {{#if settings.hasSubTraits}}
+      {{> (concat "systems/cortexprime/templates/partials/settings/value-types/sub-traits.html")
+        path=(concat path '.' traitIndex)
+        data=trait
+        settings=settings
+      }}
+    {{/if}}
+    {{#if settings.hasSfx}}
+      {{> (concat "systems/cortexprime/templates/partials/settings/value-types/sfx.html")
+        path=(concat path '.' traitIndex)
+        data=trait
+      }}
+    {{/if}}
+  </div>
+</article>

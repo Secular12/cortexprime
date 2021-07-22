@@ -1,13 +1,15 @@
 <div>
-  <label>
-    <input name="{{concat 'actorTypes.' path '.consumable'}}" type="checkbox" {{checked data.dice.consumable}}>
-    <span class="label">{{localize 'Consumable'}}</span>
-  </label>
+  {{#if consumableOption}}
+    <label>
+      <input name="{{concat 'actorTypes.' path '.diceConsumable'}}" type="checkbox" {{checked data.diceConsumable}}>
+      <span class="label">{{localize 'ConsumableDice'}}</span>
+    </label>
+  {{/if}}
   <div>
     <span class="label">{{localize 'DefaultDice'}}</span>
     {{> "systems/cortexprime/templates/partials/value-types/dice.html"
       data=data
-      path=path
+      path=(concat path '.dice')
     }}
   </div>
 </div>

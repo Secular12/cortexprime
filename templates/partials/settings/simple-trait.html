@@ -34,7 +34,6 @@
             <option value="text">{{localize 'Text'}}</option>
             <option value="number">{{localize 'Number'}}</option>
             <option value="dice">{{localize 'Dice'}}</option>
-            <option value="tags">{{localize 'Tags'}}</option>
           {{/select}}
         </select>
       </label>
@@ -47,8 +46,9 @@
       </label>
     </div>
     {{> (concat "systems/cortexprime/templates/partials/settings/value-types/" (?? simpleTrait.settings.valueType 'text') ".html")
-      fieldPath=(concat 'actorTypes.' path '.' simpleTraitIndex '.' (?? simpleTrait.settings.valueType 'text'))
-      path=(concat path '.' simpleTraitIndex '.' (?? simpleTrait.settings.valueType 'text'))
+      consumableOption=true
+      fieldPath=(concat 'actorTypes.' path '.' simpleTraitIndex)
+      path=(concat path '.' simpleTraitIndex)
       data=simpleTrait
     }}
   </div>
