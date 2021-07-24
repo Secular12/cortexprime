@@ -1,59 +1,47 @@
 <section class="flex-col col-9">
   <div class="columns-2 column-gap-4">
     {{#each traitSets as |traitSet traitSetIndex|}}
-      <div class="column-item mb-4 ba-1-primary pa-2">
-        {{#unless (and traitSet.edit ../owner)}}
-          <div>
-            <div class="flex-row flex-jsb">
-              <div class="flex-col{{ternary traitSet.shutdown ' shutdown' ''}}">
-                <span class="section-heading">{{or traitSet.label "[Trait Set]"}}</span>
-              </div>
-              {{#if ../owner}}
-                <div class="flex-col">
-                  <button class="btn btn-icon toggle-item" data-path="{{concat ../path '.' traitSetIndex '.edit'}}" type="button">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                </div>
-              {{/if}}
+      <div class="column-item mb-4 ba-1-secondary pa-2">
+        <div>
+          <div class="flex-row flex-jsb">
+            <div class="flex-col{{ternary traitSet.shutdown ' shutdown' ''}}">
+              <span class="section-heading">{{or traitSet.label "[Trait Set]"}}</span>
             </div>
-            <div class="{{ternary traitSet.shutdown 'shutdown' ''}}">
-              {{#if (and traitSet.hasDescription traitSet.description)}}
-                <div>{{traitSet.description}}</div>
-              {{/if}}
-            </div>
-          </div>
-        {{else}}
-          <div>
-            <div class="flex-row flex-jsb">
+            {{#if ../owner}}
               <div class="flex-col">
-                <span class="section-heading">{{or traitSet.label "[Trait Set]"}}</span>
-              </div>
-              <div class="flex-col">
-                <button class="btn btn-icon text-primary toggle-item" data-path="{{concat ../path '.' traitSetIndex '.shutdown'}}" type="button">
-                  <i class="fas {{ternary traitSet.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
-                </button>
-                <button class="btn btn-icon toggle-item" data-path="{{concat ../path '.' traitSetIndex '.edit'}}"
-                  type="button">
-                  <i class="fas fa-check"></i>
+                <button class="btn btn-icon trait-set-edit" data-trait-set="{{traitSetIndex}}" type="button">
+                  <i class="fas fa-edit"></i>
                 </button>
               </div>
-            </div>
-            <div>
-              {{#if traitSet.hasDescription}}
-                <label>
-                  {{localize 'Description'}}
-                  <textarea name="{{concat ../path '.' traitSetIndex '.description'}}">{{traitSet.description}}</textarea>
-                </label>
-              {{/if}}
-            </div>
+            {{/if}}
           </div>
-        {{/unless}}
-        {{> "systems/cortexprime/templates/partials/actor-sheet/traits.html"
-          traitSetEdit=(and traitSet.edit ../owner)
-          settings=traitSet.settings
-          traits=traitSet.traits
-          path=(concat ../path '.' traitSetIndex)
-        }}
+          <div class="{{ternary traitSet.shutdown 'shutdown' ''}}">
+            {{#if (and traitSet.hasDescription traitSet.description)}}
+              <div>{{traitSet.description}}</div>
+            {{/if}}
+          </div>
+        </div>
+        {{#if traitSet.traits}}
+          {{> "systems/cortexprime/templates/partials/actor-sheet/traits.html"
+            owner=../owner
+            path=(concat ../path '.' traitSetIndex)
+            settings=traitSet.settings
+            target='traits'
+            traits=traitSet.traits
+            traitSetShutdown=traitSet.shutdown
+          }}
+        {{/if}}
+        {{#if traitSet.customTraits}}
+          {{> "systems/cortexprime/templates/partials/actor-sheet/traits.html"
+            custom=true
+            owner=../owner
+            path=(concat ../path '.' traitSetIndex)
+            settings=traitSet.settings
+            target='customTraits'
+            traits=traitSet.customTraits
+            traitSetShutdown=traitSet.shutdown
+          }}
+        {{/if}}
       </div>
     {{/each}}
   </div>

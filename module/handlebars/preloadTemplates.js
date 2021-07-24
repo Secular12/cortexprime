@@ -3,6 +3,8 @@ export const preloadHandlebarsTemplates = async function () {
     'actor-sheet/sidebar',
     'actor-sheet/simple-traits',
     'actor-sheet/traits',
+    'actor-sheet/traits-edit',
+    'actor-sheet/trait-set-edit',
     'actor-sheet/trait-sets',
     'breadcrumbs',
     'dice/pool',

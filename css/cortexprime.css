@@ -1377,6 +1377,23 @@ input {
   cursor: pointer;
 }
 
+.icon, .die-icon {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  height: 1.25rem;
+  margin-left: 0.125rem;
+  margin-right: 0.125rem;
+  position: relative;
+  width: 1.25rem;
+}
+
+.icon.pp, .pp.die-icon {
+  background-image: url("../assets/plot-point/plot-point.png");
+  vertical-align: bottom;
+}
+
 .d-block {
   display: block;
 }
@@ -2659,23 +2676,6 @@ input {
 
 .add-to-pool {
   cursor: pointer;
-}
-
-.icon, .die-icon {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  display: inline-block;
-  height: 1.25rem;
-  margin-left: 0.125rem;
-  margin-right: 0.125rem;
-  position: relative;
-  width: 1.25rem;
-}
-
-.icon.pp, .pp.die-icon {
-  background-image: url("../assets/plot-point/plot-point.png");
-  vertical-align: bottom;
 }
 
 /* Styles limited to cortexprime sheets */

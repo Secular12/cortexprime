@@ -1,0 +1,43 @@
+<div>
+  <button class="btn btn-primary close-trait-set-edit">{{localize 'Back'}}</button>
+  <div>
+    <div class="flex-row">
+      <div class="flex-col">
+        <span class="section-heading">{{or traitSet.label "[Trait Set]"}}</span>
+      </div>
+      <div class="flex-col">
+        <button class="btn btn-icon text-primary toggle-item" data-path="{{concat path '.' traitSetIndex '.shutdown'}}"
+          type="button">
+          <i class="fas {{ternary traitSet.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
+        </button>
+      </div>
+    </div>
+    <div>
+      {{#if traitSet.hasDescription}}
+      <label>
+        {{localize 'Description'}}
+        <textarea name="{{concat path '.' traitSetIndex '.description'}}">{{traitSet.description}}</textarea>
+      </label>
+      {{/if}}
+    </div>
+    <div class="flex-row flex-jc">
+      {{#if traitSet.traits}}
+        {{> "systems/cortexprime/templates/partials/actor-sheet/traits-edit.html"
+          label=(localize 'PresetTraits')
+          settings=traitSet.settings
+          target='traits'
+          traits=traitSet.traits
+          path=(concat path '.' traitSetIndex)
+        }}
+      {{/if}}
+      {{> "systems/cortexprime/templates/partials/actor-sheet/traits-edit.html"
+        custom=true
+        label=(localize 'CustomTraits')
+        target='customTraits'
+        settings=traitSet.settings
+        traits=traitSet.customTraits
+        path=(concat path '.' traitSetIndex)
+      }}
+    </div>
+  </div>
+</div>

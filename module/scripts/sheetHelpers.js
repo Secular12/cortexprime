@@ -48,11 +48,24 @@ export const removeItems = async function (html) {
     const {
       path,
       itemKey,
+      itemName,
       target
     } = event.currentTarget.dataset
 
-    const data = getProperty(this.actor.data, `${path}.${target}`)
+    let confirmed
 
-    await removeDataPoint.call(this, data, path, target, itemKey)
+    await Dialog.confirm({
+      title: `Confirm removal`,
+      content: `Are you sure you want to remove ${itemName}`,
+      yes: () => { confirmed = true },
+      no: () => { confirmed = false },
+      defaultYes: false
+    })
+
+    if (confirmed) {
+      const data = getProperty(this.actor.data, `${path}.${target}`)
+
+      await removeDataPoint.call(this, data, path, target, itemKey)
+    }
   })
 }

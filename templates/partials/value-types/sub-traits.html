@@ -1,43 +1,36 @@
 <div>
   <div>
     {{#each data.subTraits as |subTrait subTraitIndex|}}
-      {{#if ../edit}}
-        <div class="my-2">
-          <div class="flex-row flex-ae">
-            <div class="flex-col col-12">
-              <label>
-                <span class="label">{{localize 'Label'}}</span>
-                <input name="{{concat ../fieldPath '.' subTraitIndex '.label'}}" type="text" value="{{subTrait.label}}">
-              </label>
-            </div>
-            <div class="flex-col">
-              {{> "systems/cortexprime/templates/partials/remove-button.html"
-                group=../path
-                itemKey=subTraitIndex
-                itemName=subTrait.label
-                path=../path
-                setting='actorTypes'
-                stayOnPage=true
-                type="trash"
-              }}
-            </div>
+      <div class="my-2">
+        <div class="flex-row flex-ae">
+          <div class="flex-col col-12">
+            <label>
+              <span class="label">{{localize 'Label'}}</span>
+              <input name="{{concat ../fieldPath '.' subTraitIndex '.label'}}" type="text" value="{{subTrait.label}}">
+            </label>
           </div>
-          {{> "systems/cortexprime/templates/partials/dice/select.html"
-            addToPool=true
-            consumable=../settings.subTraitsDiceConsumable
-            dice=subTrait.dice.value
-            minDice=0
-            label=subTrait.label
-            path=(concat ../path '.' subTraitIndex '.dice')
-          }}
+          <div class="flex-col">
+            {{> "systems/cortexprime/templates/partials/remove-button.html"
+              group=../path
+              itemKey=subTraitIndex
+              itemName=subTrait.label
+              path=../path
+              setting='actorTypes'
+              target='subTraits'
+              stayOnPage=true
+              type="trash"
+            }}
+          </div>
         </div>
-      {{else}}
-        <div class="my-2">
-          {{#if subTrait.label}}
-            <span class="bold text-dark-grey mr-1">{{subTrait.label}}</span>
-          {{/if}}
-        </div>
-      {{/if}}
+        {{> "systems/cortexprime/templates/partials/dice/select.html"
+          addToPool=true
+          consumable=../settings.subTraitsDiceConsumable
+          dice=subTrait.dice.value
+          minDice=0
+          label=subTrait.label
+          path=(concat ../path '.' subTraitIndex '.dice')
+        }}
+      </div>
     {{/each}}
   </div>
 </div>

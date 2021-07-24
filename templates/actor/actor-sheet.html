@@ -12,31 +12,39 @@
       </div>
     </div>
   {{else}}
-    <div>
-      <nav class="sheet-tabs tabs mb-4" data-group="primary">
-        <a class="item" data-tab="traits">{{localize 'Traits'}}</a>
-        <!-- <a class="item" data-tab="notes">{{localize 'Notes'}}</a> -->
-        <!-- <a class="item" data-tab="help"><i class="fas fa-question-circle"></i></a> -->
-      </nav>
-      <button class="btn btn-primary update-actor-settings" type="button">Update Settings</button>
-    </div>
-    <div class="sheet-body">
-      <article class="tab sets active" data-group="primary" data-tab="traits">
-        <div class="flex-row">
-          {{> "systems/cortexprime/templates/partials/actor-sheet/sidebar.html"
-            actor=actor
-            actorType=data.data.actorType
-            pp=data.data.pp
-          }}
-          {{> "systems/cortexprime/templates/partials/actor-sheet/trait-sets.html"
-            traitSets=data.data.actorType.traitSets
-            path="data.actorType.traitSets"
-          }}
-        </div>
-      </article>
-      <!-- <div class="tab help" data-group="primary" data-tab="help">
-        {{> "systems/cortexprime/templates/partials/mc-help.html" }}
-      </div> -->
-    </div>
+    {{#if (and (or data.data.actorType.traitSetEdit (eq data.data.actorType.traitSetEdit 0)) owner)}}
+      {{> "systems/cortexprime/templates/partials/actor-sheet/trait-set-edit.html"
+        traitSet=(lookup data.data.actorType.traitSets data.data.actorType.traitSetEdit)
+        traitSetIndex=data.data.actorType.traitSetEdit
+        path="data.actorType.traitSets"
+      }}
+    {{else}}
+      <div>
+        <nav class="sheet-tabs tabs mb-4" data-group="primary">
+          <a class="item" data-tab="traits">{{localize 'Traits'}}</a>
+          <!-- <a class="item" data-tab="notes">{{localize 'Notes'}}</a> -->
+          <!-- <a class="item" data-tab="help"><i class="fas fa-question-circle"></i></a> -->
+        </nav>
+        <button class="btn btn-primary update-actor-settings" type="button">Update Settings</button>
+      </div>
+      <div class="sheet-body">
+        <article class="tab sets active" data-group="primary" data-tab="traits">
+          <div class="flex-row">
+            {{> "systems/cortexprime/templates/partials/actor-sheet/sidebar.html"
+              actor=actor
+              actorType=data.data.actorType
+              pp=data.data.pp
+            }}
+            {{> "systems/cortexprime/templates/partials/actor-sheet/trait-sets.html"
+              traitSets=data.data.actorType.traitSets
+              path="data.actorType.traitSets"
+            }}
+          </div>
+        </article>
+        <!-- <div class="tab help" data-group="primary" data-tab="help">
+          {{> "systems/cortexprime/templates/partials/mc-help.html" }}
+        </div> -->
+      </div>
+    {{/if}}
   {{/unless}}
 </form>

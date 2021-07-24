@@ -1,51 +1,36 @@
 <div>
-  <div>
-    {{#each data.sfx as |sfx sfxIndex|}}
-      {{#if ../edit}}
-        <div class="my-2">
-          <div class="flex-row flex-ae">
-            <div class="flex-col">
-              <label>
-                <input name="{{concat ../fieldPath '.' sfxIndex '.unlocked'}}" type="checkbox" {{checked sfx.unlocked}}>
-                <span class="label">{{localize 'Unlocked'}}</span>
-              </label>
-            </div>
-            <div class="flex-col col-12">
-              <label>
-                <span class="label">{{localize 'Label'}}</span>
-                <input name="{{concat ../fieldPath '.' sfxIndex '.label'}}" type="text" value="{{sfx.label}}">
-              </label>
-            </div>
-            <div class="flex-col">
-              {{> "systems/cortexprime/templates/partials/remove-button.html"
-                group=../path
-                itemKey=sfxIndex
-                itemName=sfx.label
-                path=../path
-                setting='actorTypes'
-                stayOnPage=true
-                type="trash"
-              }}
-            </div>
-          </div>
-          <div>
-            <label>
-              <span class="label">{{localize 'Description'}}</span>
-              <textarea name="{{concat ../fieldPath '.' sfxIndex '.description'}}">{{sfx.description}}</textarea>
-            </label>
-          </div>
+  {{#each data.sfx as |sfx sfxIndex|}}
+    <div class="my-2">
+      <div class="flex-row flex-ae">
+        <div class="flex-col">
+          <label>
+            <input name="{{concat ../fieldPath '.' sfxIndex '.unlocked'}}" type="checkbox" {{checked sfx.unlocked}}>
+            <span class="label">{{localize 'Unlocked'}}</span>
+          </label>
         </div>
-      {{else}}
-        <div class="my-2">
-          <i class="text-primary mr-2 {{ternary sfx.unlocked 'fas' 'far'}} fa-circle"></i>
-          {{#if sfx.label}}
-            <span class="bold text-dark-grey mr-1">{{sfx.label}}</span>
-          {{/if}}
-          {{#if sfx.description}}
-            <p class="ml-7 mt-1">{{{sfx.description}}}</p>
-          {{/if}}
+        <div class="flex-col col-12">
+          <label>
+            <span class="label">{{localize 'Label'}}</span>
+            <input name="{{concat ../fieldPath '.' sfxIndex '.label'}}" type="text" value="{{sfx.label}}">
+          </label>
         </div>
-      {{/if}}
-    {{/each}}
-  </div>
+        <div class="flex-col">
+          {{> "systems/cortexprime/templates/partials/remove-button.html"
+            group=../path
+            itemKey=sfxIndex
+            itemName=sfx.label
+            path=../path
+            target='sfx'
+            type="trash"
+          }}
+        </div>
+      </div>
+      <div>
+        <label>
+          <span class="label">{{localize 'Description'}}</span>
+          <textarea name="{{concat ../fieldPath '.' sfxIndex '.description'}}">{{sfx.description}}</textarea>
+        </label>
+      </div>
+    </div>
+  {{/each}}
 </div>

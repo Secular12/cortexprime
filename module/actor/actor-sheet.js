@@ -42,7 +42,11 @@ export class CortexPrimeActorSheet extends ActorSheet {
     html.find('.update-actor-settings').click(this._updateActorSettings.bind(this))
     html.find('.actor-type-confirm').click(this._actorTypeConfirm.bind(this))
     html.find('.add-pp').click(() => { this.actor.changePpBy(1) })
+    html.find('.add-sfx').click(this._addSfx.bind(this))
+    html.find('.add-sub-trait').click(this._addSubTrait.bind(this))
     html.find('.add-to-pool').click(this._addToPool.bind(this))
+    html.find('.add-trait').click(this._addTrait.bind(this))
+    html.find('.close-trait-set-edit').click(this._closeTraitSetEdit.bind(this))
     html.find('.die-select').change(this._onDieChange.bind(this))
     html.find('.new-die').click(this._newDie.bind(this))
     html.find('.spend-pp').click(() => {
@@ -54,6 +58,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
           }
         })
     })
+    html.find('.trait-set-edit').click(this._traitSetEdit.bind(this))
     removeItems.call(this, html)
     toggleItems.call(this, html)
   }
@@ -79,6 +84,39 @@ export class CortexPrimeActorSheet extends ActorSheet {
     })
   }
 
+  async _addSfx (event) {
+    event.preventDefault()
+    const { path } = event.currentTarget.dataset
+    const currentSfx = getProperty(this.actor.data, `${path}.sfx`) ?? {}
+
+    await this._resetDataPoint(path, 'sfx', {
+      ...currentSfx,
+      [getLength(currentSfx)]: {
+        description: null,
+        label: 'New Sfx',
+        unlocked: true
+      }
+    })
+  }
+
+  async _addSubTrait(event) {
+    event.preventDefault()
+    const { path } = event.currentTarget.dataset
+    const currentSubTraits = getProperty(this.actor.data, `${path}.subTraits`) ?? {}
+
+    await this._resetDataPoint(path, 'subTraits', {
+      ...currentSubTraits,
+      [getLength(currentSubTraits)]: {
+        dice: {
+          value: {
+            0: '8'
+          }
+        },
+        label: 'New Sub-Trait'
+      }
+    })
+  }
+
   async _addToPool (event) {
     const { consumable, path, label } = event.currentTarget.dataset
     let value = getProperty(this.actor.data, `${path}.value`)
@@ -97,6 +135,30 @@ export class CortexPrimeActorSheet extends ActorSheet {
     if (getLength(value)) {
       await game.cortexprime.UserDicePool._addTraitToPool(this.actor.name, label, value)
     }
+  }
+
+  async _addTrait (event) {
+    const { path } = event.currentTarget.dataset
+    const currentCustomTraits = getProperty(this.actor.data, `${path}.customTraits`) ?? {}
+
+    await this._resetDataPoint(path, 'customTraits', {
+      ...currentCustomTraits,
+      [getLength(currentCustomTraits)]: {
+        id: `_${Date.now()}`,
+        name: 'New Trait',
+        dice: {
+          value: {
+            0: '8'
+          }
+        }
+      }
+    })
+  }
+
+  async _closeTraitSetEdit(event) {
+    await this.actor.update({
+      ['data.actorType.traitSetEdit']: null
+    })
   }
 
   async _getConsumableDiceSelection (options, label) {
@@ -196,6 +258,14 @@ export class CortexPrimeActorSheet extends ActorSheet {
     })
   }
 
+  async _traitSetEdit(event) {
+    const { traitSet } = event.currentTarget.dataset
+
+    await this.actor.update({
+      ['data.actorType.traitSetEdit']: traitSet
+    })
+  }
+
   async _updateActorSettings(event) {
     event.preventDefault()
 
@@ -227,7 +297,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
       if (key === 'traitSets') {
         return objectMapValues(propValue, ({ hasDescription, id, label, settings, traits }) => {
-          const matchingSetting = objectFindValue((actorData.simpleTraits ?? {}), ({ id: matchId }) => matchId === id) ?? {}
+          const matchingSetting = objectFindValue((actorData.traitSets ?? {}), ({ id: matchId }) => matchId === id) ?? {}
 
           return {
             ...matchingSetting,
@@ -235,7 +305,14 @@ export class CortexPrimeActorSheet extends ActorSheet {
             id,
             label,
             settings,
-            traits: objectMapValues(traits ?? {}, trait => trait)
+            traits: objectMapValues(traits ?? {}, trait => {
+              const matchingTraitSetting = objectFindValue(matchingSetting.traits, ({ id: matchId }) => matchId === trait.id) ?? {}
+              return {
+                ...matchingTraitSetting,
+                id: trait.id,
+                name: trait.name
+              }
+            })
           }
         })
       }
