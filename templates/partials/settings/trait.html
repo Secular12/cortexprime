@@ -1,7 +1,7 @@
 <article class="{{viewClasses (concat 'trait-' actorTypeIndex '-' traitSetIndex '-' traitIndex) breadcrumbs}} trait">
   <header class="primary-heading flex-row flex-ac">
     <div class="flex-col col-12">
-      <input name="{{concat 'actorTypes.' path '.' traitIndex '.name'}}" type="text" value="{{trait.name}}">
+      <input class="breadcrumb-name-change" data-target="{{concat 'trait-' actorTypeIndex '-' traitSetIndex '-' traitIndex}}" name="{{concat 'actorTypes.' path '.' traitIndex '.name'}}" type="text" value="{{trait.name}}">
     </div>
     <div class="flex-col">
       {{> "systems/cortexprime/templates/partials/remove-button.html"

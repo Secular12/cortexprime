@@ -1,7 +1,7 @@
 <article class="{{viewClasses (concat 'actorType-' actorTypeIndex) breadcrumbs}} actor-type">
   <header class="primary-heading flex-row flex-ac mb-4">
     <div class="flex-col col-12">
-      <input type="text" name="actorTypes.{{actorTypeIndex}}.name" value="{{actorType.name}}">
+      <input class="breadcrumb-name-change" type="text" data-target="{{concat 'actorType-' actorTypeIndex}}" name="actorTypes.{{actorTypeIndex}}.name" value="{{actorType.name}}">
     </div>
     <div class="flex-col">
       {{> "systems/cortexprime/templates/partials/remove-button.html"

@@ -53,6 +53,7 @@ export default class ActorSettings extends FormApplication {
     html.find('.add-sub-trait').click(this._addSubTrait.bind(this))
     html.find('.add-trait').click(this._addTrait.bind(this))
     html.find('.add-trait-set').click(this._addTraitSet.bind(this))
+    html.find('.breadcrumb-name-change').change(this._breadcrumbNameChange.bind(this))
     html.find('.breadcrumb:not(.active), .go-back').click(this._breadcrumbChange.bind(this))
     html.find('.die-select').change(this._onDieChange.bind(this))
     html.find('.new-die').click(this._newDie.bind(this))
@@ -222,6 +223,22 @@ export default class ActorSettings extends FormApplication {
 
     await this._onSubmit(event)
     this.render(true)
+  }
+
+  async _breadcrumbNameChange (event) {
+    const $nameField = $(event.currentTarget)
+    const target = $nameField.data('target')
+    const currentBreadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs')
+
+    await game.settings.set('cortexprime', 'actorBreadcrumbs', {
+      ...objectMapValues(currentBreadcrumbs, breadcrumb => {
+        if (breadcrumb.target === target) {
+          breadcrumb.name = $nameField.val()
+        }
+
+        return breadcrumb
+      })
+    })
   }
 
   async changeView (name, target) {
