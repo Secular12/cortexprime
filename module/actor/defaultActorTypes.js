@@ -92,7 +92,7 @@ export default {
       0: {
         dice: {
           consumable: false,
-          id='_11',
+          id: '_21',
           value: {
             0: '6',
             1: '6'

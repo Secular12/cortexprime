@@ -172,12 +172,13 @@ export class UserDicePool extends FormApplication {
     event.preventDefault()
     const $target = $(event.currentTarget)
     const source = $target.data('source')
-    const currentDicePool = game.user.getFlag('cortexprime', 'dicePool')
+    let currentDicePool = game.user.getFlag('cortexprime', 'dicePool')
 
     if (getLength(currentDicePool.pool[source] || {}) < 2) {
       delete currentDicePool.pool[source]
     } else {
       delete currentDicePool.pool[source][$target.data('key')]
+      currentDicePool.pool[source] = objectReindexFilter(currentDicePool.pool[source], (_, index) => parseInt(index, 10) !== parseInt($target.data('key'), 10))
     }
 
     await game.user.setFlag('cortexprime', 'dicePool', null)
