@@ -21,7 +21,7 @@
       {{/if}}
     </div>
     <div class="flex-row flex-jc">
-      {{#if traitSet.traits}}
+      {{#if traitSet.traits.[0]}}
         {{> "systems/cortexprime/templates/partials/actor-sheet/traits-edit.html"
           label=(localize 'PresetTraits')
           settings=traitSet.settings

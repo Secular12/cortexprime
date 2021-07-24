@@ -36,6 +36,8 @@
   "DiceSettings": "Dice Settings",
   "Edit": "Edit",
   "Editable": "Editable",
+  "HasAssets": "Has Assets",
+  "HasComplications": "Has Complications",
   "HasDescription": "Has Description",
   "HasDetails": "Has Detail Lists",
   "HasDice": "Has Dice",

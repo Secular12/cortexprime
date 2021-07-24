@@ -1,9 +1,11 @@
 export default {
   0: {
+    hasAssets: true,
+    hasComplications: true,
     hasNotesPage: true,
     hasPlotPoints: true,
     id: '_1',
-    name: 'PC',
+    name: 'Character',
     traitSets: {
       0: {
         description: null,
@@ -14,7 +16,6 @@ export default {
         traits: {
           0: {
             dice: {
-              consumable: false,
               value: {
                 0: '8'
               }
@@ -33,7 +34,6 @@ export default {
           },
           1: {
             dice: {
-              consumable: false,
               value: {
                 0: '8'
               }
@@ -52,7 +52,6 @@ export default {
           },
           2: {
             dice: {
-              consumable: false,
               value: {
                 0: '8'
               }
@@ -83,9 +82,99 @@ export default {
     }
   },
   1: {
-    hasNotesPage: false,
-    hasPlotPoints: false,
+    hasAssets: true,
+    hasComplications: true,
+    hasNotesPage: true,
+    hasPlotPoints: true,
     id: '_2',
-    name: 'Minor GMC'
+    name: 'Scene',
+    simpleTraits: {
+      0: {
+        dice: {
+          consumable: false,
+          id='_11',
+          value: {
+            0: '6',
+            1: '6'
+          }
+        },
+        hasDescription: false,
+        label: 'Doom Pool',
+        settings: {
+          editable: true,
+          valueType: 'dice'
+        }
+      }
+    },
+    traitSets: {
+      0: {
+        description: null,
+        hasDescription: false,
+        id: '_21',
+        label: 'Extras',
+        shutdown: false,
+        traits: {},
+        settings: {
+          hasDescription: false,
+          hasDice: true,
+          hasLabels: false,
+          hasSfx: false,
+          hasSubTraits: false,
+          hasSubTraitDice: true,
+          subTraitDiceConsumable: false
+        }
+      },
+      1: {
+        description: null,
+        hasDescription: false,
+        id: '_22',
+        label: 'Minor GMCs',
+        shutdown: false,
+        traits: {},
+        settings: {
+          hasDescription: true,
+          hasDice: false,
+          hasLabels: false,
+          hasSfx: false,
+          hasSubTraits: true,
+          hasSubTraitDice: true,
+          subTraitDiceConsumable: false
+        }
+      },
+      2: {
+        description: null,
+        hasDescription: false,
+        id: '_23',
+        label: 'Mobs',
+        shutdown: false,
+        traits: {},
+        settings: {
+          hasDescription: true,
+          hasDice: true,
+          hasLabels: true,
+          hasSfx: false,
+          hasSubTraits: true,
+          hasSubTraitDice: true,
+          subTraitDiceConsumable: false
+        }
+      },
+      3: {
+        description: null,
+        hasDescription: false,
+        id: '_24',
+        label: 'Bosses/Factions/Orgs',
+        shutdown: false,
+        traits: {},
+        settings: {
+          hasDescription: true,
+          hasDice: true,
+          hasLabels: true,
+          hasSfx: true,
+          hasSubTraits: true,
+          hasSubTraitDice: true,
+          subTraitDiceConsumable: false
+        }
+      }
+    }
   }
 }
