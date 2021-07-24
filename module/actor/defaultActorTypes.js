@@ -1,11 +1,13 @@
 export default {
   0: {
+    hasNotesPage: true,
     hasPlotPoints: true,
     id: '_1',
     name: 'PC',
     traitSets: {
       0: {
-        description: 'Represents background, personality, or roles in the game.',
+        description: null,
+        hasDescription: false,
         id: '_11',
         label: 'Distinctions',
         shutdown: false,
@@ -81,6 +83,7 @@ export default {
     }
   },
   1: {
+    hasNotesPage: false,
     hasPlotPoints: false,
     id: '_2',
     name: 'Minor GMC'

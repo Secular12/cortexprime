@@ -22,7 +22,9 @@
       <div>
         <nav class="sheet-tabs tabs mb-4" data-group="primary">
           <a class="item" data-tab="traits">{{localize 'Traits'}}</a>
-          <!-- <a class="item" data-tab="notes">{{localize 'Notes'}}</a> -->
+          {{#if data.data.actorType.hasNotesPage}}
+            <a class="item" data-tab="notes">{{localize 'Notes'}}</a>
+          {{/if}}
           <!-- <a class="item" data-tab="help"><i class="fas fa-question-circle"></i></a> -->
         </nav>
         <button class="btn btn-primary update-actor-settings" type="button">Update Settings</button>
@@ -41,9 +43,22 @@
             }}
           </div>
         </article>
-        <!-- <div class="tab help" data-group="primary" data-tab="help">
-          {{> "systems/cortexprime/templates/partials/mc-help.html" }}
-        </div> -->
+        {{#if data.data.actorType.hasNotesPage}}
+          <section class="tab notes" data-group="primary" data-tab="notes">
+            <article>
+              <header class="my-2">
+                <h2 class="section-heading">{{localize 'Description'}}</h2>
+              </header>
+              <textarea class="notes-field" name="data.actorType.description">{{{data.data.actorType.description}}}</textarea>
+            </article>
+            <article>
+              <header class="my-2">
+                <h2 class="section-heading">{{localize 'Notes'}}</h2>
+              </header>
+              <textarea class="notes-field" name="data.actorType.notes">{{{data.data.actorType.notes}}}</textarea>
+            </article>
+          </section>
+        {{/if}}
       </div>
     {{/if}}
   {{/unless}}
