@@ -313,7 +313,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const actorTypeSettings = objectFindValue(game.settings.get('cortexprime', 'actorTypes'), actorType => actorType.id === actorData.id)
 
     if (!actorTypeSettings) {
-      console.log('no matching actor type!')
+      ui.notifications.error(localizer('MissingActorTypeMessage'))
     }
 
     const newData = objectMapValues(actorTypeSettings, (propValue, key) => {
