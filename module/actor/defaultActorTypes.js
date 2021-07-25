@@ -78,6 +78,23 @@ export default {
           hasSubTraitDice: true,
           subTraitDiceConsumable: false,
         }
+      },
+      1: {
+        description: null,
+        hasDescription: false,
+        id: '_12',
+        label: 'Signature Assets',
+        shutdown: false,
+        settings: {
+          hasDescription: false,
+          hasDice: true,
+          hasLabels: false,
+          hasSfx: true,
+          hasSubTraits: false,
+          hasSubTraitDice: false,
+          subTraitDiceConsumable: false,
+        },
+        traits: {}
       }
     }
   },
