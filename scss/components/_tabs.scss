@@ -1,13 +1,21 @@
-.tabs {
-  height: toRem(40px);
+nav.sheet-tabs {
+  height: auto;
+  margin: 0 toRem(-4px) toRem(8px);
+  background-color: color('lighter-grey');
+  border: 0;
+}
 
+.tabs {
   .item {
-    line-height: toRem(40px);
+    border: toRem(2px) solid color('secondary');
+    color: color('secondary');
+    margin: 0 toRem(4px);
     font-weight: bold;
   }
 
   .item.active {
-    text-decoration: underline;
+    border: toRem(2px) solid color('primary');
+    color: color('primary');
     text-shadow: none;
   }
 }

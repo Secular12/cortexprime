@@ -4,13 +4,13 @@
 }
 
 textarea {
-  background-color: color('lighter-grey');
+  background-color: color('accent');
   border-radius: 0;
   border: toRem(2px) solid color('secondary')
 }
 
 select {
-  background-color: color('lighter-grey');
+  background-color: color('accent');
   border-radius: 0;
   border: 0;
   border-bottom: toRem(2px) solid color('secondary')
@@ -18,7 +18,7 @@ select {
 
 input {
   &[type="text"], &[type="number"] {
-    background-color: color('lighter-grey');
+    background-color: color('accent');
     border-radius: 0;
     border: 0;
     border-bottom: toRem(2px) solid color('secondary')

@@ -91,7 +91,6 @@ export default {
     simpleTraits: {
       0: {
         dice: {
-          consumable: false,
           id: '_21',
           value: {
             0: '6',
@@ -101,6 +100,7 @@ export default {
         hasDescription: false,
         label: 'Doom Pool',
         settings: {
+          diceConsumable: false,
           editable: true,
           valueType: 'dice'
         }

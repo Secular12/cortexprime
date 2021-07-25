@@ -91,11 +91,11 @@ input {
 }
 
 .text-accent {
-  color: #c0e2ca;
+  color: #c9e2d1;
 }
 
 .bkg-accent {
-  background-color: #c0e2ca;
+  background-color: #c9e2d1;
 }
 
 .text-black {
@@ -163,7 +163,7 @@ input {
 }
 
 .ba-1-accent {
-  border: 0.0625rem solid #c0e2ca;
+  border: 0.0625rem solid #c9e2d1;
 }
 
 .ba-1-black {
@@ -199,7 +199,7 @@ input {
 }
 
 .ba-2-accent {
-  border: 0.125rem solid #c0e2ca;
+  border: 0.125rem solid #c9e2d1;
 }
 
 .ba-2-black {
@@ -235,7 +235,7 @@ input {
 }
 
 .ba-3-accent {
-  border: 0.1875rem solid #c0e2ca;
+  border: 0.1875rem solid #c9e2d1;
 }
 
 .ba-3-black {
@@ -271,7 +271,7 @@ input {
 }
 
 .ba-4-accent {
-  border: 0.25rem solid #c0e2ca;
+  border: 0.25rem solid #c9e2d1;
 }
 
 .ba-4-black {
@@ -307,7 +307,7 @@ input {
 }
 
 .bb-1-accent {
-  border-bottom: 0.0625rem solid #c0e2ca;
+  border-bottom: 0.0625rem solid #c9e2d1;
 }
 
 .bb-1-black {
@@ -343,7 +343,7 @@ input {
 }
 
 .bb-2-accent {
-  border-bottom: 0.125rem solid #c0e2ca;
+  border-bottom: 0.125rem solid #c9e2d1;
 }
 
 .bb-2-black {
@@ -379,7 +379,7 @@ input {
 }
 
 .bb-3-accent {
-  border-bottom: 0.1875rem solid #c0e2ca;
+  border-bottom: 0.1875rem solid #c9e2d1;
 }
 
 .bb-3-black {
@@ -415,7 +415,7 @@ input {
 }
 
 .bb-4-accent {
-  border-bottom: 0.25rem solid #c0e2ca;
+  border-bottom: 0.25rem solid #c9e2d1;
 }
 
 .bb-4-black {
@@ -451,7 +451,7 @@ input {
 }
 
 .bl-1-accent {
-  border-left: 0.0625rem solid #c0e2ca;
+  border-left: 0.0625rem solid #c9e2d1;
 }
 
 .bl-1-black {
@@ -487,7 +487,7 @@ input {
 }
 
 .bl-2-accent {
-  border-left: 0.125rem solid #c0e2ca;
+  border-left: 0.125rem solid #c9e2d1;
 }
 
 .bl-2-black {
@@ -523,7 +523,7 @@ input {
 }
 
 .bl-3-accent {
-  border-left: 0.1875rem solid #c0e2ca;
+  border-left: 0.1875rem solid #c9e2d1;
 }
 
 .bl-3-black {
@@ -559,7 +559,7 @@ input {
 }
 
 .bl-4-accent {
-  border-left: 0.25rem solid #c0e2ca;
+  border-left: 0.25rem solid #c9e2d1;
 }
 
 .bl-4-black {
@@ -595,7 +595,7 @@ input {
 }
 
 .br-1-accent {
-  border-right: 0.0625rem solid #c0e2ca;
+  border-right: 0.0625rem solid #c9e2d1;
 }
 
 .br-1-black {
@@ -631,7 +631,7 @@ input {
 }
 
 .br-2-accent {
-  border-right: 0.125rem solid #c0e2ca;
+  border-right: 0.125rem solid #c9e2d1;
 }
 
 .br-2-black {
@@ -667,7 +667,7 @@ input {
 }
 
 .br-3-accent {
-  border-right: 0.1875rem solid #c0e2ca;
+  border-right: 0.1875rem solid #c9e2d1;
 }
 
 .br-3-black {
@@ -703,7 +703,7 @@ input {
 }
 
 .br-4-accent {
-  border-right: 0.25rem solid #c0e2ca;
+  border-right: 0.25rem solid #c9e2d1;
 }
 
 .br-4-black {
@@ -739,7 +739,7 @@ input {
 }
 
 .bt-1-accent {
-  border-top: 0.0625rem solid #c0e2ca;
+  border-top: 0.0625rem solid #c9e2d1;
 }
 
 .bt-1-black {
@@ -775,7 +775,7 @@ input {
 }
 
 .bt-2-accent {
-  border-top: 0.125rem solid #c0e2ca;
+  border-top: 0.125rem solid #c9e2d1;
 }
 
 .bt-2-black {
@@ -811,7 +811,7 @@ input {
 }
 
 .bt-3-accent {
-  border-top: 0.1875rem solid #c0e2ca;
+  border-top: 0.1875rem solid #c9e2d1;
 }
 
 .bt-3-black {
@@ -847,7 +847,7 @@ input {
 }
 
 .bt-4-accent {
-  border-top: 0.25rem solid #c0e2ca;
+  border-top: 0.25rem solid #c9e2d1;
 }
 
 .bt-4-black {
@@ -883,8 +883,8 @@ input {
 }
 
 .bx-1-accent {
-  border-left: 0.0625rem solid #c0e2ca;
-  border-right: 0.0625rem solid #c0e2ca;
+  border-left: 0.0625rem solid #c9e2d1;
+  border-right: 0.0625rem solid #c9e2d1;
 }
 
 .bx-1-black {
@@ -928,8 +928,8 @@ input {
 }
 
 .bx-2-accent {
-  border-left: 0.125rem solid #c0e2ca;
-  border-right: 0.125rem solid #c0e2ca;
+  border-left: 0.125rem solid #c9e2d1;
+  border-right: 0.125rem solid #c9e2d1;
 }
 
 .bx-2-black {
@@ -973,8 +973,8 @@ input {
 }
 
 .bx-3-accent {
-  border-left: 0.1875rem solid #c0e2ca;
-  border-right: 0.1875rem solid #c0e2ca;
+  border-left: 0.1875rem solid #c9e2d1;
+  border-right: 0.1875rem solid #c9e2d1;
 }
 
 .bx-3-black {
@@ -1018,8 +1018,8 @@ input {
 }
 
 .bx-4-accent {
-  border-left: 0.25rem solid #c0e2ca;
-  border-right: 0.25rem solid #c0e2ca;
+  border-left: 0.25rem solid #c9e2d1;
+  border-right: 0.25rem solid #c9e2d1;
 }
 
 .bx-4-black {
@@ -1063,8 +1063,8 @@ input {
 }
 
 .by-1-accent {
-  border-bottom: 0.0625rem solid #c0e2ca;
-  border-top: 0.0625rem solid #c0e2ca;
+  border-bottom: 0.0625rem solid #c9e2d1;
+  border-top: 0.0625rem solid #c9e2d1;
 }
 
 .by-1-black {
@@ -1108,8 +1108,8 @@ input {
 }
 
 .by-2-accent {
-  border-bottom: 0.125rem solid #c0e2ca;
-  border-top: 0.125rem solid #c0e2ca;
+  border-bottom: 0.125rem solid #c9e2d1;
+  border-top: 0.125rem solid #c9e2d1;
 }
 
 .by-2-black {
@@ -1153,8 +1153,8 @@ input {
 }
 
 .by-3-accent {
-  border-bottom: 0.1875rem solid #c0e2ca;
-  border-top: 0.1875rem solid #c0e2ca;
+  border-bottom: 0.1875rem solid #c9e2d1;
+  border-top: 0.1875rem solid #c9e2d1;
 }
 
 .by-3-black {
@@ -1198,8 +1198,8 @@ input {
 }
 
 .by-4-accent {
-  border-bottom: 0.25rem solid #c0e2ca;
-  border-top: 0.25rem solid #c0e2ca;
+  border-bottom: 0.25rem solid #c9e2d1;
+  border-top: 0.25rem solid #c9e2d1;
 }
 
 .by-4-black {
@@ -1291,7 +1291,7 @@ input {
 }
 
 .btn-accent {
-  background-color: #c0e2ca;
+  background-color: #c9e2d1;
   color: #f5f8fa;
 }
 
@@ -2587,11 +2587,11 @@ input {
 }
 
 .bkg-accent {
-  background-color: #c0e2ca;
+  background-color: #c9e2d1;
 }
 
 .text-accent {
-  color: #c0e2ca;
+  color: #c9e2d1;
 }
 
 .bkg-black {
@@ -2678,6 +2678,11 @@ input {
   cursor: pointer;
 }
 
+.add-to-pool::before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f522";
+}
+
 /* Styles limited to cortexprime sheets */
 .cortexprime .item-form, .cortexprime input, .cortexprime textarea {
   font-family: "Roboto", sans-serif;
@@ -2685,20 +2690,20 @@ input {
 }
 
 .cortexprime textarea {
-  background-color: #e7eef3;
+  background-color: #c9e2d1;
   border-radius: 0;
   border: 0.125rem solid #2D5931;
 }
 
 .cortexprime select {
-  background-color: #e7eef3;
+  background-color: #c9e2d1;
   border-radius: 0;
   border: 0;
   border-bottom: 0.125rem solid #2D5931;
 }
 
 .cortexprime input[type="text"], .cortexprime input[type="number"] {
-  background-color: #e7eef3;
+  background-color: #c9e2d1;
   border-radius: 0;
   border: 0;
   border-bottom: 0.125rem solid #2D5931;
@@ -2713,17 +2718,23 @@ input {
   text-transform: uppercase;
 }
 
-.cortexprime .tabs {
-  height: 2.5rem;
+.cortexprime nav.sheet-tabs {
+  height: auto;
+  margin: 0 -0.25rem 0.5rem;
+  background-color: #e7eef3;
+  border: 0;
 }
 
 .cortexprime .tabs .item {
-  line-height: 2.5rem;
+  border: 0.125rem solid #2D5931;
+  color: #2D5931;
+  margin: 0 0.25rem;
   font-weight: bold;
 }
 
 .cortexprime .tabs .item.active {
-  text-decoration: underline;
+  border: 0.125rem solid #B30044;
+  color: #B30044;
   text-shadow: none;
 }
 

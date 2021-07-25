@@ -4,7 +4,7 @@
       <div class="flex-col">
         <input name="{{concat fieldPath '.value'}}" type="number" value="{{data.number.value}}">
       </div>
-      {{#if data.number.hasMaxNumber}}
+      {{#if data.settings.hasMaxNumber}}
         <span class="flex-col">/</span>
         <div class="flex-col">
           <input name="{{concat fieldPath '.max'}}" type="number" value="{{data.number.max}}">
@@ -14,7 +14,7 @@
   {{else}}
     <p>
       <span>{{or data.number.value '-'}}</span>
-      {{#if data.number.hasMaxNumber}}
+      {{#if data.settings.hasMaxNumber}}
         <span>/</span>
         <span>{{or data.number.max '-'}}</span>
       {{/if}}

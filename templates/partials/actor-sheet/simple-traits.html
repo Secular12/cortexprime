@@ -5,7 +5,7 @@
         <label class="flex-col">
           <div
             class="section-sub-heading mt-1{{ternary (eq simpleTrait.settings.valueType 'dice') ' add-to-pool' ''}}"
-            {{{ternary (and (eq simpleTrait.settings.valueType 'dice') simpleTrait.dice.consumable) 'data-consumable="true"' ''}}}
+            {{{ternary (and (eq simpleTrait.settings.valueType 'dice') simpleTrait.settings.consumableDice) 'data-consumable="true"' ''}}}
             data-label="{{simpleTrait.label}}"
             data-path="{{concat ../path '.' simpleTraitIndex '.dice'}}"
           >
@@ -17,7 +17,7 @@
             {{/if}}
           </div>
         </label>
-        {{#if ../owner}}
+        {{#if (and ../owner (not (and (eq simpleTrait.settings.valueType 'dice') (not simpleTrait.hasDescription))))}}
           <div class="flex-col">
             <button class="btn btn-icon toggle-item" data-path="{{concat ../path '.' simpleTraitIndex '.edit'}}" type="button">
               {{#if simpleTrait.edit}}
@@ -36,7 +36,7 @@
             <textarea name="{{concat ../path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
           </label>
         {{else if (and simpleTrait.hasDescription simpleTrait.description)}}
-          <p>{{simpleTrait.description}}</p>
+          <p class="my-2">{{simpleTrait.description}}</p>
         {{/if}}
         {{> (concat "systems/cortexprime/templates/partials/value-types/" simpleTrait.settings.valueType ".html")
           addToPool=true

@@ -19,7 +19,7 @@
         path="data.actorType.traitSets"
       }}
     {{else}}
-      <div>
+      <div class="mb-2">
         <nav class="sheet-tabs tabs mb-4" data-group="primary">
           <a class="item" data-tab="traits">{{localize 'Traits'}}</a>
           {{#if data.data.actorType.hasNotesPage}}
@@ -27,7 +27,6 @@
           {{/if}}
           <!-- <a class="item" data-tab="help"><i class="fas fa-question-circle"></i></a> -->
         </nav>
-        <button class="btn btn-primary update-actor-settings" type="button">Update Settings</button>
       </div>
       <div class="sheet-body">
         <article class="tab sets active" data-group="primary" data-tab="traits">
@@ -42,6 +41,9 @@
                 traitSets=data.data.actorType.traitSets
                 path="data.actorType.traitSets"
               }}
+              {{#if (and data.data.actorType.traitSets.[0] (or data.data.actorType.hasAssets data.data.actorType.hasComplications))}}
+                <div class="bb-2-primary my-4"></div>
+              {{/if}}
               {{#if (or data.data.actorType.hasAssets data.data.actorType.hasComplications)}}
                 {{> "systems/cortexprime/templates/partials/actor-sheet/temporary-traits.html"
                   data=data.data.actorType

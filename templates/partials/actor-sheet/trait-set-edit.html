@@ -1,7 +1,9 @@
 <div>
-  <button class="btn btn-primary close-trait-set-edit">{{localize 'Back'}}</button>
+  <div class="mb-2">
+    <button class="btn btn-secondary close-trait-set-edit">{{localize 'Back'}}</button>
+  </div>
   <div>
-    <div class="flex-row">
+    <div class="flex-row flex-c py-2 by-2-primary mb-4">
       <div class="flex-col">
         <span class="section-heading">{{or traitSet.label "[Trait Set]"}}</span>
       </div>
@@ -12,10 +14,10 @@
         </button>
       </div>
     </div>
-    <div>
+    <div class="mb-2">
       {{#if traitSet.hasDescription}}
       <label>
-        {{localize 'Description'}}
+        <span class="label">{{localize 'Description'}}</span>
         <textarea name="{{concat path '.' traitSetIndex '.description'}}">{{traitSet.description}}</textarea>
       </label>
       {{/if}}
