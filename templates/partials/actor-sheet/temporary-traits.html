@@ -98,13 +98,12 @@
                       value="{{complication.label}}">
                   </div>
                 {{else}}
-                <div class="flex-col col-12">
-                  <span class="section-sub-heading text-dark-grey{{ternary complication.dice.value.[0] ' add-to-pool' ''}}"
-                    data-label="{{complication.label}}" data-path="{{concat ../path '.complications.' complicationIndex '.dice'}}">
-                    {{complication.label}}
-                  </span>
-                </div>
-
+                  <div class="flex-col col-12">
+                    <span class="section-sub-heading text-dark-grey{{ternary complication.dice.value.[0] ' add-to-pool' ''}}"
+                      data-label="{{complication.label}}" data-path="{{concat ../path '.complications.' complicationIndex '.dice'}}">
+                      {{complication.label}}
+                    </span>
+                  </div>
                 {{/if}}
               {{#if ../owner}}
                 {{> "systems/cortexprime/templates/partials/dice/select.html"

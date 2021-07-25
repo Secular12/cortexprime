@@ -4,7 +4,7 @@
       <div>
         <div class="flex-row flex-jsb">
           <div class="flex-col{{ternary traitSet.shutdown ' shutdown' ''}}">
-            <span class="section-heading">{{or traitSet.label "[Trait Set]"}}</span>
+            <span class="section-heading">{{or traitSet.label (concat '[' (localize 'TraitSet') ']')}}</span>
           </div>
           {{#if ../owner}}
             <div class="flex-col">

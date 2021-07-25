@@ -94,7 +94,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     await this._resetDataPoint(path, 'assets', {
       ...currentAssets,
       [getLength(currentAssets)]: {
-        label: 'New Asset',
+        label: localizer('NewAsset'),
         dice: {
           value: {
             0: '6'
@@ -114,7 +114,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     await this._resetDataPoint(path, 'complications', {
       ...currentComplications,
       [getLength(currentComplications)]: {
-        label: 'New Complication',
+        label: localizer('NewComplication'),
         dice: {
           value: {
             0: '6'
@@ -133,7 +133,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
       ...currentSfx,
       [getLength(currentSfx)]: {
         description: null,
-        label: 'New Sfx',
+        label: localizer('NewSfx'),
         unlocked: true
       }
     })
@@ -152,7 +152,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
             0: '8'
           }
         },
-        label: 'New Sub-Trait'
+        label: localizer('NewSubTrait')
       }
     })
   }
@@ -185,7 +185,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
       ...currentCustomTraits,
       [getLength(currentCustomTraits)]: {
         id: `_${Date.now()}`,
-        name: 'New Trait',
+        name: localizer('NewTrait'),
         dice: {
           value: {
             0: '8'

@@ -70,12 +70,12 @@ export default class ActorSettings extends FormApplication {
     const newActorType = {
       [newKey]: {
         id: `_${Date.now()}`,
-        name: 'New Actor Type'
+        name: localizer('NewActorType')
       }
     }
 
     await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, newActorType))
-    await this.changeView('New Actor Type', `actorType-${newKey}`)
+    await this.changeView(localizer('NewActorType'), `actorType-${newKey}`)
     this.render(true)
   }
 
@@ -91,7 +91,7 @@ export default class ActorSettings extends FormApplication {
         ...currentSfx,
         [getLength(currentSfx ?? {})]: {
           description: null,
-          label: null,
+          label: localizer('NewSfx'),
           unlocked: true
         }
       })
@@ -113,7 +113,7 @@ export default class ActorSettings extends FormApplication {
         ...currentSubTraits,
         [getLength(currentSubTraits ?? {})]: {
           dice: { value: { 0: '8' } },
-          label: null
+          label: localizer('NewSubTrait')
         }
       })
 
@@ -137,7 +137,7 @@ export default class ActorSettings extends FormApplication {
               }
             },
             id: `_${Date.now()}`,
-            label: 'New Simple Trait',
+            label: localizer('NewSimpleTrait'),
             settings: {
               editable: true,
               valueType: 'text'
@@ -148,7 +148,7 @@ export default class ActorSettings extends FormApplication {
     }
 
     await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, newSimpleTrait))
-    await this.changeView('New Simple Trait', `simpleTrait-${actorTypeKey}-${newKey}`)
+    await this.changeView(localizer('NewSimpleTrait'), `simpleTrait-${actorTypeKey}-${newKey}`)
     this.render(true)
   }
 
@@ -163,7 +163,7 @@ export default class ActorSettings extends FormApplication {
       ...currentTraits,
       [newKey]: {
         id: `_${Date.now()}`,
-        name: 'New Trait',
+        name: localizer('NewTrait'),
         dice: {
           value: {
             0: '8'
@@ -175,7 +175,7 @@ export default class ActorSettings extends FormApplication {
     setProperty(source, `${path}.${traitSet}.traits`, newTraits)
 
     await game.settings.set('cortexprime', 'actorTypes', source)
-    await this.changeView('New Trait', `trait-${actorType}-${traitSet}-${newKey}`)
+    await this.changeView(localizer('NewTrait'), `trait-${actorType}-${traitSet}-${newKey}`)
     this.render(true)
   }
 
@@ -190,14 +190,14 @@ export default class ActorSettings extends FormApplication {
         traitSets: {
           [newKey]: {
             id: `_${Date.now()}`,
-            label: 'New Trait Set'
+            label: localizer('NewTraitSet')
           }
         }
       }
     }
 
     await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, newTraitSet))
-    await this.changeView('New Trait Set', `traitSet-${actorTypeKey}-${newKey}`)
+    await this.changeView(localizer('NewTraitSet'), `traitSet-${actorTypeKey}-${newKey}`)
     this.render(true)
   }
 
