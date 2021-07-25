@@ -71,8 +71,8 @@ $dieSides: 4, 6, 8, 10, 12;
 }
 
 .die-select {
-  border: none;
-  background-color: transparent;
+  border: none !important;
+  background-color: transparent !important;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;

@@ -1,8 +1,17 @@
 <div>
-  <span class="label">{{localize 'DefaultSubTraits'}}</span>
-  <button class="btn btn-secondary btn-icon add-sub-trait" type="button" data-path="{{concat path '.subTraits' }}">
-    <i class="fa fa-plus"></i>
-  </button>
+  <header>
+    <div class="bkg-primary flex-row flex-ac flex-jsb my-2 py-1">
+      <h3 class="flex-col primary-heading text-white">{{localize 'DefaultSubTraits'}}</h3>
+      <div class="flex-col">
+        <button class="btn btn-secondary btn-icon add-sub-trait" type="button" data-path="{{concat path '.subTraits' }}">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </div>
+    <div class="bkg-light-grey pa-2">
+      <p>{{localize 'SubTraitsDescription'}}</p>
+    </div>
+  </header>
   {{> "systems/cortexprime/templates/partials/value-types/sub-traits.html"
     data=data
     edit=true

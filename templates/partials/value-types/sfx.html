@@ -1,36 +1,41 @@
-<div>
+<ul class="list-style-none px-0 list-alt-bkg">
   {{#each data.sfx as |sfx sfxIndex|}}
-    <div class="my-2">
-      <div class="flex-row flex-ae">
-        <div class="flex-col">
-          <label>
-            <input name="{{concat ../fieldPath '.' sfxIndex '.unlocked'}}" type="checkbox" {{checked sfx.unlocked}}>
-            <span class="label">{{localize 'Unlocked'}}</span>
-          </label>
-        </div>
-        <div class="flex-col col-12">
-          <label>
-            <span class="label">{{localize 'Label'}}</span>
-            <input name="{{concat ../fieldPath '.' sfxIndex '.label'}}" type="text" value="{{sfx.label}}">
-          </label>
-        </div>
-        <div class="flex-col">
-          {{> "systems/cortexprime/templates/partials/remove-button.html"
-            group=../path
-            itemKey=sfxIndex
-            itemName=sfx.label
-            path=../path
-            target='sfx'
-            type="trash"
-          }}
+    <li class="flex-row flex-wrap pa-2">
+      <div class="flex-col col-12">
+        <div class="flex-row flex-ae mb-1">
+          <div class="flex-col">
+
+            <label class="text-center d-block">
+              <div class="label">{{localize 'Unlocked'}}</div>
+              <input name="{{concat ../fieldPath '.' sfxIndex '.unlocked'}}" type="checkbox" {{checked sfx.unlocked}}>
+            </label>
+          </div>
+          <div class="flex-col col-12">
+            <label>
+              <span class="label">{{localize 'Label'}}</span>
+              <input name="{{concat ../fieldPath '.' sfxIndex '.label'}}" type="text" value="{{sfx.label}}">
+            </label>
+          </div>
+          <div class="flex-col">
+            {{> "systems/cortexprime/templates/partials/remove-button.html"
+              group=../path
+              itemKey=sfxIndex
+              itemName=sfx.label
+              path=../path
+              setting='actorTypes'
+              stayOnPage=true
+              target='sfx'
+              type="trash"
+            }}
+          </div>
         </div>
       </div>
-      <div>
+      <div class="flex-col col-12">
         <label>
           <span class="label">{{localize 'Description'}}</span>
           <textarea name="{{concat ../fieldPath '.' sfxIndex '.description'}}">{{sfx.description}}</textarea>
         </label>
       </div>
-    </div>
+    </li>
   {{/each}}
-</div>
+</ul>

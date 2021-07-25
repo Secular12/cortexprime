@@ -11,7 +11,7 @@
         <div>
           <div class="flex-row flex-ac">
             {{#if (and ../owner asset.edit)}}
-              <input name="{{concat ../path '.assets.' assetIndex '.label'}}" value="{{asset.label}}">
+              <input name="{{concat ../path '.assets.' assetIndex '.label'}}" type="text" value="{{asset.label}}">
               {{> "systems/cortexprime/templates/partials/remove-button.html"
                 path=../path
                 target='assets'
@@ -20,7 +20,13 @@
                 type="trash"
               }}
             {{else}}
-              <span class="section-sub-heading text-dark-grey">{{asset.label}}</span>
+              <span
+                class="section-sub-heading text-dark-grey{{ternary asset.dice.value.[0] ' add-to-pool' ''}}"
+                data-label="{{asset.label}}"
+                data-path="{{concat ../path '.assets.' assetIndex '.dice'}}"
+              >
+                {{asset.label}}
+              </span>
             {{/if}}
             <button class="btn btn-icon toggle-item" data-path="{{concat ../path '.assets.' assetIndex '.edit'}}" type="button">
               <i class="fas {{ternary asset.edit 'fa-check' 'fa-edit'}}"></i>
@@ -60,7 +66,7 @@
         <div>
           <div class="flex-row flex-ac">
             {{#if (and ../owner complication.edit)}}
-              <input name="{{concat ../path '.complications.' complicationIndex '.label'}}" value="{{complication.label}}">
+              <input name="{{concat ../path '.complications.' complicationIndex '.label'}}" type="text" value="{{complication.label}}">
               {{> "systems/cortexprime/templates/partials/remove-button.html"
                 path=../path
                 target='complications'
@@ -69,7 +75,13 @@
                 type="trash"
               }}
             {{else}}
-              <span class="section-sub-heading text-dark-grey">{{complication.label}}</span>
+              <span
+                class="section-sub-heading text-dark-grey{{ternary complication.dice.value.[0] ' add-to-pool' ''}}"
+                data-label="{{complication.label}}"
+                data-path="{{concat ../path '.complications.' complicationIndex '.dice'}}"
+              >
+                {{complication.label}}
+              </span>
             {{/if}}
             <button class="btn btn-icon toggle-item" data-path="{{concat ../path '.complications.' complicationIndex '.edit'}}"
               type="button">

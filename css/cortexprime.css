@@ -2681,6 +2681,27 @@ input {
 /* Styles limited to cortexprime sheets */
 .cortexprime .item-form, .cortexprime input, .cortexprime textarea {
   font-family: "Roboto", sans-serif;
+  font-size: inherit;
+}
+
+.cortexprime textarea {
+  background-color: #e7eef3;
+  border-radius: 0;
+  border: 0.125rem solid #2D5931;
+}
+
+.cortexprime select {
+  background-color: #e7eef3;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 0.125rem solid #2D5931;
+}
+
+.cortexprime input[type="text"], .cortexprime input[type="number"] {
+  background-color: #e7eef3;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 0.125rem solid #2D5931;
 }
 
 .cortexprime .notes-field {
@@ -2919,8 +2940,8 @@ input {
 }
 
 .die-select {
-  border: none;
-  background-color: transparent;
+  border: none !important;
+  background-color: transparent !important;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;

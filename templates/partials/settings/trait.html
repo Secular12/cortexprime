@@ -14,32 +14,38 @@
     </div>
   </header>
   <div>
-    {{#if settings.hasDice}}
-      {{> (concat "systems/cortexprime/templates/partials/settings/value-types/dice.html")
-        path=(concat path '.' traitIndex)
-        data=trait
-      }}
-    {{/if}}
     {{#if settings.hasDescription}}
-      <div>
+      <div class="my-2">
         <label>
           <span class="label">{{localize 'Description'}}</span>
         </label>
         <textarea name="{{concat 'actorTypes.' path '.' traitIndex '.description'}}">{{trait.description}}</textarea>
       </div>
     {{/if}}
+    <div class="my-2">
+      {{#if settings.hasDice}}
+        {{> (concat "systems/cortexprime/templates/partials/settings/value-types/dice.html")
+          path=(concat path '.' traitIndex)
+          data=trait
+        }}
+      {{/if}}
+    </div>
     {{#if settings.hasSubTraits}}
-      {{> (concat "systems/cortexprime/templates/partials/settings/value-types/sub-traits.html")
-        path=(concat path '.' traitIndex)
-        data=trait
-        settings=settings
-      }}
+      <div class="my-4">
+        {{> (concat "systems/cortexprime/templates/partials/settings/value-types/sub-traits.html")
+          path=(concat path '.' traitIndex)
+          data=trait
+          settings=settings
+        }}
+      </div>
     {{/if}}
     {{#if settings.hasSfx}}
-      {{> (concat "systems/cortexprime/templates/partials/settings/value-types/sfx.html")
-        path=(concat path '.' traitIndex)
-        data=trait
-      }}
+      <div class="my-4">
+        {{> (concat "systems/cortexprime/templates/partials/settings/value-types/sfx.html")
+          path=(concat path '.' traitIndex)
+          data=trait
+        }}
+      </div>
     {{/if}}
   </div>
 </article>

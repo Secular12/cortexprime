@@ -1,36 +1,32 @@
-<div>
-  <div>
-    {{#each data.subTraits as |subTrait subTraitIndex|}}
-      <div class="my-2">
-        <div class="flex-row flex-ae">
-          <div class="flex-col col-12">
-            <label>
-              <span class="label">{{localize 'Label'}}</span>
-              <input name="{{concat ../fieldPath '.' subTraitIndex '.label'}}" type="text" value="{{subTrait.label}}">
-            </label>
-          </div>
-          <div class="flex-col">
-            {{> "systems/cortexprime/templates/partials/remove-button.html"
-              group=../path
-              itemKey=subTraitIndex
-              itemName=subTrait.label
-              path=../path
-              setting='actorTypes'
-              target='subTraits'
-              stayOnPage=true
-              type="trash"
-            }}
-          </div>
-        </div>
-        {{> "systems/cortexprime/templates/partials/dice/select.html"
-          addToPool=true
-          consumable=../settings.subTraitsDiceConsumable
-          dice=subTrait.dice.value
-          minDice=0
-          label=subTrait.label
-          path=(concat ../path '.' subTraitIndex '.dice')
+<ul class="list-style-none px-0 list-alt-bkg">
+  {{#each data.subTraits as |subTrait subTraitIndex|}}
+    <li class="flex-row flex-ae pa-2">
+      <div class="flex-col col-12">
+        <label>
+          <span class="label">{{localize 'Label'}}</span>
+          <input name="{{concat ../fieldPath '.' subTraitIndex '.label'}}" type="text" value="{{subTrait.label}}">
+        </label>
+      </div>
+      {{> "systems/cortexprime/templates/partials/dice/select.html"
+        addToPool=true
+        consumable=../settings.subTraitsDiceConsumable
+        dice=subTrait.dice.value
+        minDice=0
+        label=subTrait.label
+        path=(concat ../path '.' subTraitIndex '.dice')
+      }}
+      <div class="flex-col">
+        {{> "systems/cortexprime/templates/partials/remove-button.html"
+          group=../path
+          itemKey=subTraitIndex
+          itemName=subTrait.label
+          path=../path
+          setting='actorTypes'
+          target='subTraits'
+          stayOnPage=true
+          type="trash"
         }}
       </div>
-    {{/each}}
-  </div>
-</div>
+    </li>
+  {{/each}}
+</ul>

@@ -14,19 +14,19 @@
     </div>
   </header>
   <div>
-    <div>
+    <div class="my-2">
       <label>
         <input name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.hasDescription'}}" type="checkbox" {{checked
           simpleTrait.hasDescription}}>
-        <span class="label">{{localize 'Description'}}</span>
+        <span class="label">{{localize 'HasDescription'}}</span>
       </label>
       {{#if simpleTrait.hasDescription}}
         <textarea name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
       {{/if}}
     </div>
-    <div>
+    <div class="my-2">
       <label>
-        <span class="label">{{localize 'ValueType'}}</span>
+        <span class="label mr-1">{{localize 'ValueType'}}</span>
         <select
           name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.settings.valueType'}}"
         >
@@ -36,13 +36,6 @@
             <option value="dice">{{localize 'Dice'}}</option>
           {{/select}}
         </select>
-      </label>
-    </div>
-    <div>
-      <label>
-        <input name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.settings.editable'}}" type="checkbox" {{checked
-          simpleTrait.settings.editable}}>
-        <span class="label">{{localize 'Editable'}}</span>
       </label>
     </div>
     {{> (concat "systems/cortexprime/templates/partials/settings/value-types/" (?? simpleTrait.settings.valueType 'text') ".html")

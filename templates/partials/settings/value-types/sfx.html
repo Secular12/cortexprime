@@ -1,12 +1,17 @@
 <div>
-  <span class="label">{{localize 'DefaultSfx'}}</span>
-  <button
-    class="btn btn-secondary btn-icon add-sfx"
-    type="button"
-    data-path="{{concat path '.sfx'}}"
-  >
-    <i class="fa fa-plus"></i>
-  </button>
+  <header>
+    <div class="bkg-primary flex-row flex-ac flex-jsb my-2 py-1">
+      <h3 class="flex-col primary-heading text-white">{{localize 'DefaultSfx'}}</h3>
+      <div class="flex-col">
+        <button class="btn btn-secondary btn-icon add-sfx" type="button" data-path="{{concat path '.sfx'}}">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </div>
+    <div class="bkg-lighter-grey ba-2-primary px-2 py-1 my-2">
+      <p class="my-2"><b>{{localize 'Unlocked'}}:</b> {{localize 'UnlockedDescription'}}</p>
+    </div>
+  </header>
   {{> "systems/cortexprime/templates/partials/value-types/sfx.html"
     data=data
     fieldPath=(concat 'actorTypes.' path '.sfx')
