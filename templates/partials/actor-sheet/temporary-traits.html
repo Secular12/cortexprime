@@ -1,0 +1,101 @@
+<div class="flex-row">
+  {{#if data.hasAssets}}
+    <section class="flex-col col-6">
+      <div class="flex-row flex-ac">
+        <span class="section-heading">{{localize 'Assets'}}</span>
+        <button class="btn btn-secondary btn-icon add-asset" data-path="{{path}}" type="button">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+      {{#each data.assets as |asset assetIndex|}}
+        <div>
+          <div class="flex-row flex-ac">
+            {{#if (and ../owner asset.edit)}}
+              <input name="{{concat ../path '.assets.' assetIndex '.label'}}" value="{{asset.label}}">
+              {{> "systems/cortexprime/templates/partials/remove-button.html"
+                path=../path
+                target='assets'
+                itemKey=assetIndex
+                itemName=asset.label
+                type="trash"
+              }}
+            {{else}}
+              <span class="section-sub-heading text-dark-grey">{{asset.label}}</span>
+            {{/if}}
+            <button class="btn btn-icon toggle-item" data-path="{{concat ../path '.assets.' assetIndex '.edit'}}" type="button">
+              <i class="fas {{ternary asset.edit 'fa-check' 'fa-edit'}}"></i>
+            </button>
+          </div>
+          {{#if ../owner}}
+            {{> "systems/cortexprime/templates/partials/dice/select.html"
+              addToPool=true
+              dice=asset.dice.value
+              minDice=0
+              label=asset.label
+              selectName=(concat ../path '.assets.' assetIndex '.dice')
+            }}
+          {{else}}
+            <div class="flex">
+              {{#each asset.dice.value as |die|}}
+                <div>
+                  <div class="die-icon d{{die}} mx-0">
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+          {{/if}}
+        </div>
+      {{/each}}
+    </section>
+  {{/if}}
+  {{#if data.hasComplications}}
+    <section class="flex-col col-6">
+      <div class="flex-row flex-ac">
+        <span class="section-heading">{{localize 'Complications'}}</span>
+        <button class="btn btn-secondary btn-icon add-complication" data-path="{{path}}" type="button">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+      {{#each data.complications as |complication complicationIndex|}}
+        <div>
+          <div class="flex-row flex-ac">
+            {{#if (and ../owner complication.edit)}}
+              <input name="{{concat ../path '.complications.' complicationIndex '.label'}}" value="{{complication.label}}">
+              {{> "systems/cortexprime/templates/partials/remove-button.html"
+                path=../path
+                target='complications'
+                itemKey=complicationIndex
+                itemName=complication.label
+                type="trash"
+              }}
+            {{else}}
+              <span class="section-sub-heading text-dark-grey">{{complication.label}}</span>
+            {{/if}}
+            <button class="btn btn-icon toggle-item" data-path="{{concat ../path '.complications.' complicationIndex '.edit'}}"
+              type="button">
+              <i class="fas {{ternary complication.edit 'fa-check' 'fa-edit'}}"></i>
+            </button>
+          </div>
+          {{#if ../owner}}
+            {{> "systems/cortexprime/templates/partials/dice/select.html"
+              addToPool=true
+              dice=complication.dice.value
+              minDice=0
+              label=complication.label
+              selectName=(concat ../path '.complications.' complicationIndex '.dice')
+            }}
+          {{else}}
+            <div class="flex">
+              {{#each complication.dice.value as |die|}}
+                <div>
+                  <div class="die-icon d{{die}} mx-0">
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+          {{/if}}
+        </div>
+      {{/each}}
+    </section>
+  {{/if}}
+</div>

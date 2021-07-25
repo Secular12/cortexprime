@@ -42,6 +42,8 @@ export class CortexPrimeActorSheet extends ActorSheet {
     html.find('.update-actor-settings').click(this._updateActorSettings.bind(this))
     html.find('.actor-type-confirm').click(this._actorTypeConfirm.bind(this))
     html.find('.add-pp').click(() => { this.actor.changePpBy(1) })
+    html.find('.add-asset').click(this._addAsset.bind(this))
+    html.find('.add-complication').click(this._addComplication.bind(this))
     html.find('.add-sfx').click(this._addSfx.bind(this))
     html.find('.add-sub-trait').click(this._addSubTrait.bind(this))
     html.find('.add-to-pool').click(this._addToPool.bind(this))
@@ -81,6 +83,44 @@ export class CortexPrimeActorSheet extends ActorSheet {
     await this.actor.update({
       'data.actorType': actorType,
       'data.pp.value': actorType.hasPlotPoints ? 1 : 0
+    })
+  }
+
+  async _addAsset (event) {
+    event.preventDefault()
+    const { path } = event.currentTarget.dataset
+    const currentAssets = getProperty(this.actor.data, `${path}.assets`) ?? {}
+
+    await this._resetDataPoint(path, 'assets', {
+      ...currentAssets,
+      [getLength(currentAssets)]: {
+        label: 'New Asset',
+        dice: {
+          value: {
+            0: '6'
+          }
+        }
+      }
+    })
+  }
+
+  async _addComplication(event) {
+    event.preventDefault()
+    const { path } = event.currentTarget.dataset
+    const currentComplications = getProperty(this.actor.data, `${path}.complications`) ?? {}
+
+    console.log(path)
+
+    await this._resetDataPoint(path, 'complications', {
+      ...currentComplications,
+      [getLength(currentComplications)]: {
+        label: 'New Complication',
+        dice: {
+          value: {
+            0: '6'
+          }
+        }
+      }
     })
   }
 

@@ -37,10 +37,18 @@
               actorType=data.data.actorType
               pp=data.data.pp
             }}
-            {{> "systems/cortexprime/templates/partials/actor-sheet/trait-sets.html"
-              traitSets=data.data.actorType.traitSets
-              path="data.actorType.traitSets"
-            }}
+            <section class="flex-col col-9">
+              {{> "systems/cortexprime/templates/partials/actor-sheet/trait-sets.html"
+                traitSets=data.data.actorType.traitSets
+                path="data.actorType.traitSets"
+              }}
+              {{#if (or data.data.actorType.hasAssets data.data.actorType.hasComplications)}}
+                {{> "systems/cortexprime/templates/partials/actor-sheet/temporary-traits.html"
+                  data=data.data.actorType
+                  path="data.actorType"
+                }}
+              {{/if}}
+            </section>
           </div>
         </article>
         {{#if data.data.actorType.hasNotesPage}}

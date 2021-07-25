@@ -1,48 +1,46 @@
-<section class="flex-col col-9">
-  <div class="columns-2 column-gap-4">
-    {{#each traitSets as |traitSet traitSetIndex|}}
-      <div class="column-item mb-4 ba-1-secondary pa-2">
-        <div>
-          <div class="flex-row flex-jsb">
-            <div class="flex-col{{ternary traitSet.shutdown ' shutdown' ''}}">
-              <span class="section-heading">{{or traitSet.label "[Trait Set]"}}</span>
+<div class="columns-2 column-gap-4">
+  {{#each traitSets as |traitSet traitSetIndex|}}
+    <div class="column-item mb-4 ba-1-secondary pa-2">
+      <div>
+        <div class="flex-row flex-jsb">
+          <div class="flex-col{{ternary traitSet.shutdown ' shutdown' ''}}">
+            <span class="section-heading">{{or traitSet.label "[Trait Set]"}}</span>
+          </div>
+          {{#if ../owner}}
+            <div class="flex-col">
+              <button class="btn btn-icon trait-set-edit" data-trait-set="{{traitSetIndex}}" type="button">
+                <i class="fas fa-edit"></i>
+              </button>
             </div>
-            {{#if ../owner}}
-              <div class="flex-col">
-                <button class="btn btn-icon trait-set-edit" data-trait-set="{{traitSetIndex}}" type="button">
-                  <i class="fas fa-edit"></i>
-                </button>
-              </div>
-            {{/if}}
-          </div>
-          <div class="{{ternary traitSet.shutdown 'shutdown' ''}}">
-            {{#if (and traitSet.hasDescription traitSet.description)}}
-              <div>{{traitSet.description}}</div>
-            {{/if}}
-          </div>
+          {{/if}}
         </div>
-        {{#if traitSet.traits}}
-          {{> "systems/cortexprime/templates/partials/actor-sheet/traits.html"
-            owner=../owner
-            path=(concat ../path '.' traitSetIndex)
-            settings=traitSet.settings
-            target='traits'
-            traits=traitSet.traits
-            traitSetShutdown=traitSet.shutdown
-          }}
-        {{/if}}
-        {{#if traitSet.customTraits}}
-          {{> "systems/cortexprime/templates/partials/actor-sheet/traits.html"
-            custom=true
-            owner=../owner
-            path=(concat ../path '.' traitSetIndex)
-            settings=traitSet.settings
-            target='customTraits'
-            traits=traitSet.customTraits
-            traitSetShutdown=traitSet.shutdown
-          }}
-        {{/if}}
+        <div class="{{ternary traitSet.shutdown 'shutdown' ''}}">
+          {{#if (and traitSet.hasDescription traitSet.description)}}
+            <div>{{traitSet.description}}</div>
+          {{/if}}
+        </div>
       </div>
-    {{/each}}
-  </div>
-</section>
+      {{#if traitSet.traits}}
+        {{> "systems/cortexprime/templates/partials/actor-sheet/traits.html"
+          owner=../owner
+          path=(concat ../path '.' traitSetIndex)
+          settings=traitSet.settings
+          target='traits'
+          traits=traitSet.traits
+          traitSetShutdown=traitSet.shutdown
+        }}
+      {{/if}}
+      {{#if traitSet.customTraits}}
+        {{> "systems/cortexprime/templates/partials/actor-sheet/traits.html"
+          custom=true
+          owner=../owner
+          path=(concat ../path '.' traitSetIndex)
+          settings=traitSet.settings
+          target='customTraits'
+          traits=traitSet.customTraits
+          traitSetShutdown=traitSet.shutdown
+        }}
+      {{/if}}
+    </div>
+  {{/each}}
+</div>
