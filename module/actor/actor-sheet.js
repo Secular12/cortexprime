@@ -314,6 +314,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
     if (!actorTypeSettings) {
       ui.notifications.error(localizer('MissingActorTypeMessage'))
+      return
     }
 
     const newData = objectMapValues(actorTypeSettings, (propValue, key) => {

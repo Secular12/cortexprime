@@ -1,4 +1,3 @@
-// import initializeCortexPrimeCharacter from './scripts/initializeCortexPrimeCharacter.js'
 import { UserDicePool } from './applications/UserDicePool.js'
 import rollDice from './scripts/rollDice.js'
 
@@ -71,12 +70,4 @@ export default () => {
       await game.cortexprime.UserDicePool.toggle()
     });
   })
-
-  // Hooks.on("preCreateActor", (data) => {
-  //   if (game.user == game.users.find(user => user.isGM && user.active)) {
-  //     if (data.type === 'character') {
-  //       initializeCortexPrimeCharacter(data)
-  //     }
-  //   }
-  // })
 }

@@ -1,8 +1,8 @@
 <form class="{{cssClass}}" autocomplete="off">
-  <h2 class="section-heading my-2">{{localize "DicePool"}}</h2>
+  <h2 class="section-heading my-2">{{localize 'DicePool'}}</h2>
   <div class="ba-2-primary">
     <div class="bkg-white pb-2 pt-1 bb-2-primary">
-      <h3 class="section-sub-heading px-2 mb-1">{{localize "AddCustomDice"}}</h3>
+      <h3 class="section-sub-heading px-2 mb-1">{{localize 'AddCustomDice'}}</h3>
       <div class="flex flex-ae">
         <div class="flex-col col-12">
           <div class="flex-row flex-ac">
@@ -75,17 +75,17 @@
           </div>
         {{else}}
           <div class="flex-col my-2">
-            <p class="text-white trait-name">{{localize "NoTraitsInPool"}}</p>
+            <p class="text-white trait-name">{{localize 'NoTraitsInPool'}}</p>
           </div>
         {{/each}}
       </div>
       {{#if (listHasMore pool 0)}}
         <div class="flex-col col-12 flex flex-je mt-2 pt-2 bt-1-dark-grey">
           <div class="flex-col">
-            <button class="clear-dice-pool btn btn-primary" type="button">{{localize "Clear"}}</button>
+            <button class="clear-dice-pool btn btn-primary" type="button">{{localize 'Clear'}}</button>
           </div>
           <div class="flex-col pl-0">
-            <button class="roll-dice-pool btn btn-secondary" type="button">{{localize "Roll"}}</button>
+            <button class="roll-dice-pool btn btn-secondary" type="button">{{localize 'Roll'}}</button>
           </div>
         </div>
       {{/if}}
