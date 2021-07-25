@@ -6,11 +6,13 @@
           <div class="flex-col">
             <span class="section-heading">{{localize 'Assets'}}</span>
           </div>
-          <div class="flex-col">
-            <button class="btn btn-secondary btn-icon add-asset" data-path="{{path}}" type="button">
-              <i class="fa fa-plus"></i>
-            </button>
-          </div>
+          {{#if owner}}
+            <div class="flex-col">
+              <button class="btn btn-secondary btn-icon add-asset" data-path="{{path}}" type="button">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+          {{/if}}
         </div>
         {{#each data.assets as |asset assetIndex|}}
           <div class="my-2">
@@ -74,11 +76,13 @@
           <div class="flex-col">
             <span class="section-heading">{{localize 'Complications'}}</span>
           </div>
-          <div class="flex-col">
-            <button class="btn btn-secondary btn-icon add-complication" data-path="{{path}}" type="button">
-              <i class="fa fa-plus"></i>
-            </button>
-          </div>
+          {{#if owner}}
+            <div class="flex-col">
+              <button class="btn btn-secondary btn-icon add-complication" data-path="{{path}}" type="button">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+          {{/if}}
         </div>
         {{#each data.complications as |complication complicationIndex|}}
           <div class="my-2">

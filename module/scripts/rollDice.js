@@ -17,7 +17,7 @@ export default async pool => {
   const roll = await r.evaluate({ async: true })
 
   if (game.dice3d) {
-    await game.dice3d.showForRoll(roll, game.user, true)
+    await game.dice3d.showForRoll(r, game.user, true)
   }
 
   const rollResults = roll.dice
