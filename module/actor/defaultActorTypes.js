@@ -72,10 +72,10 @@ export default {
         settings: {
           hasDescription: false,
           hasDice: true,
-          hasLabels: true,
+          hasLabel: true,
           hasSfx: true,
           hasSubTraits: false,
-          hasSubTraitDice: true,
+          subTraitsHaveDice: true,
           subTraitDiceConsumable: false,
         }
       },
@@ -88,10 +88,10 @@ export default {
         settings: {
           hasDescription: false,
           hasDice: true,
-          hasLabels: false,
+          hasLabel: false,
           hasSfx: true,
           hasSubTraits: false,
-          hasSubTraitDice: false,
+          subTraitsHaveDice: false,
           subTraitDiceConsumable: false,
         },
         traits: {}
@@ -134,10 +134,10 @@ export default {
         settings: {
           hasDescription: false,
           hasDice: true,
-          hasLabels: false,
+          hasLabel: false,
           hasSfx: false,
           hasSubTraits: false,
-          hasSubTraitDice: true,
+          subTraitsHaveDice: true,
           subTraitDiceConsumable: false
         }
       },
@@ -151,10 +151,10 @@ export default {
         settings: {
           hasDescription: true,
           hasDice: false,
-          hasLabels: false,
+          hasLabel: false,
           hasSfx: false,
           hasSubTraits: true,
-          hasSubTraitDice: true,
+          subTraitsHaveDice: true,
           subTraitDiceConsumable: false
         }
       },
@@ -168,10 +168,10 @@ export default {
         settings: {
           hasDescription: true,
           hasDice: true,
-          hasLabels: true,
+          hasLabel: true,
           hasSfx: false,
           hasSubTraits: true,
-          hasSubTraitDice: true,
+          subTraitsHaveDice: true,
           subTraitDiceConsumable: false
         }
       },
@@ -185,10 +185,10 @@ export default {
         settings: {
           hasDescription: true,
           hasDice: true,
-          hasLabels: true,
+          hasLabel: true,
           hasSfx: true,
           hasSubTraits: true,
-          hasSubTraitDice: true,
+          subTraitsHaveDice: true,
           subTraitDiceConsumable: false
         }
       }

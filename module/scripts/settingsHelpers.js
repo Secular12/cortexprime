@@ -1,4 +1,5 @@
 import { getLength, objectMapKeys, objectReduce, objectReindexFilter } from '../../lib/helpers.js'
+import { localizer } from './foundryHelpers.js'
 
 export const collapseToggle = function (html) {
   html.find('.collapse-toggle').click(async (event) => {
@@ -46,8 +47,8 @@ export const removeItem = async function (html) {
     let confirmed
 
     await Dialog.confirm({
-      title: `Confirm removal`,
-      content: `Are you sure you want to remove ${itemName}`,
+      title: localizer('AreYouSure'),
+      content: `${localizer('Remove')} ${itemName}?`,
       yes: () => { confirmed = true },
       no: () => { confirmed = false },
       defaultYes: false

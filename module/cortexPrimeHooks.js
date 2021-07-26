@@ -1,4 +1,5 @@
 import { UserDicePool } from './applications/UserDicePool.js'
+import { localizer } from './scripts/foundryHelpers.js'
 import rollDice from './scripts/rollDice.js'
 
 export default () => {
@@ -11,6 +12,37 @@ export default () => {
       system: 'standard',
       colorset: 'bronze'
     }, 'd2')
+  })
+
+  Hooks.once('ready', async () => {
+    if (game.settings.get('cortexprime', 'WelcomeSeen') === false) {
+      if (game.user.isGM) {
+        const seeWelcome = await new Promise(resolve => {
+          new Dialog(
+            {
+              title: localizer('WelcomeTitle'),
+              content: `<div class="bkg-lighter-grey ba-2-primary mb-4 pa-2"><p>${localizer('SettingsMessage')}</p></div>`,
+              buttons: {
+                ok: {
+                  label: localizer("Okay"),
+                  callback: () => resolve(true)
+                }
+              },
+              default: "ok",
+              close: () => resolve(false),
+            },
+            {
+              width: 500,
+              height: 'auto',
+            }
+          ).render(true)
+        })
+
+        if (seeWelcome) {
+          await game.settings.set('cortexprime', 'WelcomeSeen', true)
+        }
+      }
+    }
   })
 
   Hooks.on('ready', async () => {

@@ -4,7 +4,7 @@
   "description": "Cortex Prime System WARNING: This is currently in Alpha. Which means there is a risk of breaking changes with every update. Many of the features are still being worked on. It is currently playable, however, expect bugs and you may need to use the features that currently exist in different ways to make up for a feature that is not yet released.",
   "version": "0.0.3",
   "minimumCoreVersion": "0.8.6",
-  "compatibleCoreVersion": "0.8.6",
+  "compatibleCoreVersion": "0.8.8",
   "templateVersion": 2,
   "author": "Mark Dekin",
   "esmodules": ["cortexprime.js"],

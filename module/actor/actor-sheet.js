@@ -109,8 +109,6 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const { path } = event.currentTarget.dataset
     const currentComplications = getProperty(this.actor.data, `${path}.complications`) ?? {}
 
-    console.log(path)
-
     await this._resetDataPoint(path, 'complications', {
       ...currentComplications,
       [getLength(currentComplications)]: {
