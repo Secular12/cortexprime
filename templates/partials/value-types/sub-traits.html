@@ -17,7 +17,7 @@
       }}
       <div class="flex-col">
         {{> "systems/cortexprime/templates/partials/remove-button.html"
-          group=../path
+          group=(concat ../path '.subTraits')
           itemKey=subTraitIndex
           itemName=subTrait.label
           path=../path
