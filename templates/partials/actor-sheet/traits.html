@@ -31,7 +31,7 @@
           {{/if}}
         {{/if}}
       </div>
-      {{#if (and ../settings.hasLabel (and (not ../custom) trait.label))}}
+      {{#if (and trait.name (and ../settings.hasLabel trait.label))}}
         <div>
           <span class="label text-secondary">{{trait.name}}</span>
         </div>
