@@ -1,29 +1,20 @@
 <div class="flex flex-ac">
-  {{#if edit}}
-    <div class="die-select-container flex flex-ac">
-      {{#each dice as |dieRating index|}}
-        <select
-          class="die-select d{{dieRating}}"
-          data-key="{{index}}"
-          data-target="{{../selectName}}"
-          name="{{../selectName}}.values.{{index}}"
-        >
-          {{#select dieRating}}
-            {{> "systems/cortexprime/templates/partials/dice/select-options.html" dice=../dice max=(?? ../max 12) min=(?? ../min 0) minDice=(?? ../minDice 1)}}
-          {{/select}}
-        </select>
-      {{/each}}
-    </div>
-    {{#if (or (listHasLess dice (?? maxDice -1)) (not dice)) }}
-      <button class="new-die btn btn-icon btn-circle btn-small ml-1" data-target="{{selectName}}" type="button">
-        <i class="fa fa-plus"></i>
-      </button>
-    {{/if}}
-  {{else}}
-    <div class="dice-icon-wrapper flex flex-ac{{ternary shutdown ' shutdown' ''}}">
-      {{#each dice as |dieRating index|}}
-        <span class="die-icon d{{dieRating}}"></span>
-      {{/each}}
-    </div>
+  <div class="die-select-container flex flex-ac">
+    {{#each dice as |dieRating index|}}
+      <select
+        class="die-select d{{dieRating}}"
+        data-key="{{index}}"
+        data-target="{{or ../selectName ../path}}"
+      >
+        {{#select dieRating}}
+          {{> "systems/cortexprime/templates/partials/dice/select-options.html" dice=../dice max=(?? ../max 12) min=(?? ../min 0) minDice=(?? ../minDice 1)}}
+        {{/select}}
+      </select>
+    {{/each}}
+  </div>
+  {{#if (or (listHasLess dice (?? maxDice -1)) (not dice)) }}
+    <button class="new-die btn btn-icon btn-circle btn-small ml-1" data-target="{{or selectName path}}" type="button">
+      <i class="fa fa-plus"></i>
+    </button>
   {{/if}}
 </div>

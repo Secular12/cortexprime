@@ -1,0 +1,144 @@
+<article class="{{viewClasses (concat 'traitSet-' actorTypeIndex '-' traitSetIndex) breadcrumbs}} trait-set">
+  <header class="primary-heading flex-row flex-ac">
+    <div class="flex-col col-12">
+      <input class="breadcrumb-name-change" data-target="{{concat 'traitSet-' actorTypeIndex '-' traitSetIndex}}" name="{{concat 'actorTypes.' path '.' traitSetIndex '.label'}}" type="text" value="{{traitSet.label}}">
+    </div>
+    <div class="flex-col">
+      {{> "systems/cortexprime/templates/partials/remove-button.html"
+        group=path
+        itemKey=traitSetIndex
+        itemName=traitSet.label
+        setting='actorTypes'
+        type="trash"
+      }}
+    </div>
+  </header>
+  <div class="my-2">
+    <div>
+      <label>
+        <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.hasDescription'}}" type="checkbox" {{checked
+          traitSet.hasDescription}}>
+        <span class="label">{{localize 'HasDescription'}}</span>
+      </label>
+      {{#if traitSet.hasDescription}}
+        <textarea name="{{concat 'actorTypes.' path '.' traitSetIndex '.description'}}">{{traitSet.description}}</textarea>
+      {{/if}}
+    </div>
+  </div>
+  <section>
+    <header>
+      <div class="bkg-primary flex-row my-2 py-1">
+        <h3 class="flex-col primary-heading text-white">{{localize 'TraitSettings'}}</h3>
+      </div>
+      <div class="bkg-light-grey pa-2">
+        <p>{{localize 'TraitSettingsDescription'}}</p>
+      </div>
+    </header>
+    <div class="my-2">
+      <header class="px-1 mb-1">
+        <h3 class="section-sub-heading">{{localize 'GeneralTraitSettings'}}</h2>
+      </header>
+      <div class="flex-row flex-wrap">
+        <div class="flex-col col-6">
+          <label>
+            <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.settings.hasDescription'}}" type="checkbox" {{checked
+              traitSet.settings.hasDescription}}>
+            <span class="label">{{localize 'HasDescription'}}</span>
+          </label>
+        </div>
+        <div class="flex-col col-6">
+          <label>
+            <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.settings.hasLabel'}}" type="checkbox"
+              {{checked traitSet.settings.hasLabel}}>
+            <span class="label">{{localize 'HasLabels'}}</span>
+          </label>
+        </div>
+        <div class="flex-col col-6">
+          <label>
+            <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.settings.hasSfx'}}" type="checkbox" {{checked
+              traitSet.settings.hasSfx}}>
+            <span class="label">{{localize 'HasSfx'}}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="flex-row">
+      <div class="flex-col col-6">
+        <header class="px-1 mb-1">
+          <h3 class="section-sub-heading">{{localize 'SubTraitSettings'}}</h3>
+        </header>
+        <div>
+          <label>
+            <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.settings.hasSubTraits'}}" type="checkbox" {{checked
+              traitSet.settings.hasSubTraits}}>
+            <span class="label">{{localize 'HasSubTraits'}}</span>
+          </label>
+        </div>
+        <div class="{{ternary (not traitSet.settings.hasSubTraits) 'shutdown' ''}}">
+          <label>
+            <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.settings.subTraitsHaveDice'}}" type="checkbox" {{checked
+              traitSet.settings.subTraitsHaveDice}}{{{ternary (not traitSet.settings.hasSubTraits) ' disabled="disabled"' ''}}}>
+            <span class="label">{{localize 'SubTraitsHaveDice'}}</span>
+          </label>
+        </div>
+        <div class="{{ternary (or (not traitSet.settings.hasSubTraits) (not traitSet.settings.subTraitsHaveDice)) 'shutdown' ''}}">
+          <label>
+            <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.settings.subTraitsDiceConsumable'}}" type="checkbox"
+              {{checked traitSet.settings.subTraitsDiceConsumable}}{{{ternary (or (not traitSet.settings.hasSubTraits) (not traitSet.settings.subTraitsHaveDice)) ' disabled="disabled"' ''}}}>
+            <span class="label">{{localize 'ConsumableDice'}}</span>
+          </label>
+        </div>
+      </div>
+      <div class="flex-col col-6">
+        <header class="px-1 mb-1">
+          <h3 class="section-sub-heading">{{localize 'DiceSettings'}}</h2>
+        </header>
+        <div>
+          <label>
+            <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.settings.hasDice'}}" type="checkbox" {{checked
+              traitSet.settings.hasDice}}>
+            <span class="label">{{localize 'HasDice'}}</span>
+          </label>
+        </div>
+        <div class="{{ternary (not traitSet.settings.hasDice) 'shutdown' ''}}">
+          <label>
+            <input name="{{concat 'actorTypes.' path '.' traitSetIndex '.settings.diceConsumable'}}" type="checkbox" {{checked
+              traitSet.settings.diceConsumable}}{{{ternary (not traitSet.settings.hasDice) ' disabled="disabled"' '' }}}>
+            <span class="label">{{localize 'ConsumableDice'}}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="bkg-lighter-grey ba-2-primary px-2 py-1 my-2">
+      <p class="my-2"><b>{{localize 'HasLabels'}}:</b> {{localize 'HasLabelsDescription'}}</p>
+      <p class="my-2"><b>{{localize 'ConsumableDice'}}:</b> {{localize 'ConsumableDiceDescription'}}</p>
+    </div>
+    <div class="bkg-primary flex-row flex-ac flex-jsb my-2 py-1">
+      <h3 class="flex-col col-12 primary-heading text-white">{{localize 'PresetTraits'}}</h3>
+      <div class="flex-col">
+        <button class="btn btn-secondary btn-icon add-trait" data-path="{{path}}" data-actor-type="{{actorTypeIndex}}" data-trait-set="{{traitSetIndex}}" type="button">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </div>
+    <div class="bkg-light-grey pa-2">
+      <p>{{localize 'PresetTraitsDescription'}}</p>
+    </div>
+    <ul class="list-style-none px-0 list-alt-bkg">
+      {{#each traitSet.traits as |trait traitIndex|}}
+        <li class="pa-1 flex-row flex-ac">
+          {{> "systems/cortexprime/templates/partials/reorder.html"
+            class="flex-col pa-0"
+            path=(concat ../path '.' ../traitSetIndex '.traits')
+            currentIndex=traitIndex
+            setting="actorTypes"
+          }}
+          <span class="section-sub-heading text-primary flex-col">{{or trait.name (concat '[' (localize 'NoName' ) ']')}}</span>
+          <button class="view-change btn flex-col" data-name="{{trait.name}}" data-to="trait-{{../actorTypeIndex}}-{{../traitSetIndex}}-{{traitIndex}}">
+            <i class="fa fa-edit ma-0"></i>
+          </button>
+        </li>
+      {{/each}}
+    </ul>
+  </section>
+</article>

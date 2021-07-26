@@ -1,53 +1,13 @@
 {
   "Actor": {
-    "types": ["major-character"],
+    "types": ["character"],
     "templates": {
       "common": {
-        "details": {
-          "description": {
-            "value": ""
-          },
-          "name": {
-            "value": ""
-          }
-        },
-        "dice": {
-          "customAdd": {
-            "label": "",
-            "values": {
-              "0": "8"
-            }
-          },
-          "pool": {}
-        }
-      },
-      "assetsAndComplications": {
-        "assets": {},
-        "complications": {}
-      },
-      "stressAndTrauma": {
-        "stress": {},
-        "trauma": {}
-      },
-      "pp": {
-        "pp": {
-          "value": 1
-        }
-      },
-      "scale": {
-        "values": {
-          "0": 6
-        }
-      },
-      "signatureAssets": {
-        "signatureAssets": {}
-      },
-      "traitSets": {
-        "traitSets": {}
+        "actorType": null
       }
     },
-    "major-character": {
-      "templates": ["common", "pp", "assetsAndComplications", "scale", "signatureAssets", "stressAndTrauma", "traitSets"]
+    "character": {
+      "templates": ["common"]
     }
   },
   "Item": {

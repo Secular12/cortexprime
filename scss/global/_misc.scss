@@ -10,6 +10,10 @@
   padding: $spacing-sm * 2;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .hide {
   display: none;
 }
@@ -29,5 +33,25 @@
 
   .shutdown {
     opacity: 1;
+  }
+}
+
+.list-style-none {
+  list-style: none;
+}
+
+.list-alt-bkg {
+  li {
+    &:nth-child(even) {
+      background-color: color('lighter-grey');
+    }
+  }
+}
+
+.add-to-pool {
+  cursor: pointer;
+
+  &::before {
+    font-family: "Font Awesome 5 Free"; content: "\f522";
   }
 }

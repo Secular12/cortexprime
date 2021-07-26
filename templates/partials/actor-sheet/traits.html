@@ -1,0 +1,104 @@
+<div>
+  {{#each traits as |trait traitIndex|}}
+    <div class="my-2 {{ternary (or ../traitSetShutdown trait.shutdown) 'shutdown' ''}}">
+      <div class="section-sub-heading text-dark-grey flex-row flex-ac">
+        <span
+          class="flex-col{{ternary (and (not trait.shutdown) (and ../settings.hasDice trait.dice.value.[0])) ' add-to-pool' ''}}{{ternary trait.shutdown ' shutdown' ''}}"
+          data-label="{{ternary (and ../settings.hasLabel trait.label) (ternary (and trait.label trait.name) (concat trait.label ' (' trait.name ')')) trait.name}}"
+          data-path="{{concat ../path '.' ../target '.' traitIndex '.dice'}}" {{{ternary
+          ../settings.diceConsumable 'data-consumable="true"' '' }}}>
+          {{ternary (and ../settings.hasLabel trait.label) trait.label trait.name}}
+        </span>
+        {{#if ../settings.hasDice}}
+          {{#if (or (not ../owner) (or ../traitSetShutdown trait.shutdown))}}
+            <div class="flex">
+            {{#each trait.dice.value as |die|}}
+              <div>
+                <div class="die-icon d{{die}} mx-0">
+                </div>
+              </div>
+            {{/each}}
+            </div>
+          {{else}}
+            {{> "systems/cortexprime/templates/partials/dice/select.html"
+              addToPool=true
+              consumable=../settings.consumableDice
+              dice=trait.dice.value
+              minDice=0
+              label=(ternary (and ../settings.hasLabel trait.label) trait.label trait.name)
+              selectName=(concat ../path '.' ../target '.' traitIndex '.dice')
+            }}
+          {{/if}}
+        {{/if}}
+      </div>
+      {{#if (and ../settings.hasLabel (and (not ../custom) trait.label))}}
+        <div>
+          <span class="label text-secondary">{{trait.name}}</span>
+        </div>
+      {{/if}}
+      {{#if (and ../settings.hasDescription trait.description)}}
+        <div>
+          <p>{{trait.description}}</p>
+        </div>
+      {{/if}}
+      {{#if (and ../settings.hasSubTraits trait.subTraits)}}
+        <div>
+          {{#each trait.subTraits as |subTrait subTraitIndex|}}
+            {{#if (or subTrait.label subTrait.dice.value)}}
+              <div class="ml-2 my-1 flex-row flex-ac">
+                {{#if subTrait.label}}
+                  <div class="flex-col">
+                    <span class="label text-secondary{{ternary (and (not trait.shutdown) subTrait.dice.value.[0]) ' add-to-pool' ''}}"
+                      data-label="{{concat subTrait.label ' (' (ternary (and trait.label trait.name) trait.label trait.name) ')'}}"
+                      data-path="{{concat ../../path '.' ../../target '.' traitIndex '.subTraits.' subTraitIndex '.dice'}}" {{{ternary
+                      ../../settings.subTraitsDiceConsumable 'data-consumable="true"' '' }}}>
+                      {{subTrait.label}}
+                    </span>
+                  </div>
+                {{/if}}
+                {{#if (or (not ../../owner) (or ../../traitSetShutdown ../trait.shutdown))}}
+                  <div>
+                    {{#each subTrait.dice.value as |die|}}
+                      <div class="die-icon d{{die}} mx-0">
+                      </div>
+                    {{/each}}
+                  </div>
+                {{else}}
+                  {{> "systems/cortexprime/templates/partials/dice/select.html"
+                    addToPool=true
+                    consumable=../../settings.subTraitsDiceConsumable
+                    dice=subTrait.dice.value
+                    minDice=0
+                    label=subTrait.label
+                    selectName=(concat ../../path '.' ../../target '.' traitIndex '.subTraits.' subTraitIndex '.dice')
+                  }}
+                {{/if}}
+              </div>
+            {{/if}}
+          {{/each}}
+        </div>
+      {{/if}}
+      {{#if (and ../settings.hasSfx trait.sfx)}}
+        <div>
+          {{#each trait.sfx as |sfx|}}
+            {{#if (or sfx.label sfx.description)}}
+              <div class="my-2 flex-row">
+                <div class="flex-col pr-0">
+                  <i class="text-primary {{ternary sfx.unlocked 'fas' 'far'}} fa-circle"></i>
+                </div>
+                <div class="flex-col col-12{{ternary (and (not sfx.unlocked) (and (not ../traitSetShutdown) (not trait.shutdown))) ' shutdown' ''}}">
+                  {{#if sfx.label}}
+                    <span class="bold mb-2 text-secondary italic">{{sfx.label}}</span>
+                  {{/if}}
+                  {{#if sfx.description}}
+                    <p>{{{sfx.description}}}</p>
+                  {{/if}}
+                </div>
+              </div>
+            {{/if}}
+          {{/each}}
+        </div>
+      {{/if}}
+    </div>
+  {{/each}}
+</div>

@@ -1,0 +1,18 @@
+<form class="flex-container" autocomplete="off" style="background-color: #fff;">
+  <div class="text-center ma-6">
+    <p class="label">Current Setting:</p>
+    <p class="my-2">{{currentSetting}}</p>
+    <div class="my-4">
+      <button class="btn btn-secondary export-settings" type="button">{{localize 'ExportSettings'}}</button>
+    </div>
+    <div class="my-4">
+      <label class="btn btn-primary">
+        {{localize 'ImportSettings'}}
+        <input class="import-settings hide" type="file" accept=".json">
+      </label>
+    </div>
+    <div class="my-4">
+      <button class="btn btn-dark-grey reset-settings" type="button">{{localize 'ResetToDefault'}}</button>
+    </div>
+  </div>
+</form>

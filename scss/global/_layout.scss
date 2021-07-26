@@ -1,3 +1,26 @@
+.d-block {
+  display: block;
+}
+
+@for $i from 1 through 4 {
+  .columns-#{$i} {
+    column-count: 2;
+    column-gap: 0;
+  }
+}
+
+@for $i from 0 through 12 {
+  .column-gap-#{$i} {
+    column-gap: $i * $spacing-sm;
+  }
+}
+
+.column-item {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
 .flex, .flex-row {
   display: flex;
 }

@@ -3,9 +3,17 @@
   border: none;
   cursor: pointer;
   font-weight: bold;
+  line-height: normal;
+  padding: toRem(4px) toRem(8px);
   text-transform: uppercase;
   white-space: nowrap;
   width: auto;
+
+  &:disabled {
+    opacity: 0.5;
+    color: color('white');
+    cursor: not-allowed;
+  }
 }
 
 @each $color, $hex in $colors {
@@ -19,7 +27,7 @@
   border-radius: 50%;
   font-size: toRem(14px);
   height: toRem(24px);
-  line-height: 0;
+  line-height: normal;
   padding: toRem(4px);
   text-align: center;
   width: toRem(24px);

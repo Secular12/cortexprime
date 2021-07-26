@@ -1,52 +1,58 @@
-import TraitSettings from './TraitSettings.js'
+import ActorSettings from './ActorSettings.js'
+import ImportExportSettings from './ImportExportSettings.js'
+import defaultActorTypes from '../actor/defaultActorTypes.js'
 
 import { localizer } from '../scripts/foundryHelpers.js'
 
 export const registerSettings = () => {
-  game.settings.registerMenu('cortexprime', 'TraitSettings', {
-    hint: localizer('TraitSettingsH'),
-    icon: 'fas fa-globe',
-    label: localizer('TraitSettingsL'),
-    name: localizer('TraitSettingsN'),
+  game.settings.registerMenu('cortexprime', 'ActorSettings', {
+    hint: localizer('ActorSettingsH'),
+    icon: 'fas fa-user-cog',
+    label: localizer('ActorSettings'),
+    name: localizer('ActorSettings'),
     restricted: true,
-    type: TraitSettings
+    type: ActorSettings
   })
 
-  game.settings.register('cortexprime', 'hasStress', {
-    config: true,
-    name: localizer('HasStressN'),
-    hint: localizer('HasStressD'),
-    default: false,
-    restricted: true,
-    scope: 'world',
-    type: Boolean
-  })
-
-  game.settings.register('cortexprime', 'hasTrauma', {
-    config: true,
-    name: localizer('HasTraumaN'),
-    hint: localizer('HasTraumaD'),
-    default: false,
-    restricted: true,
-    scope: 'world',
-    type: Boolean
-  })
-
-  game.settings.register('cortexprime', 'majorCharacterScale', {
-    config: true,
-    name: localizer('MajorCharactersHaveScaleN'),
-    hint: localizer('MajorCharactersHaveScaleD'),
-    default: false,
-    restricted: true,
-    scope: 'world',
-    type: Boolean
-  })
-
-  game.settings.register('cortexprime', 'traitSets', {
-    name: 'Trait Sets',
-    default: {},
+  game.settings.register('cortexprime', 'actorTypes', {
+    name: localizer('ActorTypes'),
+    default: defaultActorTypes,
     scope: 'world',
     type: Object,
     config: false,
+  })
+
+  game.settings.register('cortexprime', 'actorBreadcrumbs', {
+    name: localizer('ActorBreadcrumbs'),
+    default: { 0: { active: true, name: 'ActorTypes', localize: true, target: 'actorTypes' } },
+    scope: 'world',
+    type: Object,
+    config: false,
+  })
+
+  game.settings.registerMenu("cortexprime", "ImportExportSettings", {
+    name: localizer('ImportExportSettings'),
+    hint: localizer('ImportExportSettingsHint'),
+    icon: 'fas fa-file-import',
+    label: localizer('ImportExportSettings'),
+    restricted: true,
+    type: ImportExportSettings
+  })
+
+  game.settings.register('cortexprime', 'importedSettings', {
+    name: localizer('ImportedSettings'),
+    default: { currentSetting: localizer('Default') },
+    scope: 'world',
+    type: Object,
+    config: false,
+  })
+
+  game.settings.register("cortexprime", "WelcomeSeen", {
+    name: localizer('WelcomeSeen'),
+    hint: localizer('WelcomSeenHint'),
+    scope: "world",
+    config: false,
+    type: Boolean,
+    default: false
   })
 }

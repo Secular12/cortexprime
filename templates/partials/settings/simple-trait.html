@@ -1,0 +1,48 @@
+<article class="{{viewClasses (concat 'simpleTrait-' actorTypeIndex '-' simpleTraitIndex) breadcrumbs}} simple-trait">
+  <header class="primary-heading flex-row flex-ac">
+    <div class="flex-col col-12">
+      <input class="breadcrumb-name-change" data-target="{{concat 'simpleTrait-' actorTypeIndex '-' simpleTraitIndex}}" name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.label'}}" type="text" value="{{simpleTrait.label}}">
+    </div>
+    <div class="flex-col">
+      {{> "systems/cortexprime/templates/partials/remove-button.html"
+        group=path
+        itemKey=simpleTraitIndex
+        itemName=simpleTrait.label
+        setting='actorTypes'
+        type="trash"
+      }}
+    </div>
+  </header>
+  <div>
+    <div class="my-2">
+      <label>
+        <input name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.hasDescription'}}" type="checkbox" {{checked
+          simpleTrait.hasDescription}}>
+        <span class="label">{{localize 'HasDescription'}}</span>
+      </label>
+      {{#if simpleTrait.hasDescription}}
+        <textarea name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
+      {{/if}}
+    </div>
+    <div class="my-2">
+      <label>
+        <span class="label mr-1">{{localize 'ValueType'}}</span>
+        <select
+          name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.settings.valueType'}}"
+        >
+          {{#select (?? simpleTrait.settings.valueType 'text')}}
+            <option value="text">{{localize 'Text'}}</option>
+            <option value="number">{{localize 'Number'}}</option>
+            <option value="dice">{{localize 'Dice'}}</option>
+          {{/select}}
+        </select>
+      </label>
+    </div>
+    {{> (concat "systems/cortexprime/templates/partials/settings/value-types/" (?? simpleTrait.settings.valueType 'text') ".html")
+      consumableOption=true
+      fieldPath=(concat 'actorTypes.' path '.' simpleTraitIndex)
+      path=(concat path '.' simpleTraitIndex)
+      data=simpleTrait
+    }}
+  </div>
+</article>

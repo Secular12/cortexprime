@@ -1,11 +1,5 @@
 $dieSides: 4, 6, 8, 10, 12;
 
-.die-icon-wrapper {
-  display: inline-block;
-  line-height: 0;
-  vertical-align: middle;
-}
-
 .die-icon {
   @extend .icon;
   align-items: center;
@@ -17,16 +11,6 @@ $dieSides: 4, 6, 8, 10, 12;
   &.lg {
     height: toRem(40px);
     width: toRem(40px);
-  }
-
-  &.d4 {
-    .value {
-      padding-bottom: 0.35rem;
-    }
-  }
-
-  &.d6 {
-    background-size: 75%;
   }
 
   @each $i in $dieSides {
@@ -55,6 +39,16 @@ $dieSides: 4, 6, 8, 10, 12;
     }
   }
 
+  &.d4 {
+    .value {
+      padding-bottom: 0.35rem;
+    }
+  }
+
+  &.d6 {
+    background-size: 75%;
+  }
+
   .value {
     color: color('white');
     font-weight: bold;
@@ -68,13 +62,6 @@ $dieSides: 4, 6, 8, 10, 12;
     }
   }
 
-  &.selected {
-
-    .value {
-      color: color('black');
-    }
-  }
-
   &.unchosen {
 
     .value {
@@ -84,8 +71,8 @@ $dieSides: 4, 6, 8, 10, 12;
 }
 
 .die-select {
-  border: none;
-  background-color: transparent;
+  border: none !important;
+  background-color: transparent !important;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;

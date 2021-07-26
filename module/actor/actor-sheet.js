@@ -2,10 +2,10 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
+import { getLength, objectMapValues, objectReindexFilter, objectReduce, objectFindValue, objectSort } from '../../lib/helpers.js'
+import { localizer } from '../scripts/foundryHelpers.js'
 import {
-  addNewDataPoint,
   removeItems,
-  resetDataPoint,
   toggleItems
 } from '../scripts/sheetHelpers.js'
 
@@ -21,53 +21,47 @@ export class CortexPrimeActorSheet extends ActorSheet {
       classes: ["cortexprime", "sheet", "actor"],
       template: "systems/cortexprime/templates/actor/actor-sheet.html",
       width: 900,
-      height: 1000,
+      height: 900,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "traits" }]
     })
   }
 
-  getData () {
-    const data = super.getData()
+  getData (options) {
+    const data = super.getData(options)
 
-    data.settings = {
-      hasScaleDie: game.settings.get('cortexprime', 'majorCharacterScale'),
-      hasStress: game.settings.get('cortexprime', 'hasStress'),
-      hasTrauma: game.settings.get('cortexprime', 'hasTrauma')
+    return {
+      ...data,
+      actorTypeOptions: objectMapValues(game.settings.get('cortexprime', 'actorTypes'), val => val.name)
     }
-
-    return data
   }
 
   /* -------------------------------------------- */
   /** @override */
   activateListeners (html) {
     super.activateListeners(html)
-
-    html.find('.add-new-asset').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.assets, 'assets', 'New Asset'))
-    html.find('.add-new-complication').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.complications, 'complications', 'New Complication'))
-    html.find('.add-new-detail').click(this._addNewDetail.bind(this))
-    html.find('.add-new-signature-asset').click(this._addNewSignatureAsset.bind(this))
-    html.find('.add-new-signature-asset-detail').click(this._addNewSignatureAssetDetail.bind(this))
-    html.find('.add-new-stress').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.stress, 'stress', 'New Stress'))
-    html.find('.add-new-trait').click(this._addNewTrait.bind(this))
-    html.find('.add-new-trauma').click(async event => await this._addNewSimpleTrait(event, this.actor.data.data.trauma, 'trauma', 'New Trauma'))
+    html.find('.update-actor-settings').click(this._updateActorSettings.bind(this))
+    html.find('.actor-type-confirm').click(this._actorTypeConfirm.bind(this))
     html.find('.add-pp').click(() => { this.actor.changePpBy(1) })
-    html.find('.add-trait-to-pool').click(this._addTraitToPool.bind(this))
-    html.find('.clear-dice-pool').click(resetDataPoint.bind(this, 'data.dice', 'pool', {}))
+    html.find('.add-asset').click(this._addAsset.bind(this))
+    html.find('.add-complication').click(this._addComplication.bind(this))
+    html.find('.add-sfx').click(this._addSfx.bind(this))
+    html.find('.add-sub-trait').click(this._addSubTrait.bind(this))
+    html.find('.add-to-pool').click(this._addToPool.bind(this))
+    html.find('.add-trait').click(this._addTrait.bind(this))
+    html.find('.close-trait-set-edit').click(this._closeTraitSetEdit.bind(this))
     html.find('.die-select').change(this._onDieChange.bind(this))
     html.find('.new-die').click(this._newDie.bind(this))
-    html.find('.reset-custom-pool-trait').click(this._resetCustomPoolTrait.bind(this))
-    removeItems.call(this, html)
-    html.find('.roll-dice-pool').click(this._rollDicePool.bind(this))
     html.find('.spend-pp').click(() => {
       this.actor
         .changePpBy(-1)
         .then(() => {
           if (game.dice3d) {
-            game.dice3d.show({ throws: [{ dice: [{ result: 1, resultLabel: 1, type: 'dp', vectors: [], options: {} }] }] })
+            game.dice3d.show({ throws: [{ dice: [{ result: 1, resultLabel: 1, type: 'dp', vectors: [], options: {} }] }] }, game.user, true)
           }
         })
     })
+    html.find('.trait-set-edit').click(this._traitSetEdit.bind(this))
+    removeItems.call(this, html)
     toggleItems.call(this, html)
   }
 
@@ -79,166 +73,220 @@ export class CortexPrimeActorSheet extends ActorSheet {
    * @private
    */
 
-  async _addNewSimpleTrait(event, data, target, name, die = 6) {
+  async _actorTypeConfirm (event) {
     event.preventDefault()
+    const actorTypes = game.settings.get('cortexprime', 'actorTypes')
+    const actorTypeIndex = $('.actor-type-select').val()
 
-    const value = {
-      name,
-      dice: {
-        values: { 0: die }
-      }
-    }
-
-    await addNewDataPoint.call(this, data, target, value)
-  }
-
-  async _addNewDetail(event) {
-    event.preventDefault()
-    const $addDetailButton = $(event.currentTarget)
-    const traitSetKey = $addDetailButton.data('traitSet').toString()
-    const traitKey = $addDetailButton.data('trait').toString()
-    const trait = this.actor.data.data.traitSets[traitSetKey].traits[traitKey]
-
-    const value = {
-      name: '',
-      type: '',
-      value: ''
-    }
-
-    await addNewDataPoint.call(this, trait.details, `traitSets.${traitSetKey}.traits.${traitKey}.details`, value)
-  }
-
-  async _addNewSignatureAsset(event) {
-    event.preventDefault()
-
-    const value = {
-      description: '',
-      details: {},
-      dice: {
-        values: {
-          0: 6
-        }
-      },
-      edit: false,
-      name: 'New Signature Asset',
-      shutdown: false
-    }
-
-    await addNewDataPoint.call(this, this.actor.data.data.signatureAssets, 'signatureAssets', value)
-  }
-
-  async _addNewSignatureAssetDetail(event) {
-    event.preventDefault()
-    const $addDetailButton = $(event.currentTarget)
-    const signatureAssetKey = $addDetailButton.data('signatureAsset').toString()
-    const signatureAsset = this.actor.data.data.signatureAssets[signatureAssetKey]
-
-    const value = {
-      name: '',
-      type: '',
-      value: ''
-    }
-
-    await addNewDataPoint.call(this, signatureAsset.details, `signatureAssets.${signatureAssetKey}.details`, value)
-  }
-
-  async _addNewTrait (event) {
-    event.preventDefault()
-    const $addTraitButton = $(event.currentTarget)
-    const traitSetKey = $addTraitButton.data('setKey').toString()
-    const traitSet = this.actor.data.data.traitSets[traitSetKey]
-    const diceValues = { 0: 8 }
-
-    const value = {
-      description: '',
-      details: {},
-      dice: { values: diceValues },
-      isCustomTrait: true,
-      name: `New ${traitSet.name} Trait`
-    }
-
-    await addNewDataPoint.call(this, traitSet.traits, `traitSets.${traitSetKey}.traits`, value)
-  }
-
-  async _addTraitToPool(event) {
-    event.preventDefault()
-    const $addDieButton = $(event.currentTarget)
-    const traitTarget = $addDieButton.data('traitTarget')
-    const dataTarget = getProperty(this.actor.data, traitTarget)
-    const currentPool = this.actor.data.data.dice.pool
-    const newKey = Object.keys(currentPool).length
-    const label = $addDieButton.data('label') || ''
-
-    if (traitTarget === 'data.dice.customAdd') {
-      await this._resetCustomPoolTrait()
-    }
+    const actorType = actorTypes[actorTypeIndex]
 
     await this.actor.update({
-      'data.dice.pool': {
-        ...currentPool,
-        [newKey]: dataTarget.dice
-          ? { label, values: dataTarget.dice.values }
-          : { ...dataTarget, label }
-      }
+      'data.actorType': actorType,
+      'data.pp.value': actorType.hasPlotPoints ? 1 : 0
     })
   }
 
-  _getRollFormula(dicePool) {
-    return Object.keys(dicePool).reduce((formula, trait) => {
-      const innerFormula = Object.keys(dicePool[trait].values)
-        .reduce((acc, value) => {
-          return `${acc}+d${dicePool[trait].values[value]}`
-        }, '')
-
-      return formula ? `${formula}+${innerFormula}` : innerFormula
-    }, '')
-  }
-
-  async _onDieChange(event) {
+  async _addAsset (event) {
     event.preventDefault()
-    const $targetDieSelect = $(event.currentTarget)
-    const target = $targetDieSelect.data('target')
-    const targetKey = $targetDieSelect.data('key')
-    const dataTargetValue = Object.values(getProperty(this.actor.data, `${target}.values`) || {})
+    const { path } = event.currentTarget.dataset
+    const currentAssets = getProperty(this.actor.data, `${path}.assets`) ?? {}
 
-    if ($targetDieSelect.val() === '0') {
-      $targetDieSelect.remove()
-
-      await this.actor.update({
-        [`${target}.-=values`]: null
-      })
-
-      await this.actor.update({
-        [`${target}.values`]: dataTargetValue.reduce((acc, value, index) => {
-          if (index !== targetKey) {
-            return { ...acc, [index]: value }
+    await this._resetDataPoint(path, 'assets', {
+      ...currentAssets,
+      [getLength(currentAssets)]: {
+        label: localizer('NewAsset'),
+        dice: {
+          value: {
+            0: '6'
           }
-
-          return acc
-        }, {})
-      })
-    } else {
-      await this.actor.update({
-        [`${target}.values`]: dataTargetValue.reduce((acc, value, index) => {
-          return { ...acc, [index]: value }
-        }, {})
-      })
-    }
-  }
-
-  async _newDie(event) {
-    event.preventDefault()
-    const $button = $(event.currentTarget)
-    const target = $button.data('target')
-    const data = getProperty(this.actor.data, target)
-    const values = Object.values(data?.values || {})
-
-    await this.actor.update({
-      [`${target}.values`]: [...values, values.length > 0 ? values[0] : '8']
+        }
+      }
     })
   }
 
-  async _resetDataPoint (path, target, value) {
+  async _addComplication(event) {
+    event.preventDefault()
+    const { path } = event.currentTarget.dataset
+    const currentComplications = getProperty(this.actor.data, `${path}.complications`) ?? {}
+
+    await this._resetDataPoint(path, 'complications', {
+      ...currentComplications,
+      [getLength(currentComplications)]: {
+        label: localizer('NewComplication'),
+        dice: {
+          value: {
+            0: '6'
+          }
+        }
+      }
+    })
+  }
+
+  async _addSfx (event) {
+    event.preventDefault()
+    const { path } = event.currentTarget.dataset
+    const currentSfx = getProperty(this.actor.data, `${path}.sfx`) ?? {}
+
+    await this._resetDataPoint(path, 'sfx', {
+      ...currentSfx,
+      [getLength(currentSfx)]: {
+        description: null,
+        label: localizer('NewSfx'),
+        unlocked: true
+      }
+    })
+  }
+
+  async _addSubTrait(event) {
+    event.preventDefault()
+    const { path } = event.currentTarget.dataset
+    const currentSubTraits = getProperty(this.actor.data, `${path}.subTraits`) ?? {}
+
+    await this._resetDataPoint(path, 'subTraits', {
+      ...currentSubTraits,
+      [getLength(currentSubTraits)]: {
+        dice: {
+          value: {
+            0: '8'
+          }
+        },
+        label: localizer('NewSubTrait')
+      }
+    })
+  }
+
+  async _addToPool (event) {
+    const { consumable, path, label } = event.currentTarget.dataset
+    let value = getProperty(this.actor.data, `${path}.value`)
+    if (consumable) {
+      const selectedDice = await this._getConsumableDiceSelection(value, label)
+
+      if (selectedDice.remove?.length) {
+        const newValue = objectReindexFilter(value, (_, key) => !selectedDice.remove.map(x => parseInt(x, 10)).includes(parseInt(key, 10)))
+
+        await this._resetDataPoint(path, 'value', newValue)
+      }
+
+      value = selectedDice.value
+    }
+
+    if (getLength(value)) {
+      await game.cortexprime.UserDicePool._addTraitToPool(this.actor.name, label, value)
+    }
+  }
+
+  async _addTrait (event) {
+    const { path } = event.currentTarget.dataset
+    const currentCustomTraits = getProperty(this.actor.data, `${path}.customTraits`) ?? {}
+
+    await this._resetDataPoint(path, 'customTraits', {
+      ...currentCustomTraits,
+      [getLength(currentCustomTraits)]: {
+        id: `_${Date.now()}`,
+        name: localizer('NewTrait'),
+        dice: {
+          value: {
+            0: '8'
+          }
+        }
+      }
+    })
+  }
+
+  async _closeTraitSetEdit(event) {
+    await this.actor.update({
+      ['data.actorType.traitSetEdit']: null
+    })
+  }
+
+  async _getConsumableDiceSelection (options, label) {
+    const diceOptions = Object.values(options ?? {})
+      .map((option, index) => `<span class="cursor-pointer die-icon lg result d${option}" data-key="${index}" data-value="${option}"><span class="value">${option}</span></span>`)
+      .join('')
+
+    return new Promise((resolve, reject) => {
+      new Dialog({
+        title: label,
+        content: `<div><p class="section-sub-heading text-center">${localizer('SelectDiceToAdd')}</p><div class="flex flex-wrap flex-c">${diceOptions}</div><label><input class="remove-check" type="checkbox"${game.user.isOwner ? ' checked' : ''}><span class="label">${localizer('RemoveSelectedFromSheet')}</span></label></div>`,
+        buttons: {
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: localizer('Cancel'),
+            callback () {
+              resolve({ remove: [], value: {} })
+            }
+          },
+          done: {
+            icon: '<i class="fas fa-check"></i>',
+            label: localizer('AddToPool'),
+            callback (html) {
+              const remove = html.find('.remove-check').prop('checked')
+              const selectedDice = html.find('.die-icon.selected').get()
+
+              if (!selectedDice?.length) {
+                resolve({ remove: [], value: {} })
+              }
+
+              resolve(
+                selectedDice
+                  .reduce((selectedValues, selectedDie, index) => {
+                    const $selectedDie = $(selectedDie)
+
+                    if (remove) {
+                      selectedValues.remove = [...selectedValues.remove, $selectedDie.data('key')]
+                    }
+
+                    selectedValues.value = { ...selectedValues.value, [getLength(selectedValues.value)]: $selectedDie.data('value') }
+
+                    return selectedValues
+                  }, { remove: [], value: {} })
+              )
+            }
+          }
+        },
+        default: 'cancel',
+        render(html) {
+          html.find('.die-icon').click(function () {
+            $(this).toggleClass('result selected')
+          })
+        }
+      }, { jQuery: true }).render(true)
+    })
+  }
+
+  async _newDie (event) {
+    event.preventDefault()
+    const $targetNewDie = $(event.currentTarget)
+    const target = $targetNewDie.data('target')
+    const currentDiceData = getProperty(this.actor.data, target)
+    const currentDice = currentDiceData?.value ?? {}
+    const newIndex = getLength(currentDice)
+    const newValue = currentDice[newIndex - 1] ?? '8'
+
+    await this.actor.update({
+      [target]: {
+        value: {
+          ...currentDice,
+          [newIndex]: newValue
+        }
+      }
+    })
+  }
+
+  async _onDieChange (event) {
+    event.preventDefault()
+    const $targetNewDie = $(event.currentTarget)
+    const target = $targetNewDie.data('target')
+    const targetKey = $targetNewDie.data('key')
+    const targetValue = $targetNewDie.val()
+    const currentDiceData = getProperty(this.actor.data, target)
+
+    const mappedValue = objectMapValues(currentDiceData.value ?? {}, (value, index) => parseInt(index, 10) === targetKey ? targetValue : value)
+    const newValue = objectReindexFilter(mappedValue, value => parseInt(value, 10) !== 0)
+    await this._resetDataPoint(target, 'value', newValue)
+  }
+
+  async _resetDataPoint(path, target, value) {
     await this.actor.update({
       [`${path}.-=${target}`]: null
     })
@@ -248,62 +296,69 @@ export class CortexPrimeActorSheet extends ActorSheet {
     })
   }
 
-  async _resetCustomPoolTrait(event) {
-    if (event) {
-      event.preventDefault()
-    }
+  async _traitSetEdit(event) {
+    const { traitSet } = event.currentTarget.dataset
 
     await this.actor.update({
-      'data.dice.customAdd.-=values': null
-    })
-
-    await this.actor.update({
-      'data.dice.customAdd.values': { 0: '8' },
-      'data.dice.customAdd.label': ''
+      ['data.actorType.traitSetEdit']: traitSet
     })
   }
 
-  async _rollDicePool(event) {
+  async _updateActorSettings(event) {
     event.preventDefault()
 
-    const dicePool = this.actor.data.data.dice.pool
+    const actorData = this.actor.data.data.actorType
+    const actorTypeSettings = objectFindValue(game.settings.get('cortexprime', 'actorTypes'), actorType => actorType.id === actorData.id)
 
-    const rollFormula = this._getRollFormula(dicePool)
-
-    const roll = new Roll(rollFormula).roll()
-
-    if (game.dice3d) {
-      await game.dice3d.showForRoll(roll, game.user, true)
+    if (!actorTypeSettings) {
+      ui.notifications.error(localizer('MissingActorTypeMessage'))
+      return
     }
 
-    const rollResults = roll.terms
-      .filter(term => typeof term !== 'string')
-      .map(term => ({ faces: term.faces, result: term.results[0].result }))
-      .reduce((acc, result) => {
-        if (result.result > 1) {
-          return { ...acc, results: [...acc.results, result] }
-        }
+    const newData = objectMapValues(actorTypeSettings, (propValue, key) => {
+      if (key === 'simpleTraits') {
+        return objectMapValues(propValue, ({ dice, hasDescription, id, label, settings }) => {
+          const matchingSetting = objectFindValue((actorData.simpleTraits ?? {}), ({ id: matchId }) => matchId === id) ?? {}
 
-        return { ...acc, hitches: [...acc.hitches, result] }
-      }, { hitches: [], results: [] })
-
-    rollResults.hitches.sort((a, b) => {
-      return b.faces - a.faces
-    })
-
-    rollResults.results.sort((a, b) => {
-      if (a.faces !== b.faces) {
-        return b.faces - a.faces
+          return {
+            ...matchingSetting,
+            dice: {
+              ...matchingSetting.dice,
+              consumable: dice.consumable
+            },
+            hasDescription,
+            id,
+            label,
+            settings
+          }
+        })
       }
 
-      return b.result - a.result
-    })
+      if (key === 'traitSets') {
+        return objectMapValues(propValue, ({ hasDescription, id, label, settings, traits }) => {
+          const matchingSetting = objectFindValue((actorData.traitSets ?? {}), ({ id: matchId }) => matchId === id) ?? {}
 
-    const message = await renderTemplate('systems/cortexprime/templates/chat/roll-result.html', {
-      rollResults,
-      speaker: game.user
-    })
+          return {
+            ...matchingSetting,
+            hasDescription,
+            id,
+            label,
+            settings,
+            traits: objectMapValues(traits ?? {}, trait => {
+              const matchingTraitSetting = objectFindValue(matchingSetting.traits, ({ id: matchId }) => matchId === trait.id) ?? {}
+              return {
+                ...matchingTraitSetting,
+                id: trait.id,
+                name: trait.name
+              }
+            })
+          }
+        })
+      }
 
-    await ChatMessage.create({ content: message })
+      return propValue
+    })
+    this._resetDataPoint('data', 'actorType', newData)
+    this.actor.update()
   }
 }

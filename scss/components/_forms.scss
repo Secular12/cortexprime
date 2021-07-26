@@ -1,7 +1,30 @@
 .item-form, input, textarea {
   font-family: $font-primary;
+  font-size: inherit;
+}
+
+textarea {
+  background-color: color('accent');
+  border-radius: 0;
+  border: toRem(2px) solid color('secondary')
+}
+
+select {
+  background-color: color('accent');
+  border-radius: 0;
+  border: 0;
+  border-bottom: toRem(2px) solid color('secondary')
+}
+
+input {
+  &[type="text"], &[type="number"] {
+    background-color: color('accent');
+    border-radius: 0;
+    border: 0;
+    border-bottom: toRem(2px) solid color('secondary')
+  }
 }
 
 .notes-field {
-  min-height: toRem(400px);
+  min-height: toRem(350px);
 }

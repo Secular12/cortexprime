@@ -1,0 +1,12 @@
+<button
+  class="remove-item btn {{ternary (eq type 'trash') 'btn-icon text-primary' 'btn-icon btn-black btn-small'}}"
+  data-group="{{group}}"
+  data-item-key="{{itemKey}}"
+  data-item-name="{{itemName}}"
+  data-path="{{path}}"
+  data-setting="{{setting}}"
+  data-target="{{target}}"
+  {{{ternary stayOnPage ' data-stay-on-page="true"' ''}}}
+>
+  <i class="fa {{ternary (eq type 'trash') 'fa-trash' 'fa-times'}}"></i>
+</button>

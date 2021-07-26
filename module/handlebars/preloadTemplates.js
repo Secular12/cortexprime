@@ -1,17 +1,35 @@
 export const preloadHandlebarsTemplates = async function () {
   const templatePaths = [
-    'partials/dice/pool',
-    'partials/dice/select',
-    'partials/dice/select-options',
-    'partials/mc-help',
-    'partials/pp',
-    'partials/settings-trait-sets',
-    'partials/signature-assets',
-    'partials/simple-trait',
-    'partials/single-trait',
-    'partials/trait-sets'
+    'actor-sheet/sidebar',
+    'actor-sheet/simple-traits',
+    'actor-sheet/temporary-traits',
+    'actor-sheet/traits',
+    'actor-sheet/traits-edit',
+    'actor-sheet/trait-set-edit',
+    'actor-sheet/trait-sets',
+    'breadcrumbs',
+    'dice/select',
+    'dice/select-options',
+    'pp',
+    'remove-button',
+    'reorder',
+    'settings/actor-types',
+    'settings/actor-type',
+    'settings/trait',
+    'settings/trait-set',
+    'settings/simple-trait',
+    'settings/value-types/dice',
+    'settings/value-types/number',
+    'settings/value-types/sfx',
+    'settings/value-types/sub-traits',
+    'settings/value-types/text',
+    'value-types/dice',
+    'value-types/number',
+    'value-types/sfx',
+    'value-types/sub-traits',
+    'value-types/text',
   ]
-    .map(template => `systems/cortexprime/templates/${template}.html`)
+    .map(template => `systems/cortexprime/templates/partials/${template}.html`)
 
   return loadTemplates(templatePaths)
 }
