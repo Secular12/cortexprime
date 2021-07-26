@@ -13,7 +13,7 @@
         dice=subTrait.dice.value
         minDice=0
         label=subTrait.label
-        path=(concat ../path '.' subTraitIndex '.dice')
+        path=(concat ../path '.subTraits.' subTraitIndex '.dice')
       }}
       <div class="flex-col">
         {{> "systems/cortexprime/templates/partials/remove-button.html"
