@@ -13,10 +13,10 @@
     </div>
   {{else}}
     <p>
-      <span>{{or data.number.value '-'}}</span>
+      <span>{{ternary (or data.number.value (eq data.number.value 0)) data.number.value '-'}}</span>
       {{#if data.settings.hasMaxNumber}}
         <span>/</span>
-        <span>{{or data.number.max '-'}}</span>
+        <span>{{ternary (or data.number.max (eq data.number.max 0)) data.number.max '-'}}</span>
       {{/if}}
     </p>
   {{/if}}
