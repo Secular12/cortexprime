@@ -1,15 +1,3 @@
-.collapse-parent, .collapse-body {
-  border-top: toRem(2px) solid color('primary');
-}
-
-.collapse-parent:last-child {
-  border-bottom: toRem(2px) solid color('primary');
-}
-
-.collapse-header, .collapse-body {
-  padding: $spacing-sm * 2;
-}
-
 .cursor-pointer {
   cursor: pointer;
 }
