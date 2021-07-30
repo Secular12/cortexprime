@@ -8,21 +8,11 @@
   background: #f5f8fa;
 }
 
-.rollable:hover, .rollable:focus {
-  color: #000;
-  text-shadow: 0 0 0.625rem red;
-  cursor: pointer;
-}
-
 p {
   margin: 0;
 }
 
-input {
-  vertical-align: middle;
-}
-
-.label, .trait-label {
+.label {
   color: #424C59;
   font-weight: bold;
   font-size: 0.8rem;
@@ -67,15 +57,6 @@ input {
 .trait-name {
   font-size: 1.25rem;
   cursor: pointer;
-}
-
-.trait-label {
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.shutdown.trait-label, .shutdown .trait-label {
-  cursor: not-allowed;
 }
 
 .bold {
@@ -2566,18 +2547,6 @@ input {
   padding-top: 3rem;
 }
 
-.collapse-parent, .collapse-body {
-  border-top: 0.125rem solid #B30044;
-}
-
-.collapse-parent:last-child {
-  border-bottom: 0.125rem solid #B30044;
-}
-
-.collapse-header, .collapse-body {
-  padding: 0.5rem;
-}
-
 .cursor-pointer {
   cursor: pointer;
 }
@@ -2684,38 +2653,31 @@ input {
 }
 
 /* Styles limited to cortexprime sheets */
-.cortexprime .item-form, .cortexprime input, .cortexprime textarea {
+.cortexprime input, .cortexprime select, .cortexprime textarea {
+  background-color: #c9e2d1;
+  border-radius: 0;
+}
+
+.cortexprime input, .cortexprime select {
+  border: 0;
+  border-bottom: 0.125rem solid #2D5931;
+}
+
+.cortexprime input, .cortexprime textarea {
   font-family: "Roboto", sans-serif;
   font-size: inherit;
 }
 
+.cortexprime input {
+  vertical-align: middle;
+}
+
 .cortexprime textarea {
-  background-color: #c9e2d1;
-  border-radius: 0;
   border: 0.125rem solid #2D5931;
-}
-
-.cortexprime select {
-  background-color: #c9e2d1;
-  border-radius: 0;
-  border: 0;
-  border-bottom: 0.125rem solid #2D5931;
-}
-
-.cortexprime input[type="text"], .cortexprime input[type="number"] {
-  background-color: #c9e2d1;
-  border-radius: 0;
-  border: 0;
-  border-bottom: 0.125rem solid #2D5931;
 }
 
 .cortexprime .notes-field {
   min-height: 21.875rem;
-}
-
-.cortexprime .resource-label {
-  font-weight: bold;
-  text-transform: uppercase;
 }
 
 .cortexprime nav.sheet-tabs {
@@ -2736,39 +2698,6 @@ input {
   border: 0.125rem solid #B30044;
   color: #B30044;
   text-shadow: none;
-}
-
-.cortexprime li.detail-item {
-  list-style: none;
-}
-
-.cortexprime li.detail-item::before {
-  content: "\25CF";
-  color: #B30044;
-  font-weight: bold;
-  font-size: 1rem;
-  margin-left: -1em;
-  margin-right: 0.5rem;
-}
-
-.cortexprime li.detail-item.locked::before {
-  content: "\25CB";
-}
-
-.cortexprime header.sheet-header {
-  -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: start;
-}
-
-.cortexprime header.sheet-header .profile-img {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  max-height: 12.5rem;
-  max-width: 12.5rem;
-  height: auto;
-  width: auto;
 }
 
 .cortexprime .breadcrumb {

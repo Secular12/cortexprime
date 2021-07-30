@@ -45,18 +45,6 @@
   cursor: pointer;
 }
 
-.trait-label {
-  @extend .label;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.shutdown {
-  &.trait-label, .trait-label {
-    cursor: not-allowed;
-  }
-}
-
 .bold {
   font-weight: bold;
 }

@@ -2,12 +2,11 @@
 @import 'utils/colors';
 @import 'utils/functions';
 @import 'utils/typography';
-@import 'utils/mixins';
-@import 'utils/variables';
+@import 'utils/spacing';
 
 
 /* Global styles */
-@import 'global/window';
+@import 'global/reset';
 @import 'global/text';
 @import 'global/borders';
 @import 'global/buttons';
@@ -19,11 +18,7 @@
 /* Styles limited to cortexprime sheets */
 .cortexprime {
   @import 'components/forms';
-  @import 'components/resource';
   @import 'components/tabs';
-  @import 'components/items';
-  @import 'components/details';
-  @import 'components/header';
   @import 'components/breadcrumbs';
 }
 
