@@ -2665,7 +2665,7 @@ p {
 
 .cortexprime input, .cortexprime textarea {
   font-family: "Roboto", sans-serif;
-  font-size: inherit;
+  font-size: 0.875rem;
 }
 
 .cortexprime input {
@@ -2677,6 +2677,7 @@ p {
 }
 
 .cortexprime .notes-field {
+  font-size: 1rem;
   min-height: 21.875rem;
 }
 

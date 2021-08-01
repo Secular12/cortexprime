@@ -10,7 +10,7 @@ input, select {
 
 input, textarea {
   font-family: $font-primary;
-  font-size: inherit;
+  font-size: toRem(14px);
 }
 
 input {
@@ -22,5 +22,6 @@ textarea {
 }
 
 .notes-field {
+  font-size: toRem(16px);
   min-height: toRem(350px);
 }
