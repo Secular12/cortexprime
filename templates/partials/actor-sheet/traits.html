@@ -57,7 +57,7 @@
                   </div>
                 {{/if}}
                 {{#if (and ../../settings/subTraitsHaveDice (or (not ../../owner) (or ../../traitSetShutdown ../trait.shutdown)))}}
-                  <div>
+                  <div class="flex flex-wrap">
                     {{#each subTrait.dice.value as |die|}}
                       <div class="die-icon d{{die}} mx-0">
                       </div>
