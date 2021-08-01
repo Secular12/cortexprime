@@ -358,7 +358,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
       return propValue
     })
-    this._resetDataPoint('data', 'actorType', newData)
+    this._resetDataPoint('data', 'actorType', mergeObject(actorData, newData))
     this.actor.update()
   }
 }
