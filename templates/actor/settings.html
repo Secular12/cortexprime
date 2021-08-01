@@ -1,6 +1,15 @@
 <form class="flex-container" autocomplete="off" style="background-color: #fff;">
-  <header class="mb-4 mt-2">
-    {{> "systems/cortexprime/templates/partials/breadcrumbs.html" breadcrumbs=breadcrumbs }}
+  <header class="flex mb-4 mt-2">
+    <div class="flex-col col-12">
+      {{> "systems/cortexprime/templates/partials/breadcrumbs.html" breadcrumbs=breadcrumbs }}
+    </div>
+    <div class="flex-col">
+      <a
+        href="https://docs.google.com/document/d/1LNrvmVqJtE-B_IMRl66fQmDwHpHPOGX6gF7Vl-kn-dc/edit?usp=sharing"
+      >
+        {{localize 'Help'}}
+      </a>
+    </div>
   </header>
   <main>
     {{> "systems/cortexprime/templates/partials/settings/actor-types.html"
