@@ -7,14 +7,16 @@
           <input name="{{concat ../fieldPath '.' subTraitIndex '.label'}}" type="text" value="{{subTrait.label}}">
         </label>
       </div>
-      {{> "systems/cortexprime/templates/partials/dice/select.html"
-        addToPool=true
-        consumable=../settings.subTraitsDiceConsumable
-        dice=subTrait.dice.value
-        minDice=0
-        label=subTrait.label
-        path=(concat ../path '.subTraits.' subTraitIndex '.dice')
-      }}
+      {{#if ../settings.subTraitsHaveDice}}
+        {{> "systems/cortexprime/templates/partials/dice/select.html"
+          addToPool=true
+          consumable=../settings.subTraitsDiceConsumable
+          dice=subTrait.dice.value
+          minDice=0
+          label=subTrait.label
+          path=(concat ../path '.subTraits.' subTraitIndex '.dice')
+        }}
+      {{/if}}
       <div class="flex-col">
         {{> "systems/cortexprime/templates/partials/remove-button.html"
           group=(concat ../path '.subTraits')

@@ -57,6 +57,7 @@ export default class ImportExportSettings extends FormApplication {
 
       fileReader.onload = async () => {
         let data
+        let warning
 
         try {
           data = JSON.parse(fileReader.result)
@@ -68,17 +69,18 @@ export default class ImportExportSettings extends FormApplication {
 
         if (!data?.cortexPrimeVersion && !data?.actorTypes) {
           ui.notifications.error(localizer('CantReadImportFile'))
+          return
         }
 
         if (game.system.data.version !== data?.cortexPrimeVersion) {
-          ui.notifications.warning(localizer('ImportVersionWarning'))
+          warning = localizer('ImportVersionWarning')
         }
 
         let confirmed
 
         await Dialog.confirm({
           title: localizer('AreYouSure'),
-          content: localizer('ConfirmImportMessage'),
+          content: `<div>${warning ? '<p class="my-2 pa-2 ba-2-primary">' + warning + '</p>' : ''}<p class="my-2">${localizer('ConfirmImportMessage')}</p></div>`,
           yes: () => { confirmed = true },
           no: () => { confirmed = false },
           defaultYes: false
