@@ -7,7 +7,7 @@
           <input name="{{concat ../fieldPath '.' subTraitIndex '.label'}}" type="text" value="{{subTrait.label}}">
         </label>
       </div>
-      {{#if settings.subTraitsHaveDice}}
+      {{#if ../settings.subTraitsHaveDice}}
         {{> "systems/cortexprime/templates/partials/dice/select.html"
           addToPool=true
           consumable=../settings.subTraitsDiceConsumable
