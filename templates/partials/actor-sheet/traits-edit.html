@@ -72,7 +72,7 @@
         {{/if}}
       </div>
       {{#if ../settings.hasDescription}}
-        <div>
+        <div class="my-1">
           <label>
             <span class="label">{{localize 'Description'}}</span>
             <textarea name="{{concat ../path '.' ../target '.' traitIndex '.description'}}">{{trait.description}}</textarea>
