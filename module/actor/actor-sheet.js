@@ -29,6 +29,8 @@ export class CortexPrimeActorSheet extends ActorSheet {
   getData (options) {
     const data = super.getData(options)
 
+    console.log(data)
+
     return {
       ...data,
       actorTypeOptions: objectMapValues(game.settings.get('cortexprime', 'actorTypes'), val => val.name)
@@ -51,6 +53,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     html.find('.close-trait-set-edit').click(this._closeTraitSetEdit.bind(this))
     html.find('.die-select').change(this._onDieChange.bind(this))
     html.find('.new-die').click(this._newDie.bind(this))
+    html.find('.pp-number-field').change(this._ppNumberChange.bind(this))
     html.find('.spend-pp').click(() => {
       this.actor
         .changePpBy(-1)
@@ -284,6 +287,17 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const mappedValue = objectMapValues(currentDiceData.value ?? {}, (value, index) => parseInt(index, 10) === targetKey ? targetValue : value)
     const newValue = objectReindexFilter(mappedValue, value => parseInt(value, 10) !== 0)
     await this._resetDataPoint(target, 'value', newValue)
+  }
+
+  async _ppNumberChange (event) {
+    event.preventDefault()
+    const $field = $(event.currentTarget)
+    const parsedValue = parseInt($field.val(), 10)
+    const currentValue = parseInt(this.actor.data.data.pp.value, 10)
+    const newValue = parsedValue < 0 ? 0 : parsedValue
+    const changeAmount = newValue - currentValue
+
+    this.actor.changePpBy(changeAmount, true)
   }
 
   async _resetDataPoint(path, target, value) {
