@@ -11,7 +11,7 @@
   </div>
   {{#each traits as |trait traitIndex|}}
     <div class="my-6 px-2 ba-2-secondary">
-      <div class="flex-row flex-wrap bkg-lighter-grey bb-2-secondary pa-2 mb-2">
+      <div class="flex-row flex-wrap bkg-lighter-grey pa-2{{ ternary (or ../settings.hasSubTraits ../settings.hasSfx) ' bb-2-secondary' ''}}">
         <div class="flex-col col-12">
           <div class="section-sub-heading flex-row {{ternary (or ../custom ../settings.hasLabel) 'flex-ae' 'flex-ac'}}">
             {{#if (or ../custom ../settings.hasLabel)}}
@@ -80,7 +80,7 @@
         </div>
       {{/if}}
       {{#if ../settings.hasSubTraits}}
-        <div class="mt-2">
+        <div>
           <div class="bkg-light-grey pa-2 flex-row flex-ac flex-jsb">
             <h4 class="flex-col section-sub-heading">{{localize 'SubTraits'}}</h4>
             <div class="flex-col">
@@ -99,7 +99,7 @@
         </div>
       {{/if}}
       {{#if ../settings.hasSfx}}
-        <div class="mt-2">
+        <div>
           <div class="bkg-light-grey pa-2 flex-row flex-ac flex-jsb">
             <h4 class="flex-col section-sub-heading">{{localize 'Sfx'}}</h4>
             <div class="flex-col">
