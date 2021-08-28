@@ -345,7 +345,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
             label,
             settings,
             traits: objectMapValues(traits ?? {}, trait => {
-              const matchingTraitSetting = objectFindValue(matchingSetting.traits, ({ id: matchId }) => matchId === trait.id) ?? {}
+              const matchingTraitSetting = objectFindValue(matchingSetting.traits ?? {}, ({ id: matchId }) => matchId === trait.id) ?? {}
               return {
                 ...matchingTraitSetting,
                 id: trait.id,
