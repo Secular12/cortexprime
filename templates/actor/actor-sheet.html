@@ -59,13 +59,21 @@
               <header class="my-2">
                 <h2 class="section-heading">{{localize 'Description'}}</h2>
               </header>
-              <textarea class="notes-field" name="data.actorType.description">{{{data.data.actorType.description}}}</textarea>
+              <div class="notes-field">
+                {{editor content=data.data.actorType.description
+                target="data.actorType.description" button=true owner=owner
+                editable=editable}}
+              </div>
             </article>
             <article>
               <header class="my-2">
                 <h2 class="section-heading">{{localize 'Notes'}}</h2>
               </header>
-              <textarea class="notes-field" name="data.actorType.notes">{{{data.data.actorType.notes}}}</textarea>
+              <div class="notes-field">
+                {{editor content=data.data.actorType.notes
+                target="data.actorType.notes" button=true owner=owner
+                editable=editable}}
+              </div>
             </article>
           </section>
         {{/if}}
