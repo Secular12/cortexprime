@@ -81,6 +81,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const actorType = actorTypes[actorTypeIndex]
 
     await this.actor.update({
+      'img': actorType.defaultImage,
       'data.actorType': actorType,
       'data.pp.value': actorType.hasPlotPoints ? 1 : 0
     })
