@@ -2,6 +2,7 @@ export default {
   0: {
     hasAssets: true,
     hasComplications: true,
+    hasHidableTraits: false,
     hasNotesPage: true,
     hasPlotPoints: true,
     id: '_1',
@@ -101,6 +102,7 @@ export default {
   1: {
     hasAssets: true,
     hasComplications: true,
+    hasHidableTraits: true,
     hasNotesPage: true,
     hasPlotPoints: true,
     id: '_2',

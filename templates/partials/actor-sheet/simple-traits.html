@@ -1,52 +1,68 @@
 <section class="my-3">
   {{#each simpleTraits as |simpleTrait simpleTraitIndex|}}
-    <div>
-      <div class="my-2 flex-row flex-jsb">
-        <label class="flex-col">
-          <div
-            class="section-sub-heading mt-1{{ternary (eq simpleTrait.settings.valueType 'dice') ' add-to-pool' ''}}"
-            {{{ternary (and (eq simpleTrait.settings.valueType 'dice') simpleTrait.settings.consumableDice) 'data-consumable="true"' ''}}}
-            data-label="{{simpleTrait.label}}"
-            data-path="{{concat ../path '.' simpleTraitIndex '.dice'}}"
-          >
-            {{#if simpleTrait.label}}
-              {{simpleTrait.label}}
-            {{/if}}
-            {{#if (and (not simpleTrait.label) (eq simpleTrait.settings.valueType 'dice'))}}
-              <span class="fa fa-dice"></span>
-            {{/if}}
-          </div>
-        </label>
-        {{#if (and ../owner (not (and (eq simpleTrait.settings.valueType 'dice') (not simpleTrait.hasDescription))))}}
-          <div class="flex-col">
+    {{#if (or ../owner (or (not ../data.hasHidableTraits) (not simpleTrait.hidden)))}}
+      <div class="px-2 py-1 {{ternary (and ../data.hasHidableTraits simpleTrait.hidden) 'bkg-light-grey' ''}}">
+        <div class="flex-row flex-ac">
+          {{#if ../owner}}
+          <div class="flex-col pr-0">
             <button class="btn btn-icon toggle-item" data-path="{{concat ../path '.' simpleTraitIndex '.edit'}}" type="button">
               {{#if simpleTrait.edit}}
-                <i class="fas fa-check"></i>
+              <i class="fas fa-check"></i>
               {{else}}
-                <i class="fas fa-edit"></i>
+              <i class="fas fa-edit"></i>
               {{/if}}
             </button>
           </div>
-        {{/if}}
-      </div>
-      <div>
-        {{#if (and ../owner (and simpleTrait.hasDescription simpleTrait.edit))}}
-          <label>
-            <div class="label">{{localize 'Description'}}</div>
-            <textarea name="{{concat ../path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
+          {{/if}}
+          {{#if (and ../owner ../data.hasHidableTraits)}}
+            {{#if simpleTrait.edit}}
+              <div class="flex-col pr-0">
+                <button class="btn btn-icon btn-dark-grey  toggle-item"
+                  data-path="{{concat ../path '.' simpleTraitIndex '.hidden'}}">
+                  <i class="fa {{ternary simpleTrait.hidden 'fa-eye-slash' 'fa-eye'}}"></i>
+                </button>
+              </div>
+            {{else if simpleTrait.hidden}}
+              <span>
+                <i class="fa fa-eye-slash"></i>
+              </span>
+            {{/if}}
+          {{/if}}
+          <label class="flex-col">
+            <div
+              class="section-sub-heading mt-1{{ternary (and (eq simpleTrait.settings.valueType 'dice') simpleTrait.dice.value.[0]) ' add-to-pool' ''}}"
+              {{{ternary (and (eq simpleTrait.settings.valueType 'dice') simpleTrait.settings.consumableDice) 'data-consumable="true"' ''}}}
+              data-label="{{simpleTrait.label}}"
+              data-path="{{concat ../path '.' simpleTraitIndex '.dice'}}"
+            >
+              {{#if simpleTrait.label}}
+                {{simpleTrait.label}}
+              {{/if}}
+              {{#if (and (not simpleTrait.label) (eq simpleTrait.settings.valueType 'dice'))}}
+                <span class="fa fa-dice"></span>
+              {{/if}}
+            </div>
           </label>
-        {{else if (and simpleTrait.hasDescription simpleTrait.description)}}
-          <p class="my-2">{{simpleTrait.description}}</p>
-        {{/if}}
-        {{> (concat "systems/cortexprime/templates/partials/value-types/" simpleTrait.settings.valueType ".html")
-          addToPool=true
-          fieldPath=(concat ../path '.' simpleTraitIndex '.' simpleTrait.settings.valueType)
-          path=(concat ../path '.' simpleTraitIndex '.' simpleTrait.settings.valueType)
-          data=simpleTrait
-          edit=(and ../owner  simpleTrait.edit)
-          label=simpleTrait.label
-        }}
+        </div>
+        <div>
+          {{#if (and ../owner (and simpleTrait.hasDescription simpleTrait.edit))}}
+            <label>
+              <div class="label">{{localize 'Description'}}</div>
+              <textarea name="{{concat ../path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
+            </label>
+          {{else if (and simpleTrait.hasDescription simpleTrait.description)}}
+            <p class="my-2">{{simpleTrait.description}}</p>
+          {{/if}}
+          {{> (concat "systems/cortexprime/templates/partials/value-types/" simpleTrait.settings.valueType ".html")
+            addToPool=true
+            fieldPath=(concat ../path '.' simpleTraitIndex '.' simpleTrait.settings.valueType)
+            path=(concat ../path '.' simpleTraitIndex '.' simpleTrait.settings.valueType)
+            data=simpleTrait
+            edit=(and ../owner  simpleTrait.edit)
+            label=simpleTrait.label
+          }}
+        </div>
       </div>
-    </div>
+    {{/if}}
   {{/each}}
 </section>
