@@ -2551,6 +2551,11 @@ p {
   cursor: pointer;
 }
 
+.default-image, .profile-image {
+  cursor: pointer;
+  width: 100%;
+}
+
 .hide {
   display: none;
 }

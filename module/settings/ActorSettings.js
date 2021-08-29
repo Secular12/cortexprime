@@ -70,8 +70,10 @@ export default class ActorSettings extends FormApplication {
 
     const newActorType = {
       [newKey]: {
+        hasNotesPage: true,
         id: `_${Date.now()}`,
-        name: localizer('NewActorType')
+        name: localizer('NewActorType'),
+        showProfileImage: true
       }
     }
 

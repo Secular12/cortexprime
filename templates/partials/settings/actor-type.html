@@ -15,21 +15,16 @@
   <div>
     <div class="flex-row">
       <div class="flex-col col-3">
-        <p class="label mb-1">{{localize 'DefaultImage'}}</p>
+        <p class="section-sub-heading mb-1">{{localize 'DefaultImage'}}</p>
         <img class="default-image bkg-light-grey" src="{{or actorType.defaultImage 'icons/svg/mystery-man.svg'}}"
           data-actor-type-index="{{actorTypeIndex}}" title="{{localize 'DefaultImage'}}" />
       </div>
       <div class="flex-col col-9">
+        <p class="section-sub-heading mb-1">{{localize 'GeneralActorSettings'}}</p>
         <div>
           <label>
             <input name="actorTypes.{{actorTypeIndex}}.showProfileImage" type="checkbox" {{checked actorType.showProfileImage}}>
             <span class="label">{{localize 'ShowProfileImage'}}</span>
-          </label>
-        </div>
-        <div>
-          <label>
-            <input name="actorTypes.{{actorTypeIndex}}.hasPlotPoints" type="checkbox" {{checked actorType.hasPlotPoints}}>
-            <span class="label">{{localize 'HasPlotPoints'}}</span>
           </label>
         </div>
         <div>
@@ -40,14 +35,20 @@
         </div>
         <div>
           <label>
-            <input name="actorTypes.{{actorTypeIndex}}.hasComplications" type="checkbox" {{checked actorType.hasComplications}}>
-            <span class="label">{{localize 'HasComplications'}}</span>
+            <input name="actorTypes.{{actorTypeIndex}}.hasPlotPoints" type="checkbox" {{checked actorType.hasPlotPoints}}>
+            <span class="label">{{localize 'HasPlotPoints'}}</span>
           </label>
         </div>
         <div>
           <label>
             <input name="actorTypes.{{actorTypeIndex}}.hasAssets" type="checkbox" {{checked actorType.hasAssets}}>
             <span class="label">{{localize 'HasAssets'}}</span>
+          </label>
+        </div>
+        <div>
+          <label>
+            <input name="actorTypes.{{actorTypeIndex}}.hasComplications" type="checkbox" {{checked actorType.hasComplications}}>
+            <span class="label">{{localize 'HasComplications'}}</span>
           </label>
         </div>
       </div>
