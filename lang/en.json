@@ -36,6 +36,7 @@
   "HasComplications": "Has Complications",
   "HasDescription": "Has Description",
   "HasDice": "Has Dice",
+  "HasHidableTraits": "Has Hidable Traits",
   "HasLabels": "Has Labels",
   "HasLabelsDescription": "The intended purpose of labels is for user/player custom naming, such as distinctions or relationships. For example, a relationship trait with the name of \"Saved my life\" which requires the player to apply a name, would you a label to do so.",
   "HasMaxNumber": "Has Max Number",
