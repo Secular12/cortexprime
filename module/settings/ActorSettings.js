@@ -55,6 +55,7 @@ export default class ActorSettings extends FormApplication {
     html.find('.add-trait-set').click(this._addTraitSet.bind(this))
     html.find('.breadcrumb-name-change').change(this._breadcrumbNameChange.bind(this))
     html.find('.breadcrumb:not(.active), .go-back').click(this._breadcrumbChange.bind(this))
+    html.find('.default-image').click(this._changeDefaultImage.bind(this))
     html.find('.die-select').change(this._onDieChange.bind(this))
     html.find('.new-die').click(this._newDie.bind(this))
     html.find('.view-change').click(this._viewChange.bind(this))
@@ -239,6 +240,28 @@ export default class ActorSettings extends FormApplication {
         return breadcrumb
       })
     })
+  }
+
+  async _changeDefaultImage (event) {
+    event.preventDefault()
+    const { actorTypeIndex } = event.currentTarget.dataset
+    const source = game.settings.get('cortexprime', 'actorTypes')
+    const currentImage = source[actorTypeIndex]?.defaultImage || 'icons/svg/mystery-man.svg'
+    const _this = this
+
+    const imagePicker = await new FilePicker({
+      type: 'image',
+      current: currentImage,
+      async callback (newImage) {
+        source[actorTypeIndex].defaultImage = newImage
+
+        await game.settings.set('cortexprime', 'actorTypes', source)
+
+        _this.render()
+      }
+    })
+
+    await imagePicker.render()
   }
 
   async changeView (name, target) {
