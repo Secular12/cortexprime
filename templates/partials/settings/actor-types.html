@@ -17,9 +17,15 @@
   </header>
   <ul class="list-style-none px-0 list-alt-bkg">
     {{#each actorTypes as |actorType actorTypeIndex|}}
-      <li class="pa-1">
-        <span class="section-sub-heading text-primary">{{or actorType.name (concat '[' (localize 'NoName' ) ']')}}</span>
-        <button class="view-change btn pa-1 ml-2" data-name="{{actorType.name}}" data-to="actorType-{{actorTypeIndex}}">
+      <li class="pa-1 flex-row flex-ac">
+        {{> "systems/cortexprime/templates/partials/reorder.html"
+          class="flex-col pa-0"
+          path=''
+          currentIndex=actorTypeIndex
+          setting="actorTypes"
+        }}
+        <span class="section-sub-heading text-primary flex-col">{{or actorType.name (concat '[' (localize 'NoName' ) ']')}}</span>
+        <button class="view-change btn flex-col" data-name="{{actorType.name}}" data-to="actorType-{{actorTypeIndex}}">
           <i class="fa fa-edit ma-0"></i>
         </button>
       </li>

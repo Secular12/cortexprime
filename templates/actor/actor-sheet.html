@@ -14,6 +14,7 @@
   {{else}}
     {{#if (and (or data.data.actorType.traitSetEdit (eq data.data.actorType.traitSetEdit 0)) owner)}}
       {{> "systems/cortexprime/templates/partials/actor-sheet/trait-set-edit.html"
+        data=data.data.actorType
         traitSet=(lookup data.data.actorType.traitSets data.data.actorType.traitSetEdit)
         traitSetIndex=data.data.actorType.traitSetEdit
         path="data.actorType.traitSets"
@@ -38,6 +39,7 @@
             }}
             <section class="flex-col col-9">
               {{> "systems/cortexprime/templates/partials/actor-sheet/trait-sets.html"
+                data=data.data.actorType
                 traitSets=data.data.actorType.traitSets
                 path="data.actorType.traitSets"
               }}

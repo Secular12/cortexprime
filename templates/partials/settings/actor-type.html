@@ -13,22 +13,52 @@
     </div>
   </header>
   <div>
-    <label>
-      <input name="actorTypes.{{actorTypeIndex}}.hasPlotPoints" type="checkbox" {{checked actorType.hasPlotPoints}}>
-      <span class="label">{{localize 'HasPlotPoints'}}</span>
-    </label>
-    <label>
-      <input name="actorTypes.{{actorTypeIndex}}.hasNotesPage" type="checkbox" {{checked actorType.hasNotesPage}}>
-      <span class="label">{{localize 'HasNotesPage'}}</span>
-    </label>
-    <label>
-      <input name="actorTypes.{{actorTypeIndex}}.hasComplications" type="checkbox" {{checked actorType.hasComplications}}>
-      <span class="label">{{localize 'HasComplications'}}</span>
-    </label>
-    <label>
-      <input name="actorTypes.{{actorTypeIndex}}.hasAssets" type="checkbox" {{checked actorType.hasAssets}}>
-      <span class="label">{{localize 'HasAssets'}}</span>
-    </label>
+    <div class="flex-row">
+      <div class="flex-col col-3">
+        <p class="section-sub-heading mb-1">{{localize 'DefaultImage'}}</p>
+        <img class="default-image bkg-light-grey" src="{{or actorType.defaultImage 'icons/svg/mystery-man.svg'}}"
+          data-actor-type-index="{{actorTypeIndex}}" title="{{localize 'DefaultImage'}}" />
+      </div>
+      <div class="flex-col col-9">
+        <p class="section-sub-heading mb-1">{{localize 'GeneralActorSettings'}}</p>
+        <div>
+          <label>
+            <input name="actorTypes.{{actorTypeIndex}}.showProfileImage" type="checkbox" {{checked actorType.showProfileImage}}>
+            <span class="label">{{localize 'ShowProfileImage'}}</span>
+          </label>
+        </div>
+        <div>
+          <label>
+            <input name="actorTypes.{{actorTypeIndex}}.hasNotesPage" type="checkbox" {{checked actorType.hasNotesPage}}>
+            <span class="label">{{localize 'HasNotesPage'}}</span>
+          </label>
+        </div>
+        <div>
+          <label>
+            <input name="actorTypes.{{actorTypeIndex}}.hasPlotPoints" type="checkbox" {{checked actorType.hasPlotPoints}}>
+            <span class="label">{{localize 'HasPlotPoints'}}</span>
+          </label>
+        </div>
+        <div>
+          <label>
+            <input name="actorTypes.{{actorTypeIndex}}.hasAssets" type="checkbox" {{checked actorType.hasAssets}}>
+            <span class="label">{{localize 'HasAssets'}}</span>
+          </label>
+        </div>
+        <div>
+          <label>
+            <input name="actorTypes.{{actorTypeIndex}}.hasComplications" type="checkbox" {{checked actorType.hasComplications}}>
+            <span class="label">{{localize 'HasComplications'}}</span>
+          </label>
+        </div>
+        <div>
+          <label>
+            <input name="actorTypes.{{actorTypeIndex}}.hasHidableTraits" type="checkbox" {{checked actorType.hasHidableTraits}}>
+            <span class="label">{{localize 'HasHidableTraits'}}</span>
+          </label>
+        </div>
+      </div>
+    </div>
     <section class="my-4">
       <header>
         <div class="bkg-primary flex-row flex-ac flex-jsb mb-2 py-1">

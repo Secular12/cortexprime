@@ -1,7 +1,7 @@
 <div class="columns-2 column-gap-4">
   {{#each traitSets as |traitSet traitSetIndex|}}
-    <div class="column-item mb-4 ba-2-secondary pa-2">
-      <div>
+    <div class="column-item mb-4 ba-2-secondary">
+      <div class="pa-2">
         <div class="flex-row flex-jsb">
           <div class="flex-col{{ternary traitSet.shutdown ' shutdown' ''}}">
             <span class="section-heading">{{or traitSet.label (concat '[' (localize 'TraitSet') ']')}}</span>
@@ -22,6 +22,7 @@
       </div>
       {{#if traitSet.traits}}
         {{> "systems/cortexprime/templates/partials/actor-sheet/traits.html"
+          data=../data
           owner=../owner
           path=(concat ../path '.' traitSetIndex)
           settings=traitSet.settings
@@ -33,6 +34,7 @@
       {{#if traitSet.customTraits}}
         {{> "systems/cortexprime/templates/partials/actor-sheet/traits.html"
           custom=true
+          data=../data
           owner=../owner
           path=(concat ../path '.' traitSetIndex)
           settings=traitSet.settings

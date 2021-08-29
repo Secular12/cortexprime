@@ -1,11 +1,14 @@
 export default {
   0: {
+    defaultImage: 'icons/svg/mystery-man.svg',
     hasAssets: true,
     hasComplications: true,
+    hasHidableTraits: false,
     hasNotesPage: true,
     hasPlotPoints: true,
     id: '_1',
     name: 'Character',
+    showProfileImage: true,
     traitSets: {
       0: {
         description: null,
@@ -99,12 +102,15 @@ export default {
     }
   },
   1: {
+    defaultImage: 'icons/svg/house.svg',
     hasAssets: true,
     hasComplications: true,
+    hasHidableTraits: true,
     hasNotesPage: true,
     hasPlotPoints: true,
     id: '_2',
     name: 'Scene',
+    showProfileImage: false,
     simpleTraits: {
       0: {
         dice: {
