@@ -101,8 +101,8 @@ export const reorderItem = async function (html) {
       setting
     } = event.currentTarget.dataset
 
-    const settings = game.settings.get('cortexprime', setting)
-    const targetObject = getProperty(settings, path) ?? {}
+    let settings = game.settings.get('cortexprime', setting)
+    const targetObject = (path || parseInt(path, 10) === 0) ? getProperty(settings, path) ?? {} : settings
     const maxKey = getLength(targetObject ?? {}) - 1
 
     const key = +newIndex < 0
@@ -123,7 +123,11 @@ export const reorderItem = async function (html) {
             : +targetKey
     })
 
-    setProperty(settings, path, value)
+    if (path || parseInt(path, 10) === 0) {
+      setProperty(settings, path, value)
+    } else {
+      settings = value
+    }
 
     await game.settings.set('cortexprime', setting, settings)
     this.render(true)

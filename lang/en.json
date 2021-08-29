@@ -4,7 +4,7 @@
   "ActorSettingsH": "Configure this world's actor types.",
   "ActorType": "Actor Type",
   "ActorTypes": "Actor Types",
-  "ActorTypesDescription": "Add, edit, and/or remove different actor types used in your game.",
+  "ActorTypesDescription": "Add, edit, and/or remove different actor types used in your game. Changing the actor type order will change the order that they appear in the dropdown when creating a new actor.",
   "ActorTypesNote": "Many actor setting changes can be updated from the actor sheet, however many of the values will not be updated, especially default values. This is to prevent values entered by players from being lost",
   "AddCustomDice": "Add Custom Dice",
   "AddToPool": "Add To Pool",
