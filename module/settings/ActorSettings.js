@@ -290,7 +290,6 @@ export default class ActorSettings extends FormApplication {
   async _duplicateItem (event) {
     event.preventDefault()
     const { id, path } = event.currentTarget.dataset
-    console.log(path)
     let source = game.settings.get('cortexprime', 'actorTypes')
     const targetGroup = path ? getProperty(source, path) : source
     const newKey = getLength(targetGroup ?? {})
