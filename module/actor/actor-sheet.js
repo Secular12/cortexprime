@@ -2,7 +2,7 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-import { getLength, objectMapValues, objectReindexFilter, objectReduce, objectFindValue, objectSort } from '../../lib/helpers.js'
+import { getLength, objectMapValues, objectReindexFilter, objectFindValue, objectSome } from '../../lib/helpers.js'
 import { localizer } from '../scripts/foundryHelpers.js'
 import {
   removeItems,
@@ -371,7 +371,14 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
       return propValue
     })
-    this._resetDataPoint('data', 'actorType', mergeObject(actorData, newData))
+
+    const mergedData = mergeObject(actorData, newData)
+
+    mergedData.simpleTraits = objectReindexFilter(mergedData.simpleTraits, trait => {
+      return objectSome(actorTypeSettings.simpleTraits, settingTrait => settingTrait._id === trait._id)
+    })
+
+    this._resetDataPoint('data', 'actorType', mergedData)
     this.actor.update()
   }
 }
