@@ -1,5 +1,5 @@
 import { localizer } from '../scripts/foundryHelpers.js'
-import { getLength, objectFindKey, objectMapValues, objectReduce, objectReindexFilter } from '../../lib/helpers.js'
+import { getLength, objectFindKey, objectFindValue, objectMapValues, objectReduce, objectReindexFilter } from '../../lib/helpers.js'
 import { removeItem, reorderItem } from '../scripts/settingsHelpers.js'
 
 export default class ActorSettings extends FormApplication {
@@ -58,6 +58,7 @@ export default class ActorSettings extends FormApplication {
     html.find('.default-image').click(this._changeDefaultImage.bind(this))
     html.find('.die-select').change(this._onDieChange.bind(this))
     html.find('.die-select').on('mouseup', this._onDieRemove.bind(this))
+    html.find('.duplicate-item').click(this._duplicateItem.bind(this))
     html.find('.new-die').click(this._newDie.bind(this))
     html.find('.view-change').click(this._viewChange.bind(this))
     removeItem.call(this, html)
@@ -283,6 +284,32 @@ export default class ActorSettings extends FormApplication {
       }
     })
 
+    this.render(true)
+  }
+
+  async _duplicateItem (event) {
+    event.preventDefault()
+    const { id, path } = event.currentTarget.dataset
+    let source = game.settings.get('cortexprime', 'actorTypes')
+    const targetGroup = path ? getProperty(source, path) : source
+    const newKey = getLength(targetGroup ?? {})
+    const target = objectFindValue(targetGroup, item => item.id === id)
+
+    const newTarget = {
+      [newKey]: objectMapValues(target, (value, key) => {
+        if (key === 'id') return `_${Date.now()}`
+
+        return value
+      })
+    }
+
+    if (path) {
+      setProperty(source, path, { ...targetGroup, ...newTarget })
+    } else {
+      source = mergeObject(source, newTarget)
+    }
+
+    await game.settings.set('cortexprime', 'actorTypes', source)
     this.render(true)
   }
 

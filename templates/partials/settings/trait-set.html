@@ -126,17 +126,25 @@
     </div>
     <ul class="list-style-none px-0 list-alt-bkg">
       {{#each traitSet.traits as |trait traitIndex|}}
-        <li class="pa-1 flex-row flex-ac">
-          {{> "systems/cortexprime/templates/partials/reorder.html"
-            class="flex-col pa-0"
-            path=(concat ../path '.' ../traitSetIndex '.traits')
-            currentIndex=traitIndex
-            setting="actorTypes"
-          }}
-          <span class="section-sub-heading text-primary flex-col">{{or trait.name (concat '[' (localize 'NoName' ) ']')}}</span>
-          <button class="view-change btn flex-col" data-name="{{trait.name}}" data-to="trait-{{../actorTypeIndex}}-{{../traitSetIndex}}-{{traitIndex}}">
-            <i class="fa fa-edit ma-0"></i>
-          </button>
+        <li class="pa-1 flex-row flex-ac flex-jsb">
+          <div class="flex-col flex-row flex-ac">
+            {{> "systems/cortexprime/templates/partials/reorder.html"
+              class="flex-col pa-0"
+              path=(concat ../path '.' ../traitSetIndex '.traits')
+              currentIndex=traitIndex
+              setting="actorTypes"
+            }}
+            <span class="section-sub-heading text-primary flex-col">{{or trait.name (concat '[' (localize 'NoName' ) ']')}}</span>
+          </div>
+          <div class="flex-col flex-row flex-ac">
+            <button class="btn flex-col duplicate-item" data-path="{{concat ../path '.' ../traitSetIndex '.traits'}}"
+              data-id="{{trait.id}}">
+              <i class="fa fa-clone"></i>
+            </button>
+            <button class="view-change btn flex-col" data-name="{{trait.name}}" data-to="trait-{{../actorTypeIndex}}-{{../traitSetIndex}}-{{traitIndex}}">
+              <i class="fa fa-edit ma-0"></i>
+            </button>
+          </div>
         </li>
       {{/each}}
     </ul>
