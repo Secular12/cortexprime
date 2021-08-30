@@ -58,6 +58,7 @@ export class UserDicePool extends FormApplication {
     html.find('.new-die').click(this._onNewDie.bind(this))
     html.find('.custom-dice-label').change(this.submit.bind(this))
     html.find('.die-select').change(this._onDieChange.bind(this))
+    html.find('.die-select').on('mouseup', this._onDieRemove.bind(this))
     html.find('.remove-pool-trait').click(this._removePoolTrait.bind(this))
     html.find('.reset-custom-pool-trait').click(this._resetCustomPoolTrait.bind(this))
     html.find('.roll-dice-pool').click(this._rollDicePool.bind(this))
@@ -138,16 +139,33 @@ export class UserDicePool extends FormApplication {
 
     await game.user.setFlag('cortexprime', 'dicePool', null)
 
-    if ($targetDieSelect.val() === '0') {
-      setProperty(currentDice, `${target}.value`, objectReindexFilter(dataTargetValue, (_, index) => parseInt(index, 10) !== parseInt(targetKey, 10)))
-    } else {
-
-      setProperty(currentDice, `${target}.value`, objectMapValues(dataTargetValue, (value, index) => parseInt(index, 10) === parseInt(targetKey, 10) ? targetValue : value))
-    }
+    setProperty(currentDice, `${target}.value`, objectMapValues(dataTargetValue, (value, index) => parseInt(index, 10) === parseInt(targetKey, 10) ? targetValue : value))
 
     await game.user.setFlag('cortexprime', 'dicePool', currentDice)
 
     await this.render(true)
+  }
+
+  async _onDieRemove (event) {
+    event.preventDefault()
+
+    if (event.button === 2) {
+      const currentDice = game.user.getFlag('cortexprime', 'dicePool')
+      const $targetDieSelect = $(event.currentTarget)
+      const target = $targetDieSelect.data('target')
+      const targetKey = $targetDieSelect.data('key')
+      const dataTargetValue = getProperty(currentDice, `${target}.value`) || {}
+
+      await this.submit()
+
+      await game.user.setFlag('cortexprime', 'dicePool', null)
+
+      setProperty(currentDice, `${target}.value`, objectReindexFilter(dataTargetValue, (_, index) => parseInt(index, 10) !== parseInt(targetKey, 10)))
+
+      await game.user.setFlag('cortexprime', 'dicePool', currentDice)
+
+      await this.render(true)
+    }
   }
 
   async _onNewDie (event) {
