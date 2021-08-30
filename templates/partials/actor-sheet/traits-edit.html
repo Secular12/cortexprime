@@ -16,12 +16,24 @@
           <div class="section-sub-heading flex-row {{ternary (or ../custom ../settings.hasLabel) 'flex-ae' 'flex-ac'}}">
             {{#if (or ../custom ../settings.hasLabel)}}
               <div class="flex-col col-12">
-                <label>
-                  <span class="label">{{ternary ../settings.hasLabel (localize 'Label') (localize 'Name')}}</span>
-                  <input type="text"
-                    name="{{concat ../path '.' ../target '.' traitIndex '.' (ternary ../settings.hasLabel 'label' 'name')}}"
-                    value="{{ternary ../settings.hasLabel trait.label trait.name}}">
-                </label>
+                <div class="flex-row flex-ae">
+                  {{#if ../data.hasHidableTraits}}
+                    <div class="flex-col pr-0">
+                      <button class="btn btn-icon btn-dark-grey  toggle-item"
+                        data-path="{{concat ../path '.' ../target '.' traitIndex '.hidden'}}">
+                        <i class="fa {{ternary trait.hidden 'fa-eye-slash' 'fa-eye'}}"></i>
+                      </button>
+                    </div>
+                  {{/if}}
+                  <div class="flex-col col-12">
+                    <label>
+                      <span class="label">{{ternary ../settings.hasLabel (localize 'Label') (localize 'Name')}}</span>
+                      <input type="text"
+                        name="{{concat ../path '.' ../target '.' traitIndex '.' (ternary ../settings.hasLabel 'label' 'name')}}"
+                        value="{{ternary ../settings.hasLabel trait.label trait.name}}">
+                    </label>
+                  </div>
+                </div>
               </div>
             {{else}}
               <span
@@ -39,10 +51,12 @@
                 selectName=(concat ../path '.' ../target '.' traitIndex '.dice')
               }}
             {{/if}}
-            <button class="btn btn-icon text-primary toggle-item"
-              data-path="{{concat ../path '.' ../target '.' traitIndex '.shutdown'}}" type="button">
-              <i class="fas {{ternary trait.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
-            </button>
+            <div class="flex-col">
+              <button class="btn btn-icon text-primary toggle-item"
+                data-path="{{concat ../path '.' ../target '.' traitIndex '.shutdown'}}" type="button">
+                <i class="fas {{ternary trait.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
+              </button>
+            </div>
             {{#if ../custom}}
               {{> "systems/cortexprime/templates/partials/remove-button.html"
                 path=../path

@@ -2551,6 +2551,26 @@ p {
   cursor: pointer;
 }
 
+.editor {
+  height: 100%;
+  width: 100%;
+}
+
+.editor .editor-content {
+  border: 0.125rem solid #2D5931;
+  padding: 0.5rem;
+}
+
+.editor .tox-edit-area {
+  background-color: #c9e2d1;
+  border: 0.125rem solid #2D5931;
+}
+
+.default-image, .profile-image {
+  cursor: pointer;
+  width: 100%;
+}
+
 .hide {
   display: none;
 }
@@ -2678,7 +2698,7 @@ p {
 
 .cortexprime .notes-field {
   font-size: 1rem;
-  min-height: 21.875rem;
+  height: 21.875rem;
 }
 
 .cortexprime nav.sheet-tabs {

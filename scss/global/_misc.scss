@@ -2,6 +2,26 @@
   cursor: pointer;
 }
 
+.editor {
+  height: 100%;
+  width: 100%;
+
+  .editor-content {
+    border: toRem(2px) solid color('secondary');
+    padding: 2 * $spacing-sm
+  }
+
+  .tox-edit-area {
+    background-color: color('accent');
+    border: toRem(2px) solid color('secondary')
+  }
+}
+
+.default-image, .profile-image {
+  cursor: pointer;
+  width: 100%;
+}
+
 .hide {
   display: none;
 }
