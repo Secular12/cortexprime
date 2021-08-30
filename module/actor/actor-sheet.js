@@ -391,7 +391,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const mergedData = mergeObject(actorData, newData)
 
     mergedData.simpleTraits = objectReindexFilter(mergedData.simpleTraits, trait => {
-      return objectSome(actorTypeSettings.simpleTraits, settingTrait => settingTrait._id === trait._id)
+      return objectSome(actorTypeSettings.simpleTraits, settingTrait => settingTrait.id === trait.id)
     })
 
     this._resetDataPoint('data', 'actorType', mergedData)
