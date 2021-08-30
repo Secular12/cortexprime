@@ -57,6 +57,7 @@ export default class ActorSettings extends FormApplication {
     html.find('.breadcrumb:not(.active), .go-back').click(this._breadcrumbChange.bind(this))
     html.find('.default-image').click(this._changeDefaultImage.bind(this))
     html.find('.die-select').change(this._onDieChange.bind(this))
+    html.find('.die-select').on('mouseup', this._onDieRemove.bind(this))
     html.find('.new-die').click(this._newDie.bind(this))
     html.find('.view-change').click(this._viewChange.bind(this))
     removeItem.call(this, html)
@@ -317,6 +318,24 @@ export default class ActorSettings extends FormApplication {
     await game.settings.set('cortexprime', 'actorTypes', source)
 
     await this.render(true)
+  }
+
+  async _onDieRemove (event) {
+    event.preventDefault()
+
+    if (event.button === 2) {
+      const source = game.settings.get('cortexprime', 'actorTypes')
+      const $dieSelect = $(event.currentTarget)
+      const target = $dieSelect.data('target')
+      const targetKey = $dieSelect.data('key')
+      const currentDiceValues = getProperty(source, `${target}.value`) ?? {}
+
+      setProperty(source, `${target}.value`, objectReindexFilter(currentDiceValues, (_, index) => parseInt(index, 10) !== parseInt(targetKey, 10)))
+
+      await game.settings.set('cortexprime', 'actorTypes', source)
+
+      await this.render(true)
+    }
   }
 
   async _viewChange (event) {

@@ -50,6 +50,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     html.find('.add-trait').click(this._addTrait.bind(this))
     html.find('.close-trait-set-edit').click(this._closeTraitSetEdit.bind(this))
     html.find('.die-select').change(this._onDieChange.bind(this))
+    html.find('.die-select').on('mouseup', this._onDieRemove.bind(this))
     html.find('.new-die').click(this._newDie.bind(this))
     html.find('.pp-number-field').change(this._ppNumberChange.bind(this))
     html.find('.spend-pp').click(() => {
@@ -286,6 +287,21 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const mappedValue = objectMapValues(currentDiceData.value ?? {}, (value, index) => parseInt(index, 10) === targetKey ? targetValue : value)
     const newValue = objectReindexFilter(mappedValue, value => parseInt(value, 10) !== 0)
     await this._resetDataPoint(target, 'value', newValue)
+  }
+
+  async _onDieRemove (event) {
+    event.preventDefault()
+
+    if (event.button === 2) {
+      const $target = $(event.currentTarget)
+      const target = $target.data('target')
+      const targetKey = $target.data('key')
+      const currentDiceData = getProperty(this.actor.data, target)
+
+      const newValue = objectReindexFilter(currentDiceData.value ?? {}, (_, key) => parseInt(key, 10) !== parseInt(targetKey))
+
+      await this._resetDataPoint(target, 'value', newValue)
+    }
   }
 
   async _ppNumberChange (event) {
