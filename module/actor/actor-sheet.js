@@ -345,57 +345,56 @@ export class CortexPrimeActorSheet extends ActorSheet {
       return
     }
 
-    const newData = objectMapValues(actorTypeSettings, (propValue, key) => {
-      if (key === 'simpleTraits') {
-        return objectMapValues(propValue, ({ dice, hasDescription, id, label, settings }) => {
-          const matchingSetting = objectFindValue((actorData.simpleTraits ?? {}), ({ id: matchId }) => matchId === id) ?? {}
+    const newData = {
+      ...actorData,
+      ...objectMapValues(actorTypeSettings, (propValue, key) => {
+        if (key === 'simpleTraits') {
+          return objectMapValues(propValue, ({ dice, hasDescription, id, label, settings }) => {
+            const matchingSetting = objectFindValue((actorData.simpleTraits ?? {}), ({ id: matchId }) => matchId === id) ?? {}
 
-          return {
-            ...matchingSetting,
-            dice: {
-              ...matchingSetting.dice,
-              consumable: dice.consumable
-            },
-            hasDescription,
-            id,
-            label,
-            settings
-          }
-        })
-      }
+            return {
+              ...matchingSetting,
+              dice: {
+                ...matchingSetting.dice,
+                consumable: dice.consumable
+              },
+              hasDescription,
+              id,
+              label,
+              settings
+            }
+          })
+        }
 
-      if (key === 'traitSets') {
-        return objectMapValues(propValue, ({ hasDescription, id, label, settings, traits }) => {
-          const matchingSetting = objectFindValue((actorData.traitSets ?? {}), ({ id: matchId }) => matchId === id) ?? {}
+        if (key === 'traitSets') {
+          return objectMapValues(propValue, ({ hasDescription, id, label, settings, traits }) => {
+            const matchingSetting = objectFindValue((actorData.traitSets ?? {}), ({ id: matchId }) => matchId === id) ?? {}
 
-          return {
-            ...matchingSetting,
-            hasDescription,
-            id,
-            label,
-            settings,
-            traits: objectMapValues(traits ?? {}, trait => {
-              const matchingTraitSetting = objectFindValue(matchingSetting.traits ?? {}, ({ id: matchId }) => matchId === trait.id) ?? {}
-              return {
-                ...matchingTraitSetting,
-                id: trait.id,
-                name: trait.name
-              }
-            })
-          }
-        })
-      }
+            return {
+              ...matchingSetting,
+              description: matchingSetting.description,
+              hasDescription,
+              id,
+              label,
+              shutdown: matchingSetting.shutdown,
+              settings,
+              traits: objectMapValues(traits ?? {}, trait => {
+                const matchingTraitSetting = objectFindValue(matchingSetting.traits ?? {}, ({ id: matchId }) => matchId === trait.id) ?? {}
+                return {
+                  ...matchingTraitSetting,
+                  id: trait.id,
+                  name: trait.name
+                }
+              })
+            }
+          })
+        }
 
-      return propValue
-    })
+        return propValue
+      })
+    }
 
-    const mergedData = mergeObject(actorData, newData)
-
-    mergedData.simpleTraits = objectReindexFilter(mergedData.simpleTraits, trait => {
-      return objectSome(actorTypeSettings.simpleTraits, settingTrait => settingTrait.id === trait.id)
-    })
-
-    this._resetDataPoint('data', 'actorType', mergedData)
+    this._resetDataPoint('data', 'actorType', newData)
     this.actor.update()
   }
 }
