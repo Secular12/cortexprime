@@ -31,26 +31,56 @@
   </div>
   <div class="pa-2 ba-1-primary bkg-light-grey">
     <div class="flex flex-c flex-wrap">
-      {{#each rollResults.hitches as |rollResult|}}
-        <div class="die-icon-wrapper mb-2">
-          <div class="die-icon d{{rollResult.faces}} lg hitch">
-            <div class="value">1</div>
-          </div>
-          <div class="bold text-primary">d{{rollResult.faces}}</div>
-        </div>
-      {{/each}}
-    </div>
-    <div class="flex flex-c flex-wrap">
       {{#each rollResults.results as |rollResult|}}
         <div class="die-icon-wrapper my-1">
-          <div class="die-icon lg d{{rollResult.faces}} result">
+          <div class="die-icon d{{rollResult.faces}} {{ternary rollResult.total 'chosen' (ternary rollResult.effect 'effect' 'result')}}">
             <div class="value">{{rollResult.result}}</div>
           </div>
           <div class="bold text-primary">d{{rollResult.faces}}</div>
         </div>
       {{/each}}
+      {{#each rollResults.hitches as |rollResult|}}
+      <div class="die-icon-wrapper my-1">
+        <div class="die-icon d{{rollResult.faces}} hitch">
+          <div class="value">1</div>
+        </div>
+        <div class="bold text-primary">d{{rollResult.faces}}</div>
+      </div>
+      {{/each}}
     </div>
   </div>
+  {{#if total}}
+    <div class="flex-row my-2">
+      <div class="flex-col col-6">
+        <div class="ba-2-primary bkg-accent pa-2 text-center">
+          <h3 class="section-sub-heading text-primary">{{localize 'Total'}}</h3>
+          <p class="total-value pt-2 pb-1 section-heading text-dark-grey">{{total}}</p>
+        </div>
+      </div>
+      <div class="flex-col col-6">
+        <div class="ba-2-primary bkg-accent pa-2 text-center">
+          <h3 class="section-sub-heading text-primary">{{localize 'EffectDice'}}</h3>
+          <div class="effect-dice flex-row flex-c flex-wrap">
+            {{#if effectDice}}
+              {{#each effectDice as |effectDie|}}
+                <div class="die-icon-wrapper my-1">
+                  <div class="die-icon d{{effectDie}} effect">
+                    <div class="value">{{effectDie}}</div>
+                  </div>
+                </div>
+              {{/each}}
+            {{else}}
+              <div class="die-icon-wrapper my-1">
+                <div class="die-icon d4 effect">
+                  <div class="value">4</div>
+                </div>
+              </div>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/if}}
   <div class="mt-2 flex flex-jsb">
     <button class="btn btn-primary re-roll" type="button">
       {{localize 'Reroll'}}

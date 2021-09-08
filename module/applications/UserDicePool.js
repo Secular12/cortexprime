@@ -236,12 +236,19 @@ export class UserDicePool extends FormApplication {
 
   async _rollDicePool (event) {
     event.preventDefault()
+    const $target = $(event.currentTarget)
 
     const currentDicePool = game.user.getFlag('cortexprime', 'dicePool')
 
     const dicePool = currentDicePool.pool
 
-    await rollDice(dicePool)
+    const rollType = $target.hasClass('roll-for-total')
+      ? 'total'
+      : $target.hasClass('roll-for-effect')
+        ? 'effect'
+        : 'select'
+
+    await rollDice.call(this, dicePool, rollType)
   }
 
   async toggle () {

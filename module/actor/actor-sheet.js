@@ -203,14 +203,15 @@ export class CortexPrimeActorSheet extends ActorSheet {
   }
 
   async _getConsumableDiceSelection (options, label) {
-    const diceOptions = Object.values(options ?? {})
-      .map((option, index) => `<span class="cursor-pointer die-icon lg result d${option}" data-key="${index}" data-value="${option}"><span class="value">${option}</span></span>`)
-      .join('')
+    const content = await renderTemplate('systems/cortexprime/templates/dialog/consumable-dice.html', {
+      options,
+      isOwner: game.user.isOwner
+    })
 
     return new Promise((resolve, reject) => {
       new Dialog({
         title: label,
-        content: `<div><p class="section-sub-heading text-center">${localizer('SelectDiceToAdd')}</p><div class="flex flex-wrap flex-c">${diceOptions}</div><label><input class="remove-check" type="checkbox"${game.user.isOwner ? ' checked' : ''}><span class="label">${localizer('RemoveSelectedFromSheet')}</span></label></div>`,
+        content,
         buttons: {
           cancel: {
             icon: '<i class="fas fa-times"></i>',
