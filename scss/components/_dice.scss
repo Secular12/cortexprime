@@ -8,9 +8,20 @@ $dieSides: 4, 6, 8, 10, 12;
   justify-content: center;
   width: toRem(28px);
 
+  .value {
+    color: color('white');
+    font-size: 0.925rem;
+    font-weight: bold;
+  }
+
   &.lg {
     height: toRem(40px);
     width: toRem(40px);
+
+    .value {
+      font-weight: bold;
+      font-size: 1.125rem;
+    }
   }
 
   @each $i in $dieSides {
@@ -33,8 +44,8 @@ $dieSides: 4, 6, 8, 10, 12;
         background-image: url("../assets/dice/selected-d#{$i}.svg");
       }
 
-      &.unchosen {
-        background-image: url("../assets/dice/unchosen-d#{$i}.svg");
+      &.chosen {
+        background-image: url("../assets/dice/chosen-d#{$i}.svg");
       }
     }
   }
@@ -49,12 +60,6 @@ $dieSides: 4, 6, 8, 10, 12;
     background-size: 75%;
   }
 
-  .value {
-    color: color('white');
-    font-weight: bold;
-    font-size: 1.125rem;
-  }
-
   &.result {
 
     .value {
@@ -62,10 +67,17 @@ $dieSides: 4, 6, 8, 10, 12;
     }
   }
 
-  &.unchosen {
+  &.selected {
 
     .value {
-      color: color('grey');
+      color: color('primary');
+    }
+  }
+
+  &.chosen {
+
+    .value {
+      color: color('white');
     }
   }
 }
