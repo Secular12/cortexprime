@@ -79,7 +79,7 @@ export default {
           hasSfx: true,
           hasSubTraits: false,
           subTraitsHaveDice: true,
-          subTraitDiceConsumable: false,
+          subTraitsDiceConsumable: false,
         }
       },
       1: {
@@ -95,7 +95,7 @@ export default {
           hasSfx: true,
           hasSubTraits: false,
           subTraitsHaveDice: false,
-          subTraitDiceConsumable: false,
+          subTraitsDiceConsumable: false,
         },
         traits: {}
       }
@@ -144,7 +144,7 @@ export default {
           hasSfx: false,
           hasSubTraits: false,
           subTraitsHaveDice: true,
-          subTraitDiceConsumable: false
+          subTraitsDiceConsumable: false
         }
       },
       1: {
@@ -161,7 +161,7 @@ export default {
           hasSfx: false,
           hasSubTraits: true,
           subTraitsHaveDice: true,
-          subTraitDiceConsumable: false
+          subTraitsDiceConsumable: false
         }
       },
       2: {
@@ -178,7 +178,7 @@ export default {
           hasSfx: false,
           hasSubTraits: true,
           subTraitsHaveDice: true,
-          subTraitDiceConsumable: false
+          subTraitsDiceConsumable: false
         }
       },
       3: {
@@ -195,7 +195,7 @@ export default {
           hasSfx: true,
           hasSubTraits: true,
           subTraitsHaveDice: true,
-          subTraitDiceConsumable: false
+          subTraitsDiceConsumable: false
         }
       }
     }
