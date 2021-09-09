@@ -2551,6 +2551,26 @@ p {
   cursor: pointer;
 }
 
+.editor {
+  height: 100%;
+  width: 100%;
+}
+
+.editor .editor-content {
+  border: 0.125rem solid #2D5931;
+  padding: 0.5rem;
+}
+
+.editor .tox-edit-area {
+  background-color: #c9e2d1;
+  border: 0.125rem solid #2D5931;
+}
+
+.default-image, .profile-image {
+  cursor: pointer;
+  width: 100%;
+}
+
 .hide {
   display: none;
 }
@@ -2678,7 +2698,7 @@ p {
 
 .cortexprime .notes-field {
   font-size: 1rem;
-  min-height: 21.875rem;
+  height: 21.875rem;
 }
 
 .cortexprime nav.sheet-tabs {
@@ -2733,9 +2753,20 @@ p {
   width: 1.75rem;
 }
 
+.die-icon .value {
+  color: #f5f8fa;
+  font-size: 0.925rem;
+  font-weight: bold;
+}
+
 .die-icon.lg {
   height: 2.5rem;
   width: 2.5rem;
+}
+
+.die-icon.lg .value {
+  font-weight: bold;
+  font-size: 1.125rem;
 }
 
 .die-icon.d4 {
@@ -2758,8 +2789,8 @@ p {
   background-image: url("../assets/dice/selected-d4.svg");
 }
 
-.die-icon.d4.unchosen {
-  background-image: url("../assets/dice/unchosen-d4.svg");
+.die-icon.d4.chosen {
+  background-image: url("../assets/dice/chosen-d4.svg");
 }
 
 .die-icon.d6 {
@@ -2782,8 +2813,8 @@ p {
   background-image: url("../assets/dice/selected-d6.svg");
 }
 
-.die-icon.d6.unchosen {
-  background-image: url("../assets/dice/unchosen-d6.svg");
+.die-icon.d6.chosen {
+  background-image: url("../assets/dice/chosen-d6.svg");
 }
 
 .die-icon.d8 {
@@ -2806,8 +2837,8 @@ p {
   background-image: url("../assets/dice/selected-d8.svg");
 }
 
-.die-icon.d8.unchosen {
-  background-image: url("../assets/dice/unchosen-d8.svg");
+.die-icon.d8.chosen {
+  background-image: url("../assets/dice/chosen-d8.svg");
 }
 
 .die-icon.d10 {
@@ -2830,8 +2861,8 @@ p {
   background-image: url("../assets/dice/selected-d10.svg");
 }
 
-.die-icon.d10.unchosen {
-  background-image: url("../assets/dice/unchosen-d10.svg");
+.die-icon.d10.chosen {
+  background-image: url("../assets/dice/chosen-d10.svg");
 }
 
 .die-icon.d12 {
@@ -2854,8 +2885,8 @@ p {
   background-image: url("../assets/dice/selected-d12.svg");
 }
 
-.die-icon.d12.unchosen {
-  background-image: url("../assets/dice/unchosen-d12.svg");
+.die-icon.d12.chosen {
+  background-image: url("../assets/dice/chosen-d12.svg");
 }
 
 .die-icon.d4 .value {
@@ -2866,18 +2897,16 @@ p {
   background-size: 75%;
 }
 
-.die-icon .value {
-  color: #f5f8fa;
-  font-weight: bold;
-  font-size: 1.125rem;
-}
-
 .die-icon.result .value {
   color: #424C59;
 }
 
-.die-icon.unchosen .value {
-  color: #82939F;
+.die-icon.selected .value {
+  color: #B30044;
+}
+
+.die-icon.chosen .value {
+  color: #f5f8fa;
 }
 
 .die-select {

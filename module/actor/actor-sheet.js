@@ -2,7 +2,7 @@
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-import { getLength, objectMapValues, objectReindexFilter, objectReduce, objectFindValue, objectSort } from '../../lib/helpers.js'
+import { getLength, objectMapValues, objectReindexFilter, objectFindValue, objectSome } from '../../lib/helpers.js'
 import { localizer } from '../scripts/foundryHelpers.js'
 import {
   removeItems,
@@ -50,7 +50,9 @@ export class CortexPrimeActorSheet extends ActorSheet {
     html.find('.add-trait').click(this._addTrait.bind(this))
     html.find('.close-trait-set-edit').click(this._closeTraitSetEdit.bind(this))
     html.find('.die-select').change(this._onDieChange.bind(this))
+    html.find('.die-select').on('mouseup', this._onDieRemove.bind(this))
     html.find('.new-die').click(this._newDie.bind(this))
+    html.find('.pp-number-field').change(this._ppNumberChange.bind(this))
     html.find('.spend-pp').click(() => {
       this.actor
         .changePpBy(-1)
@@ -81,6 +83,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const actorType = actorTypes[actorTypeIndex]
 
     await this.actor.update({
+      'img': actorType.defaultImage,
       'data.actorType': actorType,
       'data.pp.value': actorType.hasPlotPoints ? 1 : 0
     })
@@ -200,14 +203,15 @@ export class CortexPrimeActorSheet extends ActorSheet {
   }
 
   async _getConsumableDiceSelection (options, label) {
-    const diceOptions = Object.values(options ?? {})
-      .map((option, index) => `<span class="cursor-pointer die-icon lg result d${option}" data-key="${index}" data-value="${option}"><span class="value">${option}</span></span>`)
-      .join('')
+    const content = await renderTemplate('systems/cortexprime/templates/dialog/consumable-dice.html', {
+      options,
+      isOwner: game.user.isOwner
+    })
 
     return new Promise((resolve, reject) => {
       new Dialog({
         title: label,
-        content: `<div><p class="section-sub-heading text-center">${localizer('SelectDiceToAdd')}</p><div class="flex flex-wrap flex-c">${diceOptions}</div><label><input class="remove-check" type="checkbox"${game.user.isOwner ? ' checked' : ''}><span class="label">${localizer('RemoveSelectedFromSheet')}</span></label></div>`,
+        content,
         buttons: {
           cancel: {
             icon: '<i class="fas fa-times"></i>',
@@ -281,9 +285,35 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const targetValue = $targetNewDie.val()
     const currentDiceData = getProperty(this.actor.data, target)
 
-    const mappedValue = objectMapValues(currentDiceData.value ?? {}, (value, index) => parseInt(index, 10) === targetKey ? targetValue : value)
-    const newValue = objectReindexFilter(mappedValue, value => parseInt(value, 10) !== 0)
+    const newValue = objectMapValues(currentDiceData.value ?? {}, (value, index) => parseInt(index, 10) === targetKey ? targetValue : value)
+
     await this._resetDataPoint(target, 'value', newValue)
+  }
+
+  async _onDieRemove (event) {
+    event.preventDefault()
+
+    if (event.button === 2) {
+      const $target = $(event.currentTarget)
+      const target = $target.data('target')
+      const targetKey = $target.data('key')
+      const currentDiceData = getProperty(this.actor.data, target)
+
+      const newValue = objectReindexFilter(currentDiceData.value ?? {}, (_, key) => parseInt(key, 10) !== parseInt(targetKey))
+
+      await this._resetDataPoint(target, 'value', newValue)
+    }
+  }
+
+  async _ppNumberChange (event) {
+    event.preventDefault()
+    const $field = $(event.currentTarget)
+    const parsedValue = parseInt($field.val(), 10)
+    const currentValue = parseInt(this.actor.data.data.pp.value, 10)
+    const newValue = parsedValue < 0 ? 0 : parsedValue
+    const changeAmount = newValue - currentValue
+
+    this.actor.changePpBy(changeAmount, true)
   }
 
   async _resetDataPoint(path, target, value) {
@@ -315,50 +345,56 @@ export class CortexPrimeActorSheet extends ActorSheet {
       return
     }
 
-    const newData = objectMapValues(actorTypeSettings, (propValue, key) => {
-      if (key === 'simpleTraits') {
-        return objectMapValues(propValue, ({ dice, hasDescription, id, label, settings }) => {
-          const matchingSetting = objectFindValue((actorData.simpleTraits ?? {}), ({ id: matchId }) => matchId === id) ?? {}
+    const newData = {
+      ...actorData,
+      ...objectMapValues(actorTypeSettings, (propValue, key) => {
+        if (key === 'simpleTraits') {
+          return objectMapValues(propValue, ({ dice, hasDescription, id, label, settings }) => {
+            const matchingSetting = objectFindValue((actorData.simpleTraits ?? {}), ({ id: matchId }) => matchId === id) ?? {}
 
-          return {
-            ...matchingSetting,
-            dice: {
-              ...matchingSetting.dice,
-              consumable: dice.consumable
-            },
-            hasDescription,
-            id,
-            label,
-            settings
-          }
-        })
-      }
+            return {
+              ...matchingSetting,
+              dice: {
+                ...matchingSetting.dice,
+                consumable: dice.consumable
+              },
+              hasDescription,
+              id,
+              label,
+              settings
+            }
+          })
+        }
 
-      if (key === 'traitSets') {
-        return objectMapValues(propValue, ({ hasDescription, id, label, settings, traits }) => {
-          const matchingSetting = objectFindValue((actorData.traitSets ?? {}), ({ id: matchId }) => matchId === id) ?? {}
+        if (key === 'traitSets') {
+          return objectMapValues(propValue, ({ hasDescription, id, label, settings, traits }) => {
+            const matchingSetting = objectFindValue((actorData.traitSets ?? {}), ({ id: matchId }) => matchId === id) ?? {}
 
-          return {
-            ...matchingSetting,
-            hasDescription,
-            id,
-            label,
-            settings,
-            traits: objectMapValues(traits ?? {}, trait => {
-              const matchingTraitSetting = objectFindValue(matchingSetting.traits, ({ id: matchId }) => matchId === trait.id) ?? {}
-              return {
-                ...matchingTraitSetting,
-                id: trait.id,
-                name: trait.name
-              }
-            })
-          }
-        })
-      }
+            return {
+              ...matchingSetting,
+              description: matchingSetting.description,
+              hasDescription,
+              id,
+              label,
+              shutdown: matchingSetting.shutdown,
+              settings,
+              traits: objectMapValues(traits ?? {}, trait => {
+                const matchingTraitSetting = objectFindValue(matchingSetting.traits ?? {}, ({ id: matchId }) => matchId === trait.id) ?? {}
+                return {
+                  ...matchingTraitSetting,
+                  id: trait.id,
+                  name: trait.name
+                }
+              })
+            }
+          })
+        }
 
-      return propValue
-    })
-    this._resetDataPoint('data', 'actorType', mergeObject(actorData, newData))
+        return propValue
+      })
+    }
+
+    this._resetDataPoint('data', 'actorType', newData)
     this.actor.update()
   }
 }

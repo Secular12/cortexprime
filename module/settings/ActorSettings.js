@@ -1,5 +1,5 @@
 import { localizer } from '../scripts/foundryHelpers.js'
-import { getLength, objectFindKey, objectMapValues, objectReduce, objectReindexFilter } from '../../lib/helpers.js'
+import { getLength, objectFindKey, objectFindValue, objectMapValues, objectReduce, objectReindexFilter } from '../../lib/helpers.js'
 import { removeItem, reorderItem } from '../scripts/settingsHelpers.js'
 
 export default class ActorSettings extends FormApplication {
@@ -55,7 +55,10 @@ export default class ActorSettings extends FormApplication {
     html.find('.add-trait-set').click(this._addTraitSet.bind(this))
     html.find('.breadcrumb-name-change').change(this._breadcrumbNameChange.bind(this))
     html.find('.breadcrumb:not(.active), .go-back').click(this._breadcrumbChange.bind(this))
+    html.find('.default-image').click(this._changeDefaultImage.bind(this))
     html.find('.die-select').change(this._onDieChange.bind(this))
+    html.find('.die-select').on('mouseup', this._onDieRemove.bind(this))
+    html.find('.duplicate-item').click(this._duplicateItem.bind(this))
     html.find('.new-die').click(this._newDie.bind(this))
     html.find('.view-change').click(this._viewChange.bind(this))
     removeItem.call(this, html)
@@ -69,8 +72,10 @@ export default class ActorSettings extends FormApplication {
 
     const newActorType = {
       [newKey]: {
+        hasNotesPage: true,
         id: `_${Date.now()}`,
-        name: localizer('NewActorType')
+        name: localizer('NewActorType'),
+        showProfileImage: true
       }
     }
 
@@ -241,6 +246,28 @@ export default class ActorSettings extends FormApplication {
     })
   }
 
+  async _changeDefaultImage (event) {
+    event.preventDefault()
+    const { actorTypeIndex } = event.currentTarget.dataset
+    const source = game.settings.get('cortexprime', 'actorTypes')
+    const currentImage = source[actorTypeIndex]?.defaultImage || 'icons/svg/mystery-man.svg'
+    const _this = this
+
+    const imagePicker = await new FilePicker({
+      type: 'image',
+      current: currentImage,
+      async callback (newImage) {
+        source[actorTypeIndex].defaultImage = newImage
+
+        await game.settings.set('cortexprime', 'actorTypes', source)
+
+        _this.render()
+      }
+    })
+
+    await imagePicker.render()
+  }
+
   async changeView (name, target) {
     const currentBreadcrumbs = game.settings.get('cortexprime', 'actorBreadcrumbs')
 
@@ -257,6 +284,32 @@ export default class ActorSettings extends FormApplication {
       }
     })
 
+    this.render(true)
+  }
+
+  async _duplicateItem (event) {
+    event.preventDefault()
+    const { id, path } = event.currentTarget.dataset
+    let source = game.settings.get('cortexprime', 'actorTypes')
+    const targetGroup = path ? getProperty(source, path) : source
+    const newKey = getLength(targetGroup ?? {})
+    const target = objectFindValue(targetGroup, item => item.id === id)
+
+    const newTarget = {
+      [newKey]: objectMapValues(target, (value, key) => {
+        if (key === 'id') return `_${Date.now()}`
+
+        return value
+      })
+    }
+
+    if (path) {
+      setProperty(source, path, { ...targetGroup, ...newTarget })
+    } else {
+      source = mergeObject(source, newTarget)
+    }
+
+    await game.settings.set('cortexprime', 'actorTypes', source)
     this.render(true)
   }
 
@@ -292,6 +345,24 @@ export default class ActorSettings extends FormApplication {
     await game.settings.set('cortexprime', 'actorTypes', source)
 
     await this.render(true)
+  }
+
+  async _onDieRemove (event) {
+    event.preventDefault()
+
+    if (event.button === 2) {
+      const source = game.settings.get('cortexprime', 'actorTypes')
+      const $dieSelect = $(event.currentTarget)
+      const target = $dieSelect.data('target')
+      const targetKey = $dieSelect.data('key')
+      const currentDiceValues = getProperty(source, `${target}.value`) ?? {}
+
+      setProperty(source, `${target}.value`, objectReindexFilter(currentDiceValues, (_, index) => parseInt(index, 10) !== parseInt(targetKey, 10)))
+
+      await game.settings.set('cortexprime', 'actorTypes', source)
+
+      await this.render(true)
+    }
   }
 
   async _viewChange (event) {

@@ -7,7 +7,7 @@
         data-target="{{or ../selectName ../path}}"
       >
         {{#select dieRating}}
-          {{> "systems/cortexprime/templates/partials/dice/select-options.html" dice=../dice max=(?? ../max 12) min=(?? ../min 0) minDice=(?? ../minDice 1)}}
+          {{> "systems/cortexprime/templates/partials/dice/select-options.html" max=(?? ../max 12) min=(?? ../min 0)}}
         {{/select}}
       </select>
     {{/each}}

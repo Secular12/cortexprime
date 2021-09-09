@@ -1,11 +1,14 @@
 export default {
   0: {
+    defaultImage: 'icons/svg/mystery-man.svg',
     hasAssets: true,
     hasComplications: true,
+    hasHidableTraits: false,
     hasNotesPage: true,
     hasPlotPoints: true,
     id: '_1',
     name: 'Character',
+    showProfileImage: true,
     traitSets: {
       0: {
         description: null,
@@ -76,7 +79,7 @@ export default {
           hasSfx: true,
           hasSubTraits: false,
           subTraitsHaveDice: true,
-          subTraitDiceConsumable: false,
+          subTraitsDiceConsumable: false,
         }
       },
       1: {
@@ -92,19 +95,22 @@ export default {
           hasSfx: true,
           hasSubTraits: false,
           subTraitsHaveDice: false,
-          subTraitDiceConsumable: false,
+          subTraitsDiceConsumable: false,
         },
         traits: {}
       }
     }
   },
   1: {
+    defaultImage: 'icons/svg/house.svg',
     hasAssets: true,
     hasComplications: true,
+    hasHidableTraits: true,
     hasNotesPage: true,
     hasPlotPoints: true,
     id: '_2',
     name: 'Scene',
+    showProfileImage: false,
     simpleTraits: {
       0: {
         dice: {
@@ -138,7 +144,7 @@ export default {
           hasSfx: false,
           hasSubTraits: false,
           subTraitsHaveDice: true,
-          subTraitDiceConsumable: false
+          subTraitsDiceConsumable: false
         }
       },
       1: {
@@ -155,7 +161,7 @@ export default {
           hasSfx: false,
           hasSubTraits: true,
           subTraitsHaveDice: true,
-          subTraitDiceConsumable: false
+          subTraitsDiceConsumable: false
         }
       },
       2: {
@@ -172,7 +178,7 @@ export default {
           hasSfx: false,
           hasSubTraits: true,
           subTraitsHaveDice: true,
-          subTraitDiceConsumable: false
+          subTraitsDiceConsumable: false
         }
       },
       3: {
@@ -189,7 +195,7 @@ export default {
           hasSfx: true,
           hasSubTraits: true,
           subTraitsHaveDice: true,
-          subTraitDiceConsumable: false
+          subTraitsDiceConsumable: false
         }
       }
     }

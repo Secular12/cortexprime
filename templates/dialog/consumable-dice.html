@@ -1,0 +1,18 @@
+<div>
+  <p class="section-sub-heading text-center">{{localize 'SelectDiceToAdd'}}</p>
+  <div class="flex flex-wrap flex-c">
+    {{#each options as |option optionIndex|}}
+    <span class="cursor-pointer die-icon lg result d{{option}}" data-key="{{optionIndex}}" data-value="{{option}}">
+      <span class="value">{{option}}</span>
+    </span>
+    {{/each}}
+  </div>
+  <label>
+    <input
+      class="remove-check"
+      type="checkbox"
+      {{ternary isOwner ' checked' : ''}}
+    >
+    <span class="label">{{localize 'RemoveSelectedFromSheet'}}</span>
+  </label>
+</div>
