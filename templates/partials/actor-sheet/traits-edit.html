@@ -20,7 +20,7 @@
                   {{#if ../data.hasHidableTraits}}
                     <div class="flex-col pr-0">
                       <button class="btn btn-icon btn-dark-grey  toggle-item"
-                        data-path="{{concat ../path '.' ../target '.' traitIndex '.hidden'}}">
+                        data-path="{{concat ../path '.' ../target '.' traitIndex '.hidden'}}" type="button">
                         <i class="fa {{ternary trait.hidden 'fa-eye-slash' 'fa-eye'}}"></i>
                       </button>
                     </div>
