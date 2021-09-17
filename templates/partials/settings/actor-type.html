@@ -86,10 +86,10 @@
               <span class="section-sub-heading text-primary flex-col">{{or traitSet.label (concat '[' (localize 'NoName' ) ']')}}</span>
             </div>
             <div class="flex-col flex-row flex-ac">
-              <button class="btn flex-col duplicate-item" data-path="{{concat ../actorTypeIndex '.traitSets'}}" data-id="{{traitSet.id}}">
+              <button class="btn flex-col duplicate-item" data-path="{{concat ../actorTypeIndex '.traitSets'}}" data-id="{{traitSet.id}}" type="button">
                 <i class="fa fa-clone"></i>
               </button>
-              <button class="view-change btn flex-col" data-name="{{traitSet.label}}" data-to="traitSet-{{../actorTypeIndex}}-{{traitSetIndex}}">
+              <button class="view-change btn flex-col" data-name="{{traitSet.label}}" data-to="traitSet-{{../actorTypeIndex}}-{{traitSetIndex}}" type="button">
                 <i class="fa fa-edit ma-0"></i>
               </button>
             </div>
@@ -126,11 +126,11 @@
             </div>
             <div class="flex-col flex-row flex-ac">
               <button class="btn flex-col duplicate-item" data-path="{{concat ../actorTypeIndex '.simpleTraits'}}"
-                data-id="{{simpleTrait.id}}">
+                data-id="{{simpleTrait.id}}" type="button">
                 <i class="fa fa-clone"></i>
               </button>
               <button class="view-change btn flex-col" data-name="{{simpleTrait.label}}"
-                data-to="simpleTrait-{{../actorTypeIndex}}-{{simpleTraitIndex}}">
+                data-to="simpleTrait-{{../actorTypeIndex}}-{{simpleTraitIndex}}" type="button">
                 <i class="fa fa-edit ma-0"></i>
               </button>
             </div>
