@@ -84,6 +84,26 @@
             {{/each}}
           </div>
         {{/if}}
+        {{#if (and ../settings.hasDescriptors trait.descriptors)}}
+          <div>
+            {{#each trait.descriptors as |descriptor|}}
+              {{#if (or descriptor.label descriptor.value)}}
+                <div class="my-2">
+                  <div
+                    class="{{ternary (or (../traitSetShutdown) (trait.shutdown)) 'shutdown' ''}}"
+                  >
+                      <p>
+                        {{#if descriptor.label}}
+                          <span class="bold italic">{{descriptor.label}}:</span>
+                        {{/if}}
+                        {{{descriptor.value}}}
+                      </p>
+                  </div>
+                </div>
+              {{/if}}
+            {{/each}}
+          </div>
+        {{/if}}
         {{#if (and ../settings.hasSfx trait.sfx)}}
           <div>
             {{#each trait.sfx as |sfx|}}

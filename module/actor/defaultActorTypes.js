@@ -74,6 +74,7 @@ export default {
         },
         settings: {
           hasDescription: false,
+          hasDescriptors: false,
           hasDice: true,
           hasLabel: true,
           hasSfx: true,
@@ -90,6 +91,7 @@ export default {
         shutdown: false,
         settings: {
           hasDescription: false,
+          hasDescriptors: false,
           hasDice: true,
           hasLabel: false,
           hasSfx: true,
@@ -139,6 +141,7 @@ export default {
         traits: {},
         settings: {
           hasDescription: false,
+          hasDescriptors: false,
           hasDice: true,
           hasLabel: false,
           hasSfx: false,
@@ -156,6 +159,7 @@ export default {
         traits: {},
         settings: {
           hasDescription: true,
+          hasDescriptors: false,
           hasDice: false,
           hasLabel: false,
           hasSfx: false,
@@ -173,6 +177,7 @@ export default {
         traits: {},
         settings: {
           hasDescription: true,
+          hasDescriptors: false,
           hasDice: true,
           hasLabel: true,
           hasSfx: false,
@@ -190,6 +195,7 @@ export default {
         traits: {},
         settings: {
           hasDescription: true,
+          hasDescriptors: false,
           hasDice: true,
           hasLabel: true,
           hasSfx: true,
