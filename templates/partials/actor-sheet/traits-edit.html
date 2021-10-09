@@ -11,7 +11,7 @@
   </div>
   {{#each traits as |trait traitIndex|}}
     <div class="my-6 px-2 ba-2-secondary">
-      <div class="flex-row flex-wrap bkg-lighter-grey pa-2{{ ternary (or ../settings.hasSubTraits ../settings.hasSfx) ' bb-2-secondary' ''}}">
+      <div class="flex-row flex-wrap bkg-lighter-grey pa-2{{ ternary (or ../settings.hasSubTraits (or ../settings.hasDescriptors ../settings.hasSfx)) ' bb-2-secondary' ''}}">
         <div class="flex-col col-12">
           <div class="section-sub-heading flex-row {{ternary (or ../custom ../settings.hasLabel) 'flex-ae' 'flex-ac'}}">
             {{#if (or ../custom ../settings.hasLabel)}}
@@ -109,6 +109,24 @@
             fieldPath=(concat ../path '.' ../target '.' traitIndex '.subTraits')
             path=(concat ../path '.' ../target '.' traitIndex)
             settings=../settings
+          }}
+        </div>
+      {{/if}}
+      {{#if ../settings.hasDescriptors}}
+        <div>
+          <div class="bkg-light-grey pa-2 flex-row flex-ac flex-jsb">
+            <h4 class="flex-col section-sub-heading">{{localize 'Descriptors'}}</h4>
+            <div class="flex-col">
+              <button class="btn btn-secondary btn-icon add-descriptor" data-path="{{concat ../path '.' ../target '.' traitIndex}}"
+                type="button">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+          </div>
+          {{> "systems/cortexprime/templates/partials/value-types/descriptors.html"
+            data=trait
+            fieldPath=(concat ../path '.' ../target '.' traitIndex '.descriptors')
+            path=(concat ../path '.' ../target '.' traitIndex)
           }}
         </div>
       {{/if}}

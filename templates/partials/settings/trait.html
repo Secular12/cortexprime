@@ -39,6 +39,12 @@
         }}
       </div>
     {{/if}}
+    {{#if settings.hasDescriptors}}
+      {{> (concat "systems/cortexprime/templates/partials/settings/value-types/descriptors.html")
+        path=(concat path '.' traitIndex)
+        data=trait
+      }}
+    {{/if}}
     {{#if settings.hasSfx}}
       <div class="my-4">
         {{> (concat "systems/cortexprime/templates/partials/settings/value-types/sfx.html")

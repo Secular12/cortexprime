@@ -44,6 +44,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     html.find('.add-pp').click(() => { this.actor.changePpBy(1) })
     html.find('.add-asset').click(this._addAsset.bind(this))
     html.find('.add-complication').click(this._addComplication.bind(this))
+    html.find('.add-descriptor').click(this._addDescriptor.bind(this))
     html.find('.add-note').click(this._addNote.bind(this))
     html.find('.add-sfx').click(this._addSfx.bind(this))
     html.find('.add-sub-trait').click(this._addSubTrait.bind(this))
@@ -125,6 +126,17 @@ export class CortexPrimeActorSheet extends ActorSheet {
       }
     })
   }
+
+  async _addDescriptor(event) {
+    event.preventDefault()
+    const { path } = event.currentTarget.dataset
+    const currentDescriptors = getProperty(this.actor.data, `${path}.descriptors`) ?? {}
+
+    await this._resetDataPoint(path, 'descriptors', {
+      ...currentDescriptors,
+      [getLength(currentDescriptors)]: {
+        label: localizer('NewDescriptor'),
+        value: null
 
   async _addNote(event) {
     event.preventDefault()
