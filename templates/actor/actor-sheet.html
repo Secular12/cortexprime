@@ -56,27 +56,36 @@
           </div>
         </article>
         {{#if data.data.actorType.hasNotesPage}}
-          <section class="tab notes" data-group="primary" data-tab="notes">
-            <article>
-              <header class="my-2">
-                <h2 class="section-heading">{{localize 'Description'}}</h2>
-              </header>
-              <div class="notes-field">
-                {{editor content=data.data.actorType.description
-                target="data.actorType.description" button=true owner=owner
-                editable=editable}}
+          <section class="tab notes px-2" data-group="primary" data-tab="notes">
+            <header class="flex flex-ac">
+              <h2 class="flex-col col-12 section-heading">{{localize 'Notes'}}</h2>
+              <div class="btn btn-icon btn-secondary add-note">
+                <i class="fa fa-plus"></i>
               </div>
-            </article>
-            <article>
-              <header class="my-2">
-                <h2 class="section-heading">{{localize 'Notes'}}</h2>
-              </header>
-              <div class="notes-field">
-                {{editor content=data.data.actorType.notes
-                target="data.actorType.notes" button=true owner=owner
-                editable=editable}}
-              </div>
-            </article>
+            </header>
+            {{#each data.data.actorType.notes as |note noteIndex|}}
+              <article class="my-4">
+                <header class="mb-2 flex-row">
+                  <div class="flex-col col-12">
+                    <input class="bold" type="text" name="data.actorType.notes.{{noteIndex}}.label" value="{{note.label}}">
+                  </div>
+                  <div class="flex-col">
+                    {{> "systems/cortexprime/templates/partials/remove-button.html"
+                      path='data.actorType'
+                      target='notes'
+                      itemKey=noteIndex
+                      itemName=note.label
+                      type="trash"
+                    }}
+                  </div>
+                </header>
+                <div class="notes-field">
+                  {{editor content=note.value
+                  target=(concat 'data.actorType.notes.' noteIndex '.value') button=true owner=owner
+                  editable=true}}
+                </div>
+              </article>
+            {{/each}}
           </section>
         {{/if}}
       </div>
