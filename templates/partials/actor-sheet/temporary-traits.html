@@ -39,7 +39,7 @@
                 {{#if (and ../owner ../data.hasHidableTraits)}}
                   {{#if asset.edit}}
                     <div class="pr-1">
-                      <button class="btn btn-icon btn-dark-grey toggle-item" data-path="{{concat ../path '.assets.' assetIndex '.hidden'}}">
+                      <button class="btn btn-icon btn-dark-grey toggle-item" data-path="{{concat ../path '.assets.' assetIndex '.hidden'}}" type="button">
                         <i class="fa {{ternary asset.hidden 'fa-eye-slash' 'fa-eye'}}"></i>
                       </button>
                     </div>
@@ -132,7 +132,7 @@
                   {{#if complication.edit}}
                     <div class="pr-1">
                       <button class="btn btn-icon btn-dark-grey toggle-item"
-                        data-path="{{concat ../path '.complications.' complicationIndex '.hidden'}}">
+                        data-path="{{concat ../path '.complications.' complicationIndex '.hidden'}}" type="button">
                         <i class="fa {{ternary complication.hidden 'fa-eye-slash' 'fa-eye'}}"></i>
                       </button>
                     </div>

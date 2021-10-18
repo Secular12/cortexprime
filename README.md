@@ -1,5 +1,5 @@
 # Cortex Prime
-version 0.0.7 (Alpha)
+version 0.0.8 (Alpha)
 
 ## Feedback?
 All feedback is welcome! To send feedback you can either visit the Cortex Prime or FoundryVTT discords and @Necrophage for any feedback. Additionally, you may submit an issue here on Github.

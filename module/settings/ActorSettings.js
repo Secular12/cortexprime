@@ -48,6 +48,7 @@ export default class ActorSettings extends FormApplication {
   activateListeners(html) {
     super.activateListeners(html)
     html.find('#add-new-actor-type').click(this._addNewActorType.bind(this))
+    html.find('.add-descriptor').click(this._addDescriptor.bind(this))
     html.find('.add-simple-trait').click(this._addSimpleTrait.bind(this))
     html.find('.add-sfx').click(this._addSfx.bind(this))
     html.find('.add-sub-trait').click(this._addSubTrait.bind(this))
@@ -81,6 +82,26 @@ export default class ActorSettings extends FormApplication {
 
     await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, newActorType))
     await this.changeView(localizer('NewActorType'), `actorType-${newKey}`)
+    this.render(true)
+  }
+
+  async _addDescriptor(event) {
+    event.preventDefault()
+    const $addButton = $(event.currentTarget)
+    const path = $addButton.data('path')
+    const source = game.settings.get('cortexprime', 'actorTypes')
+    const currentDescriptors = getProperty(source, path) || {}
+
+    setProperty(source, path,
+      {
+        ...currentDescriptors,
+        [getLength(currentDescriptors ?? {})]: {
+          label: localizer('NewDescriptor'),
+          value: null
+        }
+      })
+
+    await game.settings.set('cortexprime', 'actorTypes', source)
     this.render(true)
   }
 
