@@ -137,6 +137,9 @@ export class CortexPrimeActorSheet extends ActorSheet {
       [getLength(currentDescriptors)]: {
         label: localizer('NewDescriptor'),
         value: null
+      }
+    })
+  }
 
   async _addNote(event) {
     event.preventDefault()
