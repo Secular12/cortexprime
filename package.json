@@ -1,6 +1,6 @@
 {
   "name": "cortexprime",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "CSS compiler for the Cortex Prime system",
   "scripts": {
     "build": "gulp",
@@ -16,8 +16,9 @@
   "private": true,
   "dependencies": {
     "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^7.0.1",
-    "gulp-sass": "^4.1.0",
-    "gulp-sourcemaps": "^2.6.5"
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-sass": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "sass": "^1.45.1"
   }
 }

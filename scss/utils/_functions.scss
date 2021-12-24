@@ -3,5 +3,5 @@
 }
 
 @function toRem($size) {
-  @return ($size / 16px) * 1rem;
+  @return calc($size / 16px) * 1rem;
 }

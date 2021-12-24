@@ -3,7 +3,6 @@
 .window-app {
   font-family: "Roboto", sans-serif;
 }
-
 .window-app .window-content {
   background: #f5f8fa;
 }
@@ -1264,7 +1263,6 @@ p {
   white-space: nowrap;
   width: auto;
 }
-
 .btn:disabled {
   opacity: 0.5;
   color: #f5f8fa;
@@ -1325,11 +1323,9 @@ p {
   text-align: center;
   width: 1.5rem;
 }
-
 .btn-icon i.fa {
   margin-right: 0;
 }
-
 .btn-icon.btn-small {
   font-size: 0.625rem;
   height: 1rem;
@@ -1342,7 +1338,6 @@ p {
   padding: 0;
   border-radius: 50%;
 }
-
 .btn-pp img {
   border: 0;
   width: 4rem;
@@ -1369,7 +1364,6 @@ p {
   position: relative;
   width: 1.25rem;
 }
-
 .icon.pp, .pp.die-icon {
   background-image: url("../assets/plot-point/plot-point.png");
   vertical-align: bottom;
@@ -1541,12 +1535,12 @@ p {
 }
 
 .col-1 {
-  max-width: 8.33333%;
+  max-width: 8.3333333333%;
   width: 100%;
 }
 
 .col-2 {
-  max-width: 16.66667%;
+  max-width: 16.6666666667%;
   width: 100%;
 }
 
@@ -1556,12 +1550,12 @@ p {
 }
 
 .col-4 {
-  max-width: 33.33333%;
+  max-width: 33.3333333333%;
   width: 100%;
 }
 
 .col-5 {
-  max-width: 41.66667%;
+  max-width: 41.6666666667%;
   width: 100%;
 }
 
@@ -1571,12 +1565,12 @@ p {
 }
 
 .col-7 {
-  max-width: 58.33333%;
+  max-width: 58.3333333333%;
   width: 100%;
 }
 
 .col-8 {
-  max-width: 66.66667%;
+  max-width: 66.6666666667%;
   width: 100%;
 }
 
@@ -1586,12 +1580,12 @@ p {
 }
 
 .col-10 {
-  max-width: 83.33333%;
+  max-width: 83.3333333333%;
   width: 100%;
 }
 
 .col-11 {
-  max-width: 91.66667%;
+  max-width: 91.6666666667%;
   width: 100%;
 }
 
@@ -2555,12 +2549,10 @@ p {
   height: 100%;
   width: 100%;
 }
-
 .editor .editor-content {
   border: 0.125rem solid #2D5931;
   padding: 0.5rem;
 }
-
 .editor .tox-edit-area {
   background-color: #c9e2d1;
   border: 0.125rem solid #2D5931;
@@ -2650,7 +2642,6 @@ p {
 .shutdown {
   opacity: 0.5;
 }
-
 .shutdown .shutdown {
   opacity: 1;
 }
@@ -2666,10 +2657,13 @@ p {
 .add-to-pool {
   cursor: pointer;
 }
-
 .add-to-pool::before {
   font-family: "Font Awesome 5 Free";
   content: "\f522";
+}
+
+#controls ol.cortexprime-controls {
+  padding-left: 20px;
 }
 
 /* Styles limited to cortexprime sheets */
@@ -2677,63 +2671,58 @@ p {
   background-color: #c9e2d1;
   border-radius: 0;
 }
-
 .cortexprime input, .cortexprime select {
   border: 0;
   border-bottom: 0.125rem solid #2D5931;
 }
-
 .cortexprime input, .cortexprime textarea {
   font-family: "Roboto", sans-serif;
   font-size: 0.875rem;
 }
-
 .cortexprime input {
   vertical-align: middle;
 }
-
 .cortexprime textarea {
   border: 0.125rem solid #2D5931;
 }
-
 .cortexprime .notes-field {
   font-size: 1rem;
   height: 21.875rem;
 }
-
 .cortexprime nav.sheet-tabs {
   height: auto;
   margin: 0 -0.25rem 0.5rem;
-  background-color: #e7eef3;
   border: 0;
+  border-bottom: 1px solid #e7eef3;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: start;
 }
-
 .cortexprime .tabs .item {
   border: 0.125rem solid #2D5931;
   color: #2D5931;
-  margin: 0 0.25rem;
+  line-height: 1;
+  margin: 0 0.125rem;
+  padding: 0.25rem 0.5rem;
   font-weight: bold;
+  border-radius: 25% 25% 0 0;
 }
-
 .cortexprime .tabs .item.active {
-  border: 0.125rem solid #B30044;
-  color: #B30044;
+  border: 0.125rem solid #c9e2d1;
+  background-color: #c9e2d1;
+  color: #141c27;
   text-shadow: none;
 }
-
 .cortexprime .breadcrumb {
   color: #B30044;
 }
-
 .cortexprime .breadcrumb:hover {
   text-decoration: underline;
   cursor: pointer;
 }
-
 .cortexprime .breadcrumb.active {
   color: #141c27;
 }
-
 .cortexprime .breadcrumb.active:hover {
   text-decoration: none;
   cursor: default;
@@ -2752,159 +2741,121 @@ p {
   justify-content: center;
   width: 1.75rem;
 }
-
 .die-icon .value {
   color: #f5f8fa;
   font-size: 0.925rem;
   font-weight: bold;
 }
-
 .die-icon.lg {
   height: 2.5rem;
   width: 2.5rem;
 }
-
 .die-icon.lg .value {
   font-weight: bold;
   font-size: 1.125rem;
 }
-
 .die-icon.d4 {
   background-image: url("../assets/dice/d4.svg");
 }
-
 .die-icon.d4.effect {
   background-image: url("../assets/dice/effect-d4.svg");
 }
-
 .die-icon.d4.hitch {
   background-image: url("../assets/dice/hitch-d4.svg");
 }
-
 .die-icon.d4.result {
   background-image: url("../assets/dice/result-d4.svg");
 }
-
 .die-icon.d4.selected {
   background-image: url("../assets/dice/selected-d4.svg");
 }
-
 .die-icon.d4.chosen {
   background-image: url("../assets/dice/chosen-d4.svg");
 }
-
 .die-icon.d6 {
   background-image: url("../assets/dice/d6.svg");
 }
-
 .die-icon.d6.effect {
   background-image: url("../assets/dice/effect-d6.svg");
 }
-
 .die-icon.d6.hitch {
   background-image: url("../assets/dice/hitch-d6.svg");
 }
-
 .die-icon.d6.result {
   background-image: url("../assets/dice/result-d6.svg");
 }
-
 .die-icon.d6.selected {
   background-image: url("../assets/dice/selected-d6.svg");
 }
-
 .die-icon.d6.chosen {
   background-image: url("../assets/dice/chosen-d6.svg");
 }
-
 .die-icon.d8 {
   background-image: url("../assets/dice/d8.svg");
 }
-
 .die-icon.d8.effect {
   background-image: url("../assets/dice/effect-d8.svg");
 }
-
 .die-icon.d8.hitch {
   background-image: url("../assets/dice/hitch-d8.svg");
 }
-
 .die-icon.d8.result {
   background-image: url("../assets/dice/result-d8.svg");
 }
-
 .die-icon.d8.selected {
   background-image: url("../assets/dice/selected-d8.svg");
 }
-
 .die-icon.d8.chosen {
   background-image: url("../assets/dice/chosen-d8.svg");
 }
-
 .die-icon.d10 {
   background-image: url("../assets/dice/d10.svg");
 }
-
 .die-icon.d10.effect {
   background-image: url("../assets/dice/effect-d10.svg");
 }
-
 .die-icon.d10.hitch {
   background-image: url("../assets/dice/hitch-d10.svg");
 }
-
 .die-icon.d10.result {
   background-image: url("../assets/dice/result-d10.svg");
 }
-
 .die-icon.d10.selected {
   background-image: url("../assets/dice/selected-d10.svg");
 }
-
 .die-icon.d10.chosen {
   background-image: url("../assets/dice/chosen-d10.svg");
 }
-
 .die-icon.d12 {
   background-image: url("../assets/dice/d12.svg");
 }
-
 .die-icon.d12.effect {
   background-image: url("../assets/dice/effect-d12.svg");
 }
-
 .die-icon.d12.hitch {
   background-image: url("../assets/dice/hitch-d12.svg");
 }
-
 .die-icon.d12.result {
   background-image: url("../assets/dice/result-d12.svg");
 }
-
 .die-icon.d12.selected {
   background-image: url("../assets/dice/selected-d12.svg");
 }
-
 .die-icon.d12.chosen {
   background-image: url("../assets/dice/chosen-d12.svg");
 }
-
 .die-icon.d4 .value {
   padding-bottom: 0.35rem;
 }
-
 .die-icon.d6 {
   background-size: 75%;
 }
-
 .die-icon.result .value {
   color: #424C59;
 }
-
 .die-icon.selected .value {
   color: #B30044;
 }
-
 .die-icon.chosen .value {
   color: #f5f8fa;
 }
@@ -2924,33 +2875,26 @@ p {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
-
 .die-select ::-ms-expand {
   display: none;
 }
-
 .die-select option {
   color: black;
   font-weight: 600;
 }
-
 .die-select.d4 {
   background-image: url("../assets/dice/d4.svg");
 }
-
 .die-select.d6 {
   background-image: url("../assets/dice/d6.svg");
   background-size: 75%;
 }
-
 .die-select.d8 {
   background-image: url("../assets/dice/d8.svg");
 }
-
 .die-select.d10 {
   background-image: url("../assets/dice/d10.svg");
 }
-
 .die-select.d12 {
   background-image: url("../assets/dice/d12.svg");
 }

@@ -90,15 +90,15 @@ export default () => {
 
   Hooks.on('renderSceneControls', (controls, html) => {
     const $dicePoolButton = $(
-      `<li class="scene-control dice-pool-control" data-control="dice-pool" title="${game.i18n.localize("DicePool")}">
+      `<ol class="app control-tools cortexprime-controls"><li class="scene-control dice-pool-control" data-control="dice-pool" title="${game.i18n.localize("DicePool")}">
           <i class="fas fa-dice"></i>
           <ol class="control-tools">
           </ol>
-      </li>`
+      </li><ol>`
     );
 
     html.prepend($dicePoolButton);
-    $dicePoolButton[0].addEventListener('click', async () => {
+    html.find('.dice-pool-control').on('click', async () => {
       await game.cortexprime.UserDicePool.toggle()
     });
   })
