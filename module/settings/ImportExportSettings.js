@@ -40,9 +40,12 @@ export default class ImportExportSettings extends FormApplication {
   async _exportSettings(event) {
     event.preventDefault()
 
+    const { current, custom } = await game.settings.get('cortexprime', 'themes')
+
     const settings = {
       actorTypes: game.settings.get('cortexprime', 'actorTypes'),
-      cortexPrimeVersion: game.system.data.version
+      cortexPrimeVersion: game.system.data.version,
+      theme: { current, custom }
     }
 
     await saveDataToFile(JSON.stringify(settings), 'json', 'my-cortex-prime-settings.json')
@@ -89,6 +92,16 @@ export default class ImportExportSettings extends FormApplication {
         if (confirmed) {
           await game.settings.set('cortexprime', 'importedSettings', { currentSetting: file.name })
           await game.settings.set('cortexprime', 'actorTypes', data.actorTypes)
+
+          const themeSettings = await game.settings.get('cortexprime', 'themes')
+
+          const { current, custom } = data.theme
+
+          themeSettings.current = current ?? 'Default'
+          themeSettings.custom = custom ?? themeSettings.custom
+
+          await game.settings.set('cortexprime', 'themes', themeSettings)
+
           ui.notifications.info(localizer('ImportSuccessMessage'))
 
           this.render(true)

@@ -23,11 +23,15 @@
     </div>
     <div class="separator-cpt mb-4"></div>
     {{#if traitSet.hasDescription}}
-      <div class="mb-2">
-        <label>
-          <span class="input-label-cpt">{{localize 'Description'}}</span>
-          <textarea class="mt-2 input-cpt b{{?? theme.inputBorderPosition 'b'}}-{{?? theme.inputBorderWidth '2'}}" name="{{concat path '.' traitSetIndex '.description'}}">{{traitSet.description}}</textarea>
-        </label>
+      <div class="section-cpt mb-2 {{ternary (eq theme.buttonStyle 'square') 'btn-square-cpt ' ''}}">
+        <div class="section-image"></div>
+        <div class="section-background"></div>
+        <div class="section-content pa-2">
+          <label>
+            <span class="input-label-cpt">{{localize 'Description'}}</span>
+            <textarea class="mt-2 input-cpt b{{?? theme.inputBorderPosition 'b'}}-{{?? theme.inputBorderWidth '2'}}" name="{{concat path '.' traitSetIndex '.description'}}">{{traitSet.description}}</textarea>
+          </label>
+        </div>
       </div>
     {{/if}}
     <div class="flex-row flex-jc">

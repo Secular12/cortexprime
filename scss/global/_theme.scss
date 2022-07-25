@@ -53,7 +53,7 @@
   }
 
   .section-background {
-    background-color: var(--section-background-color, transparent);
+    background-color: var(--section-background-color, #f5f8fa);
     opacity: var(--section-background-color-opacity, 1);
     z-index: 3;
   }
