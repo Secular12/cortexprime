@@ -2785,7 +2785,7 @@ input[type=color][data-edit][data-edit] {
 .cortexprime .section-cpt .section-image {
   background-image: var(--section-background-image, none);
   background-position: var(--section-background-position, center);
-  background-repeat: var(--ssection-background-repeat, no-repeat);
+  background-repeat: var(--section-background-repeat, no-repeat);
   background-size: var(--section-background-size, cover);
   opacity: var(--section-background-image-opacity, 0);
   z-index: 4;
