@@ -4,27 +4,6 @@
   <div class="section-content">
     <h2 class="section-primary-title-cpt my-2">{{localize 'Sections'}}</h2>
     <div class="separator-cpt mt-2 mb-4"></div>
-    <h3 class="section-secondary-title-cpt">{{localize 'BackgroundColor'}}</h3>
-    <div class="flex-row my-2">
-      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
-        default=themes.list.Default.sectionBackgroundColor
-        label=(localize 'Color')
-        name='themes.currentSettings.sectionBackgroundColor'
-        value=themes.currentSettings.sectionBackgroundColor
-      }}
-      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
-        default=themes.list.Default.sectionAlternateBackgroundColor
-        label=(localize 'AlternateColor')
-        name='themes.currentSettings.sectionAlternateBackgroundColor'
-        value=themes.currentSettings.sectionAlternateBackgroundColor
-      }}
-      {{> "systems/cortexprime/templates/partials/settings/theme/opacity.html"
-        label=(localize 'Opacity')
-        name='themes.currentSettings.sectionBackgroundColorOpacity'
-        value=themes.currentSettings.sectionBackgroundColorOpacity
-      }}
-    </div>
-    <div class="separator-cpt my-4"></div>
     <h3 class="section-secondary-title-cpt">{{localize 'BackgroundImage'}}</h3>
     <div class="flex-row flex-ae my-2">
       {{> "systems/cortexprime/templates/partials/settings/theme/image.html"
@@ -53,6 +32,27 @@
         label=(localize 'Size')
         name='themes.currentSettings.sectionBackgroundSize'
         value=themes.currentSettings.sectionBackgroundSize
+      }}
+    </div>
+    <div class="separator-cpt my-4"></div>
+    <h3 class="section-secondary-title-cpt">{{localize 'BackgroundColor'}}</h3>
+    <div class="flex-row my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
+        default=themes.list.Default.sectionBackgroundColor
+        label=(localize 'Color')
+        name='themes.currentSettings.sectionBackgroundColor'
+        value=themes.currentSettings.sectionBackgroundColor
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
+        default=themes.list.Default.sectionAlternateBackgroundColor
+        label=(localize 'AlternateColor')
+        name='themes.currentSettings.sectionAlternateBackgroundColor'
+        value=themes.currentSettings.sectionAlternateBackgroundColor
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/opacity.html"
+        label=(localize 'Opacity')
+        name='themes.currentSettings.sectionBackgroundColorOpacity'
+        value=themes.currentSettings.sectionBackgroundColorOpacity
       }}
     </div>
     <div class="separator-cpt my-4"></div>
