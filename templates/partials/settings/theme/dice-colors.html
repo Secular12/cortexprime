@@ -1,0 +1,95 @@
+<div class="section-cpt my-2 px-2 col-12 b{{?? themes.list.Default.sectionBorderPosition 'a'}}-{{?? themes.list.Default.sectionBorderWidth '2'}}">
+  <div class="section-image"></div>
+  <div class="section-background"></div>
+    <div class="section-content">
+      <h2 class="section-primary-title-cpt my-2">{{localize 'DiceColors'}}</h2>
+      {{#if description}}
+        <p>{{description}}</p>
+      {{/if}}
+      <div class="separator-cpt mt-2 mb-4"></div>
+      {{> "systems/cortexprime/templates/partials/settings/theme/die-colors.html"
+        label=(localize 'DieRating')
+        fillDefault=themes.list.Default.dieRatingFill
+        fillName='themes.currentSettings.dieRatingFill'
+        fillValue=themes.currentSettings.dieRatingFill
+        strokeDefault=themes.list.Default.dieRatingStroke
+        strokeName='themes.currentSettings.dieRatingStroke'
+        strokeValue=themes.currentSettings.dieRatingStroke
+        numberDefault=themes.list.Default.dieRatingNumber
+        numberName='themes.currentSettings.dieRatingNumber'
+        numberValue=themes.currentSettings.dieRatingNumber
+        type='die-rating'
+      }}
+      <div class="separator-cpt mt-2 mb-4"></div>
+      {{> "systems/cortexprime/templates/partials/settings/theme/die-colors.html"
+        label=(localize 'Hitch')
+        fillDefault=themes.list.Default.hitchFill
+        fillName='themes.currentSettings.hitchFill'
+        fillValue=themes.currentSettings.hitchFill
+        strokeDefault=themes.list.Default.hitchStroke
+        strokeName='themes.currentSettings.hitchStroke'
+        strokeValue=themes.currentSettings.hitchStroke
+        numberDefault=themes.list.Default.hitchNumber
+        numberName='themes.currentSettings.hitchNumber'
+        numberValue=themes.currentSettings.hitchNumber
+        type='hitch'
+      }}
+      <div class="separator-cpt mt-2 mb-4"></div>
+      {{> "systems/cortexprime/templates/partials/settings/theme/die-colors.html"
+        label=(localize 'Effect')
+        fillDefault=themes.list.Default.effectFill
+        fillName='themes.currentSettings.effectFill'
+        fillValue=themes.currentSettings.effectFill
+        strokeDefault=themes.list.Default.effectStroke
+        strokeName='themes.currentSettings.effectStroke'
+        strokeValue=themes.currentSettings.effectStroke
+        numberDefault=themes.list.Default.effectNumber
+        numberName='themes.currentSettings.effectNumber'
+        numberValue=themes.currentSettings.effectNumber
+        type='effect'
+      }}
+      <div class="separator-cpt mt-2 mb-4"></div>
+      {{> "systems/cortexprime/templates/partials/settings/theme/die-colors.html"
+        label=(localize 'Unchosen')
+        fillDefault=themes.list.Default.unchosenFill
+        fillName='themes.currentSettings.unchosenFill'
+        fillValue=themes.currentSettings.unchosenFill
+        strokeDefault=themes.list.Default.unchosenStroke
+        strokeName='themes.currentSettings.unchosenStroke'
+        strokeValue=themes.currentSettings.unchosenStroke
+        numberDefault=themes.list.Default.unchosenNumber
+        numberName='themes.currentSettings.unchosenNumber'
+        numberValue=themes.currentSettings.unchosenNumber
+        type='unchosen'
+      }}
+      <div class="separator-cpt mt-2 mb-4"></div>
+      {{> "systems/cortexprime/templates/partials/settings/theme/die-colors.html"
+        label=(localize 'Chosen')
+        fillDefault=themes.list.Default.chosenFill
+        fillName='themes.currentSettings.chosenFill'
+        fillValue=themes.currentSettings.chosenFill
+        strokeDefault=themes.list.Default.chosenStroke
+        strokeName='themes.currentSettings.chosenStroke'
+        strokeValue=themes.currentSettings.chosenStroke
+        numberDefault=themes.list.Default.chosenNumber
+        numberName='themes.currentSettings.chosenNumber'
+        numberValue=themes.currentSettings.chosenNumber
+        type='chosen'
+      }}
+      <div class="separator-cpt mt-2 mb-4"></div>
+      {{> "systems/cortexprime/templates/partials/settings/theme/die-colors.html"
+        description=(localize 'SelectedDiceDescription')
+        label=(localize 'Selected')
+        fillDefault=themes.list.Default.selectedFill
+        fillName='themes.currentSettings.selectedFill'
+        fillValue=themes.currentSettings.selectedFill
+        strokeDefault=themes.list.Default.selectedStroke
+        strokeName='themes.currentSettings.selectedStroke'
+        strokeValue=themes.currentSettings.selectedStroke
+        numberDefault=themes.list.Default.selectedNumber
+        numberName='themes.currentSettings.selectedNumber'
+        numberValue=themes.currentSettings.selectedNumber
+        type='selected'
+      }}
+    </div>
+  </div>

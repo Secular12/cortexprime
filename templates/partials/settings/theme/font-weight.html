@@ -1,0 +1,17 @@
+<div class="flex-col">
+  <p class="bold mb-1">
+    {{label}}
+  </p>
+  <div class="flex-col">
+    <div class="flex-row">
+      <select class="input-cpt b{{?? themes.list.Default.inputBorderPosition 'b'}}-{{?? themes.list.Default.inputBorderWidth '2'}}" name="{{name}}">
+        {{#select value}}
+          <option value="300">300</option>
+          <option value="400">400</option>
+          <option value="700">700</option>
+          <option value="900">900</option>
+        {{/select}}
+      </select>
+    </div>
+  </div>
+</div>

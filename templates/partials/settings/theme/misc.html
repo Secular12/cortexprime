@@ -1,0 +1,101 @@
+<div class="section-cpt my-2 px-2 col-12 b{{?? themes.list.Default.sectionBorderPosition 'a'}}-{{?? themes.list.Default.sectionBorderWidth '2'}}">
+  <div class="section-image"></div>
+  <div class="section-background"></div>
+  <div class="section-content">
+    <h2 class="section-primary-title-cpt my-2">{{localize 'Miscellaneous'}}</h2>
+    <div class="separator-cpt mt-2 mb-4"></div>
+    <h3 class="section-secondary-title-cpt">{{localize 'PlotPointColors'}}</h3>
+    <div class="flex-row my-2 flex-ae">
+      <div class="flex-col col-12">
+        {{> "systems/cortexprime/templates/partials/plot-point.html"}}
+      </div>
+    </div>
+    <div class="flex-row my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
+        default=themes.list.Default.plotPointFill
+        label=(localize 'Fill')
+        name='themes.currentSettings.plotPointFill'
+        value=themes.currentSettings.plotPointFill
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
+        default=themes.list.Default.plotPointStroke
+        label=(localize 'Stroke')
+        name='themes.currentSettings.plotPointStroke'
+        value=themes.currentSettings.plotPointStroke
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
+        default=themes.list.Default.plotPointText
+        label=(localize 'Text')
+        name='themes.currentSettings.plotPointText'
+        value=themes.currentSettings.plotPointText
+      }}
+    </div>
+    <div class="separator-cpt mt-2 mb-4"></div>
+    <h3 class="section-secondary-title-cpt">{{localize 'HorizontalSeparator'}}</h3>
+    <div class="flex-row my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
+        default=themes.list.Default.separatorColor
+        label=(localize 'Color')
+        name='themes.currentSettings.separatorColor'
+        value=themes.currentSettings.separatorColor
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/border-style.html"
+        label=(localize 'Style')
+        name='themes.currentSettings.separatorStyle'
+        value=themes.currentSettings.separatorStyle
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/border-width.html"
+        label=(localize 'Weight')
+        name='themes.currentSettings.separatorWeight'
+        value=themes.currentSettings.separatorWeight
+      }}
+    </div>
+    <div class="separator-cpt mt-2 mb-4"></div>
+    <h3 class="section-secondary-title-cpt">{{localize 'Buttons'}}</h3>
+    <div class="flex-row my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
+        default=themes.list.Default.buttonPrimaryColor
+        label=(localize 'PrimaryColor')
+        name='themes.currentSettings.buttonPrimaryColor'
+        value=themes.currentSettings.buttonPrimaryColor
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
+        default=themes.list.Default.buttonPrimaryFontColor
+        label=(localize 'PrimaryFontColor')
+        name='themes.currentSettings.buttonPrimaryFontColor'
+        value=themes.currentSettings.buttonPrimaryFontColor
+      }}
+    </div>
+    <div class="flex-row my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
+        default=themes.list.Default.buttonSecondaryColor
+        label=(localize 'SecondaryColor')
+        name='themes.currentSettings.buttonSecondaryColor'
+        value=themes.currentSettings.buttonSecondaryColor
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
+        default=themes.list.Default.buttonSecondaryFontColor
+        label=(localize 'SecondaryFontColor')
+        name='themes.currentSettings.buttonSecondaryFontColor'
+        value=themes.currentSettings.buttonSecondaryFontColor
+      }}
+    </div>
+    <div class="flex-row my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/button-style.html"
+        label=(localize 'Style')
+        name='themes.currentSettings.buttonStyle'
+        value=themes.currentSettings.buttonStyle
+      }}
+    </div>
+    <div class="separator-cpt mt-2 mb-4"></div>
+    <h3 class="section-secondary-title-cpt">{{localize 'Tabs'}}</h3>
+    <div class="flex-row my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/button-style.html"
+        default=themes.list.Default.tabStyle
+        label=(localize 'Style')
+        name='themes.currentSettings.tabStyle'
+        value=themes.currentSettings.tabStyle
+      }}
+    </div>
+  </div>
+</div>

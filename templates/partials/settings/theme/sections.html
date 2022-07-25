@@ -1,0 +1,136 @@
+<div class="section-cpt my-2 px-2 col-12 b{{?? themes.list.Default.sectionBorderPosition 'a'}}-{{?? themes.list.Default.sectionBorderWidth '2'}}">
+  <div class="section-image"></div>
+  <div class="section-background"></div>
+  <div class="section-content">
+    <h2 class="section-primary-title-cpt my-2">{{localize 'Sections'}}</h2>
+    <div class="separator-cpt mt-2 mb-4"></div>
+    <h3 class="section-secondary-title-cpt">{{localize 'BackgroundColor'}}</h3>
+    <div class="flex-row my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
+        default=themes.list.Default.sectionBackgroundColor
+        label=(localize 'Color')
+        name='themes.currentSettings.sectionBackgroundColor'
+        value=themes.currentSettings.sectionBackgroundColor
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
+        default=themes.list.Default.sectionAlternateBackgroundColor
+        label=(localize 'AlternateColor')
+        name='themes.currentSettings.sectionAlternateBackgroundColor'
+        value=themes.currentSettings.sectionAlternateBackgroundColor
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/opacity.html"
+        label=(localize 'Opacity')
+        name='themes.currentSettings.sectionBackgroundColorOpacity'
+        value=themes.currentSettings.sectionBackgroundColorOpacity
+      }}
+    </div>
+    <div class="separator-cpt my-4"></div>
+    <h3 class="section-secondary-title-cpt">{{localize 'BackgroundImage'}}</h3>
+    <div class="flex-row flex-ae my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/image.html"
+        label=(localize 'Image')
+        targetSetting='sectionBackgroundImage'
+        value=themes.currentSettings.sectionBackgroundImage
+      }}
+    </div>
+    <div class="flex-row my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/opacity.html"
+        label=(localize 'Opacity')
+        name='themes.currentSettings.sectionBackgroundImageOpacity'
+        value=themes.currentSettings.sectionBackgroundImageOpacity
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/background-position.html"
+        label=(localize 'Position')
+        name='themes.currentSettings.sectionBackgroundPosition'
+        value=themes.currentSettings.sectionBackgroundPosition
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/background-repeat.html"
+        label=(localize 'Repeat')
+        name='themes.currentSettings.sectionBackgroundRepeat'
+        value=themes.currentSettings.sectionBackgroundRepeat
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/background-size.html"
+        label=(localize 'Size')
+        name='themes.currentSettings.sectionBackgroundSize'
+        value=themes.currentSettings.sectionBackgroundSize
+      }}
+    </div>
+    <div class="separator-cpt my-4"></div>
+    <h3 class="section-secondary-title-cpt">{{localize 'Border'}}</h3>
+    <div class="flex-row my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
+        default=themes.list.Default.sectionBorderColor
+        label=(localize 'Color')
+        name='themes.currentSettings.sectionBorderColor'
+        value=themes.currentSettings.sectionBorderColor
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/border-style.html"
+        label=(localize 'Style')
+        name='themes.currentSettings.sectionBorderStyle'
+        value=themes.currentSettings.sectionBorderStyle
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/border-width.html"
+        label=(localize 'Width')
+        name='themes.currentSettings.sectionBorderWidth'
+        value=themes.currentSettings.sectionBorderWidth
+      }}
+    </div>
+    <div class="flex-row my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/border-position.html"
+        label=(localize 'Position')
+        name='themes.currentSettings.sectionBorderPosition'
+        value=themes.currentSettings.sectionBorderPosition
+      }}
+    </div>
+    <div class="separator-cpt my-4"></div>
+    <h3 class="section-secondary-title-cpt">{{localize 'PrimaryTitles'}}</h3>
+    <div class="flex-row my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
+        default=themes.list.Default.sectionPrimaryTitleFontColor
+        label=(localize 'Color')
+        name='themes.currentSettings.sectionPrimaryTitleFontColor'
+        value=themes.currentSettings.sectionPrimaryTitleFontColor
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/font-weight.html"
+        label=(localize 'Weight')
+        name='themes.currentSettings.sectionPrimaryTitleFontWeight'
+        value=themes.currentSettings.sectionPrimaryTitleFontWeight
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/font-style.html"
+        label=(localize 'Style')
+        name='themes.currentSettings.sectionPrimaryTitleFontStyle'
+        value=themes.currentSettings.sectionPrimaryTitleFontStyle
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/text-transform.html"
+        label=(localize 'Casing')
+        name='themes.currentSettings.sectionPrimaryTitleTextTransform'
+        value=themes.currentSettings.sectionPrimaryTitleTextTransform
+      }}
+    </div>
+    <div class="separator-cpt my-4"></div>
+    <h3 class="section-secondary-title-cpt">{{localize 'SecondaryTitles'}}</h3>
+    <div class="flex-row my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/color.html"
+        default=themes.list.Default.sectionSecondaryTitleFontColor
+        label=(localize 'Color')
+        name='themes.currentSettings.sectionSecondaryTitleFontColor'
+        value=themes.currentSettings.sectionSecondaryTitleFontColor
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/font-weight.html"
+        label=(localize 'Weight')
+        name='themes.currentSettings.sectionSecondaryTitleFontWeight'
+        value=themes.currentSettings.sectionSecondaryTitleFontWeight
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/font-style.html"
+        label=(localize 'Style')
+        name='themes.currentSettings.sectionSecondaryTitleFontStyle'
+        value=themes.currentSettings.sectionSecondaryTitleFontStyle
+      }}
+      {{> "systems/cortexprime/templates/partials/settings/theme/text-transform.html"
+        label=(localize 'Casing')
+        name='themes.currentSettings.sectionSecondaryTitleTextTransform'
+        value=themes.currentSettings.sectionSecondaryTitleTextTransform
+      }}
+    </div>
+  </div>
+</div>

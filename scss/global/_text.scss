@@ -45,6 +45,14 @@
   cursor: pointer;
 }
 
+.truncate {
+  width: toRem(340px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  white-space: nowrap;
+}
+
 .bold {
   font-weight: bold;
 }

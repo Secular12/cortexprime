@@ -1,0 +1,8 @@
+<div class="die-icon-wrapper my-1{{ternary defaultValue ' default' ''}}{{ternary key (concat ' data-key="' key '"') ''}}">
+  <div class="{{value}} effect">
+    {{> (concat "systems/cortexprime/templates/partials/dice/d" dieRating ".html")
+      number=value
+      type='effect'
+    }}
+  </div>
+</div>

@@ -8,6 +8,8 @@ $border-options: (
   'by': ('border-bottom', 'border-top')
 );
 
+$border-styles: 'solid', 'dotted', 'dashed', 'groove', 'ridge', 'inset', 'outset';
+
 @each $opt, $props in $border-options {
   @for $i from 1 through 4 {
     @each $color, $hex in $colors {
