@@ -44,7 +44,7 @@
     --section-background-color-opacity: {{or settings.sectionBackgroundColorOpacity '1'}};
     --section-background-image: {{ternary settings.sectionBackgroundImage (concat 'url(/' settings.sectionBackgroundImage ')') 'none'}};
     --section-background-image-opacity: {{or settings.sectionBackgroundImageOpacity '0'}};
-    --section-background-position: {{or settings.sectionBackgroundRepeat 'center'}};
+    --section-background-position: {{or settings.sectionBackgroundPosition 'center'}};
     --section-background-repeat: {{or settings.sectionBackgroundRepeat 'no-repeat'}};
     --section-background-size: {{or settings.sectionBackgroundSize 'cover'}};
     --section-border-color: {{or settings.sectionBorderColor '#2d5931'}};
@@ -71,7 +71,7 @@
     --sheet-background-color: {{or settings.sheetBackgroundColor '#dedede'}};
     --sheet-background-image: {{ternary settings.sheetBackgroundImage (concat 'url(/' settings.sheetBackgroundImage ')') 'none'}};
     --sheet-background-image-opacity: {{or settings.sheetBackgroundImageOpacity '0.5'}};
-    --sheet-background-position: {{or settings.sheetBackgroundRepeat 'center'}};
+    --sheet-background-position: {{or settings.sheetBackgroundPosition 'center'}};
     --sheet-background-repeat: {{or settings.sheetBackgroundRepeat 'no-repeat'}};
     --sheet-background-size: {{or settings.sheetBackgroundSize 'cover'}};
     --sub-trait-label-font-color: {{or settings.subTraitLabelFontColor '#2d5931'}};
