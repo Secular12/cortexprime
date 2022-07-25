@@ -1,11 +1,12 @@
-<section class="my-3">
+<section>
   {{#each simpleTraits as |simpleTrait simpleTraitIndex|}}
     {{#if (or ../owner (or (not ../data.hasHidableTraits) (not simpleTrait.hidden)))}}
-      <div class="px-2 py-1 {{ternary (and ../data.hasHidableTraits simpleTrait.hidden) 'bkg-light-grey' ''}}">
+      <div class="pa-2 relative-section">
+        <div class="{{ternary (and ../data.hasHidableTraits simpleTrait.hidden) 'section-background-alternate' 'section-background'}}"></div>
         <div class="flex-row flex-ac">
           {{#if ../owner}}
           <div class="flex-col pr-0">
-            <button class="btn btn-icon toggle-item" data-path="{{concat ../path '.' simpleTraitIndex '.edit'}}" type="button">
+            <button class="btn btn-icon btn-icon-plain-cpt toggle-item" data-path="{{concat ../path '.' simpleTraitIndex '.edit'}}" type="button">
               {{#if simpleTrait.edit}}
               <i class="fas fa-check"></i>
               {{else}}
@@ -18,7 +19,7 @@
             {{#if simpleTrait.edit}}
               <div class="flex-col pr-0">
                 <button
-                  class="btn btn-icon btn-dark-grey  toggle-item"
+                  class="btn btn-icon btn-secondary-cpt toggle-item"
                   data-path="{{concat ../path '.' simpleTraitIndex '.hidden'}}"
                   type="button"
                 >
@@ -33,7 +34,7 @@
           {{/if}}
           <label class="flex-col">
             <div
-              class="section-sub-heading mt-1{{ternary (and (eq simpleTrait.settings.valueType 'dice') simpleTrait.dice.value.[0]) ' add-to-pool' ''}}"
+              class="trait-title-cpt mt-1{{ternary (and (eq simpleTrait.settings.valueType 'dice') simpleTrait.dice.value.[0]) ' add-to-pool' ''}}"
               {{{ternary (and (eq simpleTrait.settings.valueType 'dice') simpleTrait.settings.consumableDice) 'data-consumable="true"' ''}}}
               data-label="{{simpleTrait.label}}"
               data-path="{{concat ../path '.' simpleTraitIndex '.dice'}}"
@@ -49,21 +50,28 @@
         </div>
         <div>
           {{#if (and ../owner (and simpleTrait.hasDescription simpleTrait.edit))}}
+          <div class="my-2">
             <label>
-              <div class="label">{{localize 'Description'}}</div>
-              <textarea name="{{concat ../path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
+              <div class="input-label-cpt">{{localize 'Description'}}</div>
+              <textarea class="input-cpt b{{?? ../theme.inputBorderPosition 'b'}}-{{?? ../theme.inputBorderWidth '2'}}" name="{{concat ../path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
             </label>
+          </div>
           {{else if (and simpleTrait.hasDescription simpleTrait.description)}}
-            <p class="my-2">{{simpleTrait.description}}</p>
+            <div class="my-2">
+              <p>{{simpleTrait.description}}</p>
+            </div>
           {{/if}}
-          {{> (concat "systems/cortexprime/templates/partials/value-types/" simpleTrait.settings.valueType ".html")
-            addToPool=true
-            fieldPath=(concat ../path '.' simpleTraitIndex '.' simpleTrait.settings.valueType)
-            path=(concat ../path '.' simpleTraitIndex '.' simpleTrait.settings.valueType)
-            data=simpleTrait
-            edit=(and ../owner  simpleTrait.edit)
-            label=simpleTrait.label
-          }}
+          <div class="mt-2">
+            {{> (concat "systems/cortexprime/templates/partials/value-types/" simpleTrait.settings.valueType ".html")
+              addToPool=true
+              borderClass=(concat "b" (?? ../theme.inputBorderPosition 'b') "-" (?? ../theme.inputBorderWidth '2'))
+              fieldPath=(concat ../path '.' simpleTraitIndex '.' simpleTrait.settings.valueType)
+              path=(concat ../path '.' simpleTraitIndex '.' simpleTrait.settings.valueType)
+              data=simpleTrait
+              edit=(and ../owner  simpleTrait.edit)
+              label=simpleTrait.label
+            }}
+          </div>
         </div>
       </div>
     {{/if}}

@@ -1,0 +1,16 @@
+<div class="flex-col">
+  <p class="bold mb-1">
+    {{label}}
+  </p>
+  <div class="flex-col">
+    <div class="flex-row">
+      <select class="input-cpt b{{?? themes.list.Default.inputBorderPosition 'b'}}-{{?? themes.list.Default.inputBorderWidth '2'}}" name="{{name}}">
+        {{#select value}}
+          <option value="cover">{{localize 'Cover'}}</option>
+          <option value="contain">{{localize 'Contain'}}</option>
+          <option value="auto">{{localize 'Auto'}}</option>
+        {{/select}}
+      </select>
+    </div>
+  </div>
+</div>

@@ -1,19 +1,27 @@
 <div class="flex flex-ac">
   <div class="die-select-container flex flex-ac">
     {{#each dice as |dieRating index|}}
-      <select
-        class="die-select d{{dieRating}}"
-        data-key="{{index}}"
-        data-target="{{or ../selectName ../path}}"
-      >
-        {{#select dieRating}}
-          {{> "systems/cortexprime/templates/partials/dice/select-options.html" max=(?? ../max 12) min=(?? ../min 0)}}
-        {{/select}}
-      </select>
+      <div class="dice-container">
+        <div class="die-container">
+          {{> (concat "systems/cortexprime/templates/partials/dice/d" dieRating ".html")
+            number=dieRating
+            type='die-rating'
+          }}
+        </div>
+        <select
+          class="die-select"
+          data-key="{{index}}"
+          data-target="{{or ../selectName ../path}}"
+        >
+          {{#select dieRating}}
+            {{> "systems/cortexprime/templates/partials/dice/select-options.html" max=(?? ../max 12) min=(?? ../min 0)}}
+          {{/select}}
+        </select>
+      </div>
     {{/each}}
   </div>
   {{#if (or (listHasLess dice (?? maxDice -1)) (not dice)) }}
-    <button class="new-die btn btn-icon btn-circle btn-small ml-1" data-target="{{or selectName path}}" type="button">
+    <button class="new-die btn btn-icon btn-icon-plain-cpt btn-small ml-1" data-target="{{or selectName path}}" type="button">
       <i class="fa fa-plus"></i>
     </button>
   {{/if}}

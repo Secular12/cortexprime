@@ -27,9 +27,9 @@ export class UserDicePool extends FormApplication {
       id: 'user-dice-pool',
       template: 'systems/cortexprime/templates/dice-pool.html',
       title: localizer('DicePool'),
-      classes: ['cortexprime', 'user-dice-pool'],
+      classes: ['cortexprime', 'user-dice-pool', 'themed-cpt'],
       width: 600,
-      height: 400,
+      height: 'auto',
       top: 500,
       left: 20,
       resizable: true,
@@ -41,8 +41,9 @@ export class UserDicePool extends FormApplication {
 
   async getData () {
     const dice = game.user.getFlag('cortexprime', 'dicePool')
-
-    return dice
+    const themes = game.settings.get('cortexprime', 'themes')
+    const theme = themes.current === 'custom' ? themes.custom : themes.list[themes.current]
+    return { ...dice, theme }
   }
 
   async _updateObject (event, formData) {

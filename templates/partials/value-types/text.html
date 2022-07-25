@@ -1,6 +1,6 @@
 <div>
   {{#if edit}}
-    <input name="{{concat fieldPath '.value'}}" type="text" value="{{data.text.value}}">
+    <input class="input-cpt {{?? borderClass 'bb-2'}}" name="{{concat fieldPath '.value'}}" type="text" value="{{data.text.value}}">
   {{else}}
     <p>{{data.text.value}}</p>
   {{/if}}

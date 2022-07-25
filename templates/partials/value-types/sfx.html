@@ -1,19 +1,22 @@
-<ul class="list-style-none my-0 px-0 list-alt-bkg">
+<ul class="list-style-none my-0 px-0">
   {{#each data.sfx as |sfx sfxIndex|}}
-    <li class="flex-row flex-wrap pa-2">
+    <li class="flex flex-wrap pa-2 relative-section">
+      <div class="{{ternary (eq (mod sfxIndex 2) 0) 'section-background-alternate' 'section-background'}}"></div>
       <div class="flex-col col-12">
         <div class="flex-row flex-ae mb-1">
           <div class="flex-col">
-
-            <label class="text-center d-block">
-              <div class="label">{{localize 'Unlocked'}}</div>
-              <input name="{{concat ../fieldPath '.' sfxIndex '.unlocked'}}" type="checkbox" {{checked sfx.unlocked}}>
-            </label>
+            <div>
+              <label class="d-block input-label-cpt text-center">{{localize 'Unlocked'}}</label>
+              <div class="my-auto checkmark-container">
+                <input class="input-checkbox-cpt" name="{{concat ../fieldPath '.' sfxIndex '.unlocked'}}" type="checkbox" {{checked sfx.unlocked}}>
+                <div class="checkmark-cpt"></div>
+              </div>
+            </div>
           </div>
           <div class="flex-col col-12">
             <label>
-              <span class="label">{{localize 'Label'}}</span>
-              <input name="{{concat ../fieldPath '.' sfxIndex '.label'}}" type="text" value="{{sfx.label}}">
+              <span class="input-label-cpt">{{localize 'Label'}}</span>
+              <input class="input-cpt {{../borderClass}}" name="{{concat ../fieldPath '.' sfxIndex '.label'}}" type="text" value="{{sfx.label}}">
             </label>
           </div>
           <div class="flex-col">
@@ -32,8 +35,8 @@
       </div>
       <div class="flex-col col-12">
         <label>
-          <span class="label">{{localize 'Description'}}</span>
-          <textarea name="{{concat ../fieldPath '.' sfxIndex '.description'}}">{{sfx.description}}</textarea>
+          <span class="input-label-cpt" class="label">{{localize 'Description'}}</span>
+          <textarea class="input-cpt {{../borderClass}}" name="{{concat ../fieldPath '.' sfxIndex '.description'}}">{{sfx.description}}</textarea>
         </label>
       </div>
     </li>

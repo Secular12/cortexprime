@@ -18,9 +18,9 @@ export class CortexPrimeActorSheet extends ActorSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["cortexprime", "sheet", "actor"],
+      classes: ['cortexprime', 'sheet', 'actor', 'actor-sheet', 'themed-cpt'],
       template: "systems/cortexprime/templates/actor/actor-sheet.html",
-      width: 900,
+      width: 960,
       height: 900,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "traits" }]
     })
@@ -28,10 +28,13 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
   getData (options) {
     const data = super.getData(options)
+    const themes = game.settings.get('cortexprime', 'themes')
+    const theme = themes.current === 'custom' ? themes.custom : themes.list[themes.current]
 
     return {
       ...data,
-      actorTypeOptions: objectMapValues(game.settings.get('cortexprime', 'actorTypes'), val => val.name)
+      actorTypeOptions: objectMapValues(game.settings.get('cortexprime', 'actorTypes'), val => val.name),
+      theme,
     }
   }
 

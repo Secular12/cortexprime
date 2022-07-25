@@ -41,6 +41,7 @@ export const registerHandlebarHelpers = () => {
     gte: (a, b) => a >= b,
     lt: (a, b) => a < b,
     lte: (a, b) => a <= b,
+    mod: (a, b) => a % b,
     minus: (a, b) => (+a) - (+b),
     ne: (a, b) => a !== b,
     not: a => !a,

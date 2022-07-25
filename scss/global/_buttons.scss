@@ -1,6 +1,7 @@
 .btn {
   background-color: transparent;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
   line-height: normal;
@@ -41,17 +42,6 @@
     height: toRem(16px);
     padding: toRem(2px);
     width: toRem(16px);
-  }
-}
-
-.btn-pp {
-  line-height: 0;
-  padding: 0;
-  border-radius: 50%;
-
-  img {
-    border: 0;
-    width: 4rem;
   }
 }
 

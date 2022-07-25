@@ -1,6 +1,8 @@
 import ActorSettings from './ActorSettings.js'
 import ImportExportSettings from './ImportExportSettings.js'
 import defaultActorTypes from '../actor/defaultActorTypes.js'
+import defaultThemes from '../theme/defaultThemes.js'
+import ThemeSettings from './ThemeSettings.js'
 
 import { localizer } from '../scripts/foundryHelpers.js'
 
@@ -54,5 +56,22 @@ export const registerSettings = () => {
     config: false,
     type: Boolean,
     default: false
+  })
+
+  game.settings.registerMenu('cortexprime', 'ThemeSettings', {
+    hint: localizer('ThemeSettingsH'),
+    icon: 'fas fa-user-cog',
+    label: localizer('ThemeSettings'),
+    name: localizer('ThemeSettings'),
+    restricted: true,
+    type: ThemeSettings
+  })
+
+  game.settings.register('cortexprime', 'themes', {
+    name: localizer('Themes'),
+    default: defaultThemes,
+    scope: 'world',
+    type: Object,
+    config: false,
   })
 }

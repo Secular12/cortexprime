@@ -1,6 +1,8 @@
 import { objectReduce } from '../../lib/helpers.js'
 import { localizer } from './foundryHelpers.js'
 
+const getAppendDiceContent = (data) => renderTemplate('systems/cortexprime/templates/partials/die-display.html', data)
+
 const getRollFormula = (pool) => {
   return objectReduce(pool, (formula, traitGroup) => {
     const innerFormula = objectReduce(traitGroup || {}, (acc, trait) => [...acc, ...Object.values(trait.value || {})], [])
@@ -117,20 +119,25 @@ const getDiceByTotal = results => {
   return { dice: finalResults, total, effectDice }
 }
 
-const updateDice = (html, dice) => {
+const updateDice = async (html, dice) => {
   const $dice = html.find('.dice-box .result-die')
 
   $dice.each(function (index) {
     const $die = $(this)
     const targetDie = dice.dice[index]
+    const $dieCpt = $die.find('.die-cpt')
     $die.removeClass('chosen result effect selected selectable')
+    $dieCpt.removeClass('chosen-cpt unchosen-cpt effect-cpt selected-cpt')
 
     if (targetDie.total) {
       $die.addClass('chosen')
+      $dieCpt.addClass('chosen-cpt')
     } else if (targetDie.effect) {
       $die.addClass('effect')
+      $dieCpt.addClass('effect-cpt')
     } else {
       $die.addClass('result selectable')
+      $dieCpt.addClass('unchosen-cpt')
     }
   })
 
@@ -142,13 +149,17 @@ const updateDice = (html, dice) => {
   const faces = dice.effectDice.length === 0 ? 4 : dice.effectDice[0]
   const index = dice.dice.findIndex(x => x.effect)
 
+  const dieContent = await getAppendDiceContent({ default: dice.effectDice.length === 0, dieRating: faces, key: index, value: faces })
   $effectDiceContainer
-    .append(`<div class="die-icon-wrapper my-1${dice.effectDice.length === 0 ? ' default' : ''}" data-key="${index}"><div class="die-icon d${faces} effect"><div class="value">${faces}</div></div></div>`)
+    .append(dieContent)
 }
 
 const dicePicker = async rollResults => {
+  const themes = game.settings.get('cortexprime', 'themes')
+  const theme = themes.current === 'custom' ? themes.custom : themes.list[themes.current]
   const content = await renderTemplate('systems/cortexprime/templates/dialog/dice-picker.html', {
-    rollResults
+    rollResults,
+    theme
   })
 
   return new Promise((resolve, reject) => {
@@ -209,13 +220,13 @@ const dicePicker = async rollResults => {
           $resetSelection.prop('disabled', !($selectedDice.length > 0 || $usedDice.length > 0))
         }
 
-        const setEffectDice = (values, defaultValue = false) => {
-          const effectDiceHtml = values
-            .map(value => `<div class="die-icon-wrapper my-1${defaultValue ? ' default' : ''}"><div class="die-icon d${value} effect"><div class="value">${value}</div></div></div>`)
-            .join()
+        const setEffectDice = async (values, defaultValue = false) => {
+          
+          const effectDiceHtml = await Promise.all(values
+            .map(async value => await getAppendDiceContent({ defaultValue, dieRating: value, value, type: 'effect' })))
 
           $effectDiceContainer
-            .html(effectDiceHtml)
+            .html(effectDiceHtml.join())
          }
 
         const setTotalValue = (value) => {
@@ -251,12 +262,15 @@ const dicePicker = async rollResults => {
 
           $target.toggleClass('selected result')
 
+          $target.find('.die-cpt').toggleClass('selected-cpt unchosen-cpt')
+
           setSelectionDisable()
         })
 
-        $diceBox.on('click', '.effect', function () {
+        $diceBox.on('click', '.effect', async function () {
           const $selectedDie = $(this)
           $selectedDie.toggleClass('result effect selectable')
+          $selectedDie.find('.die-cpt').toggleClass('unchosen-cpt effect-cpt')
           const key = $selectedDie.data('key')
 
           const $targetEffectDie = $effectDiceContainer.find(`[data-key="${key}"]`)
@@ -265,8 +279,10 @@ const dicePicker = async rollResults => {
           const $effectDice = $effectDiceContainer.find('.die-icon-wrapper')
 
           if ($effectDice.length === 0) {
+            const dieContent = await getAppendDiceContent({ dieRating: '4', value: '4', type: 'effect' })
+
             $effectDiceContainer
-              .append(`<div class="die-icon-wrapper my-1 default"><div class="die-icon d4 effect"><div class="value">4</div></div></div>`)
+              .append(dieContent)
           }
 
           setSelectionDisable()
@@ -275,6 +291,7 @@ const dicePicker = async rollResults => {
         $diceBox.on('click', '.chosen', function () {
           const $selectedDie = $(this)
           $selectedDie.toggleClass('chosen result selectable')
+          $selectedDie.find('.die-cpt').toggleClass('chosen-cpt unchosen-cpt')
           const result = parseInt($selectedDie.data('result'), 10)
           const $totalValue = html.find('.total-value')
           const currentValue = parseInt($totalValue.text(), 10)
@@ -283,7 +300,7 @@ const dicePicker = async rollResults => {
           setSelectionDisable()
         })
 
-        $effectDiceContainer.on('mouseup', '.die-icon-wrapper', function (event) {
+        $effectDiceContainer.on('mouseup', '.die-icon-wrapper', async function (event) {
           if (event.button === 2) {
             const $dieWrapper = $(this)
 
@@ -292,14 +309,17 @@ const dicePicker = async rollResults => {
             const $resultDie = $diceBox.find(`.result-die[data-key="${key}"]`)
 
             $resultDie.toggleClass('effect result selectable')
+            $resultDie.find('.die-cpt').toggleClass('effect-cpt unchosen-cpt')
 
             $dieWrapper.remove()
 
             const $diceWrappers = $effectDiceContainer.find('.die-icon-wrapper')
 
             if ($diceWrappers.length === 0) {
+              const dieContent = await getAppendDiceContent({ dieRating: '4', value: '4', type: 'effect' })
+
               $effectDiceContainer
-                .append(`<div class="die-icon-wrapper my-1 default"><div class="die-icon d4 effect"><div class="value">4</div></div></div>`)
+                .append(dieContent)
             }
 
             setSelectionDisable()
@@ -314,14 +334,17 @@ const dicePicker = async rollResults => {
 
               $effectDiceContainer.find('.default')?.remove()
 
-              $diceForTotal.each(function () {
+              $diceForTotal.each(async function () {
                 const $die = $(this)
                 const faces = $die.data('faces')
                 const key = $die.data('key')
                 $die.toggleClass('selected effect selectable')
+                $die.find('.die-cpt').toggleClass('selected-cpt effect-cpt')
+
+                const dieContent = await getAppendDiceContent({ key, dieRating: faces, value: faces, type: 'effect' })
 
                 $effectDiceContainer
-                  .append(`<div class="die-icon-wrapper my-1" data-key="${key}"><div class="die-icon d${faces} effect"><div class="value">${faces}</div></div></div>`)
+                  .append(dieContent)
               })
 
               setSelectionDisable()
@@ -335,6 +358,7 @@ const dicePicker = async rollResults => {
             $diceForTotal.each(function () {
               const $die = $(this)
               $die.toggleClass('chosen selected selectable')
+              $die.find('.die-cpt').toggleClass('chosen-cpt selected-cpt')
               const result = parseInt($die.data('result'), 10)
               const $totalValue = html.find('.total-value')
               const currentValue = parseInt($totalValue.text(), 10)
@@ -373,6 +397,11 @@ const dicePicker = async rollResults => {
 
                 $target.removeClass('chosen effect selected')
                 $target.addClass('result selectable')
+
+                $target
+                  .find('.die-cpt')
+                  .removeClass('chosen-cpt effect-cpt selected-cpt')
+                  .addClass('unchosen-cpt')
               })
 
             setTotalValue(0)
@@ -382,7 +411,7 @@ const dicePicker = async rollResults => {
             $(this).prop('disabled', true)
           })
       }
-    }, { jQuery: true }).render(true)
+    }, { jQuery: true, classes: ['dialog', 'dice-picker', 'cortexprime', 'themed-cpt'] }).render(true)
   })
 }
 

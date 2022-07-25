@@ -1,12 +1,13 @@
-<ul class="list-style-none my-0 px-0 list-alt-bkg">
+<ul class="list-style-none my-0 px-0">
   {{#each data.descriptors as |descriptor descriptorIndex|}}
-    <li class="flex-row flex-wrap pa-2">
+    <li class="flex flex-wrap pa-2 relative-section">
+      <div class="{{ternary (eq (mod descriptorIndex 2) 0) 'section-background-alternate' 'section-background'}}"></div>
       <div class="flex-col col-12">
         <div class="flex-row flex-ae mb-1">
           <div class="flex-col col-12">
             <label>
-              <span class="label">{{localize 'Label'}}</span>
-              <input name="{{concat ../fieldPath '.' descriptorIndex '.label'}}" type="text" value="{{descriptor.label}}">
+              <span class="input-label-cpt">{{localize 'Label'}}</span>
+              <input class="input-cpt {{../borderClass}}" name="{{concat ../fieldPath '.' descriptorIndex '.label'}}" type="text" value="{{descriptor.label}}">
             </label>
           </div>
           <div class="flex-col">
@@ -25,8 +26,8 @@
       </div>
       <div class="flex-col col-12">
         <label>
-          <span class="label">{{localize 'Value'}}</span>
-          <textarea name="{{concat ../fieldPath '.' descriptorIndex '.value'}}">{{descriptor.value}}</textarea>
+          <span class="input-label-cpt">{{localize 'Value'}}</span>
+          <textarea class="input-cpt {{../borderClass}}" name="{{concat ../fieldPath '.' descriptorIndex '.value'}}">{{descriptor.value}}</textarea>
         </label>
       </div>
     </li>
