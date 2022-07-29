@@ -1,5 +1,5 @@
 import { UserDicePool } from './applications/UserDicePool.js'
-import { localizer } from './scripts/foundryHelpers.js'
+import { localizer, setCssVars } from './scripts/foundryHelpers.js'
 import rollDice from './scripts/rollDice.js'
 
 export default () => {
@@ -15,6 +15,9 @@ export default () => {
   })
 
   Hooks.once('ready', async () => {
+    const themes = game.settings.get('cortexprime', 'themes')
+    const theme = themes.current === 'custom' ? themes.custom : themes.list[themes.current]
+    setCssVars(theme)
     if (game.settings.get('cortexprime', 'WelcomeSeen') === false) {
       if (game.user.isGM) {
         const seeWelcome = await new Promise(resolve => {
@@ -51,54 +54,107 @@ export default () => {
   })
 
   Hooks.on('renderChatMessage', async (message, html, data) => {
-    const getPool = html => {
-      return html.find('.source').get().reduce((sources, source) => {
-        const $source = $(source)
-        return {
-          ...sources,
-          [$source.data('source')]: $source.find('.die-label').get()
-            .reduce((dice, die, dieIndex) => {
-              const $die = $(die)
-              return {
-                ...dice,
-                [dieIndex]: {
-                  label: $die.data('label'),
-                  value: $die.find('.die-icon').get()
-                    .reduce((diceValues, dieValue, dieValueIndex) => {
-                      return {
-                        ...diceValues,
-                        [dieValueIndex]: $(dieValue).data('rating')
-                      }
-                    }, {})
+    const $rollResult = html.find('.roll-result').first()
+
+    if ($rollResult) {
+      const $chatMessage = $rollResult.closest('.chat-message')
+      
+      $chatMessage
+        .addClass('roll-message')
+        .prepend('<div class="message-background"></div><div class="message-image"></div>')
+
+      const $messageHeader = $chatMessage.find('.message-header').first()
+
+      $messageHeader.children().wrapAll('<div class="message-header-content"></div>')
+      $messageHeader.prepend('<div class="message-header-image"></div><div class="message-header-background"></div>')
+
+      const $dice = $rollResult.find('.die')
+
+      for await (const die of $dice) {
+        const $die = $(die)
+        const data = $die.data()
+
+        const { dieRating, type, value: number } = data
+
+        const html = await renderTemplate(`systems/cortexprime/templates/partials/dice/d${dieRating}.html`, {
+          type,
+          number
+        })
+        $die.html(html)
+      }
+
+      const getPool = html => {
+        return html.find('.source').get().reduce((sources, source) => {
+          const $source = $(source)
+          return {
+            ...sources,
+            [$source.data('source')]: $source
+              .find('.dice-tag')
+              .get()
+              .reduce((dice, die, dieIndex) => {
+                const $die = $(die)
+                return {
+                  ...dice,
+                  [dieIndex]: {
+                    label: $die.data('label'),
+                    value: $die.find('.die').get()
+                      .reduce((diceValues, dieValue, dieValueIndex) => {
+                        return {
+                          ...diceValues,
+                          [dieValueIndex]: $(dieValue).data('die-rating')
+                        }
+                      }, {})
+                  }
                 }
-              }
-            }, {})
-        }
-      }, {})
+              }, {})
+          }
+        }, {})
+      }
+      $rollResult.find('.re-roll').click(async (event) => {
+        event.preventDefault()
+        const pool = getPool($rollResult)
+        await rollDice(pool)
+      })
+      $rollResult.find('.send-to-pool').click(async (event) => {
+        event.preventDefault()
+        const pool = getPool($rollResult)
+        await game.cortexprime.UserDicePool._setPool(pool)
+      })
     }
-    html.find('.re-roll').click(async (event) => {
-      event.preventDefault()
-      const pool = getPool(html)
-      await rollDice(pool)
-    })
-    html.find('.send-to-pool').click(async (event) => {
-      event.preventDefault()
-      const pool = getPool(html)
-      await game.cortexprime.UserDicePool._setPool(pool)
-    })
   })
+
+  // Hooks.on('getSceneControlButtons', controls => {
+  //   game.cortexprime.UserDicePool = new UserDicePool()
+  //   game.cortexprime.UserDicePool.initPool()
+
+  //   controls
+  //     .find(c => c.name == 'token')
+  //     .tools.push({
+  //       activeTool: 'tokens',
+  //       layer: 'tokens',
+  //       name: 'cortex-dice-pool',
+  //       title: 'cortexprime.dicepool',
+  //       toggle: false,
+  //       icon: "fas fa-dice",
+  //     })
+  // })
 
   Hooks.on('renderSceneControls', (controls, html) => {
     const $dicePoolButton = $(
-      `<ol class="app control-tools cortexprime-controls"><li class="scene-control dice-pool-control" data-control="dice-pool" title="${game.i18n.localize("DicePool")}">
+      `<li class="dice-pool-control" data-control="dice-pool" title="${game.i18n.localize("DicePool")}">
           <i class="fas fa-dice"></i>
           <ol class="control-tools">
           </ol>
-      </li><ol>`
+      </li>`
     );
 
-    html.prepend($dicePoolButton);
-    html.find('.dice-pool-control').on('click', async () => {
+    html
+      .find('.main-controls')
+      .append($dicePoolButton);
+    html
+    .find('.dice-pool-control')
+    .removeClass('control-tool')
+    .on('click', async () => {
       await game.cortexprime.UserDicePool.toggle()
     });
   })

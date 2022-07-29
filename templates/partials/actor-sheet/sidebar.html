@@ -1,5 +1,5 @@
 <div class="flex-col col-3">
-  <div class="section-cpt b{{?? theme.sectionBorderPosition 'a'}}-{{?? theme.sectionBorderWidth '2'}}">
+  <div class="section-cpt">
     <div class="section-image"></div>
     <div class="section-content">
       <div class="relative-section pa-2">
@@ -12,7 +12,7 @@
         <div class="input-label-cpt mt-2">{{localize 'Name'}}</div>
         <div class="mb-4">
           {{#if owner}}
-            <input class="input-cpt b{{?? theme.inputBorderPosition 'b'}}-{{?? theme.inputBorderWidth '2'}}" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Name'}}" />
+            <input class="input-cpt" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Name'}}" />
           {{else}}
             <p class="bold">{{actor.name}}</p>
           {{/if}}

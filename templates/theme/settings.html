@@ -5,7 +5,7 @@
     target='.theme-settings'
   }}
   <section class="px-2 mt-2">
-    <div class="section-cpt flex flex-wrap flex-ae b{{?? themes.list.Default.sectionBorderPosition 'a'}}-{{?? themes.list.Default.sectionBorderWidth '2'}}">
+    <div class="section-cpt flex flex-wrap flex-ae">
       <div class="section-image"></div>
       <div class="section-background"></div>
       <div class="section-content">
@@ -33,7 +33,7 @@
             <p>{{localize 'SaveSettingsNote'}}</p>
           </div>
           <div class="flex-col my-2">
-            <select class="preset-select input-cpt b{{?? themes.list.Default.inputBorderPosition 'b'}}-{{?? themes.list.Default.inputBorderWidth '2'}}" name="themes.current">
+            <select class="preset-select input-cpt" name="themes.current">
               {{#select themes.current}}
               <optgroup label="{{localize 'Preset'}}">
                 {{#each themes.list as |themeSettings themeName|}}

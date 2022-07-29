@@ -1,5 +1,5 @@
 import defaultActorTypes from "../actor/defaultActorTypes.js"
-import { localizer } from "../scripts/foundryHelpers.js"
+import { localizer, setCssVars } from "../scripts/foundryHelpers.js"
 
 export default class ImportExportSettings extends FormApplication {
   constructor() {
@@ -95,12 +95,16 @@ export default class ImportExportSettings extends FormApplication {
 
           const themeSettings = await game.settings.get('cortexprime', 'themes')
 
-          const { current, custom } = data.theme
+          const { current, custom } = data.theme ?? {}
 
           themeSettings.current = current ?? 'Default'
           themeSettings.custom = custom ?? themeSettings.custom
 
           await game.settings.set('cortexprime', 'themes', themeSettings)
+
+          const theme = themeSettings.current === 'custom' ? themeSettings.custom : themeSettings.list[themeSettings.current]
+
+          setCssVars(theme)
 
           ui.notifications.info(localizer('ImportSuccessMessage'))
 
