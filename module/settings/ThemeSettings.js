@@ -71,7 +71,7 @@ export default class ThemeSettings extends FormApplication {
     const imagePicker = await new FilePicker({
       type: 'image',
       current: currentImage,
-      async callback (newImage) {
+      async callback (newImage, x) {
         source.currentSettings[targetSetting] = newImage
 
         await game.settings.set('cortexprime', 'themes', source)

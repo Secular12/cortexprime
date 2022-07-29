@@ -34,7 +34,12 @@ export const setCssVars = (theme) => {
     }
 
     if (['sheetBackgroundImage', 'sectionBackgroundImage'].includes(key)) {
-      value = `url('${value}')`
+      console.log(value)
+      value = value
+        ? value.startsWith('http')
+          ? `url('${value}')`
+          : `url('/${value}')`
+        : 'none'
     }
 
     const property = `--${key.replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? "-" : "") + $.toLowerCase())}`
