@@ -2,18 +2,14 @@
   <div class="sheet-background"></div>
   <div class="sheet-image"></div>
   <div class="sheet-content pa-2">
-    {{> "systems/cortexprime/templates/partials/settings/theme/style.html"
-      settings=theme
-      target='.actor-sheet'
-    }}
     {{#unless data.data.actorType}}
       <div class="flex-row flex-c" style="height: 100%">
-        <div class="flex-col section-cpt b{{?? theme.sectionBorderPosition 'a'}}-{{?? theme.sectionBorderWidth '2'}} pa-4">
+        <div class="flex-col section-cpt pa-4">
           <div class="section-image"></div>
           <div class="section-background"></div>
           <div class="section-content">
-            <label class="section-primary-title-cpt text-primary col-12">{{localize 'ActorType'}}</label>
-            <select class="actor-type-select input-cpt col-12 my-2 b{{?? theme.inputBorderPosition 'b'}}-{{?? theme.inputBorderWidth '2'}}">
+            <label class="section-primary-title-cpt col-12">{{localize 'ActorType'}}</label>
+            <select class="actor-type-select input-cpt col-12 my-2">
               {{#each actorTypeOptions as |actorType actorTypeIndex|}}
                 <option value="{{actorTypeIndex}}">{{or actorType (concat '[' (localize 'NoName') ']')}}</option>
               {{/each}}
@@ -89,14 +85,14 @@
                 <div class="separator-cpt mb-4"></div>
               </header>
               {{#each data.data.actorType.notes as |note noteIndex|}}
-                <article class="my-4 section-cpt b{{?? ../theme.sectionBorderPosition 'a'}}-{{?? ../theme.sectionBorderWidth '2'}} pa-4">
+                <article class="my-4 section-cpt pa-4">
                   <div class="section-image"></div>
                   <div class="section-background"></div>
                   <div class="section-content">
                     <header class="mb-2 flex-row flex-ae">
                       <div class="flex-col col-12">
                         <label class="input-label-cpt">{{localize 'Name'}}</label>
-                        <input class="input-cpt b{{?? ../theme.inputBorderPosition 'b'}}-{{?? ../theme.inputBorderWidth '2'}}" type="text" name="data.actorType.notes.{{noteIndex}}.label" value="{{note.label}}">
+                        <input class="input-cpt" type="text" name="data.actorType.notes.{{noteIndex}}.label" value="{{note.label}}">
                       </div>
                       <div class="flex-col">
                         {{> "systems/cortexprime/templates/partials/remove-button.html"

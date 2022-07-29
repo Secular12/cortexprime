@@ -53,7 +53,7 @@
           <div class="my-2">
             <label>
               <div class="input-label-cpt">{{localize 'Description'}}</div>
-              <textarea class="input-cpt b{{?? ../theme.inputBorderPosition 'b'}}-{{?? ../theme.inputBorderWidth '2'}}" name="{{concat ../path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
+              <textarea class="input-cpt" name="{{concat ../path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
             </label>
           </div>
           {{else if (and simpleTrait.hasDescription simpleTrait.description)}}
@@ -64,7 +64,6 @@
           <div class="mt-2">
             {{> (concat "systems/cortexprime/templates/partials/value-types/" simpleTrait.settings.valueType ".html")
               addToPool=true
-              borderClass=(concat "b" (?? ../theme.inputBorderPosition 'b') "-" (?? ../theme.inputBorderWidth '2'))
               fieldPath=(concat ../path '.' simpleTraitIndex '.' simpleTrait.settings.valueType)
               path=(concat ../path '.' simpleTraitIndex '.' simpleTrait.settings.valueType)
               data=simpleTrait

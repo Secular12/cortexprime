@@ -66,3 +66,15 @@ input[type="color"][data-edit][data-edit] {
   margin-left: 0;
   max-width: toRem(26px);
 }
+
+.dice-pool-control {
+  background-color: var(--button-primary-color, #2d5931);
+  color: var(--button-primary-font-color, #ffffff);
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: toRem(8px);
+  pointer-events: all;
+  position: relative;
+  width: auto;
+  z-index: calc(var(--z-index-ui) + 10);
+}

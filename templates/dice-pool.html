@@ -1,12 +1,8 @@
 <form class="{{cssClass}} sheet-cpt" autocomplete="off">
   <div class="sheet-background"></div>
   <div class="sheet-image"></div>
-  {{> "systems/cortexprime/templates/partials/settings/theme/style.html"
-    settings=theme
-    target='.user-dice-pool'
-  }}
   <div class="sheet-content pa-2">
-    <div class="section-cpt b{{?? theme.sectionBorderPosition 'a'}}-{{?? theme.sectionBorderWidth '2'}}">
+    <div class="section-cpt">
       <div class="section-image"></div>
       <div class="section-content">
         <div class="relative-section pb-2 pt-1">
@@ -17,7 +13,7 @@
               <div class="flex-row flex-ac">
                 <label class="flex-col col-12">
                   <span class="input-label-cpt">{{localize 'Label'}}</span>
-                  <input class="custom-dice-label input-cpt b{{?? theme.inputBorderPosition 'b'}}-{{?? theme.inputBorderWidth '2'}}" name="customAdd.label" type="text" value="{{customAdd.label}}">
+                  <input class="custom-dice-label input-cpt" name="customAdd.label" type="text" value="{{customAdd.label}}">
                 </label>
                 <div class="flex-col">
                   <span class="input-label-cpt">{{localize 'Dice'}}</span>
@@ -48,7 +44,7 @@
           <div>
             {{#each pool as |source sourceName|}}
               <div class="flex flex-ac flex-jsb py-1">
-                <span class="section-secondary-title-cpt flex-col">{{sourceName}}</span>
+                <span class="trait-title-cpt flex-col">{{sourceName}}</span>
                 <div class="flex-col">
                   <button class="btn btn-secondary-cpt clear-source" data-source="{{sourceName}}" type="button">
                     {{localize 'Clear'}}
@@ -57,11 +53,11 @@
               </div>
               <div class="flex flex-ac flex-wrap py-2">
                 {{#each source as |trait traitKey|}}
-                  <div class="flex-col ma-1 py-1" style="border: {{?? ../../theme.separatorWeight '2'}}px solid {{?? ../../theme.separatorColor '#b30044'}};">
-                    <div class="flex-row flex-ac">
+                  <div class="dice-tag flex-col ma-1 py-1">
+                    <div class="flex-row flex-ac flex-wrap">
                       {{#if trait.label}}
                         <div class="flex-col pr-0">
-                          <p class="bold trait-title-cpt">{{trait.label}}</p>
+                          <p class="sub-trait-label-cpt">{{trait.label}}</p>
                         </div>
                       {{/if}}
                       <div class="flex-col pr-0">
@@ -87,7 +83,7 @@
               </div>
             {{else}}
               <div class="flex-col my-2">
-                <p class="text-white trait-name">{{localize 'NoTraitsInPool'}}</p>
+                <p>{{localize 'NoTraitsInPool'}}</p>
               </div>
             {{/each}}
           </div>

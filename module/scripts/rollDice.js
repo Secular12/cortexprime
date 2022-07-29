@@ -417,6 +417,8 @@ const dicePicker = async rollResults => {
 
 export default async function (pool, rollType) {
   const rollResults = await getRollResults(pool)
+  const themes = game.settings.get('cortexprime', 'themes')
+  const theme = themes.current === 'custom' ? themes.custom : themes.list[themes.current]
 
   await this?._clearDicePool()
 
@@ -431,6 +433,7 @@ export default async function (pool, rollType) {
     effectDice: selectedDice.effectDice,
     rollResults: { hitches: rollResults.hitches, results: selectedDice.dice },
     speaker: game.user,
+    theme,
     total: selectedDice.total
   })
 

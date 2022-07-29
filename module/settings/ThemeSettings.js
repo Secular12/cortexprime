@@ -1,4 +1,4 @@
-import { localizer } from '../scripts/foundryHelpers.js'
+import { localizer, setCssVars } from '../scripts/foundryHelpers.js'
 import defaultThemes from '../theme/defaultThemes.js'
 
 export default class ThemeSettings extends FormApplication {
@@ -43,6 +43,11 @@ export default class ThemeSettings extends FormApplication {
       : expandedFormData.themes.currentSettings
 
     await game.settings.set('cortexprime', 'themes', mergeObject(currentThemes, expandedFormData.themes))
+
+    const themes = game.settings.get('cortexprime', 'themes')
+    const theme = themes.current === 'custom' ? themes.custom : themes.list[themes.current]
+
+    setCssVars(theme)
 
     this.render(true)
   }
@@ -98,6 +103,11 @@ export default class ThemeSettings extends FormApplication {
 
     await game.settings.set('cortexprime', 'themes', source)
 
+    const themes = game.settings.get('cortexprime', 'themes')
+    const theme = themes.current === 'custom' ? themes.custom : themes.list[themes.current]
+
+    setCssVars(theme)
+
     this.render()
   }
 
@@ -108,6 +118,11 @@ export default class ThemeSettings extends FormApplication {
     source.custom = source.currentSettings
 
     await game.settings.set('cortexprime', 'themes', source)
+
+    const themes = game.settings.get('cortexprime', 'themes')
+    const theme = themes.current === 'custom' ? themes.custom : themes.list[themes.current]
+
+    setCssVars(theme)
 
     this.render()
   }
@@ -126,6 +141,11 @@ export default class ThemeSettings extends FormApplication {
       : source.list[source.current]
 
     await game.settings.set('cortexprime', 'themes', source)
+
+    const themes = game.settings.get('cortexprime', 'themes')
+    const theme = themes.current === 'custom' ? themes.custom : themes.list[themes.current]
+
+    setCssVars(theme)
 
     this.render()
   }

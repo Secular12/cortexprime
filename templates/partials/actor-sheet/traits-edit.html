@@ -10,7 +10,7 @@
     {{/if}}
   </div>
   {{#each traits as |trait traitIndex|}}
-    <div class="section-cpt b{{?? ../theme.sectionBorderPosition 'a'}}-{{?? ../theme.sectionBorderWidth '2'}}{{ternary (ne traitIndex '0') ' mt-6' ''}}">
+    <div class="section-cpt{{ternary (ne traitIndex '0') ' mt-6' ''}}">
       <div class="section-image"></div>
       <div class="section-content">
         <div class="flex flex-wrap relative-section pa-2">
@@ -32,7 +32,7 @@
                       <label>
                         <span class="input-label-cpt">{{ternary ../settings.hasLabel (localize 'Label') (localize 'Name')}}</span>
                         <input
-                          class="input-cpt b{{?? ../theme.inputBorderPosition 'b'}}-{{?? ../theme.inputBorderWidth '2'}}"
+                          class="input-cpt"
                           type="text"
                           name="{{concat ../path '.' ../target '.' traitIndex '.' (ternary ../settings.hasLabel 'label' 'name')}}"
                           value="{{ternary ../settings.hasLabel trait.label trait.name}}"
@@ -81,7 +81,7 @@
               <div class="flex-col col-12 mt-1">
                 <label>
                   <span class="input-label">{{localize 'Name'}}</span>
-                  <input class="input-cpt b{{?? ../theme.inputBorderPosition 'b'}}-{{?? ../theme.inputBorderWidth '2'}}" type="text" name="{{concat ../path '.' ../target '.' traitIndex '.name'}}" value="{{trait.name}}">
+                  <input class="input-cpt" type="text" name="{{concat ../path '.' ../target '.' traitIndex '.name'}}" value="{{trait.name}}">
                 </label>
               </div>
             {{else}}
@@ -97,7 +97,7 @@
             <div class="section-background"></div>
             <label>
               <span class="input-label-cpt">{{localize 'Description'}}</span>
-              <textarea class="input-cpt b{{?? ../theme.inputBorderPosition 'b'}}-{{?? ../theme.inputBorderWidth '2'}}" name="{{concat ../path '.' ../target '.' traitIndex '.description'}}">{{trait.description}}</textarea>
+              <textarea class="input-cpt" name="{{concat ../path '.' ../target '.' traitIndex '.description'}}">{{trait.description}}</textarea>
             </label>
           </div>
         {{/if}}

@@ -1,6 +1,11 @@
 import { getLength, objectFindValue } from '../../lib/helpers.js'
+import { getBorderWidth } from '../scripts/foundryHelpers.js'
 
 export const registerHandlebarHelpers = () => {
+  Handlebars.registerHelper('borderPosition', (borderPosition, borderWidth) => {
+    return getBorderWidth(borderPosition, borderWidth)
+  })
+
   Handlebars.registerHelper('concat', function (...args) {
     return args.reduce((acc, current) => {
       return typeof current !== 'object'

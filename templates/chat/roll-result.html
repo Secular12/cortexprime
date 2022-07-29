@@ -1,91 +1,96 @@
-<div>
-  <div class="mb-2">
+<div class="cortexprime roll-result" style="position: relative;">
+  <div class="mb-1">
     {{#each dicePool as |sourcePool source|}}
-      <div class="source my-1" data-source="{{source}}">
-        <h2 class="section-sub-heading">{{source}}</h2>
-        <div class="flex flex-ac flex-wrap">
-          {{#each sourcePool as |dice|}}
-            <div class="die-label flex-col ma-1 py-1 bkg-white ba-1-primary" data-label="{{dice.label}}">
-              <div class="flex-row flex-ac">
-                {{#if dice.label}}
-                  <div class="flex-col pr-0">
-                    <p class="bold text-black">{{dice.label}}</p>
-                  </div>
-                {{/if}}
-                <div class="flex-col">
-                  <div class="flex flex-ac">
-                    {{#each dice.value as |dieRating|}}
-                      <div class="die-icon-wrapper">
-                        <div class="die-icon d{{dieRating}}" data-rating="{{dieRating}}">
+      <div class="source my-1 section-cpt pa-1" data-source="{{source}}">
+        <div class="section-image"></div>
+        <div class="section-background"></div>
+        <div class="section-content">
+          <h2 class="trait-title-cpt">{{source}}</h2>
+          <div class="flex flex-ac flex-wrap">
+            {{#each sourcePool as |dice|}}
+              <div class="dice-tag flex-col ma-1 py-1" data-label="{{dice.label}}">
+                <div class="flex-row flex-ac flex-wrap">
+                  {{#if dice.label}}
+                    <div class="flex-col pr-0">
+                      <p class="sub-trait-label-cpt">{{dice.label}}</p>
+                    </div>
+                  {{/if}}
+                  <div class="flex-col">
+                    <div class="flex flex-wrap flex-ac">
+                      {{#each dice.value as |dieRating|}}
+                        <div class="dice-wrapper ml-1">
+                          <div class="die" data-die-rating="{{dieRating}}" data-type="die-rating" data-value="{{dieRating}}"></div>
                         </div>
-                      </div>
-                    {{/each}}
+                      {{/each}}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          {{/each}}
+            {{/each}}
+          </div>
         </div>
       </div>
     {{/each}}
   </div>
-  <div class="pa-2 ba-1-primary bkg-light-grey">
-    <div class="flex flex-c flex-wrap">
-      {{#each rollResults.results as |rollResult|}}
-        <div class="die-icon-wrapper my-1">
-          <div class="die-icon d{{rollResult.faces}} {{ternary rollResult.total 'chosen' (ternary rollResult.effect 'effect' 'result')}}">
-            <div class="value">{{rollResult.result}}</div>
-          </div>
-          <div class="bold text-primary">d{{rollResult.faces}}</div>
+  <div class="my-2 section-cpt pa-2">
+    <div class="section-image"></div>
+    <div class="section-background-alternate"></div>
+    <div class="section-content">
+      <div class="flex flex-c flex-wrap">
+        {{#each rollResults.results as |rollResult|}}
+        <div class="dice-wrapper ml-1">
+          <div class="die" data-die-rating="{{rollResult.faces}}" data-type="{{ternary rollResult.total 'chosen' (ternary rollResult.effect 'effect' 'unchosen')}}" data-value="{{rollResult.result}}"></div>
+          <div class="descriptor-label-cpt">d{{rollResult.faces}}</div>
         </div>
-      {{/each}}
-      {{#each rollResults.hitches as |rollResult|}}
-      <div class="die-icon-wrapper my-1">
-        <div class="die-icon d{{rollResult.faces}} hitch">
-          <div class="value">1</div>
+        {{/each}}
+        {{#each rollResults.hitches as |rollResult|}}
+        <div class="dice-wrapper ml-1">
+          <div class="die" data-die-rating="{{rollResult.faces}}" data-type="hitch" data-value="1"></div>
+          <div class="descriptor-label-cpt">d{{rollResult.faces}}</div>
         </div>
-        <div class="bold text-primary">d{{rollResult.faces}}</div>
+        {{/each}}
       </div>
-      {{/each}}
     </div>
   </div>
   {{#if total}}
     <div class="flex-row my-2">
       <div class="flex-col col-6">
-        <div class="ba-2-primary bkg-accent pa-2 text-center">
-          <h3 class="section-sub-heading text-primary">{{localize 'Total'}}</h3>
-          <p class="total-value pt-2 pb-1 section-heading text-dark-grey">{{total}}</p>
+        <div class="section-cpt pa-2 text-center">
+          <div class="section-image"></div>
+          <div class="section-background"></div>
+          <div class="section-content">
+            <h3 class="section-secondary-title-cpt">{{localize 'Total'}}</h3>
+            <p class="section-primary-title-cpt pt-2 pb-1">{{total}}</p>
+          </div>
         </div>
       </div>
       <div class="flex-col col-6">
-        <div class="ba-2-primary bkg-accent pa-2 text-center">
-          <h3 class="section-sub-heading text-primary">{{localize 'EffectDice'}}</h3>
-          <div class="effect-dice flex-row flex-c flex-wrap">
-            {{#if effectDice}}
-              {{#each effectDice as |effectDie|}}
-                <div class="die-icon-wrapper my-1">
-                  <div class="die-icon d{{effectDie}} effect">
-                    <div class="value">{{effectDie}}</div>
-                  </div>
+        <div class="section-cpt pa-2 text-center">
+          <div class="section-image"></div>
+          <div class="section-background"></div>
+          <div class="section-content">
+            <h3 class="section-secondary-title-cpt">{{localize 'EffectDice'}}</h3>
+            <div class="effect-dice flex-row flex-c flex-wrap">
+              {{#if effectDice}}
+                {{#each effectDice as |effectDie|}}
+                <div class="dice-wrapper ma-1">
+                  <div class="die d{{effectDie}} effect" data-die-rating="{{effectDie}}" data-type="effect" data-value="{{effectDie}}"></div>
                 </div>
-              {{/each}}
-            {{else}}
-              <div class="die-icon-wrapper my-1">
-                <div class="die-icon d4 effect">
-                  <div class="value">4</div>
-                </div>
-              </div>
-            {{/if}}
+                {{/each}}
+              {{else}}
+                <div class="die d{{effectDie}} effect" data-die-rating="4" data-type="effect" data-value="4"></div>
+              {{/if}}
+            </div>
           </div>
         </div>
       </div>
     </div>
   {{/if}}
   <div class="mt-2 flex flex-jsb">
-    <button class="btn btn-primary re-roll" type="button">
+    <button class="btn btn-secondary-cpt re-roll" type="button">
       {{localize 'Reroll'}}
     </button>
-    <button class="btn btn-secondary send-to-pool" type="button">
+    <button class="btn btn-primary-cpt send-to-pool" type="button">
       {{localize 'ToPool'}}
     </button>
   </div>

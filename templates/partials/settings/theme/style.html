@@ -27,6 +27,7 @@
     --descriptor-label-text-transform: {{or settings.descriptorLabelTextTransform 'none'}};
     --input-background-color: {{or settings.inputBackgroundColor '#c9e2d1'}};
     --input-border-color: {{or settings.inputBorderColor '#2d5931'}};
+    --input-border-position: {{borderPosition settings.inputBorderPosition settings.inputBorderWidth}};
     --input-border-width: {{or settings.inputBorderWidth '2'}}px;
     --input-border-style: {{or settings.inputBorderStyle 'solid'}};
     --input-checkbox-color: {{or settings.inputCheckboxColor '#2d5931'}};
@@ -48,6 +49,7 @@
     --section-background-repeat: {{or settings.sectionBackgroundRepeat 'no-repeat'}};
     --section-background-size: {{or settings.sectionBackgroundSize 'cover'}};
     --section-border-color: {{or settings.sectionBorderColor '#2d5931'}};
+    --section-border-position: {{borderPosition settings.sectionBorderPosition settings.sectionBorderWidth}};
     --section-border-style: {{or settings.sectionBorderStyle 'solid'}};
     --section-primary-title-font-color: {{or settings.sectionPrimaryTitleFontColor '#b30044'}};
     --section-primary-title-font-style: {{or settings.sectionPrimaryTitleFontStyle 'normal'}};
