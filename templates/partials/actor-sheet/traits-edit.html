@@ -1,152 +1,170 @@
 <div class="flex-col col-6">
   <div class="flex-row">
-    <h3 class="flex-col col-12 section-heading text-dark-grey">{{label}}</h3>
+    <h3 class="flex-col col-12 section-secondary-title-cpt">{{label}}</h3>
     {{#if custom}}
       <div class="flex-col">
-        <button class="btn btn-secondary btn-icon add-trait" data-path="{{path}}" type="button">
+        <button class="btn btn-primary-cpt btn-icon add-trait" data-path="{{path}}" type="button">
           <i class="fa fa-plus"></i>
         </button>
       </div>
     {{/if}}
   </div>
   {{#each traits as |trait traitIndex|}}
-    <div class="my-6 px-2 ba-2-secondary">
-      <div class="flex-row flex-wrap bkg-lighter-grey pa-2{{ ternary (or ../settings.hasSubTraits (or ../settings.hasDescriptors ../settings.hasSfx)) ' bb-2-secondary' ''}}">
-        <div class="flex-col col-12">
-          <div class="section-sub-heading flex-row {{ternary (or ../custom ../settings.hasLabel) 'flex-ae' 'flex-ac'}}">
-            {{#if (or ../custom ../settings.hasLabel)}}
-              <div class="flex-col col-12">
-                <div class="flex-row flex-ae">
-                  {{#if ../data.hasHidableTraits}}
-                    <div class="flex-col pr-0">
-                      <button class="btn btn-icon btn-dark-grey  toggle-item"
-                        data-path="{{concat ../path '.' ../target '.' traitIndex '.hidden'}}" type="button">
-                        <i class="fa {{ternary trait.hidden 'fa-eye-slash' 'fa-eye'}}"></i>
-                      </button>
+    <div class="section-cpt b{{?? ../theme.sectionBorderPosition 'a'}}-{{?? ../theme.sectionBorderWidth '2'}}{{ternary (ne traitIndex '0') ' mt-6' ''}}">
+      <div class="section-image"></div>
+      <div class="section-content">
+        <div class="flex flex-wrap relative-section pa-2">
+          <div class="section-background"></div>
+          <div class="flex-col col-12">
+            <div class="flex-row {{ternary (or ../custom ../settings.hasLabel) 'flex-ae' 'flex-ac'}}">
+              {{#if (or ../custom ../settings.hasLabel)}}
+                <div class="flex-col col-12">
+                  <div class="flex-row flex-ae">
+                    {{#if ../data.hasHidableTraits}}
+                      <div class="flex-col px-0">
+                        <button class="btn btn-icon btn-secondary-cpt toggle-item"
+                          data-path="{{concat ../path '.' ../target '.' traitIndex '.hidden'}}" type="button">
+                          <i class="fa {{ternary trait.hidden 'fa-eye-slash' 'fa-eye'}}"></i>
+                        </button>
+                      </div>
+                    {{/if}}
+                    <div class="flex-col col-12">
+                      <label>
+                        <span class="input-label-cpt">{{ternary ../settings.hasLabel (localize 'Label') (localize 'Name')}}</span>
+                        <input
+                          class="input-cpt b{{?? ../theme.inputBorderPosition 'b'}}-{{?? ../theme.inputBorderWidth '2'}}"
+                          type="text"
+                          name="{{concat ../path '.' ../target '.' traitIndex '.' (ternary ../settings.hasLabel 'label' 'name')}}"
+                          value="{{ternary ../settings.hasLabel trait.label trait.name}}"
+                        >
+                      </label>
                     </div>
-                  {{/if}}
-                  <div class="flex-col col-12">
-                    <label>
-                      <span class="label">{{ternary ../settings.hasLabel (localize 'Label') (localize 'Name')}}</span>
-                      <input type="text"
-                        name="{{concat ../path '.' ../target '.' traitIndex '.' (ternary ../settings.hasLabel 'label' 'name')}}"
-                        value="{{ternary ../settings.hasLabel trait.label trait.name}}">
-                    </label>
                   </div>
                 </div>
+              {{else}}
+                <span
+                  class="flex-col trait-title-cpt">
+                  {{trait.name}}
+                </span>
+              {{/if}}
+              {{#if ../settings.hasDice}}
+                {{> "systems/cortexprime/templates/partials/dice/select.html"
+                  addToPool=true
+                  consumable=../settings.consumableDice
+                  dice=trait.dice.value
+                  minDice=0
+                  label=(ternary (and ../settings.hasLabel trait.label) trait.label trait.name)
+                  selectName=(concat ../path '.' ../target '.' traitIndex '.dice')
+                }}
+              {{/if}}
+              <div class="flex-col">
+                <button class="btn btn-icon btn-icon-plain-cpt toggle-item"
+                  data-path="{{concat ../path '.' ../target '.' traitIndex '.shutdown'}}" type="button">
+                  <i class="fas {{ternary trait.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
+                </button>
+              </div>
+              {{#if ../custom}}
+                <div class="flex-col pa-0">
+                  {{> "systems/cortexprime/templates/partials/remove-button.html"
+                    path=../path
+                    target=../target
+                    itemKey=traitIndex
+                    itemName=(ternary (and ../settings.hasLabel trait.label) (ternary (and trait.label trait.name) (concat trait.label ' (' trait.name ')')) trait.name)
+                    type="trash"
+                  }}
+                </div>
+              {{/if}}
+            </div>
+          </div>
+          {{#if ../settings.hasLabel}}
+            {{#if ../custom}}
+              <div class="flex-col col-12 mt-1">
+                <label>
+                  <span class="input-label">{{localize 'Name'}}</span>
+                  <input class="input-cpt b{{?? ../theme.inputBorderPosition 'b'}}-{{?? ../theme.inputBorderWidth '2'}}" type="text" name="{{concat ../path '.' ../target '.' traitIndex '.name'}}" value="{{trait.name}}">
+                </label>
               </div>
             {{else}}
-              <span
-                class="flex-col section-sub-heading text-primary">
-                {{trait.name}}
-              </span>
+              <div class="flex-col col-12">
+                <p class="trait-sub-title-cpt mt-2">{{trait.name}}</p>
+              </div>
             {{/if}}
-            {{#if ../settings.hasDice}}
-              {{> "systems/cortexprime/templates/partials/dice/select.html"
-                addToPool=true
-                consumable=../settings.consumableDice
-                dice=trait.dice.value
-                minDice=0
-                label=(ternary (and ../settings.hasLabel trait.label) trait.label trait.name)
-                selectName=(concat ../path '.' ../target '.' traitIndex '.dice')
-              }}
-            {{/if}}
-            <div class="flex-col">
-              <button class="btn btn-icon text-primary toggle-item"
-                data-path="{{concat ../path '.' ../target '.' traitIndex '.shutdown'}}" type="button">
-                <i class="fas {{ternary trait.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
-              </button>
-            </div>
-            {{#if ../custom}}
-              {{> "systems/cortexprime/templates/partials/remove-button.html"
-                path=../path
-                target=../target
-                itemKey=traitIndex
-                itemName=(ternary (and ../settings.hasLabel trait.label) (ternary (and trait.label trait.name) (concat trait.label
-                ' ('
-                trait.name ')')) trait.name)
-                type="trash"
-              }}
-            {{/if}}
-          </div>
-        </div>
-        {{#if ../settings.hasLabel}}
-          {{#if ../custom}}
-            <div class="flex-col col-12 mt-1">
-              <label>
-                <span class="label">{{localize 'Name'}}</span>
-                <input type="text" name="{{concat ../path '.' ../target '.' traitIndex '.name'}}" value="{{trait.name}}">
-              </label>
-            </div>
-          {{else}}
-            <div class="flex-col col-12">
-              <p class="section-sub-heading text-primary mt-1">{{trait.name}}</p>
-            </div>
           {{/if}}
+        </div>
+        {{#if ../settings.hasDescription}}
+          <div class="separator-cpt"></div>
+          <div class="pa-2 relative-section">
+            <div class="section-background"></div>
+            <label>
+              <span class="input-label-cpt">{{localize 'Description'}}</span>
+              <textarea class="input-cpt b{{?? ../theme.inputBorderPosition 'b'}}-{{?? ../theme.inputBorderWidth '2'}}" name="{{concat ../path '.' ../target '.' traitIndex '.description'}}">{{trait.description}}</textarea>
+            </label>
+          </div>
+        {{/if}}
+        {{#if ../settings.hasSubTraits}}
+          <div>
+            <div class="separator-cpt"></div>
+            <div class="pa-2 flex flex-ac flex-jsb relative-section">
+              <div class="section-background"></div>
+              <h4 class="flex-col sub-trait-label-cpt my-0">{{localize 'SubTraits'}}</h4>
+              <div class="flex-col">
+                <button class="btn btn-primary-cpt btn-icon add-sub-trait"
+                  data-path="{{concat ../path '.' ../target '.' traitIndex}}" type="button">
+                  <i class="fa fa-plus"></i>
+                </button>
+              </div>
+            </div>
+            {{> "systems/cortexprime/templates/partials/value-types/sub-traits.html"
+              borderClass=(concat "b" (?? ../theme.inputBorderPosition 'b') "-" (?? ../theme.inputBorderWidth '2'))
+              data=trait
+              fieldPath=(concat ../path '.' ../target '.' traitIndex '.subTraits')
+              path=(concat ../path '.' ../target '.' traitIndex)
+              settings=../settings
+            }}
+          </div>
+        {{/if}}
+        {{#if ../settings.hasDescriptors}}
+          <div>
+            <div class="separator-cpt"></div>
+            <div class="pa-2 flex flex-ac flex-jsb relative-section">
+              <div class="section-background"></div>
+              <h4 class="flex-col sub-trait-label-cpt my-0">{{localize 'Descriptors'}}</h4>
+              <div class="flex-col">
+                <button class="btn btn-primary-cpt btn-icon add-descriptor" data-path="{{concat ../path '.' ../target '.' traitIndex}}"
+                  type="button">
+                  <i class="fa fa-plus"></i>
+                </button>
+              </div>
+            </div>
+            {{> "systems/cortexprime/templates/partials/value-types/descriptors.html"
+              borderClass=(concat "b" (?? ../theme.inputBorderPosition 'b') "-" (?? ../theme.inputBorderWidth '2'))
+              data=trait
+              fieldPath=(concat ../path '.' ../target '.' traitIndex '.descriptors')
+              path=(concat ../path '.' ../target '.' traitIndex)
+            }}
+          </div>
+        {{/if}}
+        {{#if ../settings.hasSfx}}
+          <div>
+            <div class="separator-cpt"></div>
+            <div class="pa-2 flex flex-ac flex-jsb relative-section">
+              <div class="section-background"></div>
+              <h4 class="flex-col sub-trait-label-cpt my-0">{{localize 'Sfx'}}</h4>
+              <div class="flex-col">
+                <button class="btn btn-primary-cpt btn-icon add-sfx" data-path="{{concat ../path '.' ../target '.' traitIndex}}" type="button">
+                  <i class="fa fa-plus"></i>
+                </button>
+              </div>
+            </div>
+            {{> "systems/cortexprime/templates/partials/value-types/sfx.html"
+              borderClass=(concat "b" (?? ../theme.inputBorderPosition 'b') "-" (?? ../theme.inputBorderWidth '2'))
+              data=trait
+              fieldPath=(concat ../path '.' ../target '.' traitIndex '.sfx')
+              path=(concat ../path '.' ../target '.' traitIndex)
+            }}
+          </div>
         {{/if}}
       </div>
-      {{#if ../settings.hasDescription}}
-        <div class="my-1">
-          <label>
-            <span class="label">{{localize 'Description'}}</span>
-            <textarea name="{{concat ../path '.' ../target '.' traitIndex '.description'}}">{{trait.description}}</textarea>
-          </label>
-        </div>
-      {{/if}}
-      {{#if ../settings.hasSubTraits}}
-        <div>
-          <div class="bkg-light-grey pa-2 flex-row flex-ac flex-jsb">
-            <h4 class="flex-col section-sub-heading">{{localize 'SubTraits'}}</h4>
-            <div class="flex-col">
-              <button class="btn btn-secondary btn-icon add-sub-trait"
-                data-path="{{concat ../path '.' ../target '.' traitIndex}}" type="button">
-                <i class="fa fa-plus"></i>
-              </button>
-            </div>
-          </div>
-          {{> "systems/cortexprime/templates/partials/value-types/sub-traits.html"
-            data=trait
-            fieldPath=(concat ../path '.' ../target '.' traitIndex '.subTraits')
-            path=(concat ../path '.' ../target '.' traitIndex)
-            settings=../settings
-          }}
-        </div>
-      {{/if}}
-      {{#if ../settings.hasDescriptors}}
-        <div>
-          <div class="bkg-light-grey pa-2 flex-row flex-ac flex-jsb">
-            <h4 class="flex-col section-sub-heading">{{localize 'Descriptors'}}</h4>
-            <div class="flex-col">
-              <button class="btn btn-secondary btn-icon add-descriptor" data-path="{{concat ../path '.' ../target '.' traitIndex}}"
-                type="button">
-                <i class="fa fa-plus"></i>
-              </button>
-            </div>
-          </div>
-          {{> "systems/cortexprime/templates/partials/value-types/descriptors.html"
-            data=trait
-            fieldPath=(concat ../path '.' ../target '.' traitIndex '.descriptors')
-            path=(concat ../path '.' ../target '.' traitIndex)
-          }}
-        </div>
-      {{/if}}
-      {{#if ../settings.hasSfx}}
-        <div>
-          <div class="bkg-light-grey pa-2 flex-row flex-ac flex-jsb">
-            <h4 class="flex-col section-sub-heading">{{localize 'Sfx'}}</h4>
-            <div class="flex-col">
-              <button class="btn btn-secondary btn-icon add-sfx" data-path="{{concat ../path '.' ../target '.' traitIndex}}" type="button">
-                <i class="fa fa-plus"></i>
-              </button>
-            </div>
-          </div>
-          {{> "systems/cortexprime/templates/partials/value-types/sfx.html"
-            data=trait
-            fieldPath=(concat ../path '.' ../target '.' traitIndex '.sfx')
-            path=(concat ../path '.' ../target '.' traitIndex)
-          }}
-        </div>
-      {{/if}}
     </div>
   {{/each}}
 </div>

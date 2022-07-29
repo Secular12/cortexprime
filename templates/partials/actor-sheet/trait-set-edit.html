@@ -1,27 +1,39 @@
 <div>
   <div class="mb-2">
-    <button class="btn btn-secondary close-trait-set-edit">{{localize 'Back'}}</button>
+    <button class="btn btn-secondary-cpt {{ternary (eq theme.buttonStyle 'square') 'btn-square-cpt ' ''}}close-trait-set-edit">{{localize 'Back'}}</button>
   </div>
   <div>
-    <div class="flex-row flex-c py-2 by-2-primary mb-4">
-      <div class="flex-col">
-        <span class="section-heading">{{or traitSet.label "[Trait Set]"}}</span>
-      </div>
-      <div class="flex-col">
-        <button class="btn btn-icon text-primary toggle-item" data-path="{{concat path '.' traitSetIndex '.shutdown'}}"
-          type="button">
-          <i class="fas {{ternary traitSet.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
-        </button>
+    <div class="separator-cpt mb"></div>
+    <div class="section-cpt">
+      <div class="section-image"></div>
+      <div class="section-background"></div>
+      <div class="section-content py-2">
+        <div class="flex-row flex-c section-primary-title-cpt">
+          <div class="flex-col">
+            <span class="">{{or traitSet.label "[Trait Set]"}}</span>
+          </div>
+          <div class="flex-col">
+            <button class="btn btn-icon btn-icon-plain-cpt toggle-item" data-path="{{concat path '.' traitSetIndex '.shutdown'}}"
+              type="button">
+              <i class="fas {{ternary traitSet.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="mb-2">
-      {{#if traitSet.hasDescription}}
-      <label>
-        <span class="label">{{localize 'Description'}}</span>
-        <textarea name="{{concat path '.' traitSetIndex '.description'}}">{{traitSet.description}}</textarea>
-      </label>
-      {{/if}}
-    </div>
+    <div class="separator-cpt mb-4"></div>
+    {{#if traitSet.hasDescription}}
+      <div class="section-cpt mb-2 {{ternary (eq theme.buttonStyle 'square') 'btn-square-cpt ' ''}}">
+        <div class="section-image"></div>
+        <div class="section-background"></div>
+        <div class="section-content pa-2">
+          <label>
+            <span class="input-label-cpt">{{localize 'Description'}}</span>
+            <textarea class="mt-2 input-cpt b{{?? theme.inputBorderPosition 'b'}}-{{?? theme.inputBorderWidth '2'}}" name="{{concat path '.' traitSetIndex '.description'}}">{{traitSet.description}}</textarea>
+          </label>
+        </div>
+      </div>
+    {{/if}}
     <div class="flex-row flex-jc">
       {{#if traitSet.traits.[0]}}
         {{> "systems/cortexprime/templates/partials/actor-sheet/traits-edit.html"

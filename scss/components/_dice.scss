@@ -82,6 +82,17 @@ $dieSides: 4, 6, 8, 10, 12;
   }
 }
 
+.dice-container {
+  position: relative;
+
+  .die-container {
+    height: 32px;
+    width: 32px;
+    position: absolute;
+    z-index: -1;
+  }
+}
+
 .die-select {
   border: none !important;
   background-color: transparent !important;
@@ -89,15 +100,22 @@ $dieSides: 4, 6, 8, 10, 12;
   background-size: contain;
   background-position: center;
   color: transparent;
-  height: toRem(28px);
+  cursor: pointer;
+  height: toRem(32px);
+  position: relative;
   text-align: center;
   text-align-last: center;
-  width: toRem(28px);
+  width: toRem(32px);
   -moz-text-align-last: center;
   -webkit-appearance: none;
   -moz-appearance: none;
   ::-ms-expand {
     display: none;
+  }
+  z-index: 1;
+
+  &:focus {
+    box-shadow: none;
   }
 
   option {
@@ -105,24 +123,24 @@ $dieSides: 4, 6, 8, 10, 12;
     font-weight: 600;
   }
 
-  &.d4 {
-    background-image: url("../assets/dice/d4.svg");
-  }
+  // &.d4 {
+  //   background-image: url("../assets/dice/d4.svg");
+  // }
 
-  &.d6 {
-    background-image: url("../assets/dice/d6.svg");
-    background-size: 75%;
-  }
+  // &.d6 {
+  //   background-image: url("../assets/dice/d6.svg");
+  //   background-size: 75%;
+  // }
 
-  &.d8 {
-    background-image: url("../assets/dice/d8.svg");
-  }
+  // &.d8 {
+  //   background-image: url("../assets/dice/d8.svg");
+  // }
 
-  &.d10 {
-    background-image: url("../assets/dice/d10.svg");
-  }
+  // &.d10 {
+  //   background-image: url("../assets/dice/d10.svg");
+  // }
 
-  &.d12 {
-    background-image: url("../assets/dice/d12.svg");
-  }
+  // &.d12 {
+  //   background-image: url("../assets/dice/d12.svg");
+  // }
 }

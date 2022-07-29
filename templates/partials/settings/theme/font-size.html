@@ -1,0 +1,11 @@
+<div class="flex-col">
+  <p class="bold mb-1">
+    {{label}}
+  </p>
+  <div class="flex-col">
+    <div class="flex-row flex-ac">
+      <input class="input-cpt b{{?? themes.list.Default.inputBorderPosition 'b'}}-{{?? themes.list.Default.inputBorderWidth '2'}}" type="number" min="1" name="{{name}}" step="1" style="max-width:40px" value="{{value}}">
+      <span class="ml-1 bold">px</span>
+    </div>
+  </div>
+</div>

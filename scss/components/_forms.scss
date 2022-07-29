@@ -3,9 +3,8 @@ input, select, textarea {
   border-radius: 0;
 }
 
-input, select {
+input, select, textarea {
   border: 0;
-  border-bottom: toRem(2px) solid color('secondary')
 }
 
 input, textarea {
@@ -15,10 +14,6 @@ input, textarea {
 
 input {
   vertical-align: middle;
-}
-
-textarea {
-  border: toRem(2px) solid color('secondary')
 }
 
 .notes-field {

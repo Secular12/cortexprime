@@ -1,27 +1,33 @@
 <div class="flex-col col-3">
-  <div>
-    <button class="btn btn-primary update-actor-settings" type="button">{{localize 'UpdateSettings'}}</button>
+  <div class="section-cpt b{{?? theme.sectionBorderPosition 'a'}}-{{?? theme.sectionBorderWidth '2'}}">
+    <div class="section-image"></div>
+    <div class="section-content">
+      <div class="relative-section pa-2">
+        <div class="section-background"></div>
+        <button class="btn btn-primary-cpt {{ternary (eq theme.buttonStyle 'square') 'btn-square-cpt ' ''}}update-actor-settings" type="button">{{localize 'UpdateSettings'}}</button>
+        <p class="my-1"><b class="descriptor-label-cpt">{{localize 'ActorType'}}</b> {{actorType.name}}</p>
+        {{#if actorType.showProfileImage}}
+          <img class="profile-image bkg-light-grey" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+        {{/if}}
+        <div class="input-label-cpt mt-2">{{localize 'Name'}}</div>
+        <div class="mb-4">
+          {{#if owner}}
+            <input class="input-cpt b{{?? theme.inputBorderPosition 'b'}}-{{?? theme.inputBorderWidth '2'}}" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Name'}}" />
+          {{else}}
+            <p class="bold">{{actor.name}}</p>
+          {{/if}}
+        </div>
+        {{#if actorType.hasPlotPoints}}
+          {{> "systems/cortexprime/templates/partials/pp.html" pp=pp }}
+        {{/if}}
+      </div>
+      {{#if actorType.simpleTraits}}
+        {{> "systems/cortexprime/templates/partials/actor-sheet/simple-traits.html"
+          data=actorType
+          simpleTraits=actorType.simpleTraits
+          path='data.actorType.simpleTraits'
+        }}
+      {{/if}}
+    </div>
   </div>
-  <p class="my-1"><b class="text-primary">{{localize 'ActorType'}}</b> {{actorType.name}}</p>
-  {{#if actorType.showProfileImage}}
-    <img class="profile-image bkg-light-grey" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
-  {{/if}}
-  <div class="section-sub-heading mt-2">{{localize 'Name'}}</div>
-  <div class="mb-2">
-    {{#if owner}}
-      <input class="py-1" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Name'}}" />
-    {{else}}
-      <p class="bold">{{actor.name}}</p>
-    {{/if}}
-  </div>
-  {{#if actorType.hasPlotPoints}}
-    {{> "systems/cortexprime/templates/partials/pp.html" pp=pp }}
-  {{/if}}
-  {{#if actorType.simpleTraits}}
-    {{> "systems/cortexprime/templates/partials/actor-sheet/simple-traits.html"
-      data=actorType
-      simpleTraits=actorType.simpleTraits
-      path='data.actorType.simpleTraits'
-    }}
-  {{/if}}
 </div>

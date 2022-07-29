@@ -1,0 +1,20 @@
+<div class="flex-col">
+  <p class="bold mb-1">
+    {{label}}
+  </p>
+  <div class="flex-col input-image-select-cpt py-1 px-3">
+    <div class="flex-row flex-ac">
+      <button class="btn btn-icon btn-primary-cpt {{ternary (eq themes.list.Default.buttonStyle 'square') 'btn-square-cpt ' ''}}image-picker" type="button" data-target-setting="{{targetSetting}}">
+        <i class="fa fa-image"></i>
+      </button>
+      {{#if value}}
+        <span class="mx-1 truncate">{{value}}</span>
+      {{else}}
+        <span class="mx-1 truncate">No Image Chosen</span>
+      {{/if}}
+      <button class="btn btn-icon btn-secondary-cpt {{ternary (eq themes.list.Default.buttonStyle 'square') 'btn-square-cpt ' ''}}image-remove" type="button" data-target-setting="{{targetSetting}}">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+  </div>
+</div>

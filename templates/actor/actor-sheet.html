@@ -1,94 +1,125 @@
-<form class="{{cssClass}}" autocomplete="off">
-  {{#unless data.data.actorType}}
-    <div class="flex-row flex-c bkg-grey" style="height: 100%">
-      <div class="flex-col ba-1-primary bkg-white pa-4">
-        <label class="section-sub-heading text-primary col-12">{{localize 'ActorType'}}</label>
-        <select class="actor-type-select col-12 my-2">
-          {{#each actorTypeOptions as |actorType actorTypeIndex|}}
-            <option value="{{actorTypeIndex}}">{{or actorType (concat '[' (localize 'NoName') ']')}}</option>
-          {{/each}}
-        </select>
-        <button class="btn btn-secondary actor-type-confirm col-12" type="button">{{localize 'Confirm'}}</button>
-      </div>
-    </div>
-  {{else}}
-    {{#if (and (or data.data.actorType.traitSetEdit (eq data.data.actorType.traitSetEdit 0)) owner)}}
-      {{> "systems/cortexprime/templates/partials/actor-sheet/trait-set-edit.html"
-        data=data.data.actorType
-        traitSet=(lookup data.data.actorType.traitSets data.data.actorType.traitSetEdit)
-        traitSetIndex=data.data.actorType.traitSetEdit
-        path="data.actorType.traitSets"
-      }}
-    {{else}}
-      <div class="mb-2">
-        <nav class="sheet-tabs tabs mb-4" data-group="primary">
-          <a class="item" data-tab="traits">{{localize 'Traits'}}</a>
-          {{#if data.data.actorType.hasNotesPage}}
-            <a class="item" data-tab="notes">{{localize 'Notes'}}</a>
-          {{/if}}
-          <a class="item" href="https://docs.google.com/document/d/1LNrvmVqJtE-B_IMRl66fQmDwHpHPOGX6gF7Vl-kn-dc/edit?usp=sharing">{{localize 'Help'}}</a>
-        </nav>
-      </div>
-      <div class="sheet-body">
-        <article class="tab sets active" data-group="primary" data-tab="traits">
-          <div class="flex-row">
-            {{> "systems/cortexprime/templates/partials/actor-sheet/sidebar.html"
-              actor=actor
-              actorType=data.data.actorType
-              pp=data.data.pp
-            }}
-            <section class="flex-col col-9">
-              {{> "systems/cortexprime/templates/partials/actor-sheet/trait-sets.html"
-                data=data.data.actorType
-                traitSets=data.data.actorType.traitSets
-                path="data.actorType.traitSets"
-              }}
-              {{#if (and data.data.actorType.traitSets.[0] (or data.data.actorType.hasAssets data.data.actorType.hasComplications))}}
-                <div class="bb-2-primary my-4"></div>
-              {{/if}}
-              {{#if (or data.data.actorType.hasAssets data.data.actorType.hasComplications)}}
-                {{> "systems/cortexprime/templates/partials/actor-sheet/temporary-traits.html"
-                  data=data.data.actorType
-                  path="data.actorType"
-                }}
-              {{/if}}
-            </section>
+<form class="{{cssClass}} sheet-cpt" autocomplete="off">
+  <div class="sheet-background"></div>
+  <div class="sheet-image"></div>
+  <div class="sheet-content pa-2">
+    {{> "systems/cortexprime/templates/partials/settings/theme/style.html"
+      settings=theme
+      target='.actor-sheet'
+    }}
+    {{#unless data.data.actorType}}
+      <div class="flex-row flex-c" style="height: 100%">
+        <div class="flex-col section-cpt b{{?? theme.sectionBorderPosition 'a'}}-{{?? theme.sectionBorderWidth '2'}} pa-4">
+          <div class="section-image"></div>
+          <div class="section-background"></div>
+          <div class="section-content">
+            <label class="section-primary-title-cpt text-primary col-12">{{localize 'ActorType'}}</label>
+            <select class="actor-type-select input-cpt col-12 my-2 b{{?? theme.inputBorderPosition 'b'}}-{{?? theme.inputBorderWidth '2'}}">
+              {{#each actorTypeOptions as |actorType actorTypeIndex|}}
+                <option value="{{actorTypeIndex}}">{{or actorType (concat '[' (localize 'NoName') ']')}}</option>
+              {{/each}}
+            </select>
+            <button class="btn btn-primary-cpt {{ternary (eq theme.buttonStyle 'square') 'btn-square-cpt ' ''}}actor-type-confirm col-12" type="button">{{localize 'Confirm'}}</button>
           </div>
-        </article>
-        {{#if data.data.actorType.hasNotesPage}}
-          <section class="tab notes px-2" data-group="primary" data-tab="notes">
-            <header class="flex flex-ac">
-              <h2 class="flex-col col-12 section-heading">{{localize 'Notes'}}</h2>
-              <div class="btn btn-icon btn-secondary add-note">
-                <i class="fa fa-plus"></i>
-              </div>
-            </header>
-            {{#each data.data.actorType.notes as |note noteIndex|}}
-              <article class="my-4">
-                <header class="mb-2 flex-row">
-                  <div class="flex-col col-12">
-                    <input class="bold" type="text" name="data.actorType.notes.{{noteIndex}}.label" value="{{note.label}}">
-                  </div>
-                  <div class="flex-col">
-                    {{> "systems/cortexprime/templates/partials/remove-button.html"
-                      path='data.actorType'
-                      target='notes'
-                      itemKey=noteIndex
-                      itemName=note.label
-                      type="trash"
-                    }}
-                  </div>
-                </header>
-                <div class="notes-field">
-                  {{editor content=note.value
-                  target=(concat 'data.actorType.notes.' noteIndex '.value') button=true owner=owner
-                  editable=true}}
-                </div>
-              </article>
-            {{/each}}
-          </section>
-        {{/if}}
+        </div>
       </div>
-    {{/if}}
-  {{/unless}}
+    {{else}}
+      {{#if (and (or data.data.actorType.traitSetEdit (eq data.data.actorType.traitSetEdit 0)) owner)}}
+        {{> "systems/cortexprime/templates/partials/actor-sheet/trait-set-edit.html"
+          data=data.data.actorType
+          traitSet=(lookup data.data.actorType.traitSets data.data.actorType.traitSetEdit)
+          traitSetIndex=data.data.actorType.traitSetEdit
+          path="data.actorType.traitSets"
+        }}
+      {{else}}
+        <div class="mb-2">
+          <nav class="sheet-tabs tabs mb-4" data-group="primary">
+            <a class="item tab-cpt{{ternary (eq theme.tabStyle 'rounded') ' tab-rounded-cpt' ''}}" data-tab="traits">{{localize 'Traits'}}</a>
+            {{#if data.data.actorType.hasNotesPage}}
+              <a class="item tab-cpt{{ternary (eq theme.tabStyle 'rounded') ' tab-rounded-cpt' ''}}" data-tab="notes">{{localize 'Notes'}}</a>
+            {{/if}}
+            <a class="item tab-cpt{{ternary (eq theme.tabStyle 'rounded') ' tab-rounded-cpt' ''}}" href="https://docs.google.com/document/d/1LNrvmVqJtE-B_IMRl66fQmDwHpHPOGX6gF7Vl-kn-dc/edit?usp=sharing">{{localize 'Help'}}</a>
+          </nav>
+        </div>
+        <div class="sheet-body">
+          <article class="tab sets active" data-group="primary" data-tab="traits">
+            <div class="flex-row">
+              {{> "systems/cortexprime/templates/partials/actor-sheet/sidebar.html"
+                actor=actor
+                actorType=data.data.actorType
+                pp=data.data.pp
+              }}
+              <section class="flex-col col-9">
+                {{> "systems/cortexprime/templates/partials/actor-sheet/trait-sets.html"
+                  data=data.data.actorType
+                  traitSets=data.data.actorType.traitSets
+                  path="data.actorType.traitSets"
+                }}
+                {{#if (and data.data.actorType.traitSets.[0] (or data.data.actorType.hasAssets data.data.actorType.hasComplications))}}
+                  <div class="separator-cpt my-4"></div>
+                {{/if}}
+                {{#if (or data.data.actorType.hasAssets data.data.actorType.hasComplications)}}
+                  {{> "systems/cortexprime/templates/partials/actor-sheet/temporary-traits.html"
+                    data=data.data.actorType
+                    path="data.actorType"
+                  }}
+                {{/if}}
+              </section>
+            </div>
+          </article>
+          {{#if data.data.actorType.hasNotesPage}}
+            <section class="tab" data-group="primary" data-tab="notes">
+              <header>
+                <div class="separator-cpt mb"></div>
+                <div class="section-cpt">
+                  <div class="section-image"></div>
+                  <div class="section-background"></div>
+                  <div class="section-content py-2">
+                    <div class="flex-row flex-c">
+                      <div class="flex-col">
+                        <h2 class="my-0 section-primary-title-cpt">{{localize 'Notes'}}</h2>
+                      </div>
+                      <div class="flex-col">
+                        <button class="btn btn-icon btn-primary-cpt add-note" type="button">
+                          <i class="fa fa-plus"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="separator-cpt mb-4"></div>
+              </header>
+              {{#each data.data.actorType.notes as |note noteIndex|}}
+                <article class="my-4 section-cpt b{{?? ../theme.sectionBorderPosition 'a'}}-{{?? ../theme.sectionBorderWidth '2'}} pa-4">
+                  <div class="section-image"></div>
+                  <div class="section-background"></div>
+                  <div class="section-content">
+                    <header class="mb-2 flex-row flex-ae">
+                      <div class="flex-col col-12">
+                        <label class="input-label-cpt">{{localize 'Name'}}</label>
+                        <input class="input-cpt b{{?? ../theme.inputBorderPosition 'b'}}-{{?? ../theme.inputBorderWidth '2'}}" type="text" name="data.actorType.notes.{{noteIndex}}.label" value="{{note.label}}">
+                      </div>
+                      <div class="flex-col">
+                        {{> "systems/cortexprime/templates/partials/remove-button.html"
+                          path='data.actorType'
+                          target='notes'
+                          itemKey=noteIndex
+                          itemName=note.label
+                          type="trash"
+                        }}
+                      </div>
+                    </header>
+                    <div class="notes-field">
+                      {{editor content=note.value
+                      target=(concat 'data.actorType.notes.' noteIndex '.value') button=true owner=owner
+                      editable=true}}
+                    </div>
+                  </div>
+                </article>
+              {{/each}}
+            </section>
+          {{/if}}
+        </div>
+      {{/if}}
+    {{/unless}}
+  </div>
 </form>

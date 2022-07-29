@@ -2,25 +2,6 @@ nav.sheet-tabs {
   height: auto;
   margin: 0 toRem(-4px) toRem(8px);
   border: 0;
-  border-bottom: 1px solid color('lighter-grey');
+  padding: 0;
   justify-content: start;
-}
-
-.tabs {
-  .item {
-    border: toRem(2px) solid color('secondary');
-    color: color('secondary');
-    line-height: 1;
-    margin: 0 toRem(2px);
-    padding: toRem(4px) toRem(8px);
-    font-weight: bold;
-    border-radius: 25% 25% 0 0;
-  }
-
-  .item.active {
-    border: toRem(2px) solid color('accent');
-    background-color: color('accent');
-    color: color('black');
-    text-shadow: none;
-  }
 }

@@ -1,10 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Martel:wght@400;800&family=Roboto:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
 /* Global styles */
 .window-app {
   font-family: "Roboto", sans-serif;
 }
 .window-app .window-content {
   background: #f5f8fa;
+}
+
+.cortexprime.window-app .window-content {
+  background: none;
+  padding: 0;
+}
+
+.dice-picker.window-app .window-content {
+  background: none;
+  padding: 0;
 }
 
 p {
@@ -56,6 +66,15 @@ p {
 .trait-name {
   font-size: 1.25rem;
   cursor: pointer;
+}
+
+.truncate {
+  width: 21.25rem;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .bold {
@@ -1255,6 +1274,7 @@ p {
 .btn {
   background-color: transparent;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
   line-height: normal;
@@ -1331,16 +1351,6 @@ p {
   height: 1rem;
   padding: 0.125rem;
   width: 1rem;
-}
-
-.btn-pp {
-  line-height: 0;
-  padding: 0;
-  border-radius: 50%;
-}
-.btn-pp img {
-  border: 0;
-  width: 4rem;
 }
 
 .btn-text {
@@ -2541,21 +2551,13 @@ p {
   padding-top: 3rem;
 }
 
-.cursor-pointer {
-  cursor: pointer;
+.my-auto {
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.editor {
-  height: 100%;
-  width: 100%;
-}
-.editor .editor-content {
-  border: 0.125rem solid #2D5931;
-  padding: 0.5rem;
-}
-.editor .tox-edit-area {
-  background-color: #c9e2d1;
-  border: 0.125rem solid #2D5931;
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .default-image, .profile-image {
@@ -2666,14 +2668,25 @@ p {
   padding-left: 20px;
 }
 
+input[type=text].color {
+  border-bottom: 2px solid #2D5931;
+  max-width: 6.25rem;
+}
+
+input[type=color][data-edit][data-edit] {
+  border: none;
+  cursor: pointer;
+  margin-left: 0;
+  max-width: 1.625rem;
+}
+
 /* Styles limited to cortexprime sheets */
 .cortexprime input, .cortexprime select, .cortexprime textarea {
   background-color: #c9e2d1;
   border-radius: 0;
 }
-.cortexprime input, .cortexprime select {
+.cortexprime input, .cortexprime select, .cortexprime textarea {
   border: 0;
-  border-bottom: 0.125rem solid #2D5931;
 }
 .cortexprime input, .cortexprime textarea {
   font-family: "Roboto", sans-serif;
@@ -2681,9 +2694,6 @@ p {
 }
 .cortexprime input {
   vertical-align: middle;
-}
-.cortexprime textarea {
-  border: 0.125rem solid #2D5931;
 }
 .cortexprime .notes-field {
   font-size: 1rem;
@@ -2693,25 +2703,10 @@ p {
   height: auto;
   margin: 0 -0.25rem 0.5rem;
   border: 0;
-  border-bottom: 1px solid #e7eef3;
+  padding: 0;
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: start;
-}
-.cortexprime .tabs .item {
-  border: 0.125rem solid #2D5931;
-  color: #2D5931;
-  line-height: 1;
-  margin: 0 0.125rem;
-  padding: 0.25rem 0.5rem;
-  font-weight: bold;
-  border-radius: 25% 25% 0 0;
-}
-.cortexprime .tabs .item.active {
-  border: 0.125rem solid #c9e2d1;
-  background-color: #c9e2d1;
-  color: #141c27;
-  text-shadow: none;
 }
 .cortexprime .breadcrumb {
   color: #B30044;
@@ -2726,6 +2721,588 @@ p {
 .cortexprime .breadcrumb.active:hover {
   text-decoration: none;
   cursor: default;
+}
+.cortexprime .sheet-cpt {
+  color: var(--body-font-color, #000000);
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: var(--body-font-weight, 400);
+  height: 100%;
+}
+.cortexprime .sheet-cpt .sheet-background {
+  background-color: var(--sheet-background-color, #dedede);
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+.cortexprime .sheet-cpt .sheet-image {
+  background-image: var(--sheet-background-image, none);
+  background-position: var(--sheet-background-position, center);
+  background-repeat: var(--sheet-background-repeat, no-repeat);
+  background-size: var(--sheet-background-size, cover);
+  height: 100%;
+  left: 0;
+  opacity: var(--sheet-background-image-opacity, 0.5);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+.cortexprime .sheet-cpt .sheet-content {
+  position: relative;
+  z-index: 3;
+}
+.cortexprime .section-cpt {
+  background: transparent;
+  border: 0;
+  border-color: var(--section-border-color, #2d5931);
+  border-style: var(--section-border-style, solid);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+}
+.cortexprime .section-cpt .section-background, .cortexprime .section-cpt .section-background-alternate, .cortexprime .section-cpt .section-image {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.cortexprime .section-cpt .section-background {
+  background-color: var(--section-background-color, transparent);
+  opacity: var(--section-background-color-opacity, 1);
+  z-index: 3;
+}
+.cortexprime .section-cpt .section-background-alternate {
+  background-color: var(--section-alternate-background-color, #ccd7df);
+  opacity: var(--section-background-color-opacity, 1);
+  z-index: 3;
+}
+.cortexprime .section-cpt .section-image {
+  background-image: var(--section-background-image, none);
+  background-position: var(--section-background-position, center);
+  background-repeat: var(--section-background-repeat, no-repeat);
+  background-size: var(--section-background-size, cover);
+  opacity: var(--section-background-image-opacity, 0);
+  z-index: 4;
+}
+.cortexprime .section-cpt .section-content {
+  position: relative;
+  z-index: 5;
+  height: 100%;
+}
+.cortexprime .ba-1 {
+  border-width: 0.0625rem;
+}
+.cortexprime .ba-2 {
+  border-width: 0.125rem;
+}
+.cortexprime .ba-3 {
+  border-width: 0.1875rem;
+}
+.cortexprime .ba-4 {
+  border-width: 0.25rem;
+}
+.cortexprime .bb-1 {
+  border-bottom-width: 0.0625rem;
+}
+.cortexprime .bb-2 {
+  border-bottom-width: 0.125rem;
+}
+.cortexprime .bb-3 {
+  border-bottom-width: 0.1875rem;
+}
+.cortexprime .bb-4 {
+  border-bottom-width: 0.25rem;
+}
+.cortexprime .bl-1 {
+  border-left-width: 0.0625rem;
+}
+.cortexprime .bl-2 {
+  border-left-width: 0.125rem;
+}
+.cortexprime .bl-3 {
+  border-left-width: 0.1875rem;
+}
+.cortexprime .bl-4 {
+  border-left-width: 0.25rem;
+}
+.cortexprime .br-1 {
+  border-right-width: 0.0625rem;
+}
+.cortexprime .br-2 {
+  border-right-width: 0.125rem;
+}
+.cortexprime .br-3 {
+  border-right-width: 0.1875rem;
+}
+.cortexprime .br-4 {
+  border-right-width: 0.25rem;
+}
+.cortexprime .bt-1 {
+  border-top-width: 0.0625rem;
+}
+.cortexprime .bt-2 {
+  border-top-width: 0.125rem;
+}
+.cortexprime .bt-3 {
+  border-top-width: 0.1875rem;
+}
+.cortexprime .bt-4 {
+  border-top-width: 0.25rem;
+}
+.cortexprime .bx-1 {
+  border-left-width: 0.0625rem;
+  border-right-width: 0.0625rem;
+}
+.cortexprime .bx-2 {
+  border-left-width: 0.125rem;
+  border-right-width: 0.125rem;
+}
+.cortexprime .bx-3 {
+  border-left-width: 0.1875rem;
+  border-right-width: 0.1875rem;
+}
+.cortexprime .bx-4 {
+  border-left-width: 0.25rem;
+  border-right-width: 0.25rem;
+}
+.cortexprime .by-1 {
+  border-bottom-width: 0.0625rem;
+  border-top-width: 0.0625rem;
+}
+.cortexprime .by-2 {
+  border-bottom-width: 0.125rem;
+  border-top-width: 0.125rem;
+}
+.cortexprime .by-3 {
+  border-bottom-width: 0.1875rem;
+  border-top-width: 0.1875rem;
+}
+.cortexprime .by-4 {
+  border-bottom-width: 0.25rem;
+  border-top-width: 0.25rem;
+}
+.cortexprime .relative-section {
+  position: relative;
+}
+.cortexprime .relative-section .section-background, .cortexprime .relative-section .section-background-alternate {
+  z-index: -1;
+}
+.cortexprime .btn-primary-cpt {
+  background-color: var(--button-primary-color, #2d5931);
+  color: var(--button-primary-font-color, #ffffff);
+}
+.cortexprime .btn:hover, .cortexprime .btn:focus {
+  -webkit-box-shadow: 0 0 5px var(--input-focus-color, #b30044);
+  box-shadow: 0 0 5px var(--input-focus-color, #b30044);
+}
+.cortexprime .btn.btn-square-cpt {
+  border-radius: 0;
+}
+.cortexprime .btn.btn-icon.btn-square-cpt {
+  border-radius: 0;
+}
+.cortexprime .btn.btn-pp {
+  line-height: 0;
+  padding: 0;
+  border-radius: 50%;
+}
+.cortexprime .btn-secondary-cpt {
+  background-color: var(--button-secondary-color, #b30044);
+  color: var(--button-secondary-font-color, #ffffff);
+}
+.cortexprime .btn-icon-plain-cpt {
+  background-color: transparent;
+  color: var(--body-font-color, #000000);
+}
+.cortexprime .dialog-buttons .dialog-button.confirm {
+  background-color: var(--button-primary-color, #2d5931);
+  border: 0;
+  color: var(--button-primary-font-color, #ffffff);
+  cursor: pointer;
+}
+.cortexprime .die-cpt {
+  height: 2rem;
+  position: relative;
+  width: 2rem;
+}
+.cortexprime .die-cpt .number {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.cortexprime .d4-cpt .number {
+  -webkit-transform: translate(-50%, -60%);
+  -ms-transform: translate(-50%, -60%);
+  transform: translate(-50%, -60%);
+}
+.cortexprime .chosen-cpt .fill {
+  fill: var(--chosen-fill, #ffffff);
+}
+.cortexprime .chosen-cpt .stroke {
+  fill: var(--chosen-stroke, #b30044);
+}
+.cortexprime .chosen-cpt .number {
+  color: var(--chosen-number, #1f2834);
+}
+.cortexprime .die-rating-cpt .fill {
+  fill: var(--die-rating-fill, #b30044);
+}
+.cortexprime .die-rating-cpt .stroke {
+  fill: var(--die-rating-stroke, #b30044);
+}
+.cortexprime .die-rating-cpt .number {
+  color: var(--die-rating-number, #ffffff);
+}
+.cortexprime .effect-cpt .fill {
+  fill: var(--effect-fill, #2d5931);
+}
+.cortexprime .effect-cpt .stroke {
+  fill: var(--effect-stroke, #2d5931);
+}
+.cortexprime .effect-cpt .number {
+  color: var(--effect-number, #ffffff);
+}
+.cortexprime .hitch-cpt .fill {
+  fill: var(--hitch-fill, #141c27);
+}
+.cortexprime .hitch-cpt .stroke {
+  fill: var(--hitch-stroke, #b30044);
+}
+.cortexprime .hitch-cpt .number {
+  color: var(--hitch-number, #ffffff);
+}
+.cortexprime .pp-cpt {
+  background-color: var(--plot-point-fill, #c9e2d1);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 0.125rem solid var(--plot-point-stroke, #c9e2d1);
+  border-radius: 50%;
+  position: relative;
+  height: 2rem;
+  width: 2rem;
+}
+.cortexprime .pp-cpt .pp-text-cpt {
+  position: absolute;
+  color: var(--plot-point-text, #141c27);
+  font-weight: 700;
+  font-size: 1.125rem;
+  left: 50%;
+  line-height: 1;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.cortexprime .pp-cpt.pp-lg {
+  height: 4rem;
+  width: 4rem;
+  border-width: 0.25rem;
+}
+.cortexprime .pp-cpt.pp-lg .pp-text-cpt {
+  font-size: 2.25rem;
+}
+.cortexprime .selected-cpt .fill {
+  fill: var(--selected-fill, #c9e2d1);
+}
+.cortexprime .selected-cpt .stroke {
+  fill: var(--selected-stroke, #b30044);
+}
+.cortexprime .selected-cpt .number {
+  color: var(--selected-number, #141c27);
+}
+.cortexprime .unchosen-cpt .fill {
+  fill: var(--unchosen-fill, #dedede);
+}
+.cortexprime .unchosen-cpt .stroke {
+  fill: var(--unchosen-stroke, #424c59);
+}
+.cortexprime .unchosen-cpt .number {
+  color: var(--unchosen-number, #424c59);
+}
+.cortexprime .descriptor-label-cpt {
+  color: var(--descriptor-label-font-color, #000000);
+  font-size: 14px;
+  font-style: var(--descriptor-label-font-style, italic);
+  font-weight: var(--descriptor-label-font-weight, 700);
+  text-transform: var(--descriptor-label-text-transform, none);
+}
+.cortexprime .section-primary-title-cpt {
+  border: 0;
+  color: var(--section-primary-title-font-color, #b30044);
+  font-size: 20px;
+  font-style: var(--section-primary-title-font-style, normal);
+  font-weight: var(--section-primary-title-font-weight, 700);
+  text-transform: var(--section-primary-title-text-transform, uppercase);
+}
+.cortexprime .sfx-bullet-cpt {
+  color: var(--sfx-bullet-color, #b30044);
+}
+.cortexprime .sfx-label-cpt {
+  color: var(--sfx-label-font-color, #2d5931);
+  font-size: 14px;
+  font-style: var(--sfx-label-font-style, italic);
+  font-weight: var(--sfx-label-font-weight, 700);
+  text-transform: var(--sfx-label-text-transform, capitalize);
+}
+.cortexprime .section-secondary-title-cpt {
+  border: 0;
+  color: var(--section-secondary-title-font-color, #2d5931);
+  font-size: 16px;
+  font-style: var(--section-secondary-title-font-style, normal);
+  font-weight: var(--section-secondary-title-font-weight, 700);
+  text-transform: var(--section-secondary-title-text-transform, uppercase);
+}
+.cortexprime .sub-trait-label-cpt {
+  color: var(--sub-trait-label-font-color, #2d5931);
+  font-size: 14px;
+  font-style: var(--sub-trait-label-font-style, normal);
+  font-weight: var(--sub-trait-label-font-weight, 700);
+  text-transform: var(--sub-trait-label-text-transform, uppercase);
+}
+.cortexprime .tab-cpt {
+  background-color: var(--button-secondary-color, #b30044);
+  color: var(--button-secondary-font-color, #ffffff);
+  line-height: 1;
+  margin: 0 0.125rem 0.125rem;
+  padding: 0.25rem 0.5rem;
+  font-weight: bold;
+}
+.cortexprime .tab-cpt:hover, .cortexprime .tab-cpt:focus {
+  text-shadow: none;
+  -webkit-box-shadow: 0 0 5px var(--input-focus-color, #b30044);
+  box-shadow: 0 0 5px var(--input-focus-color, #b30044);
+}
+.cortexprime .tab-cpt.active {
+  background-color: var(--button-primary-color, #2d5931);
+  color: var(--button-primary-font-color, #ffffff);
+  text-shadow: none;
+}
+.cortexprime .tab-cpt.tab-rounded-cpt {
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+.cortexprime .trait-sub-title-cpt {
+  color: var(--trait-sub-title-font-color, #b30044);
+  font-size: 14px;
+  font-style: var(--trait-sub-title-font-style, italic);
+  font-weight: var(--trait-sub-title-font-weight, 700);
+  text-transform: var(--trait-sub-title-text-transform, none);
+}
+.cortexprime .trait-title-cpt {
+  color: var(--trait-title-font-color, #424c59);
+  font-size: 16px;
+  font-style: var(--trait-title-font-style, normal);
+  font-weight: var(--trait-title-font-weight, 700);
+  text-transform: var(--trait-title-text-transform, uppercase);
+}
+.cortexprime .input-image-select-cpt {
+  border: var(--input-border-width, 2px) var(--input-border-style, solid) var(--input-border-color, #2d5931);
+}
+.cortexprime .input-cpt, .cortexprime .color-picker input.color {
+  background-color: var(--input-background-color, #c9e2d1);
+  border: 0;
+  border-color: var(--input-border-color, #2d5931);
+  border-style: var(--input-border-style, solid);
+  color: var(--input-color, #000000);
+  font-family: "Roboto", serif;
+  font-size: 16px;
+  font-weight: var(--body-font-weight, 400);
+  height: auto;
+  padding: 0.1875rem 0.375rem;
+}
+.cortexprime .input-cpt:focus, .cortexprime .color-picker input.color:focus {
+  -webkit-box-shadow: 0 0 5px var(--input-focus-color, #b30044);
+  box-shadow: 0 0 5px var(--input-focus-color, #b30044);
+}
+.cortexprime .input-cpt option, .cortexprime .color-picker input.color option {
+  color: black;
+}
+.cortexprime .input-cpt.ba-1, .cortexprime .color-picker input.color.ba-1 {
+  border-width: 0.0625rem;
+}
+.cortexprime .input-cpt.ba-2, .cortexprime .color-picker input.color.ba-2 {
+  border-width: 0.125rem;
+}
+.cortexprime .input-cpt.ba-3, .cortexprime .color-picker input.color.ba-3 {
+  border-width: 0.1875rem;
+}
+.cortexprime .input-cpt.ba-4, .cortexprime .color-picker input.color.ba-4 {
+  border-width: 0.25rem;
+}
+.cortexprime .input-cpt.bb-1, .cortexprime .color-picker input.color.bb-1 {
+  border-bottom-width: 0.0625rem;
+}
+.cortexprime .input-cpt.bb-2, .cortexprime .color-picker input.color.bb-2 {
+  border-bottom-width: 0.125rem;
+}
+.cortexprime .input-cpt.bb-3, .cortexprime .color-picker input.color.bb-3 {
+  border-bottom-width: 0.1875rem;
+}
+.cortexprime .input-cpt.bb-4, .cortexprime .color-picker input.color.bb-4 {
+  border-bottom-width: 0.25rem;
+}
+.cortexprime .input-cpt.bl-1, .cortexprime .color-picker input.color.bl-1 {
+  border-left-width: 0.0625rem;
+}
+.cortexprime .input-cpt.bl-2, .cortexprime .color-picker input.color.bl-2 {
+  border-left-width: 0.125rem;
+}
+.cortexprime .input-cpt.bl-3, .cortexprime .color-picker input.color.bl-3 {
+  border-left-width: 0.1875rem;
+}
+.cortexprime .input-cpt.bl-4, .cortexprime .color-picker input.color.bl-4 {
+  border-left-width: 0.25rem;
+}
+.cortexprime .input-cpt.br-1, .cortexprime .color-picker input.color.br-1 {
+  border-right-width: 0.0625rem;
+}
+.cortexprime .input-cpt.br-2, .cortexprime .color-picker input.color.br-2 {
+  border-right-width: 0.125rem;
+}
+.cortexprime .input-cpt.br-3, .cortexprime .color-picker input.color.br-3 {
+  border-right-width: 0.1875rem;
+}
+.cortexprime .input-cpt.br-4, .cortexprime .color-picker input.color.br-4 {
+  border-right-width: 0.25rem;
+}
+.cortexprime .input-cpt.bt-1, .cortexprime .color-picker input.color.bt-1 {
+  border-top-width: 0.0625rem;
+}
+.cortexprime .input-cpt.bt-2, .cortexprime .color-picker input.color.bt-2 {
+  border-top-width: 0.125rem;
+}
+.cortexprime .input-cpt.bt-3, .cortexprime .color-picker input.color.bt-3 {
+  border-top-width: 0.1875rem;
+}
+.cortexprime .input-cpt.bt-4, .cortexprime .color-picker input.color.bt-4 {
+  border-top-width: 0.25rem;
+}
+.cortexprime .input-cpt.bx-1, .cortexprime .color-picker input.color.bx-1 {
+  border-left-width: 0.0625rem;
+  border-right-width: 0.0625rem;
+}
+.cortexprime .input-cpt.bx-2, .cortexprime .color-picker input.color.bx-2 {
+  border-left-width: 0.125rem;
+  border-right-width: 0.125rem;
+}
+.cortexprime .input-cpt.bx-3, .cortexprime .color-picker input.color.bx-3 {
+  border-left-width: 0.1875rem;
+  border-right-width: 0.1875rem;
+}
+.cortexprime .input-cpt.bx-4, .cortexprime .color-picker input.color.bx-4 {
+  border-left-width: 0.25rem;
+  border-right-width: 0.25rem;
+}
+.cortexprime .input-cpt.by-1, .cortexprime .color-picker input.color.by-1 {
+  border-bottom-width: 0.0625rem;
+  border-top-width: 0.0625rem;
+}
+.cortexprime .input-cpt.by-2, .cortexprime .color-picker input.color.by-2 {
+  border-bottom-width: 0.125rem;
+  border-top-width: 0.125rem;
+}
+.cortexprime .input-cpt.by-3, .cortexprime .color-picker input.color.by-3 {
+  border-bottom-width: 0.1875rem;
+  border-top-width: 0.1875rem;
+}
+.cortexprime .input-cpt.by-4, .cortexprime .color-picker input.color.by-4 {
+  border-bottom-width: 0.25rem;
+  border-top-width: 0.25rem;
+}
+.cortexprime .checkmark-cpt {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1.875rem;
+  width: 1.875rem;
+  background-color: var(--input-checkbox-color, #2d5931);
+}
+.cortexprime .checkmark-cpt:after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  display: none;
+}
+.cortexprime .checkmark-container {
+  display: block;
+  position: relative;
+  height: 1.875rem;
+  width: 1.875rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.cortexprime .checkmark-container:hover .input-checkbox-cpt ~ .checkmark-cpt {
+  background-color: var(--input-focus-color, #b30044);
+}
+.cortexprime .checkmark-container .input-checkbox-cpt {
+  cursor: pointer;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  height: 1.875rem;
+  width: 1.875rem;
+  z-index: 3;
+}
+.cortexprime .checkmark-container .input-checkbox-cpt:checked ~ .checkmark-cpt:after {
+  display: block;
+}
+.cortexprime .checkmark-container .checkmark-cpt:after {
+  left: 0.5rem;
+  top: 0.0625rem;
+  width: 0.5rem;
+  height: 1rem;
+  border: solid white;
+  border-width: 0 0.375rem 0.375rem 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.cortexprime .input-label-cpt {
+  color: var(--input-label-color, #424C59);
+  font-style: var(--input-label-font-style, normal);
+  font-weight: var(--input-label-font-weight, 700);
+  text-transform: var(--input-label-text-transform, capitalize);
+  margin-bottom: 0.25rem;
+}
+.cortexprime .separator-cpt {
+  border-bottom: var(--separator-weight, 2px) var(--separator-style, solid) var(--separator-color, #b30044);
+  width: 100%;
+}
+.cortexprime .editor {
+  height: 100%;
+  width: 100%;
+}
+.cortexprime .editor .editor-content {
+  border: var(--input-border-width, 2px) var(--input-border-style, solid) var(--input-border-color, #2d5931);
+  padding: 0.5rem;
+}
+.cortexprime .editor .tox-edit-area {
+  background-color: #ffffff;
+  border: var(--input-border-width, 2px) var(--input-border-style, solid) var(--input-border-color, #2d5931);
+}
+.cortexprime.window-app .window-header {
+  position: relative;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.cortexprime.dialog .dialog-buttons {
+  position: relative;
+  z-index: 3;
 }
 
 .die-icon {
@@ -2860,6 +3437,16 @@ p {
   color: #f5f8fa;
 }
 
+.dice-container {
+  position: relative;
+}
+.dice-container .die-container {
+  height: 32px;
+  width: 32px;
+  position: absolute;
+  z-index: -1;
+}
+
 .die-select {
   border: none !important;
   background-color: transparent !important;
@@ -2867,34 +3454,25 @@ p {
   background-size: contain;
   background-position: center;
   color: transparent;
-  height: 1.75rem;
+  cursor: pointer;
+  height: 2rem;
+  position: relative;
   text-align: center;
   text-align-last: center;
-  width: 1.75rem;
+  width: 2rem;
   -moz-text-align-last: center;
   -webkit-appearance: none;
   -moz-appearance: none;
+  z-index: 1;
 }
 .die-select ::-ms-expand {
   display: none;
 }
+.die-select:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
 .die-select option {
   color: black;
   font-weight: 600;
-}
-.die-select.d4 {
-  background-image: url("../assets/dice/d4.svg");
-}
-.die-select.d6 {
-  background-image: url("../assets/dice/d6.svg");
-  background-size: 75%;
-}
-.die-select.d8 {
-  background-image: url("../assets/dice/d8.svg");
-}
-.die-select.d10 {
-  background-image: url("../assets/dice/d10.svg");
-}
-.die-select.d12 {
-  background-image: url("../assets/dice/d12.svg");
 }
