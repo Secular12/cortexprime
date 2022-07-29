@@ -33,6 +33,10 @@ export const setCssVars = (theme) => {
       value = `${value}px`
     }
 
+    if (['sheetBackgroundImage', 'sectionBackgroundImage'].includes(key)) {
+      value = `url('${value}')`
+    }
+
     const property = `--${key.replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? "-" : "") + $.toLowerCase())}`
 
     document.body.style.setProperty(property, value)
