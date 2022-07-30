@@ -1,13 +1,11 @@
 .breadcrumb {
-  color: color('primary');
-
   &:hover {
     text-decoration: underline;
     cursor: pointer;
   }
 
   &.active {
-    color: color('black');
+    font-weight: bold;
 
     &:hover {
       text-decoration: none;

@@ -1,7 +1,7 @@
 <ul class="list-style-none my-0 px-0">
   {{#each data.descriptors as |descriptor descriptorIndex|}}
-    <li class="flex flex-wrap pa-2 relative-section">
-      <div class="{{ternary (eq (mod descriptorIndex 2) 0) 'section-background-alternate' 'section-background'}}"></div>
+    <li class="flex flex-wrap py-2 relative-section">
+      <div class="{{ternary (eq (mod descriptorIndex 2) 0) 'section-background' 'section-background-alternate'}}"></div>
       <div class="flex-col col-12">
         <div class="flex-row flex-ae mb-1">
           <div class="flex-col col-12">

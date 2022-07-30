@@ -1,6 +1,7 @@
-<div>
+<div class="relative-section pa-2">
+  <div class="section-background"></div>
   <label>
-    <span class="label my-2">{{localize 'DefaultValue'}}</span>
+    <span class="input-label-cpt">{{localize 'DefaultValue'}}</span>
     {{> "systems/cortexprime/templates/partials/value-types/text.html"
       data=data
       edit=true
@@ -8,4 +9,4 @@
       path=(concat path '.text')
     }}
   </label>
-</di>
+</div>
