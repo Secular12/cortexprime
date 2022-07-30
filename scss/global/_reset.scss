@@ -11,6 +11,10 @@
     background: none;
     padding: 0;
   }
+
+  .window-resizable-handle {
+    z-index: 10;
+  }
 }
 
 .dice-picker {
