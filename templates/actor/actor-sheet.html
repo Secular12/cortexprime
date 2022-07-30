@@ -1,7 +1,7 @@
 <form class="{{cssClass}} sheet-cpt" autocomplete="off">
   <div class="sheet-background"></div>
   <div class="sheet-image"></div>
-  <div class="sheet-content pa-2">
+  <div class="sheet-content pa-2{{ternary data.data.actorType '' ' actor-selection'}}">
     {{#unless data.data.actorType}}
       <div class="flex-row flex-c" style="height: 100%">
         <div class="flex-col section-cpt pa-4">

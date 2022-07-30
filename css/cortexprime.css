@@ -2587,6 +2587,10 @@ p {
   white-space: nowrap;
 }
 
+.actor-selection {
+  height: 100%;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
