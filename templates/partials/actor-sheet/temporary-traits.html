@@ -33,10 +33,10 @@
                     <div>
                       {{> "systems/cortexprime/templates/partials/remove-button.html"
                       path=../path
-                      target='assets'
-                      itemKey=assetIndex
-                      itemName=asset.label
-                      type="trash"
+                        target='assets'
+                        itemKey=assetIndex
+                        itemName=asset.label
+                        type="trash"
                       }}
                     </div>
                   {{/if}}
@@ -54,11 +54,11 @@
                     {{/if}}
                   {{/if}}
                   {{#if (and ../owner asset.edit)}}
-                    <div>
+                    <div class="flex-col flex-g-1 px-0">
                       <input class="input-cpt" name="{{concat ../path '.assets.' assetIndex '.label'}}" type="text" value="{{asset.label}}">
                     </div>
                   {{else}}
-                    <div>
+                    <div class="flex-col flex-g-1">
                       <span class="trait-title-cpt{{ternary asset.dice.value.[0] ' add-to-pool' ''}}"
                         data-label="{{asset.label}}" data-path="{{concat ../path '.assets.' assetIndex '.dice'}}">
                         {{asset.label}}
@@ -66,7 +66,7 @@
                     </div>
                   {{/if}}
                   {{#if ../owner}}
-                    <div class="flex-col">
+                    <div class="flex-col flex-s-1">
                       {{> "systems/cortexprime/templates/partials/dice/select.html"
                         addToPool=true
                         dice=asset.dice.value
@@ -76,13 +76,13 @@
                       }}
                     </div>
                   {{else}}
-                    <div class="flex-col">
-                      <div class="flex-row">
+                    <div class="flex-col flex-s-1">
+                      <div class="flex flex-wrap flex-ac">
                         {{#each asset.dice.value as |die|}}
-                        <div>
-                          <div class="die-icon d{{die}} mx-0">
-                          </div>
-                        </div>
+                          {{> (concat "systems/cortexprime/templates/partials/dice/d" die ".html")
+                            number=die
+                            type='die-rating'
+                          }}
                         {{/each}}
                       </div>
                     </div>
@@ -152,11 +152,11 @@
                     {{/if}}
                   {{/if}}
                   {{#if (and ../owner complication.edit)}}
-                    <div>
+                    <div class="flex-col flex-g-1 px-0">
                       <input class="input-cpt" name="{{concat ../path '.complications.' complicationIndex '.label'}}" type="text" value="{{complication.label}}">
                     </div>
                   {{else}}
-                    <div>
+                    <div class="flex-col flex-g-1">
                       <span class="trait-title-cpt{{ternary complication.dice.value.[0] ' add-to-pool' ''}}"
                         data-label="{{complication.label}}" data-path="{{concat ../path '.complications.' complicationIndex '.dice'}}">
                         {{complication.label}}
@@ -164,7 +164,7 @@
                     </div>
                   {{/if}}
                   {{#if ../owner}}
-                    <div class="flex-col">
+                    <div class="flex-col flex-s-1">
                       {{> "systems/cortexprime/templates/partials/dice/select.html"
                       addToPool=true
                       dice=complication.dice.value
@@ -174,13 +174,13 @@
                       }}
                     </div>
                   {{else}}
-                  <div class="flex-col">
-                    <div class="flex-row">
+                  <div class="flex-col flex-s-1">
+                    <div class="flex flex-wrap flex-ac">
                       {{#each complication.dice.value as |die|}}
-                        <div>
-                          <div class="die-icon d{{die}} mx-0">
-                          </div>
-                        </div>
+                        {{> (concat "systems/cortexprime/templates/partials/dice/d" die ".html")
+                          number=die
+                          type='die-rating'
+                        }}
                       {{/each}}
                     </div>
                   </div>

@@ -11,11 +11,11 @@
           <div class="flex flex-ae">
             <div class="flex-col col-12">
               <div class="flex-row flex-ac">
-                <label class="flex-col col-12">
+                <label class="flex-col flex-g-1">
                   <span class="input-label-cpt">{{localize 'Label'}}</span>
                   <input class="custom-dice-label input-cpt" name="customAdd.label" type="text" value="{{customAdd.label}}">
                 </label>
-                <div class="flex-col">
+                <div class="flex-col flex-s-1 max-50">
                   <span class="input-label-cpt">{{localize 'Dice'}}</span>
                   {{> "systems/cortexprime/templates/partials/dice/select.html"
                     dice=customAdd.value
@@ -56,11 +56,11 @@
                   <div class="dice-tag flex-col ma-1 py-1">
                     <div class="flex-row flex-ac flex-wrap">
                       {{#if trait.label}}
-                        <div class="flex-col pr-0">
+                        <div class="flex-col pr-0 flex-g-1">
                           <p class="sub-trait-label-cpt">{{trait.label}}</p>
                         </div>
                       {{/if}}
-                      <div class="flex-col pr-0">
+                      <div class="flex-col pr-0 flex-s-1">
                         {{> "systems/cortexprime/templates/partials/dice/select.html"
                           dice=trait.value
                           edit=true

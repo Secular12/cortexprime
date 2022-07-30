@@ -33,12 +33,6 @@ p {
   vertical-align: center;
 }
 
-.pp-number {
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: #424C59;
-}
-
 .primary-heading {
   border: 0;
   color: #424C59;
@@ -1697,6 +1691,28 @@ p {
   text-align: center;
 }
 
+.flex-g-1 {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.flex-g-2 {
+  -webkit-box-flex: 2;
+  -ms-flex-positive: 2;
+  flex-grow: 2;
+}
+
+.flex-s-1 {
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+}
+
+.flex-s-2 {
+  -ms-flex-negative: 2;
+  flex-shrink: 2;
+}
+
 .ma-0 {
   margin-bottom: 0rem;
   margin-left: 0rem;
@@ -2558,6 +2574,14 @@ p {
 .my-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.max-50 {
+  max-width: 50%;
+}
+
+.white-space-nowrap {
+  white-space: nowrap;
 }
 
 .cursor-pointer {
