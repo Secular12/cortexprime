@@ -2897,6 +2897,7 @@ input[type=color][data-edit][data-edit] {
 
 .dice-container {
   position: relative;
+  z-index: 1;
 }
 .dice-container .die-container {
   height: 32px;
