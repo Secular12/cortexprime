@@ -11,7 +11,7 @@ export default class ThemeSettings extends FormApplication {
       id: 'theme-settings',
       template: 'systems/cortexprime/templates/theme/settings.html',
       title: localizer('ThemeSettings'),
-      classes: ['cortexprime', 'theme-settings', 'themed-cpt'],
+      classes: ['cortexprime', 'theme-settings'],
       width: 960,
       height: 900,
       top: 200,

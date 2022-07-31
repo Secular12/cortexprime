@@ -128,11 +128,19 @@
 
   .dialog-buttons {
     .dialog-button {
-      &.confirm {
-        background-color: var(--button-primary-color, #2d5931);
+      &.cancel, &.confirm, &.done {
         border: 0;
-        color: var(--button-primary-font-color, #ffffff);
         cursor: pointer;
+      }
+
+      &.confirm, &.done {
+        background-color: var(--button-primary-color, #2d5931);
+        color: var(--button-primary-font-color, #ffffff);
+      }
+
+      &.cancel {
+        background-color: var(--button-secondary-color, #2d5931);
+        color: var(--button-secondary-font-color, #ffffff);
       }
     }
   }

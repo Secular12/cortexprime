@@ -15,7 +15,7 @@
   z-index: 10;
 }
 
-.dice-picker.window-app .window-content {
+.dice-picker.window-app .window-content, .consumable-dice.window-app .window-content {
   background: none;
   padding: 0;
 }
@@ -3052,11 +3052,17 @@ input[type=color][data-edit][data-edit] {
   background-color: transparent;
   color: var(--body-font-color, #000000);
 }
-.cortexprime .dialog-buttons .dialog-button.confirm {
-  background-color: var(--button-primary-color, #2d5931);
+.cortexprime .dialog-buttons .dialog-button.cancel, .cortexprime .dialog-buttons .dialog-button.confirm, .cortexprime .dialog-buttons .dialog-button.done {
   border: 0;
-  color: var(--button-primary-font-color, #ffffff);
   cursor: pointer;
+}
+.cortexprime .dialog-buttons .dialog-button.confirm, .cortexprime .dialog-buttons .dialog-button.done {
+  background-color: var(--button-primary-color, #2d5931);
+  color: var(--button-primary-font-color, #ffffff);
+}
+.cortexprime .dialog-buttons .dialog-button.cancel {
+  background-color: var(--button-secondary-color, #2d5931);
+  color: var(--button-secondary-font-color, #ffffff);
 }
 .cortexprime .die-cpt {
   height: 2rem;

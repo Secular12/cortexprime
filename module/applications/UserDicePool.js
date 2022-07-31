@@ -27,7 +27,7 @@ export class UserDicePool extends FormApplication {
       id: 'user-dice-pool',
       template: 'systems/cortexprime/templates/dice-pool.html',
       title: localizer('DicePool'),
-      classes: ['cortexprime', 'user-dice-pool', 'themed-cpt'],
+      classes: ['cortexprime', 'user-dice-pool'],
       width: 600,
       height: 'auto',
       top: 500,
