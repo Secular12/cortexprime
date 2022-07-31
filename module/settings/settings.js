@@ -41,6 +41,15 @@ export const registerSettings = () => {
     type: ImportExportSettings
   })
 
+  game.settings.register('cortexprime', 'rollResultSourceCollapsed', {
+    name: localizer('RollResultSourceCollapsed'),
+    hint: localizer('RollResultSourceCollapsedHint'),
+    label: localizer('RollResultSourceCollapsed'),
+    default: false,
+    type: Boolean,
+    config: true
+  })
+
   game.settings.register('cortexprime', 'importedSettings', {
     name: localizer('ImportedSettings'),
     default: { currentSetting: localizer('Default') },

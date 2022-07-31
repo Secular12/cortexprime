@@ -5,8 +5,13 @@
         <div class="section-image"></div>
         <div class="section-background"></div>
         <div class="section-content">
-          <h2 class="trait-title-cpt">{{source}}</h2>
-          <div class="flex flex-ac flex-wrap">
+          <div class="source-header cursor-pointer flex-row flex-ac flex-jsb">
+            <h2 class="flex-col trait-title-cpt mb-0">{{source}}</h2>
+            <div class="flex-col">
+              <i class="fa fa-{{ternary ../sourceDefaultCollapsed 'chevron-down' 'chevron-up'}}"></i>
+            </div>
+          </div>
+          <div class="flex flex-ac flex-wrap source-content mt-2 {{ternary ../sourceDefaultCollapsed ' hide' ''}}">
             {{#each sourcePool as |dice|}}
               <div class="dice-tag flex-col ma-1 py-1" data-label="{{dice.label}}">
                 <div class="flex-row flex-ac flex-wrap">

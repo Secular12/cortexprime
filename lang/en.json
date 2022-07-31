@@ -145,6 +145,8 @@
   "RollAndSelect": "Roll & Select",
   "RollForEffect": "Roll For Effect",
   "RollForTotal": "Roll For Total",
+  "RollResultSourceCollapsed": "Roll Result Source Collapsed",
+  "RollResultSourceCollapsedHint": "Roll result die sources initially collapsed in chat.",
   "Rounded": "rounded",
   "SaveSettingsNote": "Close and reopen character sheets to see saved changes.",
   "SaveAsCustomPreset": "Save As Custom Preset",

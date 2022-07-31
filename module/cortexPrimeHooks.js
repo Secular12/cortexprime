@@ -83,6 +83,18 @@ export default () => {
         $die.html(html)
       }
 
+      html
+        .find('.source-header')
+        .click(function () {
+          const $source = $(this)
+          $source
+            .find('.fa')
+            .toggleClass('fa-chevron-down fa-chevron-up')
+          $source
+            .siblings('.source-content')
+            .toggleClass('hide')
+        })
+
       const getPool = html => {
         return html.find('.source').get().reduce((sources, source) => {
           const $source = $(source)
