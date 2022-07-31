@@ -279,7 +279,7 @@ const dicePicker = async rollResults => {
           const $effectDice = $effectDiceContainer.find('.die-icon-wrapper')
 
           if ($effectDice.length === 0) {
-            const dieContent = await getAppendDiceContent({ dieRating: '4', value: '4', type: 'effect' })
+            const dieContent = await getAppendDiceContent({ defaultValue: true, dieRating: '4', value: '4', type: 'effect' })
 
             $effectDiceContainer
               .append(dieContent)

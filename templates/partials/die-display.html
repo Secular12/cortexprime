@@ -1,4 +1,4 @@
-<div class="die-icon-wrapper my-1{{ternary defaultValue ' default' ''}}{{ternary key (concat ' data-key="' key '"') ''}}">
+<div class="die-icon-wrapper my-1{{ternary defaultValue ' default' ''}}"{{{ternary (gte key 0) (concat ' data-key="' key '"') ''}}}>
   <div class="{{value}} effect">
     {{> (concat "systems/cortexprime/templates/partials/dice/d" dieRating ".html")
       number=value
