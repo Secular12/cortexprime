@@ -96,6 +96,8 @@
   }
 
   .btn {
+    font-size: toRem(14px);
+
     &:hover, &:focus {
       box-shadow: 0 0 5px var(--input-focus-color, #b30044);
     }
@@ -128,11 +130,19 @@
 
   .dialog-buttons {
     .dialog-button {
-      &.confirm {
-        background-color: var(--button-primary-color, #2d5931);
+      &.cancel, &.confirm, &.done {
         border: 0;
-        color: var(--button-primary-font-color, #ffffff);
         cursor: pointer;
+      }
+
+      &.confirm, &.done {
+        background-color: var(--button-primary-color, #2d5931);
+        color: var(--button-primary-font-color, #ffffff);
+      }
+
+      &.cancel {
+        background-color: var(--button-secondary-color, #2d5931);
+        color: var(--button-secondary-font-color, #ffffff);
       }
     }
   }
@@ -391,8 +401,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    height: toRem(30px);
-    width: toRem(30px);
+    height: toRem(15px);
+    width: toRem(15px);
     background-color: var(--input-checkbox-color, #2d5931);
 
     &:after {
@@ -406,8 +416,8 @@
   .checkmark-container {
     display: block;
     position: relative;
-    height: toRem(30px);
-    width: toRem(30px);
+    height: toRem(15px);
+    width: toRem(15px);
     cursor: pointer;
     font-size: toRem(24px);
     -webkit-user-select: none;
@@ -424,8 +434,8 @@
       margin: 0;
       opacity: 0;
       position: absolute;
-      height: toRem(30px);
-      width: toRem(30px);
+      height: toRem(15px);
+      width: toRem(15px);
       z-index: 3;
 
       &:checked ~ .checkmark-cpt {
@@ -436,15 +446,38 @@
     }
 
     .checkmark-cpt:after {
-      left: toRem(8px);
+      left: toRem(4px);
       top: toRem(1px);
-      width: toRem(8px);
-      height: toRem(16px);
+      width: toRem(4px);
+      height: toRem(8px);
       border: solid white;
-      border-width: 0 toRem(6px) toRem(6px) 0;
+      border-width: 0 toRem(3px) toRem(3px) 0;
       -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
       transform: rotate(45deg);
+    }
+
+    &.checkmark-lg {
+      height: toRem(30px);
+      width: toRem(30px);
+
+      .checkmark-cpt {
+        height: toRem(30px);
+        width: toRem(30px);
+      }
+
+      .checkmark-cpt:after {
+        left: toRem(8px);
+        top: toRem(1px);
+        width: toRem(8px);
+        height: toRem(16px);
+        border-width: 0 toRem(6px) toRem(6px) 0;
+      }
+
+      .input-checkbox-cpt {
+        height: toRem(30px);
+        width: toRem(30px);
+      }
     }
   }
 

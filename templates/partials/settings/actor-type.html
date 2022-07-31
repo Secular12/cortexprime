@@ -1,7 +1,8 @@
 <article class="{{viewClasses (concat 'actorType-' actorTypeIndex) breadcrumbs}} actor-type">
-  <header class="primary-heading flex-row flex-ac mb-4">
+  <header class="flex flex-ac py-2 relative-section">
+    <div class="section-background"></div>
     <div class="flex-col col-12">
-      <input class="breadcrumb-name-change" type="text" data-target="{{concat 'actorType-' actorTypeIndex}}" name="actorTypes.{{actorTypeIndex}}.name" value="{{actorType.name}}">
+      <input class="breadcrumb-name-change input-cpt" type="text" data-target="{{concat 'actorType-' actorTypeIndex}}" name="actorTypes.{{actorTypeIndex}}.name" value="{{actorType.name}}">
     </div>
     <div class="flex-col">
       {{> "systems/cortexprime/templates/partials/remove-button.html"
@@ -13,69 +14,96 @@
     </div>
   </header>
   <div>
-    <div class="flex-row">
+    <div class="flex relative-section">
+      <div class="section-background"></div>
       <div class="flex-col col-3">
-        <p class="section-sub-heading mb-1">{{localize 'DefaultImage'}}</p>
+        <p class="section-secondary-title-cpt mb-1">{{localize 'DefaultImage'}}</p>
         <img class="default-image bkg-light-grey" src="{{or actorType.defaultImage 'icons/svg/mystery-man.svg'}}"
           data-actor-type-index="{{actorTypeIndex}}" title="{{localize 'DefaultImage'}}" />
       </div>
       <div class="flex-col col-9">
-        <p class="section-sub-heading mb-1">{{localize 'GeneralActorSettings'}}</p>
+        <p class="section-secondary-title-cpt mb-1">{{localize 'GeneralActorSettings'}}</p>
         <div>
-          <label>
-            <input name="actorTypes.{{actorTypeIndex}}.showProfileImage" type="checkbox" {{checked actorType.showProfileImage}}>
-            <span class="label">{{localize 'ShowProfileImage'}}</span>
+          <label class="flex flex-ac">
+            <div class="checkmark-container">
+              <input class="input-checkbox-cpt" name="actorTypes.{{actorTypeIndex}}.showProfileImage" type="checkbox" {{checked actorType.showProfileImage}}>
+              <div class="checkmark-cpt"></div>
+            </div>
+            <span class="input-label-cpt mb-0 ml-2">{{localize 'ShowProfileImage'}}</span>
           </label>
         </div>
         <div>
-          <label>
-            <input name="actorTypes.{{actorTypeIndex}}.hasNotesPage" type="checkbox" {{checked actorType.hasNotesPage}}>
-            <span class="label">{{localize 'HasNotesPage'}}</span>
+          <label class="flex flex-ac">
+            <div class="checkmark-container">
+              <input class="input-checkbox-cpt" name="actorTypes.{{actorTypeIndex}}.hasNotesPage" type="checkbox" {{checked actorType.hasNotesPage}}>
+              <div class="checkmark-cpt"></div>
+            </div>
+            <span class="input-label-cpt mb-0 ml-2">{{localize 'HasNotesPage'}}</span>
           </label>
         </div>
         <div>
-          <label>
-            <input name="actorTypes.{{actorTypeIndex}}.hasPlotPoints" type="checkbox" {{checked actorType.hasPlotPoints}}>
-            <span class="label">{{localize 'HasPlotPoints'}}</span>
+          <label class="flex flex-ac">
+            <div class="checkmark-container">
+              <input class="input-checkbox-cpt" name="actorTypes.{{actorTypeIndex}}.hasPlotPoints" type="checkbox" {{checked actorType.hasPlotPoints}}>
+              <div class="checkmark-cpt"></div>
+            </div>
+            <span class="input-label-cpt mb-0 ml-2">{{localize 'HasPlotPoints'}}</span>
           </label>
         </div>
         <div>
-          <label>
-            <input name="actorTypes.{{actorTypeIndex}}.hasAssets" type="checkbox" {{checked actorType.hasAssets}}>
-            <span class="label">{{localize 'HasAssets'}}</span>
+          <label class="flex flex-ac">
+            <div class="checkmark-container">
+              <input class="input-checkbox-cpt" name="actorTypes.{{actorTypeIndex}}.hasAssets" type="checkbox" {{checked actorType.hasAssets}}>
+              <div class="checkmark-cpt"></div>
+            </div>
+            <span class="input-label-cpt mb-0 ml-2">{{localize 'HasAssets'}}</span>
           </label>
         </div>
         <div>
-          <label>
-            <input name="actorTypes.{{actorTypeIndex}}.hasComplications" type="checkbox" {{checked actorType.hasComplications}}>
-            <span class="label">{{localize 'HasComplications'}}</span>
+          <label class="flex flex-ac">
+            <div class="checkmark-container">
+              <input class="input-checkbox-cpt" name="actorTypes.{{actorTypeIndex}}.hasComplications" type="checkbox" {{checked actorType.hasComplications}}>
+              <div class="checkmark-cpt"></div>
+            </div>
+            <span class="input-label-cpt mb-0 ml-2">{{localize 'HasComplications'}}</span>
           </label>
         </div>
         <div>
-          <label>
-            <input name="actorTypes.{{actorTypeIndex}}.hasHidableTraits" type="checkbox" {{checked actorType.hasHidableTraits}}>
-            <span class="label">{{localize 'HasHidableTraits'}}</span>
+          <label class="flex flex-ac">
+            <div class="checkmark-container">
+              <input class="input-checkbox-cpt" name="actorTypes.{{actorTypeIndex}}.hasHidableTraits" type="checkbox" {{checked actorType.hasHidableTraits}}>
+              <div class="checkmark-cpt"></div>
+            </div>
+            <span class="input-label-cpt mb-0 ml-2">{{localize 'HasHidableTraits'}}</span>
           </label>
         </div>
       </div>
     </div>
-    <section class="my-4">
-      <header>
-        <div class="bkg-primary flex-row flex-ac flex-jsb mb-2 py-1">
-          <h3 class="flex-col col-12 primary-heading text-white">{{localize 'TraitSets'}}</h3>
+    <div class="separator-cpt"></div>
+    <section>
+      <header class="relative-section">
+        <div class="section-background-alternate"></div>
+        <div class="flex flex-ac flex-jsb py-1">
+          <h3 class="flex-col col-12 section-primary-title-cpt">{{localize 'TraitSets'}}</h3>
           <div class="flex-col">
-            <button class="btn btn-secondary btn-icon add-trait-set" data-actor-type="{{actorTypeIndex}}" type="button">
+            <button class="btn btn-primary-cpt btn-icon add-trait-set" data-actor-type="{{actorTypeIndex}}" type="button">
               <i class="fa fa-plus"></i>
             </button>
           </div>
         </div>
-        <div class="bkg-light-grey pa-2">
+        <div class="separator-cpt"></div>
+        <div class="relative-section pa-2">
+          <div class="section-background-alternate"></div>
           <p>{{localize 'TraitSetsSettingDescription'}}</p>
         </div>
       </header>
-      <ul class="list-style-none px-0 list-alt-bkg">
+      {{#if (listHasMore actorType.traitSets 0)}}
+        <div class="separator-cpt"></div>
+      {{/if}}
+      <ul class="list-style-none px-0 my-0">
         {{#each actorType.traitSets as |traitSet traitSetIndex|}}
-          <li class="pa-1 flex-row flex-ac flex-jsb">
+          <li class="pa-1 flex flex-ac flex-jsb relative-section">
+            <div class="{{ternary (eq (mod traitSetIndex 2) 0) 'section-background' 'section-background-alternate'}}"></div>
             <div class="flex-col flex-row flex-ac">
               {{> "systems/cortexprime/templates/partials/reorder.html"
                 class="flex-col pa-0"
@@ -83,37 +111,51 @@
                 currentIndex=traitSetIndex
                 setting="actorTypes"
               }}
-              <span class="section-sub-heading text-primary flex-col">{{or traitSet.label (concat '[' (localize 'NoName' ) ']')}}</span>
+              <span class="section-secondary-title-cpt flex-col">{{or traitSet.label (concat '[' (localize 'NoName' ) ']')}}</span>
             </div>
             <div class="flex-col flex-row flex-ac">
-              <button class="btn flex-col duplicate-item" data-path="{{concat ../actorTypeIndex '.traitSets'}}" data-id="{{traitSet.id}}" type="button">
-                <i class="fa fa-clone"></i>
-              </button>
-              <button class="view-change btn flex-col" data-name="{{traitSet.label}}" data-to="traitSet-{{../actorTypeIndex}}-{{traitSetIndex}}" type="button">
-                <i class="fa fa-edit ma-0"></i>
-              </button>
+              <div class="flex-col px-0">
+                <button class="btn btn-icon btn-icon-plain-cpt duplicate-item" data-path="{{concat ../actorTypeIndex '.traitSets'}}" data-id="{{traitSet.id}}" type="button">
+                  <i class="fa fa-clone"></i>
+                </button>
+              </div>
+              <div class="flex-col px-0">
+                <button class="view-change btn btn-icon btn-icon-plain-cpt" data-name="{{traitSet.label}}" data-to="traitSet-{{../actorTypeIndex}}-{{traitSetIndex}}" type="button">
+                  <i class="fa fa-edit ma-0"></i>
+                </button>
+              </div>
             </div>
           </li>
         {{/each}}
       </ul>
     </section>
-    <section class="my-4">
-      <header>
-        <div class="bkg-primary flex-row flex-ac flex-jsb mb-2 py-1">
-          <h3 class="flex-col col-12 primary-heading text-white">{{localize 'SimpleTraits'}}</h3>
+    {{#if (listHasMore actorType.traitSets 0)}}
+      <div class="separator-cpt"></div>
+    {{/if}}
+    <section>
+      <header class="relative-section">
+        <div class="section-background-alternate"></div>
+        <div class="flex flex-ac flex-jsb py-1">
+          <h3 class="flex-col col-12 section-primary-title-cpt">{{localize 'SimpleTraits'}}</h3>
           <div class="flex-col">
-            <button class="btn btn-secondary btn-icon add-simple-trait" data-actor-type="{{actorTypeIndex}}" type="button">
+            <button class="btn btn-primary-cpt btn-icon add-simple-trait" data-actor-type="{{actorTypeIndex}}" type="button">
               <i class="fa fa-plus"></i>
             </button>
           </div>
         </div>
-        <div class="bkg-light-grey pa-2">
+        <div class="separator-cpt"></div>
+        <div class="relative-section pa-2">
+          <div class="section-background-alternate"></div>
           <p>{{localize 'SimpleTraitsDescription'}}</p>
         </div>
       </header>
-      <ul class="list-style-none px-0 list-alt-bkg">
+      {{#if (listHasMore actorType.simpleTraits 0)}}
+        <div class="separator-cpt"></div>
+      {{/if}}
+      <ul class="list-style-none px-0 my-0">
         {{#each actorType.simpleTraits as |simpleTrait simpleTraitIndex|}}
-          <li class="pa-1 flex-row flex-ac flex-jsb">
+          <li class="pa-1 flex flex-ac flex-jsb relative-section">
+            <div class="{{ternary (eq (mod simpleTraitIndex 2) 0) 'section-background' 'section-background-alternate'}}"></div>
             <div class="flex-col flex-row flex-ac">
               {{> "systems/cortexprime/templates/partials/reorder.html"
                 class="flex-col pa-0"
@@ -121,18 +163,22 @@
                 currentIndex=simpleTraitIndex
                 setting="actorTypes"
               }}
-              <span class="section-sub-heading text-primary flex-col">{{or simpleTrait.label (concat '[' (localize 'NoName' )
+              <span class="section-secondary-title-cpt flex-col">{{or simpleTrait.label (concat '[' (localize 'NoName' )
                 ']')}}</span>
             </div>
             <div class="flex-col flex-row flex-ac">
-              <button class="btn flex-col duplicate-item" data-path="{{concat ../actorTypeIndex '.simpleTraits'}}"
-                data-id="{{simpleTrait.id}}" type="button">
-                <i class="fa fa-clone"></i>
-              </button>
-              <button class="view-change btn flex-col" data-name="{{simpleTrait.label}}"
-                data-to="simpleTrait-{{../actorTypeIndex}}-{{simpleTraitIndex}}" type="button">
-                <i class="fa fa-edit ma-0"></i>
-              </button>
+              <div class="flex-col px-0">
+                <button class="btn btn-icon btn-icon-plain-cpt duplicate-item" data-path="{{concat ../actorTypeIndex '.simpleTraits'}}"
+                  data-id="{{simpleTrait.id}}" type="button">
+                  <i class="fa fa-clone"></i>
+                </button>
+              </div>
+              <div class="flex-col px-0">
+                <button class="view-change btn btn-icon btn-icon-plain-cpt" data-name="{{simpleTrait.label}}"
+                  data-to="simpleTrait-{{../actorTypeIndex}}-{{simpleTraitIndex}}" type="button">
+                  <i class="fa fa-edit ma-0"></i>
+                </button>
+              </div>
             </div>
           </li>
         {{/each}}

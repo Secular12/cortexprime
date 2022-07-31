@@ -1,56 +1,66 @@
-<form class="bkg-white flex-container" autocomplete="off">
-  <header class="flex mb-4 mt-2">
-    <div class="flex-col col-12">
-      {{> "systems/cortexprime/templates/partials/breadcrumbs.html" breadcrumbs=breadcrumbs }}
-    </div>
-    <div class="flex-col">
-      <a
-        href="https://docs.google.com/document/d/1LNrvmVqJtE-B_IMRl66fQmDwHpHPOGX6gF7Vl-kn-dc/edit?usp=sharing"
-      >
-        {{localize 'Help'}}
-      </a>
-    </div>
-  </header>
-  <main>
-    {{> "systems/cortexprime/templates/partials/settings/actor-types.html"
-      actorTypes=actorTypes
-      breadcrumbs=breadcrumbs
-    }}
-    {{#each actorTypes as |actorType actorTypeIndex|}}
-      {{> "systems/cortexprime/templates/partials/settings/actor-type.html"
-        actorType=actorType
-        actorTypeIndex=actorTypeIndex
-        breadcrumbs=../breadcrumbs
-      }}
-      {{#each actorType.traitSets as |traitSet traitSetIndex|}}
-        {{> "systems/cortexprime/templates/partials/settings/trait-set.html"
-          actorTypeIndex=actorTypeIndex
-          breadcrumbs=../../breadcrumbs
-          path=(concat actorTypeIndex '.traitSets')
-          traitSet=traitSet
-          traitSetIndex=traitSetIndex
-        }}
-        {{#each traitSet.traits as |trait traitIndex|}}
-          {{> "systems/cortexprime/templates/partials/settings/trait.html"
-            actorTypeIndex=actorTypeIndex
-            breadcrumbs=../../../breadcrumbs
-            path=(concat actorTypeIndex '.traitSets.' traitSetIndex '.traits')
-            settings=traitSet.settings
-            trait=trait
-            traitIndex=traitIndex
-            traitSetIndex=traitSetIndex
+<form class="sheet-cpt" autocomplete="off">
+  <div class="sheet-background"></div>
+  <div class="sheet-image"></div>
+  <div class="sheet-content pa-2">
+    <div class="section-cpt">
+      <div class="section-image"></div>
+      <div class="section-content">
+        <header class="flex pb-3 pt-2 relative-section">
+          <div class="section-background"></div>
+          <div class="flex-col col-12">
+            {{> "systems/cortexprime/templates/partials/breadcrumbs.html" breadcrumbs=breadcrumbs }}
+          </div>
+          <div class="flex-col">
+            <a
+              href="https://docs.google.com/document/d/1LNrvmVqJtE-B_IMRl66fQmDwHpHPOGX6gF7Vl-kn-dc/edit?usp=sharing"
+            >
+              {{localize 'Help'}}
+            </a>
+          </div>
+        </header>
+        <main>
+          {{> "systems/cortexprime/templates/partials/settings/actor-types.html"
+            actorTypes=actorTypes
+            breadcrumbs=breadcrumbs
           }}
-        {{/each}}
-      {{/each}}
-      {{#each actorType.simpleTraits as |simpleTrait simpleTraitIndex|}}
-        {{> "systems/cortexprime/templates/partials/settings/simple-trait.html"
-          actorTypeIndex=actorTypeIndex
-          breadcrumbs=../../breadcrumbs
-          path=(concat actorTypeIndex '.simpleTraits')
-          simpleTrait=simpleTrait
-          simpleTraitIndex=simpleTraitIndex
-        }}
-      {{/each}}
-    {{/each}}
-  </main>
+          {{#each actorTypes as |actorType actorTypeIndex|}}
+            {{> "systems/cortexprime/templates/partials/settings/actor-type.html"
+              actorType=actorType
+              actorTypeIndex=actorTypeIndex
+              breadcrumbs=../breadcrumbs
+            }}
+            {{#each actorType.traitSets as |traitSet traitSetIndex|}}
+              {{> "systems/cortexprime/templates/partials/settings/trait-set.html"
+                actorTypeIndex=actorTypeIndex
+                breadcrumbs=../../breadcrumbs
+                path=(concat actorTypeIndex '.traitSets')
+                traitSet=traitSet
+                traitSetIndex=traitSetIndex
+              }}
+              {{#each traitSet.traits as |trait traitIndex|}}
+                {{> "systems/cortexprime/templates/partials/settings/trait.html"
+                  actorTypeIndex=actorTypeIndex
+                  breadcrumbs=../../../breadcrumbs
+                  path=(concat actorTypeIndex '.traitSets.' traitSetIndex '.traits')
+                  settings=traitSet.settings
+                  trait=trait
+                  traitIndex=traitIndex
+                  traitSetIndex=traitSetIndex
+                }}
+              {{/each}}
+            {{/each}}
+            {{#each actorType.simpleTraits as |simpleTrait simpleTraitIndex|}}
+              {{> "systems/cortexprime/templates/partials/settings/simple-trait.html"
+                actorTypeIndex=actorTypeIndex
+                breadcrumbs=../../breadcrumbs
+                path=(concat actorTypeIndex '.simpleTraits')
+                simpleTrait=simpleTrait
+                simpleTraitIndex=simpleTraitIndex
+              }}
+            {{/each}}
+          {{/each}}
+        </main>
+      </div>
+    </div>
+  </div>
 </form>

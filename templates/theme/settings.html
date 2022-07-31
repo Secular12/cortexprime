@@ -1,56 +1,64 @@
 <form class="sheet-cpt" autocomplete="off">
   <div class="sheet-background"></div>
+  <div class="sheet-image"></div>
   {{> "systems/cortexprime/templates/partials/settings/theme/style.html"
     settings=themes.list.Default
     target='.theme-settings'
   }}
   <section class="px-2 mt-2">
-    <div class="section-cpt flex flex-wrap flex-ae">
-      <div class="section-image"></div>
-      <div class="section-background"></div>
-      <div class="section-content">
-        <header class="mb-4">
-          <div class="bkg-primary mb-2 px-2 py-1 text-center">
-            <h1 class="primary-heading text-white">
-              {{localize 'Theme Settings'}}
+    <div class="section-cpt">
+      <div class="relative-section">
+        <div class="section-image"></div>
+        <div class="section-background-alternate"></div>
+        <div class="section-content">
+          <header>
+            <h1 class="section-primary-title-cpt py-2 text-center">
+              {{localize 'ThemeSettings'}}
             </h1>
-          </div>
-        </header>
-        <div class="flex flex-wrap">
-          <div class="flex-col col-12 my-1">
-            <div class="flex-row flex-ac">
-              <div class="flex-col">
-                <p class="bold mb-1">{{localize 'Preset'}}</p>
-              </div>
-              {{#if (ne defaultVersion themes.version)}}
+          </header>
+          <div class="separator-cpt"></div>
+        </div>
+      </div>
+      <div class="relative-section">
+        <div class="section-image"></div>
+        <div class="section-background"></div>
+        <div class="section-content">
+          <div class="flex flex-wrap">
+            <div class="flex-col col-12 my-1">
+              <div class="flex-row flex-ac">
                 <div class="flex-col">
-                  <button class="btn btn-primary-cpt {{ternary (eq themes.list.Default.buttonStyle 'square') 'btn-square-cpt ' ''}}update-presets" type="button">{{localize 'UpdatePresets'}}</button>
+                  <p class="bold mb-1">{{localize 'Preset'}}</p>
                 </div>
-              {{/if}}
+                {{#if (ne defaultVersion themes.version)}}
+                  <div class="flex-col">
+                    <button class="btn btn-primary-cpt {{ternary (eq themes.list.Default.buttonStyle 'square') 'btn-square-cpt ' ''}}update-presets" type="button">{{localize 'UpdatePresets'}}</button>
+                  </div>
+                {{/if}}
+              </div>
             </div>
-          </div>
-          <div class="flex-col col-12 mb-2">
-            <p>{{localize 'SaveSettingsNote'}}</p>
-          </div>
-          <div class="flex-col my-2">
-            <select class="preset-select input-cpt" name="themes.current">
-              {{#select themes.current}}
-              <optgroup label="{{localize 'Preset'}}">
-                {{#each themes.list as |themeSettings themeName|}}
-                  <option value="{{themeName}}">{{themeName}}</option>
-                {{/each}}
-              </optgroup>
-              {{#if themes.custom}}
-                <option value="custom">{{localize 'Custom'}}</option>
-              {{/if}}
-              {{/select}}
-            </select>
-          </div>
-          <div class="flex-col my-2">
-            <button class="btn btn-primary-cpt {{ternary (eq themes.list.Default.buttonStyle 'square') 'btn-square-cpt ' ''}}save-as-custom-preset" type="button">{{localize 'SaveAsCustomPreset'}}</button>
-          </div>
-          <div class="flex-col my-2">
-            <button class="btn btn-secondary-cpt {{ternary (eq themes.list.Default.buttonStyle 'square') 'btn-square-cpt ' ''}}refresh-preset" type="button">{{localize 'RefreshPreset'}}</button>
+            <div class="flex-col col-12 mb-2">
+              <p>{{localize 'SaveSettingsNote'}}</p>
+            </div>
+            <div class="flex-col my-2">
+              <select class="preset-select input-cpt" name="themes.current">
+                {{#select themes.current}}
+                <optgroup label="{{localize 'Preset'}}">
+                  {{#each themes.list as |themeSettings themeName|}}
+                    <option value="{{themeName}}">{{themeName}}</option>
+                  {{/each}}
+                </optgroup>
+                {{#if themes.custom}}
+                  <option value="custom">{{localize 'Custom'}}</option>
+                {{/if}}
+                {{/select}}
+              </select>
+            </div>
+            <div class="flex-col my-2">
+              <button class="btn btn-primary-cpt {{ternary (eq themes.list.Default.buttonStyle 'square') 'btn-square-cpt ' ''}}save-as-custom-preset" type="button">{{localize 'SaveAsCustomPreset'}}</button>
+            </div>
+            <div class="flex-col my-2">
+              <button class="btn btn-secondary-cpt {{ternary (eq themes.list.Default.buttonStyle 'square') 'btn-square-cpt ' ''}}refresh-preset" type="button">{{localize 'RefreshPreset'}}</button>
+            </div>
           </div>
         </div>
       </div>

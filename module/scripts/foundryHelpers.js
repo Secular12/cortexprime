@@ -34,7 +34,6 @@ export const setCssVars = (theme) => {
     }
 
     if (['sheetBackgroundImage', 'sectionBackgroundImage'].includes(key)) {
-      console.log(value)
       value = value
         ? value.startsWith('http')
           ? `url('${value}')`

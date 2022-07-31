@@ -1,20 +1,28 @@
-<div>
+<div class="pa-2 relative-section">
+  <div class="section-background"></div>
   {{#if consumableOption}}
-    <div class="my-2">
-      <label>
-        <input name="{{concat 'actorTypes.' path '.settings.consumableDice'}}" type="checkbox" {{checked data.settings.consumableDice}}>
-        <span class="label">{{localize 'ConsumableDice'}}</span>
+    <div class="pb-2">
+      <label class="flex flex-ac">
+        <div class="checkmark-container">
+          <input class="input-checkbox-cpt" name="{{concat 'actorTypes.' path '.settings.consumableDice'}}" type="checkbox" {{checked data.settings.consumableDice}}>
+          <div class="checkmark-cpt"></div>
+        </div>
+        <span class="input-label-cpt mb-0 ml-2">{{localize 'ConsumableDice'}}</span>
       </label>
     </div>
   {{/if}}
-  <div class="my-2">
-    <span class="label">{{localize 'DefaultDice'}}</span>
+  <div>
+    <span class="input-label-cpt">{{localize 'DefaultDice'}}</span>
     {{> "systems/cortexprime/templates/partials/value-types/dice.html"
       data=data
       path=(concat path '.dice')
     }}
   </div>
-  <div class="bkg-lighter-grey ba-2-primary px-2 py-1 my-2">
-    <p class="my-2"><b>{{localize 'ConsumableDice'}}:</b> {{localize 'ConsumableDiceDescription'}}</p>
-  </div>
 </div>
+{{#if consumableOption}}
+  <div class="separator-cpt"></div>
+  <div class="pa-2 relative-section">
+    <div class="section-background-alternate"></div>
+    <p><span class="descriptor-label-cpt">{{localize 'ConsumableDice'}}:</span> {{localize 'ConsumableDiceDescription'}}</p>
+  </div>
+{{/if}}

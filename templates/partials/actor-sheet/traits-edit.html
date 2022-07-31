@@ -16,9 +16,9 @@
         <div class="flex flex-wrap relative-section pa-2">
           <div class="section-background"></div>
           <div class="flex-col col-12">
-            <div class="flex-row {{ternary (or ../custom ../settings.hasLabel) 'flex-ae' 'flex-ac'}}">
+            <div class="flex-row flex-wrap {{ternary (or ../custom ../settings.hasLabel) 'flex-ae' 'flex-ac'}}">
               {{#if (or ../custom ../settings.hasLabel)}}
-                <div class="flex-col col-12">
+                <div class="flex-col flex-g-1">
                   <div class="flex-row flex-ae">
                     {{#if ../data.hasHidableTraits}}
                       <div class="flex-col px-0">
@@ -43,37 +43,41 @@
                 </div>
               {{else}}
                 <span
-                  class="flex-col trait-title-cpt">
+                  class="flex-col trait-title-cpt flex-g-1">
                   {{trait.name}}
                 </span>
               {{/if}}
-              {{#if ../settings.hasDice}}
-                {{> "systems/cortexprime/templates/partials/dice/select.html"
-                  addToPool=true
-                  consumable=../settings.consumableDice
-                  dice=trait.dice.value
-                  minDice=0
-                  label=(ternary (and ../settings.hasLabel trait.label) trait.label trait.name)
-                  selectName=(concat ../path '.' ../target '.' traitIndex '.dice')
-                }}
-              {{/if}}
-              <div class="flex-col">
-                <button class="btn btn-icon btn-icon-plain-cpt toggle-item"
-                  data-path="{{concat ../path '.' ../target '.' traitIndex '.shutdown'}}" type="button">
-                  <i class="fas {{ternary trait.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
-                </button>
-              </div>
-              {{#if ../custom}}
-                <div class="flex-col pa-0">
-                  {{> "systems/cortexprime/templates/partials/remove-button.html"
-                    path=../path
-                    target=../target
-                    itemKey=traitIndex
-                    itemName=(ternary (and ../settings.hasLabel trait.label) (ternary (and trait.label trait.name) (concat trait.label ' (' trait.name ')')) trait.name)
-                    type="trash"
-                  }}
+              <div class="flex-col flex-s-1 px-0{{ternary (or ../custom ../settings.hasLabel) ' max-50' ''}}">
+                <div class="flex flex-ac">
+                  {{#if ../settings.hasDice}}
+                    {{> "systems/cortexprime/templates/partials/dice/select.html"
+                      addToPool=true
+                      consumable=../settings.consumableDice
+                      dice=trait.dice.value
+                      minDice=0
+                      label=(ternary (and ../settings.hasLabel trait.label) trait.label trait.name)
+                      selectName=(concat ../path '.' ../target '.' traitIndex '.dice')
+                    }}
+                  {{/if}}
+                  <div>
+                    <button class="btn btn-icon btn-icon-plain-cpt toggle-item"
+                      data-path="{{concat ../path '.' ../target '.' traitIndex '.shutdown'}}" type="button">
+                      <i class="fas {{ternary trait.shutdown 'fa-toggle-off' 'fa-toggle-on'}}"></i>
+                    </button>
+                  </div>
+                  {{#if ../custom}}
+                    <div class="flex-col pa-0">
+                      {{> "systems/cortexprime/templates/partials/remove-button.html"
+                        path=../path
+                        target=../target
+                        itemKey=traitIndex
+                        itemName=(ternary (and ../settings.hasLabel trait.label) (ternary (and trait.label trait.name) (concat trait.label ' (' trait.name ')')) trait.name)
+                        type="trash"
+                      }}
+                    </div>
+                  {{/if}}
                 </div>
-              {{/if}}
+              </div>
             </div>
           </div>
           {{#if ../settings.hasLabel}}
@@ -105,7 +109,7 @@
           <div>
             <div class="separator-cpt"></div>
             <div class="pa-2 flex flex-ac flex-jsb relative-section">
-              <div class="section-background"></div>
+              <div class="section-background-alternate"></div>
               <h4 class="flex-col sub-trait-label-cpt my-0">{{localize 'SubTraits'}}</h4>
               <div class="flex-col">
                 <button class="btn btn-primary-cpt btn-icon add-sub-trait"
@@ -127,7 +131,7 @@
           <div>
             <div class="separator-cpt"></div>
             <div class="pa-2 flex flex-ac flex-jsb relative-section">
-              <div class="section-background"></div>
+              <div class="section-background-alternate"></div>
               <h4 class="flex-col sub-trait-label-cpt my-0">{{localize 'Descriptors'}}</h4>
               <div class="flex-col">
                 <button class="btn btn-primary-cpt btn-icon add-descriptor" data-path="{{concat ../path '.' ../target '.' traitIndex}}"
@@ -148,7 +152,7 @@
           <div>
             <div class="separator-cpt"></div>
             <div class="pa-2 flex flex-ac flex-jsb relative-section">
-              <div class="section-background"></div>
+              <div class="section-background-alternate"></div>
               <h4 class="flex-col sub-trait-label-cpt my-0">{{localize 'Sfx'}}</h4>
               <div class="flex-col">
                 <button class="btn btn-primary-cpt btn-icon add-sfx" data-path="{{concat ../path '.' ../target '.' traitIndex}}" type="button">
