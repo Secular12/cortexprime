@@ -1,6 +1,6 @@
 <div class="flex-col col-6">
-  <div class="flex-row">
-    <h3 class="flex-col col-12 section-secondary-title-cpt">{{label}}</h3>
+  <div class="flex-row mb-2">
+    <h3 class="flex-col col-12 section-secondary-title-cpt mb-0">{{label}}</h3>
     {{#if custom}}
       <div class="flex-col">
         <button class="btn btn-primary-cpt btn-icon add-trait" data-path="{{path}}" type="button">
@@ -84,7 +84,7 @@
             {{#if ../custom}}
               <div class="flex-col col-12 mt-1">
                 <label>
-                  <span class="input-label">{{localize 'Name'}}</span>
+                  <span class="input-label-cpt">{{localize 'Name'}}</span>
                   <input class="input-cpt" type="text" name="{{concat ../path '.' ../target '.' traitIndex '.name'}}" value="{{trait.name}}">
                 </label>
               </div>

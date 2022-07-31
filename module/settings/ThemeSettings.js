@@ -145,6 +145,7 @@ export default class ThemeSettings extends FormApplication {
     const themes = game.settings.get('cortexprime', 'themes')
     const theme = themes.current === 'custom' ? themes.custom : themes.list[themes.current]
 
+    console.log(theme, themes.current)
     setCssVars(theme)
 
     this.render()

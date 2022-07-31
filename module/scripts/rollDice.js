@@ -279,7 +279,7 @@ const dicePicker = async rollResults => {
           const $effectDice = $effectDiceContainer.find('.die-icon-wrapper')
 
           if ($effectDice.length === 0) {
-            const dieContent = await getAppendDiceContent({ dieRating: '4', value: '4', type: 'effect' })
+            const dieContent = await getAppendDiceContent({ defaultValue: true, dieRating: '4', value: '4', type: 'effect' })
 
             $effectDiceContainer
               .append(dieContent)
@@ -419,6 +419,7 @@ export default async function (pool, rollType) {
   const rollResults = await getRollResults(pool)
   const themes = game.settings.get('cortexprime', 'themes')
   const theme = themes.current === 'custom' ? themes.custom : themes.list[themes.current]
+  const sourceDefaultCollapsed = game.settings.get('cortexprime', 'rollResultSourceCollapsed')
 
   await this?._clearDicePool()
 
@@ -433,6 +434,7 @@ export default async function (pool, rollType) {
     effectDice: selectedDice.effectDice,
     rollResults: { hitches: rollResults.hitches, results: selectedDice.dice },
     speaker: game.user,
+    sourceDefaultCollapsed,
     theme,
     total: selectedDice.total
   })

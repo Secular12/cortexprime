@@ -25,17 +25,8 @@
   display: flex;
 }
 
-.flex-column {
-  flex-direction: column;
-}
-
 .flex-wrap {
   flex-wrap: wrap;
-}
-
-.flex-container {
-  padding-left: $side-gutters - calc($horizontal-gutters / 2);
-  padding-right: $side-gutters - calc($horizontal-gutters / 2);
 }
 
 .flex-row {

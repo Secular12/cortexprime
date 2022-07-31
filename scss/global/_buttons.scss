@@ -4,6 +4,7 @@
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+  font-size: toRem(14px);
   line-height: normal;
   padding: toRem(4px) toRem(8px);
   text-transform: uppercase;
@@ -12,15 +13,15 @@
 
   &:disabled {
     opacity: 0.5;
-    color: color('white');
+    color: #ffffff;
     cursor: not-allowed;
   }
-}
 
-@each $color, $hex in $colors {
-  .btn-#{$color} {
-    background-color: $hex;
-    color: color('white')
+  &.btn-small {
+    font-size: toRem(10px);
+    height: toRem(16px);
+    padding: toRem(2px);
+    width: toRem(16px);
   }
 }
 
@@ -36,19 +37,6 @@
   i.fa {
     margin-right: 0;
   }
-
-  &.btn-small {
-    font-size: toRem(10px);
-    height: toRem(16px);
-    padding: toRem(2px);
-    width: toRem(16px);
-  }
-}
-
-.btn-text {
-  line-height: 1;
-  padding: 0;
-  text-transform: inherit;
 }
 
 .add-trait-to-pool {
