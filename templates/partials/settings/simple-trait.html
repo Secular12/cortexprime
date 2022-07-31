@@ -1,7 +1,8 @@
 <article class="{{viewClasses (concat 'simpleTrait-' actorTypeIndex '-' simpleTraitIndex) breadcrumbs}} simple-trait">
-  <header class="primary-heading flex-row flex-ac">
+  <header class="flex flex-ac py-2 relative-section">
+    <div class="section-background"></div>
     <div class="flex-col col-12">
-      <input class="breadcrumb-name-change" data-target="{{concat 'simpleTrait-' actorTypeIndex '-' simpleTraitIndex}}" name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.label'}}" type="text" value="{{simpleTrait.label}}">
+      <input class="breadcrumb-name-change input-cpt" data-target="{{concat 'simpleTrait-' actorTypeIndex '-' simpleTraitIndex}}" name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.label'}}" type="text" value="{{simpleTrait.label}}">
     </div>
     <div class="flex-col">
       {{> "systems/cortexprime/templates/partials/remove-button.html"
@@ -13,21 +14,25 @@
       }}
     </div>
   </header>
-  <div>
-    <div class="my-2">
-      <label>
-        <input name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.hasDescription'}}" type="checkbox" {{checked
+  <div class="relative-section pa-2">
+    <div class="section-background"></div>
+    <label class="flex flex-ac">
+      <div class="checkmark-container">
+        <input class="input-checkbox-cpt" name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.hasDescription'}}" type="checkbox" {{checked
           simpleTrait.hasDescription}}>
-        <span class="label">{{localize 'HasDescription'}}</span>
-      </label>
-      {{#if simpleTrait.hasDescription}}
-        <textarea name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
-      {{/if}}
-    </div>
-    <div class="my-2">
+        <div class="checkmark-cpt"></div>
+      </div>
+      <span class="input-label-cpt mb-0 ml-2">{{localize 'HasDescription'}}</span>
+    </label>
+    {{#if simpleTrait.hasDescription}}
+      <span class="input-label-cpt mt-1">{{localize 'Description'}}</span>
+      <textarea class="input-cpt" name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.description'}}">{{simpleTrait.description}}</textarea>
+    {{/if}}
+    <div class="mt-2">
       <label>
-        <span class="label mr-1">{{localize 'ValueType'}}</span>
+        <span class="input-label-cpt mr-1">{{localize 'ValueType'}}</span>
         <select
+          class="input-cpt"
           name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.settings.valueType'}}"
         >
           {{#select (?? simpleTrait.settings.valueType 'text')}}
@@ -38,11 +43,11 @@
         </select>
       </label>
     </div>
-    {{> (concat "systems/cortexprime/templates/partials/settings/value-types/" (?? simpleTrait.settings.valueType 'text') ".html")
-      consumableOption=true
-      fieldPath=(concat 'actorTypes.' path '.' simpleTraitIndex)
-      path=(concat path '.' simpleTraitIndex)
-      data=simpleTrait
-    }}
   </div>
+  {{> (concat "systems/cortexprime/templates/partials/settings/value-types/" (?? simpleTrait.settings.valueType 'text') ".html")
+    consumableOption=true
+    fieldPath=(concat 'actorTypes.' path '.' simpleTraitIndex)
+    path=(concat path '.' simpleTraitIndex)
+    data=simpleTrait
+  }}
 </article>

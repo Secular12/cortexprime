@@ -11,9 +11,13 @@
     background: none;
     padding: 0;
   }
+
+  .window-resizable-handle {
+    z-index: 10;
+  }
 }
 
-.dice-picker {
+.dice-picker, .consumable-dice {
   &.window-app {
     .window-content {
       background: none;
@@ -24,8 +28,13 @@
 
 h1, h2, h3, h4, h5, h6 {
   border: 0;
+  margin: 0;
 }
 
 p {
   margin: 0;
+}
+
+a[href] {
+  color: inherit;
 }

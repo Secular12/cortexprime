@@ -11,18 +11,26 @@
   background: none;
   padding: 0;
 }
+.cortexprime.window-app .window-resizable-handle {
+  z-index: 10;
+}
 
-.dice-picker.window-app .window-content {
+.dice-picker.window-app .window-content, .consumable-dice.window-app .window-content {
   background: none;
   padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
   border: 0;
+  margin: 0;
 }
 
 p {
   margin: 0;
+}
+
+a[href] {
+  color: inherit;
 }
 
 .label {
@@ -31,12 +39,6 @@ p {
   font-size: 0.8rem;
   text-transform: uppercase;
   vertical-align: center;
-}
-
-.pp-number {
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: #424C59;
 }
 
 .primary-heading {
@@ -1698,6 +1700,28 @@ p {
   text-align: center;
 }
 
+.flex-g-1 {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.flex-g-2 {
+  -webkit-box-flex: 2;
+  -ms-flex-positive: 2;
+  flex-grow: 2;
+}
+
+.flex-s-1 {
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+}
+
+.flex-s-2 {
+  -ms-flex-negative: 2;
+  flex-shrink: 2;
+}
+
 .ma-0 {
   margin-bottom: 0rem;
   margin-left: 0rem;
@@ -2561,6 +2585,18 @@ p {
   margin-right: auto;
 }
 
+.max-50 {
+  max-width: 50%;
+}
+
+.white-space-nowrap {
+  white-space: nowrap;
+}
+
+.actor-selection {
+  height: 100%;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -2725,15 +2761,12 @@ input[type=color][data-edit][data-edit] {
   -ms-flex-pack: start;
   justify-content: start;
 }
-.cortexprime .breadcrumb {
-  color: #B30044;
-}
 .cortexprime .breadcrumb:hover {
   text-decoration: underline;
   cursor: pointer;
 }
 .cortexprime .breadcrumb.active {
-  color: #141c27;
+  font-weight: bold;
 }
 .cortexprime .breadcrumb.active:hover {
   text-decoration: none;
@@ -2874,6 +2907,7 @@ input[type=color][data-edit][data-edit] {
 
 .dice-container {
   position: relative;
+  z-index: 1;
 }
 .dice-container .die-container {
   height: 32px;
@@ -2996,6 +3030,9 @@ input[type=color][data-edit][data-edit] {
   background-color: var(--button-primary-color, #2d5931);
   color: var(--button-primary-font-color, #ffffff);
 }
+.cortexprime .btn {
+  font-size: 0.875rem;
+}
 .cortexprime .btn:hover, .cortexprime .btn:focus {
   -webkit-box-shadow: 0 0 5px var(--input-focus-color, #b30044);
   box-shadow: 0 0 5px var(--input-focus-color, #b30044);
@@ -3019,11 +3056,17 @@ input[type=color][data-edit][data-edit] {
   background-color: transparent;
   color: var(--body-font-color, #000000);
 }
-.cortexprime .dialog-buttons .dialog-button.confirm {
-  background-color: var(--button-primary-color, #2d5931);
+.cortexprime .dialog-buttons .dialog-button.cancel, .cortexprime .dialog-buttons .dialog-button.confirm, .cortexprime .dialog-buttons .dialog-button.done {
   border: 0;
-  color: var(--button-primary-font-color, #ffffff);
   cursor: pointer;
+}
+.cortexprime .dialog-buttons .dialog-button.confirm, .cortexprime .dialog-buttons .dialog-button.done {
+  background-color: var(--button-primary-color, #2d5931);
+  color: var(--button-primary-font-color, #ffffff);
+}
+.cortexprime .dialog-buttons .dialog-button.cancel {
+  background-color: var(--button-secondary-color, #2d5931);
+  color: var(--button-secondary-font-color, #ffffff);
 }
 .cortexprime .die-cpt {
   height: 2rem;
@@ -3233,8 +3276,8 @@ input[type=color][data-edit][data-edit] {
   position: absolute;
   top: 0;
   left: 0;
-  height: 1.875rem;
-  width: 1.875rem;
+  height: 0.9375rem;
+  width: 0.9375rem;
   background-color: var(--input-checkbox-color, #2d5931);
 }
 .cortexprime .checkmark-cpt:after {
@@ -3246,8 +3289,8 @@ input[type=color][data-edit][data-edit] {
 .cortexprime .checkmark-container {
   display: block;
   position: relative;
-  height: 1.875rem;
-  width: 1.875rem;
+  height: 0.9375rem;
+  width: 0.9375rem;
   cursor: pointer;
   font-size: 1.5rem;
   -webkit-user-select: none;
@@ -3263,23 +3306,42 @@ input[type=color][data-edit][data-edit] {
   margin: 0;
   opacity: 0;
   position: absolute;
-  height: 1.875rem;
-  width: 1.875rem;
+  height: 0.9375rem;
+  width: 0.9375rem;
   z-index: 3;
 }
 .cortexprime .checkmark-container .input-checkbox-cpt:checked ~ .checkmark-cpt:after {
   display: block;
 }
 .cortexprime .checkmark-container .checkmark-cpt:after {
+  left: 0.25rem;
+  top: 0.0625rem;
+  width: 0.25rem;
+  height: 0.5rem;
+  border: solid white;
+  border-width: 0 0.1875rem 0.1875rem 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.cortexprime .checkmark-container.checkmark-lg {
+  height: 1.875rem;
+  width: 1.875rem;
+}
+.cortexprime .checkmark-container.checkmark-lg .checkmark-cpt {
+  height: 1.875rem;
+  width: 1.875rem;
+}
+.cortexprime .checkmark-container.checkmark-lg .checkmark-cpt:after {
   left: 0.5rem;
   top: 0.0625rem;
   width: 0.5rem;
   height: 1rem;
-  border: solid white;
   border-width: 0 0.375rem 0.375rem 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
+}
+.cortexprime .checkmark-container.checkmark-lg .input-checkbox-cpt {
+  height: 1.875rem;
+  width: 1.875rem;
 }
 .cortexprime .input-label-cpt {
   color: var(--input-label-color, #424C59);

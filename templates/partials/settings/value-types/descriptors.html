@@ -1,14 +1,18 @@
 <div>
   <header>
-    <div class="bkg-primary flex-row flex-ac flex-jsb my-2 py-1">
-      <h3 class="flex-col primary-heading text-white">{{localize 'DefaultDescriptors'}}</h3>
+    <div class="flex flex-ac flex-jsb py-2 relative-section">
+      <div class="section-background-alternate"></div>
+      <h3 class="flex-col section-primary-title-cpt">{{localize 'DefaultDescriptors'}}</h3>
       <div class="flex-col">
-        <button class="btn btn-secondary btn-icon add-descriptor" type="button" data-path="{{concat path '.descriptors'}}">
+        <button class="btn btn-primary-cpt btn-icon add-descriptor" type="button" data-path="{{concat path '.descriptors'}}">
           <i class="fa fa-plus"></i>
         </button>
       </div>
     </div>
   </header>
+  {{#if (listHasMore data.descriptors 0)}}
+    <div class="separator-cpt"></div>
+  {{/if}}
   {{> "systems/cortexprime/templates/partials/value-types/descriptors.html"
   data=data
   fieldPath=(concat 'actorTypes.' path '.descriptors')

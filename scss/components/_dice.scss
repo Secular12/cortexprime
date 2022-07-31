@@ -84,6 +84,7 @@ $dieSides: 4, 6, 8, 10, 12;
 
 .dice-container {
   position: relative;
+  z-index: 1;
 
   .die-container {
     height: 32px;

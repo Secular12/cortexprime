@@ -411,7 +411,7 @@ const dicePicker = async rollResults => {
             $(this).prop('disabled', true)
           })
       }
-    }, { jQuery: true, classes: ['dialog', 'dice-picker', 'cortexprime', 'themed-cpt'] }).render(true)
+    }, { jQuery: true, classes: ['dialog', 'dice-picker', 'cortexprime'] }).render(true)
   })
 }
 

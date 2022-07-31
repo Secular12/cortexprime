@@ -1,13 +1,17 @@
-<div>
-  <div class="my-2">
-    <label>
-      <input name="{{concat 'actorTypes.' path '.settings.hasMaxNumber'}}" type="checkbox" {{checked data.settings.hasMaxNumber}}>
-      <span class="label">{{localize 'HasMaxNumber'}}</span>
+<div class="relative-section pa-2">
+  <div class="section-background"></div>
+  <div>
+    <label class="flex flex-ac">
+      <div class="checkmark-container">
+        <input class="input-checkbox-cpt" name="{{concat 'actorTypes.' path '.settings.hasMaxNumber'}}" type="checkbox" {{checked data.settings.hasMaxNumber}}>
+        <div class="checkmark-cpt"></div>
+      </div>
+      <span class="input-label-cpt mb-0 ml-2">{{localize 'HasMaxNumber'}}</span>
     </label>
   </div>
   <div>
     <label>
-      <span class="label my-2">{{localize 'DefaultValue'}}</span>
+      <span class="input-label-cpt">{{localize 'DefaultValue'}}</span>
       {{> "systems/cortexprime/templates/partials/value-types/number.html"
         data=data
         edit=true

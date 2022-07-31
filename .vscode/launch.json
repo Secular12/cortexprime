@@ -2,6 +2,10 @@
   // Use IntelliSense to learn about possible attributes.
   // Hover to view descriptions of existing attributes.
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+<<<<<<< HEAD
   "version": "0.2.5",
+=======
+  "version": "0.2.4",
+>>>>>>> a9d4deb03fc1ea38a2d3a1ff4465acbc4cb7599d
   "configurations": []
 }

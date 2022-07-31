@@ -120,3 +120,19 @@
   justify-content: center;
   text-align: center;
 }
+
+.flex-g-1 {
+  flex-grow: 1;
+}
+
+.flex-g-2 {
+  flex-grow: 2;
+}
+
+.flex-s-1 {
+  flex-shrink: 1;
+}
+
+.flex-s-2 {
+  flex-shrink: 2;
+}

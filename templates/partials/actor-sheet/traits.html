@@ -3,14 +3,14 @@
     {{#if (or ../owner (or (not ../data.hasHidableTraits) (not trait.hidden)))}}
       <div class="px-2 py-1 relative-section{{ternary (or ../traitSetShutdown trait.shutdown) ' shutdown' ''}}">
         <div class="{{ternary (and ../data.hasHidableTraits trait.hidden) ' section-background-alternate' 'section-background'}}"></div>
-        <div class="trait-title-cpt flex-row flex-ac">
+        <div class="trait-title-cpt flex-row flex-ac flex-wrap">
           {{#if (and ../data.hasHidableTraits trait.hidden)}}
             <span class="flex-col pr-0">
               <i class="fa fa-eye-slash"></i>
             </span>
           {{/if}}
           <span
-            class="flex-col{{ternary (and (and (not ../traitSetShutdown) (not trait.shutdown)) (and ../settings.hasDice trait.dice.value.[0])) ' add-to-pool' ''}}{{ternary trait.shutdown ' shutdown' ''}}"
+            class="flex-col flex-g-1{{ternary (and (and (not ../traitSetShutdown) (not trait.shutdown)) (and ../settings.hasDice trait.dice.value.[0])) ' add-to-pool' ''}}{{ternary trait.shutdown ' shutdown' ''}}"
             data-label="{{ternary (and ../settings.hasLabel trait.label) (ternary (and trait.label trait.name) (concat trait.label ' (' trait.name ')')) trait.name}}"
             data-path="{{concat ../path '.' ../target '.' traitIndex '.dice'}}" {{{ternary
             ../settings.diceConsumable 'data-consumable="true"' '' }}}>
@@ -18,23 +18,27 @@
           </span>
           {{#if ../settings.hasDice}}
             {{#if (or (not ../owner) (or ../traitSetShutdown trait.shutdown))}}
-              <div class="flex">
-              {{#each trait.dice.value as |die|}}
-                <div>
-                  <div class="die-icon d{{die}} mx-0">
-                  </div>
+              <div class="pl-0 flex-col flex-s-1">
+                <div class="flex flex-wrap flex-ac">
+                  {{#each trait.dice.value as |die|}}
+                    {{> (concat "systems/cortexprime/templates/partials/dice/d" die ".html")
+                      number=die
+                      type='die-rating'
+                    }}
+                  {{/each}}
                 </div>
-              {{/each}}
               </div>
             {{else}}
-              {{> "systems/cortexprime/templates/partials/dice/select.html"
-                addToPool=true
-                consumable=../settings.consumableDice
-                dice=trait.dice.value
-                minDice=0
-                label=(ternary (and ../settings.hasLabel trait.label) trait.label trait.name)
-                selectName=(concat ../path '.' ../target '.' traitIndex '.dice')
-              }}
+              <div class="pl-0 flex-col flex-s-1">
+                {{> "systems/cortexprime/templates/partials/dice/select.html"
+                  addToPool=true
+                  consumable=../settings.consumableDice
+                  dice=trait.dice.value
+                  minDice=0
+                  label=(ternary (and ../settings.hasLabel trait.label) trait.label trait.name)
+                  selectName=(concat ../path '.' ../target '.' traitIndex '.dice')
+                }}
+              </div>
             {{/if}}
           {{/if}}
         </div>
@@ -72,9 +76,9 @@
           <div>
             {{#each trait.subTraits as |subTrait subTraitIndex|}}
               {{#if (or subTrait.label subTrait.dice.value)}}
-                <div class="my-1 flex-row flex-ac sub-trait-label-cpt">
+                <div class="my-1 flex-row flex-ac flex-wrap sub-trait-label-cpt">
                   {{#if subTrait.label}}
-                    <div class="flex-col">
+                    <div class="flex-col flex-g-1">
                       <span class="{{ternary (and ../../settings.subTraitsHaveDice (and (and (not ../../traitSetShutdown) (not trait.shutdown)) subTrait.dice.value.[0])) ' add-to-pool' ''}}"
                         data-label="{{concat subTrait.label ' (' (ternary (and trait.label trait.name) trait.label trait.name) ')'}}"
                         data-path="{{concat ../../path '.' ../../target '.' traitIndex '.subTraits.' subTraitIndex '.dice'}}" {{{ternary ../../settings.subTraitsDiceConsumable 'data-consumable="true"' '' }}}>
@@ -83,21 +87,27 @@
                     </div>
                   {{/if}}
                   {{#if (and ../../settings/subTraitsHaveDice (or (not ../../owner) (or ../../traitSetShutdown trait.shutdown)))}}
-                    <div class="flex flex-wrap">
+                  <div class="pl-0 flex-col flex-s-1">
+                    <div class="flex flex-wrap flex-ac">
                       {{#each subTrait.dice.value as |die|}}
-                        <div class="die-icon d{{die}} mx-0">
-                        </div>
+                        {{> (concat "systems/cortexprime/templates/partials/dice/d" die ".html")
+                          number=die
+                          type='die-rating'
+                        }}
                       {{/each}}
                     </div>
+                  </div>
                   {{else if ../../settings/subTraitsHaveDice}}
-                    {{> "systems/cortexprime/templates/partials/dice/select.html"
-                      addToPool=true
-                      consumable=../../settings.subTraitsDiceConsumable
-                      dice=subTrait.dice.value
-                      minDice=0
-                      label=subTrait.label
-                      selectName=(concat ../../path '.' ../../target '.' traitIndex '.subTraits.' subTraitIndex '.dice')
-                    }}
+                    <div class="pl-0 flex-col flex-s-1">
+                      {{> "systems/cortexprime/templates/partials/dice/select.html"
+                        addToPool=true
+                        consumable=../../settings.subTraitsDiceConsumable
+                        dice=subTrait.dice.value
+                        minDice=0
+                        label=subTrait.label
+                        selectName=(concat ../../path '.' ../../target '.' traitIndex '.subTraits.' subTraitIndex '.dice')
+                      }}
+                    </div>
                   {{/if}}
                 </div>
               {{/if}}

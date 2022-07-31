@@ -18,7 +18,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'sheet', 'actor', 'actor-sheet', 'themed-cpt'],
+      classes: ['cortexprime', 'sheet', 'actor', 'actor-sheet'],
       template: "systems/cortexprime/templates/actor/actor-sheet.html",
       width: 960,
       height: 900,
@@ -241,7 +241,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     })
 
     return new Promise((resolve, reject) => {
-      new Dialog({
+      new Dialog({ 
         title: label,
         content,
         buttons: {
@@ -257,7 +257,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
             label: localizer('AddToPool'),
             callback (html) {
               const remove = html.find('.remove-check').prop('checked')
-              const selectedDice = html.find('.die-icon.selected').get()
+              const selectedDice = html.find('.die-select.selected').get()
 
               if (!selectedDice?.length) {
                 resolve({ remove: [], value: {} })
@@ -282,11 +282,14 @@ export class CortexPrimeActorSheet extends ActorSheet {
         },
         default: 'cancel',
         render(html) {
-          html.find('.die-icon').click(function () {
-            $(this).toggleClass('result selected')
+          html.find('.die-select').click(function () {
+            const $dieContainer = $(this)
+            const $dieCpt = $dieContainer.find('.die-cpt')
+            $dieContainer.toggleClass('result selected')
+            $dieCpt.toggleClass('unchosen-cpt chosen-cpt')
           })
         }
-      }, { jQuery: true }).render(true)
+      }, { jQuery: true, classes: ['dialog', 'consumable-dice', 'cortexprime'] }).render(true)
     })
   }
 

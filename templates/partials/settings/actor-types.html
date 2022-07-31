@@ -1,23 +1,29 @@
 <section class="{{viewClasses 'actorTypes' breadcrumbs}} actor-types">
-  <header class="mb-4">
-    <div class="bkg-primary flex-row flex-ac flex-jsb mb-2 py-1">
-      <h1 class="flex-col col primary-heading text-white">
+  <header>
+    <div class="separator-cpt"></div>
+    <div class="flex flex-ac flex-jsb py-1 relative-section">
+      <div class="section-background-alternate"></div>
+      <h1 class="flex-col col section-primary-title-cpt">
         {{localize 'ActorTypes'}}
       </h1>
       <div class="flex-col">
-        <button class="btn btn-secondary btn-icon" id="add-new-actor-type" type="button">
+        <button class="btn btn-primary-cpt btn-icon" id="add-new-actor-type" type="button">
           <i class="fa fa-plus"></i>
         </button>
       </div>
     </div>
-    <div class="bkg-light-grey pa-2">
+    <div class="separator-cpt"></div>
+    <div class="pa-2 relative-section">
+      <div class="section-background-alternate"></div>
       <p class="my-1">{{localize 'ActorTypesDescription'}}</p>
-      <p><strong>{{localize 'Note'}}:</strong> {{localize 'ActorTypesNote'}}</p>
+      <p><strong class="descriptor-label-cpt">{{localize 'Note'}}:</strong> {{localize 'ActorTypesNote'}}</p>
     </div>
   </header>
-  <ul class="list-style-none px-0 list-alt-bkg">
+  <div class="separator-cpt"></div>
+  <ul class="list-style-none my-0 px-0">
     {{#each actorTypes as |actorType actorTypeIndex|}}
-      <li class="pa-1 flex-row flex-ac flex-jsb">
+      <li class="pa-1 flex flex-ac flex-jsb relative-section">
+        <div class="{{ternary (eq (mod actorTypeIndex 2) 0) 'section-background' 'section-background-alternate'}}"></div>
         <div class="flex-col flex-row flex-ac">
           {{> "systems/cortexprime/templates/partials/reorder.html"
             class="flex-col pa-0"
@@ -25,15 +31,19 @@
             currentIndex=actorTypeIndex
             setting="actorTypes"
           }}
-          <span class="section-sub-heading text-primary flex-col">{{or actorType.name (concat '[' (localize 'NoName' ) ']')}}</span>
+          <span class="section-secondary-title-cpt flex-col">{{or actorType.name (concat '[' (localize 'NoName' ) ']')}}</span>
         </div>
         <div class="flex-col flex-row flex-ac">
-          <button class="btn flex-col duplicate-item" data-id="{{actorType.id}}" type="button">
-            <i class="fa fa-clone"></i>
-          </button>
-          <button class="view-change btn flex-col" data-name="{{actorType.name}}" data-to="actorType-{{actorTypeIndex}}" type="button">
-            <i class="fa fa-edit ma-0"></i>
-          </button>
+          <div class="flex-col px-0">
+            <button class="btn btn-icon btn-icon-plain-cpt duplicate-item" data-id="{{actorType.id}}" type="button">
+              <i class="fa fa-clone"></i>
+            </button>
+          </div>
+          <div class="flex-col px-0">
+            <button class="view-change btn btn-icon btn-icon-plain-cpt" data-name="{{actorType.name}}" data-to="actorType-{{actorTypeIndex}}" type="button">
+              <i class="fa fa-edit ma-0"></i>
+            </button>
+          </div>
         </div>
       </li>
     {{/each}}

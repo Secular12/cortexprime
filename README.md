@@ -1,5 +1,9 @@
 # Cortex Prime
+<<<<<<< HEAD
 version 0.2.5 (Beta)
+=======
+version 0.2.4 (Beta)
+>>>>>>> a9d4deb03fc1ea38a2d3a1ff4465acbc4cb7599d
 
 ## Feedback?
 All feedback is welcome! To send feedback you can either visit the Cortex Prime or FoundryVTT discords and @Necrophage for any feedback. Additionally, you may submit an issue here on Github.
