@@ -96,6 +96,8 @@
   }
 
   .btn {
+    font-size: toRem(14px);
+
     &:hover, &:focus {
       box-shadow: 0 0 5px var(--input-focus-color, #b30044);
     }

@@ -3029,6 +3029,9 @@ input[type=color][data-edit][data-edit] {
   background-color: var(--button-primary-color, #2d5931);
   color: var(--button-primary-font-color, #ffffff);
 }
+.cortexprime .btn {
+  font-size: 0.875rem;
+}
 .cortexprime .btn:hover, .cortexprime .btn:focus {
   -webkit-box-shadow: 0 0 5px var(--input-focus-color, #b30044);
   box-shadow: 0 0 5px var(--input-focus-color, #b30044);

@@ -1,18 +1,26 @@
-<form class="flex-container" autocomplete="off" style="background-color: #fff;">
-  <div class="text-center ma-6">
-    <p class="label">Current Setting:</p>
-    <p class="my-2">{{currentSetting}}</p>
-    <div class="my-4">
-      <button class="btn btn-secondary export-settings" type="button">{{localize 'ExportSettings'}}</button>
-    </div>
-    <div class="my-4">
-      <label class="btn btn-primary">
-        {{localize 'ImportSettings'}}
-        <input class="import-settings hide" type="file" accept=".json">
-      </label>
-    </div>
-    <div class="my-4">
-      <button class="btn btn-dark-grey reset-settings" type="button">{{localize 'ResetToDefault'}}</button>
+<form class="sheet-cpt" autocomplete="off">
+  <div class="sheet-background"></div>
+  <div class="sheet-image"></div>
+  <div class="sheet-content pt-6 pb-2 px-2">
+    <div class="section-cpt text-center">
+      <div class="section-background"></div>
+      <div class="section-image"></div>
+      <div class="section-content pa-2">
+        <p class="section-secondary-title-cpt">Current Setting:</p>
+        <p class="my-2">{{currentSetting}}</p>
+        <div class="my-4">
+          <button class="btn btn-primary-cpt export-settings" type="button">{{localize 'ExportSettings'}}</button>
+        </div>
+        <div class="my-4">
+          <label class="btn btn-primary-cpt">
+            {{localize 'ImportSettings'}}
+            <input class="import-settings hide" type="file" accept=".json">
+          </label>
+        </div>
+        <div class="my-4">
+          <button class="btn  btn-secondary-cpt reset-settings" type="button">{{localize 'ResetToDefault'}}</button>
+        </div>
+      </div>
     </div>
   </div>
 </form>
