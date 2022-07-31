@@ -2,12 +2,12 @@
   {{#if edit}}
     <div class="flex-row flex-ac">
       <div class="flex-col">
-        <input class="input-cpt {{?? borderClass 'bb-2'}}" name="{{concat fieldPath '.value'}}" type="number" value="{{data.number.value}}">
+        <input class="input-cpt" name="{{concat fieldPath '.value'}}" type="number" value="{{data.number.value}}">
       </div>
       {{#if data.settings.hasMaxNumber}}
         <span class="flex-col">/</span>
         <div class="flex-col">
-          <input class="input-cpt {{?? borderClass 'bb-2'}}" name="{{concat fieldPath '.max'}}" type="number" value="{{data.number.max}}">
+          <input class="input-cpt" name="{{concat fieldPath '.max'}}" type="number" value="{{data.number.max}}">
         </div>
       {{/if}}
     </div>

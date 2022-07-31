@@ -13,7 +13,7 @@
 
   &:disabled {
     opacity: 0.5;
-    color: color('white');
+    color: #ffffff;
     cursor: not-allowed;
   }
 
@@ -22,13 +22,6 @@
     height: toRem(16px);
     padding: toRem(2px);
     width: toRem(16px);
-  }
-}
-
-@each $color, $hex in $colors {
-  .btn-#{$color} {
-    background-color: $hex;
-    color: color('white')
   }
 }
 
@@ -44,12 +37,6 @@
   i.fa {
     margin-right: 0;
   }
-}
-
-.btn-text {
-  line-height: 1;
-  padding: 0;
-  text-transform: inherit;
 }
 
 .add-trait-to-pool {

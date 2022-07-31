@@ -15,16 +15,6 @@
   display: none;
 }
 
-@each $color, $hex in $colors {
-  .bkg-#{$color} {
-    background-color: $hex;
-  }
-
-  .text-#{$color} {
-    color: $hex;
-  }
-}
-
 .shutdown {
   opacity: 0.5;
 
@@ -35,14 +25,6 @@
 
 .list-style-none {
   list-style: none;
-}
-
-.list-alt-bkg {
-  li {
-    &:nth-child(even) {
-      background-color: color('lighter-grey');
-    }
-  }
 }
 
 .add-to-pool {
@@ -60,7 +42,6 @@
 }
 
 input[type="text"].color {
-  border-bottom: 2px solid color('secondary');
   max-width: toRem(100px);
 }
 
