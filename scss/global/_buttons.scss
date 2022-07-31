@@ -16,6 +16,13 @@
     color: color('white');
     cursor: not-allowed;
   }
+
+  &.btn-small {
+    font-size: toRem(10px);
+    height: toRem(16px);
+    padding: toRem(2px);
+    width: toRem(16px);
+  }
 }
 
 @each $color, $hex in $colors {
@@ -36,13 +43,6 @@
 
   i.fa {
     margin-right: 0;
-  }
-
-  &.btn-small {
-    font-size: toRem(10px);
-    height: toRem(16px);
-    padding: toRem(2px);
-    width: toRem(16px);
   }
 }
 

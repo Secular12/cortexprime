@@ -22,9 +22,5 @@
   "gridUnits": "ft",
   "url": "https://github.com/Secular12/cortexprime",
   "manifest": "https://raw.githubusercontent.com/Secular12/cortexprime/master/system.json",
-<<<<<<< HEAD
-  "download": "https://github.com/Secular12/cortexprime/archive/refs/tags/v0.2.5.zip"
-=======
   "download": "https://github.com/Secular12/cortexprime/archive/refs/tags/v0.2.4.zip"
->>>>>>> a9d4deb03fc1ea38a2d3a1ff4465acbc4cb7599d
 }

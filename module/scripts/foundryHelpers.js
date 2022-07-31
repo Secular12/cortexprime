@@ -29,7 +29,20 @@ export const setCssVars = (theme) => {
       value = getBorderWidth(value, theme.sectionBorderWidth)
     }
 
-    if (['inputBorderWidth', 'sectionBorderWidth', 'separatorWeight'].includes(key)) {
+    if ([
+      'bodyFontSize',
+      'descriptorLabelFontSize',
+      'inputBorderWidth',
+      'inputLabelFontSize',
+      'sectionBorderWidth',
+      'sectionPrimaryTitleFontSize',
+      'sectionSecondaryTitleFontSize',
+      'separatorWeight',
+      'sfxLabelFontSize',
+      'subTraitLabelFontSize',
+      'traitSubTitleFontSize',
+      'traitTitleFontSize'
+    ].includes(key)) {
       value = `${value}px`
     }
 

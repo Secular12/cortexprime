@@ -107,6 +107,13 @@
         value=themes.currentSettings.sectionPrimaryTitleTextTransform
       }}
     </div>
+    <div class="flex-row my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/font-size.html"
+        label=(localize 'Size')
+        name='themes.currentSettings.sectionPrimaryTitleFontSize'
+        value=themes.currentSettings.sectionPrimaryTitleFontSize
+      }}
+    </div>
     <div class="separator-cpt my-4"></div>
     <h3 class="section-secondary-title-cpt">{{localize 'SecondaryTitles'}}</h3>
     <div class="flex-row my-2">
@@ -130,6 +137,13 @@
         label=(localize 'Casing')
         name='themes.currentSettings.sectionSecondaryTitleTextTransform'
         value=themes.currentSettings.sectionSecondaryTitleTextTransform
+      }}
+    </div>
+    <div class="flex-row my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/font-size.html"
+        label=(localize 'Size')
+        name='themes.currentSettings.sectionSecondaryTitleFontSize'
+        value=themes.currentSettings.sectionSecondaryTitleFontSize
       }}
     </div>
   </div>

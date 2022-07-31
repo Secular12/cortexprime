@@ -77,6 +77,13 @@
         value=themes.currentSettings.inputLabelTextTransform
       }}
     </div>
+    <div class="flex-row my-2">
+      {{> "systems/cortexprime/templates/partials/settings/theme/font-size.html"
+        label=(localize 'Size')
+        name='themes.currentSettings.inputLabelFontSize'
+        value=themes.currentSettings.inputLabelFontSize
+      }}
+    </div>
     <div class="separator-cpt my-4"></div>
     <h3 class="section-secondary-title-cpt">{{localize 'Checkbox'}}</h3>
     <div class="flex-row my-2">

@@ -1295,6 +1295,12 @@ a[href] {
   color: #f5f8fa;
   cursor: not-allowed;
 }
+.btn.btn-small {
+  font-size: 0.625rem;
+  height: 1rem;
+  padding: 0.125rem;
+  width: 1rem;
+}
 
 .btn-accent {
   background-color: #c9e2d1;
@@ -1352,12 +1358,6 @@ a[href] {
 }
 .btn-icon i.fa {
   margin-right: 0;
-}
-.btn-icon.btn-small {
-  font-size: 0.625rem;
-  height: 1rem;
-  padding: 0.125rem;
-  width: 1rem;
 }
 
 .btn-text {
@@ -2949,7 +2949,7 @@ input[type=color][data-edit][data-edit] {
 .cortexprime .sheet-cpt {
   color: var(--body-font-color, #000000);
   font-family: "Roboto", sans-serif;
-  font-size: 16px;
+  font-size: var(--body-font-size, 15px);
   font-weight: var(--body-font-weight, 400);
   height: 100%;
 }
@@ -3029,9 +3029,6 @@ input[type=color][data-edit][data-edit] {
 .cortexprime .btn-primary-cpt {
   background-color: var(--button-primary-color, #2d5931);
   color: var(--button-primary-font-color, #ffffff);
-}
-.cortexprime .btn {
-  font-size: 0.875rem;
 }
 .cortexprime .btn:hover, .cortexprime .btn:focus {
   -webkit-box-shadow: 0 0 5px var(--input-focus-color, #b30044);
@@ -3176,7 +3173,7 @@ input[type=color][data-edit][data-edit] {
 }
 .cortexprime .descriptor-label-cpt {
   color: var(--descriptor-label-font-color, #000000);
-  font-size: 14px;
+  font-size: var(--descriptor-label-font-size, 14px);
   font-style: var(--descriptor-label-font-style, italic);
   font-weight: var(--descriptor-label-font-weight, 700);
   text-transform: var(--descriptor-label-text-transform, none);
@@ -3184,7 +3181,7 @@ input[type=color][data-edit][data-edit] {
 .cortexprime .section-primary-title-cpt {
   border: 0;
   color: var(--section-primary-title-font-color, #b30044);
-  font-size: 20px;
+  font-size: var(--section-primary-title-font-size, 19px);
   font-style: var(--section-primary-title-font-style, normal);
   font-weight: var(--section-primary-title-font-weight, 700);
   text-transform: var(--section-primary-title-text-transform, uppercase);
@@ -3194,7 +3191,7 @@ input[type=color][data-edit][data-edit] {
 }
 .cortexprime .sfx-label-cpt {
   color: var(--sfx-label-font-color, #2d5931);
-  font-size: 14px;
+  font-size: var(--sfx-label-font-size, 15px);
   font-style: var(--sfx-label-font-style, italic);
   font-weight: var(--sfx-label-font-weight, 700);
   text-transform: var(--sfx-label-text-transform, capitalize);
@@ -3202,14 +3199,14 @@ input[type=color][data-edit][data-edit] {
 .cortexprime .section-secondary-title-cpt {
   border: 0;
   color: var(--section-secondary-title-font-color, #2d5931);
-  font-size: 16px;
+  font-size: var(--section-secondary-title-font-size, 17px);
   font-style: var(--section-secondary-title-font-style, normal);
   font-weight: var(--section-secondary-title-font-weight, 700);
   text-transform: var(--section-secondary-title-text-transform, uppercase);
 }
 .cortexprime .sub-trait-label-cpt {
   color: var(--sub-trait-label-font-color, #2d5931);
-  font-size: 14px;
+  font-size: var(--sub-trait-label-font-size, 14px);
   font-style: var(--sub-trait-label-font-style, normal);
   font-weight: var(--sub-trait-label-font-weight, 700);
   text-transform: var(--sub-trait-label-text-transform, uppercase);
@@ -3237,14 +3234,14 @@ input[type=color][data-edit][data-edit] {
 }
 .cortexprime .trait-sub-title-cpt {
   color: var(--trait-sub-title-font-color, #b30044);
-  font-size: 14px;
+  font-size: var(--trait-sub-title-font-size, 15px);
   font-style: var(--trait-sub-title-font-style, italic);
   font-weight: var(--trait-sub-title-font-weight, 700);
   text-transform: var(--trait-sub-title-text-transform, none);
 }
 .cortexprime .trait-title-cpt {
   color: var(--trait-title-font-color, #424c59);
-  font-size: 16px;
+  font-size: var(--trait-title-font-size, 16px);
   font-style: var(--trait-title-font-style, normal);
   font-weight: var(--trait-title-font-weight, 700);
   text-transform: var(--trait-title-text-transform, uppercase);
@@ -3260,7 +3257,7 @@ input[type=color][data-edit][data-edit] {
   border-style: var(--input-border-style, solid);
   color: var(--input-color, #000000);
   font-family: "Roboto", serif;
-  font-size: 16px;
+  font-size: var(--body-font-size, 15px);
   font-weight: var(--body-font-weight, 400);
   height: auto;
   padding: 0.1875rem 0.375rem;
@@ -3345,6 +3342,7 @@ input[type=color][data-edit][data-edit] {
 }
 .cortexprime .input-label-cpt {
   color: var(--input-label-color, #424C59);
+  font-size: var(--input-label-font-size, 14px);
   font-style: var(--input-label-font-style, normal);
   font-weight: var(--input-label-font-weight, 700);
   text-transform: var(--input-label-text-transform, capitalize);

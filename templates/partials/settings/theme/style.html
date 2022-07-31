@@ -4,6 +4,7 @@
 <style>
   {{target}} {
     --body-font-color: {{or settings.bodyFontColor '#000000'}};
+    --body-font-size: {{or settings.bodyFontSize 15}}px;
     --body-font-weight: {{or settings.bodyFontWeight 400}};
     --button-primary-color: {{or settings.buttonPrimaryColor '#2d5931'}};
     --button-primary-font-color: {{or settings.buttonPrimaryFontColor '#ffffff'}};
@@ -12,6 +13,11 @@
     --chosen-fill: {{or settings.chosenFill '#ffffff'}};
     --chosen-stroke: {{or settings.chosenStroke '#b30044'}};
     --chosen-number: {{or settings.chosenNumber '#1f2834'}};
+    --descriptor-label-font-color: {{or settings.descriptorLabelFontColor '#000000'}};
+    --descriptor-label-font-size: {{or settings.descriptorLabelFontSize 14}}px;
+    --descriptor-label-font-style: {{or settings.descriptorLabelFontStyle 'italic'}};
+    --descriptor-label-font-weight: {{or settings.descriptorLabelFontWeight 700}};
+    --descriptor-label-text-transform: {{or settings.descriptorLabelTextTransform 'none'}};
     --die-rating-fill: {{or settings.dieRatingFill '#b30044'}};
     --die-rating-stroke: {{or settings.dieRatingStroke '#b30044'}};
     --die-rating-number: {{or settings.dieRatingNumber '#ffffff'}};
@@ -21,10 +27,6 @@
     --hitch-fill: {{or settings.hitchFill '#141c27'}};
     --hitch-stroke: {{or settings.hitchStroke '#b30044'}};
     --hitch-number: {{or settings.hitchNumber '#ffffff'}};
-    --descriptor-label-font-color: {{or settings.descriptorLabelFontColor '#000000'}};
-    --descriptor-label-font-style: {{or settings.descriptorLabelFontStyle 'italic'}};
-    --descriptor-label-font-weight: {{or settings.descriptorLabelFontWeight 700}};
-    --descriptor-label-text-transform: {{or settings.descriptorLabelTextTransform 'none'}};
     --input-background-color: {{or settings.inputBackgroundColor '#c9e2d1'}};
     --input-border-color: {{or settings.inputBorderColor '#2d5931'}};
     --input-border-position: {{borderPosition settings.inputBorderPosition settings.inputBorderWidth}};
@@ -34,6 +36,7 @@
     --input-focus-color: {{or settings.inputFocusColor '#b30044'}};
     --input-color: {{or settings.inputColor '#000000'}};
     --input-label-color: {{or settings.inputLabelColor '#424c59'}};
+    --input-label-font-size: {{or settings.inputLabelFontSize 14}}px;
     --input-label-font-style: {{or settings.inputLabelFontStyle 'normal'}};
     --input-label-font-weight: {{or settings.inputLabelFontWeight 700}};
     --input-label-text-transform: {{or settings.inputLabelTextTransform 'capitalize'}};
@@ -52,10 +55,12 @@
     --section-border-position: {{borderPosition settings.sectionBorderPosition settings.sectionBorderWidth}};
     --section-border-style: {{or settings.sectionBorderStyle 'solid'}};
     --section-primary-title-font-color: {{or settings.sectionPrimaryTitleFontColor '#b30044'}};
+    --section-primary-title-font-size: {{or settings.sectionPrimaryTitleFontSize 19}}px;
     --section-primary-title-font-style: {{or settings.sectionPrimaryTitleFontStyle 'normal'}};
     --section-primary-title-font-weight: {{or settings.sectionPrimaryTitleFontWeight 700}};
     --section-primary-title-text-transform: {{or settings.sectionPrimaryTitleTextTransform 'uppercase'}};
     --section-secondary-title-font-color: {{or settings.sectionSecondaryTitleFontColor '#2d5931'}};
+    --section-secondary-title-font-size: {{or settings.sectionSecondaryTitleFontSize 17}}px;
     --section-secondary-title-font-style: {{or settings.sectionSecondaryTitleFontStyle 'normal'}};
     --section-secondary-title-font-weight: {{or settings.sectionSecondaryTitleFontWeight 700}};
     --section-secondary-title-text-transform: {{or settings.sectionSecondaryTitleTextTransform 'uppercase'}};
@@ -67,6 +72,7 @@
     --separator-weight: {{or settings.separatorWeight '2'}}px;
     --sfx-bullet-color: {{or settings.sfxBulletColor '#b30044'}};
     --sfx-label-font-color: {{or settings.sfxLabelFontColor '#2d5931'}};
+    --sfx-label-font-size: {{or settings.sfxLabelFontSize 15}}px;
     --sfx-label-font-style: {{or settings.sfxLabelFontStyle 'italic'}};
     --sfx-label-font-weight: {{or settings.sfxLabelFontWeight 700}};
     --sfx-label-text-transform: {{or settings.sfxLabelTextTransform 'capitalize'}};
@@ -77,14 +83,17 @@
     --sheet-background-repeat: {{or settings.sheetBackgroundRepeat 'no-repeat'}};
     --sheet-background-size: {{or settings.sheetBackgroundSize 'cover'}};
     --sub-trait-label-font-color: {{or settings.subTraitLabelFontColor '#2d5931'}};
+    --sub-trait-label-font-size: {{or settings.subTraitLabelFontSize 14}}px;
     --sub-trait-label-font-style: {{or settings.subTraitLabelFontStyle 'normal'}};
     --sub-trait-label-font-weight: {{or settings.subTraitLabelFontWeight 700}};
     --sub-trait-label-text-transform: {{or settings.subTraitLabelTextTransform 'uppercase'}};
     --trait-sub-title-font-color: {{or settings.traitSubTitleFontColor '#b30044'}};
+    --trait-sub-title-font-size: {{or settings.traitSubTitleFontSize 15}}px;
     --trait-sub-title-font-style: {{or settings.traitSubTitleFontStyle 'italic'}};
     --trait-sub-title-font-weight: {{or settings.traitSubTitleFontWeight 700}};
     --trait-sub-title-text-transform: {{or settings.traitSubTitleTextTransform 'none'}};
     --trait-title-font-color: {{or settings.traitTitleFontColor '#424c59'}};
+    --trait-title-font-size: {{or settings.traitTitleFontSize 16}}px;
     --trait-title-font-style: {{or settings.traitTitleFontStyle 'normal'}};
     --trait-title-font-weight: {{or settings.traitTitleFontWeight 700}};
     --trait-title-text-transform: {{or settings.traitTitleTextTransform 'uppercase'}};
