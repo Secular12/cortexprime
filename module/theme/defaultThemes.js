@@ -148,7 +148,7 @@ export default {
       inputLabelColor: '#bdb5ad',
       inputLabelFontSize: 14,
       inputLabelFontStyle: 'normal',
-      nputLabelFontWeight: '400',
+      inputLabelFontWeight: 700,
       inputLabelTextTransform: 'capitalize',
       plotPointFill: '#d2942a',
       plotPointStroke: '#d2942a',
