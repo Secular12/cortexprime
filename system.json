@@ -2,7 +2,7 @@
   "name": "cortexprime",
   "title": "Cortex Prime",
   "description": "Cortex Prime System WARNING: This is currently in Beta. Which means there is a risk of breaking changes with every update. More features are being planned and worked on. It is currently playable, however, expect bugs and you may need to use the features that currently exist in different ways to make up for a feature that is not yet released.",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "minimumCoreVersion": "0.9.0",
   "compatibleCoreVersion": "9",
   "templateVersion": 2,
@@ -22,5 +22,5 @@
   "gridUnits": "ft",
   "url": "https://github.com/Secular12/cortexprime",
   "manifest": "https://raw.githubusercontent.com/Secular12/cortexprime/master/system.json",
-  "download": "https://github.com/Secular12/cortexprime/archive/refs/tags/v0.2.5.zip"
+  "download": "https://github.com/Secular12/cortexprime/archive/refs/tags/v0.2.6.zip"
 }
