@@ -33,7 +33,6 @@ export const preloadHandlebarsTemplates = async function () {
     'settings/theme/color',
     'settings/theme/dice-colors',
     'settings/theme/die-colors',
-    'settings/theme/example',
     'settings/theme/font-size',
     'settings/theme/font-style',
     'settings/theme/font-weight',
