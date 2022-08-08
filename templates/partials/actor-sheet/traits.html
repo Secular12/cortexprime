@@ -58,7 +58,7 @@
               {{#if (or descriptor.label descriptor.value)}}
                 <div class="my-2">
                   <div
-                    class="{{ternary (or (../traitSetShutdown) (trait.shutdown)) 'shutdown' ''}}"
+                    class="{{ternary (or ../traitSetShutdown trait.shutdown) 'shutdown' ''}}"
                   >
                       <p>
                         {{#if descriptor.label}}
