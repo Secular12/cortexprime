@@ -1,6 +1,6 @@
 const fields = foundry.data.fields
 
-export default class ActorCharacterModel extends foundry.abstract.DataModel {
+export default class CpActorCharacterModel extends foundry.abstract.DataModel {
   static defineSchema() {
     return {
       actorType: new fields.StringField({
