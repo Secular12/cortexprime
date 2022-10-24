@@ -8,11 +8,6 @@ export default class CpActorCharacterModel extends foundry.abstract.DataModel {
         nullable: true,
         required: true,
       }),
-      name: new fields.StringField({
-        blank: false,
-        nullable: false,
-        required: true,
-      }),
       notes: new fields.ArrayField(
         new fields.SchemaField({
           name: new fields.StringField({
