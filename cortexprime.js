@@ -1,9 +1,12 @@
 import CpActorCharacterModel from './system/models/CpActorCharacterModel.js'
 import { CpActor } from './system/Documents/CpActor.js'
 import PlotPoint from './system/PlotPoint.js'
+import Logger from './lib/Logger.js'
 
 Hooks.once('init', () => {
-  console.log(`Initializing Cortex Prime system...`)
+  CONFIG.debug.logs = 'info'
+
+  Logger('log', 'info')(`Initializing Cortex Prime system...`)
 
   CONFIG.Actor.documentClass = CpActor
   CONFIG.Actor.systemDataModels['character'] = CpActorCharacterModel
