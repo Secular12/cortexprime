@@ -4,6 +4,7 @@ export default class CpActorCharacterModel extends foundry.abstract.DataModel {
   static defineSchema() {
     return {
       characterType: new fields.StringField({
+        blank: false,
         nullable: true,
         required: true,
       }),
@@ -22,8 +23,7 @@ export default class CpActorCharacterModel extends foundry.abstract.DataModel {
       ),
       plotPoints: new fields.NumberField({
         integer: true,
-        nullable: true,
-        positive: true,
+        nullable: false,
         required: true,
       })
     }

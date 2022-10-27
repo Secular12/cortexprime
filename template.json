@@ -3,11 +3,12 @@
     "types": ["character"],
     "templates": {
       "common": {
-        "actorType": null
+        "plotPoints": 0
       }
     },
     "character": {
-      "templates": ["common"]
+      "templates": ["common"],
+      "characterType": null
     }
   },
   "Item": {
