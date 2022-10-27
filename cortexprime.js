@@ -1,6 +1,6 @@
 import { CpActor } from './system/Documents/CpActor.js'
 import CpActorCharacterModel from './system/models/CpActorCharacterModel.js'
-import { CpActorSheet } from './system/documents/CpActorSheet.js'
+import { CpActorCharacterSheet } from './system/documents/CpActorCharacterSheet.js'
 import { registerHandlebarHelpers } from './system/scripts/handlebarHelpers.js'
 import Logger from './lib/Logger.js'
 import PlotPoint from './system/PlotPoint.js'
@@ -17,5 +17,5 @@ Hooks.once('init', () => {
   registerHandlebarHelpers()
 
   Actors.unregisterSheet('core', ActorSheet)
-  Actors.registerSheet('cortexprime', CpActorSheet, { makeDefault: true })
+  Actors.registerSheet('cortexprime', CpActorCharacterSheet, { makeDefault: true })
 })

@@ -2,7 +2,7 @@ import Logger from '../../lib/Logger.js'
 
 const actorTypes = ['character']
 
-export class CpActorSheet extends ActorSheet {
+export class CpActorCharacterSheet extends ActorSheet {
   get actor () {
     return super.actor
   }
