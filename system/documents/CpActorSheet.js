@@ -1,5 +1,7 @@
 import Logger from '../../lib/Logger.js'
 
+const actorTypes = ['character']
+
 export class CpActorSheet extends ActorSheet {
   get actor () {
     return super.actor
@@ -19,11 +21,28 @@ export class CpActorSheet extends ActorSheet {
     const data = super.getData(options)
     
     if (!data.data.system.actorType) {
-      data.actorTypeOptions = ['character']
+      data.actorTypeOptions = actorTypes
     }
 
     Logger('debug')(`CpActorSheet.getData data:`, data)
 
     return data
+  }
+
+  activateListeners (html) {
+    super.activateListeners(html)
+    html
+      .find('#actor-type-confirm')
+      .click(this._actorTypeConfirm.bind(this))
+  }
+
+  async _actorTypeConfirm (event) {
+    const actorTypeIndex = $('#actor-type-select').val()
+
+    const actorType = actorTypes[actorTypeIndex]
+
+    await this.actor.update({
+      'system.actorType': actorType
+    })
   }
 }
