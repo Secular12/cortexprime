@@ -20,7 +20,7 @@ export class CpActorCharacterSheet extends ActorSheet {
   getData (options) {
     const data = super.getData(options)
     
-    if (!data.data.system.actorType) {
+    if (!data.data.system.characterType) {
       data.characterTypeOptions = characterTypes
     }
 
