@@ -1,27 +1,8 @@
 {
   "Actor": {
-    "types": ["character"],
-    "templates": {
-      "common": {
-        "plotPoints": 0
-      }
-    },
-    "character": {
-      "templates": ["common"],
-      "characterType": null
-    }
+    "types": ["character"]
   },
   "Item": {
-    "types": ["asset"],
-    "templates": {
-      "base": {
-        "description": ""
-      }
-    },
-    "asset": {
-      "templates": ["base"],
-      "quantity": 1,
-      "weight": 0
-    }
+    "types": ["asset"]
   }
 }
