@@ -21,7 +21,10 @@ export class CpActorCharacterSheet extends ActorSheet {
     const data = super.getData(options)
     
     if (!data.data.system.characterType) {
-      data.characterTypeOptions = characterTypes
+      Logger('warn', 'assert')
+        (characterTypes?.length > 0, 'CpActorSheet.getData: There are no character type options')
+      
+        data.characterTypeOptions = characterTypes
     }
 
     Logger('debug')(`CpActorSheet.getData data:`, data)
