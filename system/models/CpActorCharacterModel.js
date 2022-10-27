@@ -4,7 +4,6 @@ export default class CpActorCharacterModel extends foundry.abstract.DataModel {
   static defineSchema() {
     return {
       characterType: new fields.StringField({
-        blank: false,
         nullable: true,
         required: true,
       }),
