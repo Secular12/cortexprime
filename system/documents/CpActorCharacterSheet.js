@@ -10,7 +10,7 @@ export class CpActorCharacterSheet extends ActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ['cortexprime', 'sheet', 'actor-sheet'],
-      template: "systems/cortexprime/system/templates/CpActorSheet.html",
+      template: "systems/cortexprime/system/templates/CpActorCharacterSheet.html",
       width: 960,
       height: 900,
       tabs: [{ navSelector: '.sheet-tabs', contentSelector: '.sheet-body', initial: 'traits' }]
