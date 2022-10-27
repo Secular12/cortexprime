@@ -23,6 +23,7 @@ export default class CpActorCharacterModel extends foundry.abstract.DataModel {
       ),
       plotPoints: new fields.NumberField({
         integer: true,
+        min: 0,
         nullable: false,
         required: true,
       })
