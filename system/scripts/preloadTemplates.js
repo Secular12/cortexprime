@@ -1,6 +1,6 @@
 export const preloadHandlebarsTemplates = async function () {
   const templatePaths = [
-    'actor/character/actor_type_select',
+    'actor/character/character_type_select',
   ]
     .map(template => `systems/cortexprime/system/templates/partials/${template}.html`)
 

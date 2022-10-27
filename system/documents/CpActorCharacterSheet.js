@@ -1,6 +1,6 @@
 import Logger from '../../lib/Logger.js'
 
-const actorTypes = ['character']
+const characterTypes = ['Player']
 
 export class CpActorCharacterSheet extends ActorSheet {
   get actor () {
@@ -9,7 +9,7 @@ export class CpActorCharacterSheet extends ActorSheet {
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'sheet', 'actor-sheet'],
+      classes: ['cortexprime', 'sheet', 'character-sheet'],
       template: "systems/cortexprime/system/templates/CpActorCharacterSheet.html",
       width: 960,
       height: 900,
@@ -21,7 +21,7 @@ export class CpActorCharacterSheet extends ActorSheet {
     const data = super.getData(options)
     
     if (!data.data.system.actorType) {
-      data.actorTypeOptions = actorTypes
+      data.characterTypeOptions = characterTypes
     }
 
     Logger('debug')(`CpActorSheet.getData data:`, data)
@@ -32,17 +32,17 @@ export class CpActorCharacterSheet extends ActorSheet {
   activateListeners (html) {
     super.activateListeners(html)
     html
-      .find('#actor-type-confirm')
-      .click(this._actorTypeConfirm.bind(this))
+      .find('#character-type-confirm')
+      .click(this._characterTypeConfirm.bind(this))
   }
 
-  async _actorTypeConfirm (event) {
-    const actorTypeIndex = $('#actor-type-select').val()
+  async _characterTypeConfirm (event) {
+    const characterTypeIndex = $('#character-type-select').val()
 
-    const actorType = actorTypes[actorTypeIndex]
+    const characterType = characterTypes[characterTypeIndex]
 
     await this.actor.update({
-      'system.actorType': actorType
+      'system.characterType': characterType
     })
   }
 }

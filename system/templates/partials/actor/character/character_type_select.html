@@ -1,0 +1,8 @@
+<div>
+  <select id="character-type-select">
+    {{#each characterTypeOptions as |characterType characterTypeIndex|}}
+      <option value="{{characterTypeIndex}}">{{or characterType (concat '[' (localize 'NoName') ']')}}</option>
+    {{/each}}
+  </select>
+  <button id="character-type-confirm">{{localize 'Confirm'}}</button>
+</div>
