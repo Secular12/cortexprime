@@ -34,6 +34,7 @@ export class CpActorCharacterSheet extends ActorSheet {
 
   activateListeners (html) {
     super.activateListeners(html)
+
     html
       .find('#character-type-confirm')
       .click(this._characterTypeConfirm.bind(this))
