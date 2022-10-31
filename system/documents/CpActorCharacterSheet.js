@@ -24,7 +24,7 @@ export class CpActorCharacterSheet extends ActorSheet {
       Logger('warn', 'assert')
         (characterTypes?.length > 0, 'CpActorSheet.getData: There are no character type options')
       
-        data.characterTypeOptions = characterTypes
+      data.characterTypeOptions = characterTypes
     }
 
     Logger('debug')(`CpActorSheet.getData data:`, data)
