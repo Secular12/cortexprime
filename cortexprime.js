@@ -3,7 +3,7 @@ import CpActorCharacterModel from './system/models/CpActorCharacterModel.js'
 import { CpActorCharacterSheet } from './system/documents/CpActorCharacterSheet.js'
 import { registerHandlebarHelpers } from './system/scripts/handlebarHelpers.js'
 import Logger from './lib/Logger.js'
-import PlotPoint from './system/PlotPoint.js'
+import PlotPoint from './system/documents/PlotPoint.js'
 import { preloadHandlebarsTemplates } from './system/scripts/preloadTemplates.js'
 
 Hooks.once('init', () => {
