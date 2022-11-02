@@ -1,4 +1,7 @@
 {
+  "ActorSettings": "Actor Settings",
+  "ActorSettingsH": "Configure this world's actor types.",
+  "ActorTypes": "Actor Types",
   "Confirm": "Confirm",
   "NewCharacterType": "New Character Type",
   "NoName": "No Name"

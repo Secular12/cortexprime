@@ -5,6 +5,7 @@ import { registerHandlebarHelpers } from './system/scripts/handlebarHelpers.js'
 import Logger from './lib/Logger.js'
 import PlotPoint from './system/documents/PlotPoint.js'
 import { preloadHandlebarsTemplates } from './system/scripts/preloadTemplates.js'
+import { registerSettings } from './system/settings.js'
 
 Hooks.once('init', () => {
   Logger('verbose')(`Initializing Cortex Prime system...`)
@@ -15,6 +16,7 @@ Hooks.once('init', () => {
 
   preloadHandlebarsTemplates()
   registerHandlebarHelpers()
+  registerSettings()
 
   Actors.unregisterSheet('core', ActorSheet)
   Actors.registerSheet('cortexprime', CpActorCharacterSheet, { makeDefault: true })
