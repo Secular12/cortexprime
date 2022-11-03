@@ -1,8 +1,12 @@
 {
+  "ACTOR.TypeCharacter": "Character",
+  "ITEM.TypeAsset": "Asset",
+  "ActorCharacterSheetLabel": "Character Sheet",
   "ActorSettings": "Actor Settings",
   "ActorSettingsH": "Configure this world's actor types.",
   "ActorTypes": "Actor Types",
   "Confirm": "Confirm",
+  "ItemAssetSheetLabel": "Asset Sheet",
   "NewCharacterType": "New Character Type",
   "NoName": "No Name"
 }

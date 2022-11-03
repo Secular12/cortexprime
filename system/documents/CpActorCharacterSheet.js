@@ -1,17 +1,15 @@
+import { CpActorSheet } from './CpActorSheet.js'
 import Logger from '../../lib/Logger.js'
 
-export class CpActorCharacterSheet extends ActorSheet {
+export class CpActorCharacterSheet extends CpActorSheet {
   get actor () {
     return super.actor
   }
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'sheet', 'character-sheet'],
+      classes: ['cortexprime', 'sheet', 'actor-sheet', 'actor-sheet--character'],
       template: "systems/cortexprime/system/templates/CpActorCharacterSheet.html",
-      width: 960,
-      height: 900,
-      tabs: [{ navSelector: '.sheet-tabs', contentSelector: '.sheet-body', initial: 'traits' }]
     })
   }
  
