@@ -2,5 +2,6 @@
   {{#unless data.system.characterType}}
     {{> 'systems/cortexprime/system/templates/partials/actor/character/character_type_select.html'}}
   {{else}}
+    <p><b>Type:</b> {{data.system.characterType}}</p>
   {{/unless}}
 </form>

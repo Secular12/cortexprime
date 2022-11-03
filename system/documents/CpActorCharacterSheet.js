@@ -1,7 +1,5 @@
 import Logger from '../../lib/Logger.js'
 
-const characterTypes = ['Player']
-
 export class CpActorCharacterSheet extends ActorSheet {
   get actor () {
     return super.actor
@@ -19,6 +17,8 @@ export class CpActorCharacterSheet extends ActorSheet {
  
   getData (options) {
     const data = super.getData(options)
+    const actorTypes = game.settings.get('cortexprime', 'actorTypes')
+    const characterTypes = actorTypes.characters
     
     if (!data.data.system.characterType) {
       Logger('warn', 'assert')
@@ -41,12 +41,14 @@ export class CpActorCharacterSheet extends ActorSheet {
   }
 
   async _characterTypeConfirm (event) {
+    const actorTypes = game.settings.get('cortexprime', 'actorTypes')
+    const characterTypes = actorTypes.characters
     const characterTypeIndex = $('#character-type-select').val()
 
     const characterType = characterTypes[characterTypeIndex]
 
     await this.actor.update({
-      'system.characterType': characterType
+      'system.characterType': characterType.name
     })
   }
 }
