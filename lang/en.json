@@ -6,7 +6,9 @@
   "ActorSettingsH": "Configure this world's actor types.",
   "ActorTypes": "Actor Types",
   "Confirm": "Confirm",
+  "Distinctions": "Distinctions",
   "ItemAssetSheetLabel": "Asset Sheet",
   "NewCharacterType": "New Character Type",
-  "NoName": "No Name"
+  "NoName": "No Name",
+  "Player": "Player"
 }

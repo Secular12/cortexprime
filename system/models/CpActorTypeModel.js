@@ -17,12 +17,37 @@ export default class CpActorTypeModel extends foundry.abstract.DataModel {
             nullable: false,
             required: true,
           }),
-          name: new fields.StringField({
+          id: new fields.StringField({
+            blank: false,
+            nullable: false,
+            required: true,
+            trim: true,
+          }),
+          title: new fields.StringField({
             blank: false,
             initial: localizer('NewCharacterType'),
             nullable: false,
             required: true,
             trim: true,
+          }),
+          sets: new fields.ArrayField(new fields.SchemaField({
+            id: new fields.StringField({
+              blank: false,
+              nullable: false,
+              required: true,
+              trim: true,
+            }),
+            title: new fields.StringField({
+              blank: false,
+              initial: localizer('NewSet'),
+              nullable: false,
+              required: true,
+              trim: true,
+            })
+          }), {
+            initial: [],
+            nullable: false,
+            required: true,
           })
         }),
         {
