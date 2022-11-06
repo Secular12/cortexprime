@@ -16,13 +16,22 @@ export class CpActorCharacterSheet extends CpActorSheet {
   getData (options) {
     const data = super.getData(options)
     const actorTypes = game.settings.get('cortexprime', 'actorTypes')
+
+    Logger('debug')('CpActorSheet.getData actorTypes', actorTypes)
+
     const characterTypes = actorTypes.characters
+      .map(({ id, title }) => ({ id, title }))
+
+    Logger('warn', 'assert')
+      (characterTypes?.length > 0, 'CpActorSheet.getData: There are no character type options')
     
-    if (!data.data.system.characterType) {
-      Logger('warn', 'assert')
-        (characterTypes?.length > 0, 'CpActorSheet.getData: There are no character type options')
-      
+    if (!data.data.system.characterType.id) {
       data.characterTypeOptions = characterTypes
+    } else {
+      const matchingCharacterType = actorTypes.characters
+        .find(type => type.id === data.data.system.characterType.id)
+
+      data.sets = matchingCharacterType.sets
     }
 
     Logger('debug')(`CpActorSheet.getData data:`, data)
@@ -41,12 +50,14 @@ export class CpActorCharacterSheet extends CpActorSheet {
   async _characterTypeConfirm (event) {
     const actorTypes = game.settings.get('cortexprime', 'actorTypes')
     const characterTypes = actorTypes.characters
-    const characterTypeIndex = $('#character-type-select').val()
+      .map(({ id, title }) => ({ id, title }))
 
-    const characterType = characterTypes[characterTypeIndex]
+    const characterTypeId = $('#character-type-select').val()
+
+    const characterType = characterTypes.find(type => type.id === characterTypeId)
 
     await this.actor.update({
-      'system.characterType': characterType.name
+      'system.characterType': characterType
     })
   }
 }

@@ -1,5 +1,15 @@
 <form autocomplete="off">
-  {{#each characters as |character characterIndex|}}
-    <p>{{character.name}}</p>
-  {{/each}}
+  <ul>
+    {{#each characters as |character characterIndex|}}
+      <li>
+        <p>{{character.title}}</p>
+    
+        <ul>
+          {{#each character.sets as |set setIndex|}}
+            <li>{{set.title}} ({{set.id}})</li>
+          {{/each}}
+        </ul>
+      </li>
+    {{/each}}
+  </ul>
 </form>

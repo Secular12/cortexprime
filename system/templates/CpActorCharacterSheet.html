@@ -1,7 +1,12 @@
 <form class="{{cssClass}}" autocomplete="off">
-  {{#unless data.system.characterType}}
+  {{#unless data.system.characterType.id}}
     {{> 'systems/cortexprime/system/templates/partials/actor/character/character_type_select.html'}}
   {{else}}
-    <p><b>Type:</b> {{data.system.characterType}}</p>
+    <p><b>Type:</b> {{data.system.characterType.title}}</p>
+    <ul>
+      {{#each sets as |set setIndex|}}
+        <li>{{ set.title }}</li>
+      {{/each}}
+    </ul>
   {{/unless}}
 </form>
