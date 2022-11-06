@@ -31,7 +31,7 @@ export default class CpItemAssetModel extends foundry.abstract.DataModel {
         required: true,
         trim: true,
       }),
-      title: new fields.StringField({
+      setId: new fields.StringField({
         blank: false,
         initial: null,
         nullable: true,
