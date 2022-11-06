@@ -8,7 +8,7 @@ export default class CpActorSettings extends FormApplication {
 
   static get defaultOptions () {
     return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'actor-settings'],
+      classes: ['cortexprime', 'actor-settings', 'settings'],
       closeOnSubmit: false,
       height: 900,
       id: 'actor-settings',
