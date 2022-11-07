@@ -11,6 +11,20 @@ export default {
           title: 'Distinctions'
         }
       ]
-    }
+    },
+    {
+      hasNotes: true,
+      hasPlotPoints: true,
+      id: 'e4b468ba-68ff-49c0-9646-12c004ed1ed2',
+      title: 'GM',
+      sets: []
+    },
+    {
+      hasNotes: true,
+      hasPlotPoints: false,
+      id: '5f9999f8-8189-4289-b354-127fb09cd99f',
+      title: 'Location',
+      sets: []
+    },
   ]
 }
