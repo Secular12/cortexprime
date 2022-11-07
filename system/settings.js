@@ -1,16 +1,16 @@
 import defaultActorTypes from './defaultActorTypes.js'
-import CpActorSettings from './documents/CpActorSettings.js'
+import CpGeneralSettings from './documents/CpGeneralSettings.js'
 import CpActorTypeModel from './models/CpActorTypeModel.js'
 import { localizer } from './scripts/foundryHelpers.js'
 
 export const registerSettings = () => {
-  game.settings.registerMenu('cortexprime', 'ActorSettings', {
-    hint: localizer('ActorSettingsH'),
+  game.settings.registerMenu('cortexprime', 'GeneralSettings', {
+    hint: localizer('GeneralSettingsH'),
     icon: 'fas fa-user-cog',
-    label: localizer('ActorSettings'),
-    name: localizer('ActorSettings'),
+    label: localizer('GeneralSettings'),
+    name: localizer('GeneralSettings'),
     restricted: true,
-    type: CpActorSettings
+    type: CpGeneralSettings
   })
 
   game.settings.register('cortexprime', 'actorTypes', {

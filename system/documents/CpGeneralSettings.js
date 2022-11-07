@@ -1,23 +1,23 @@
 import Logger from '../../lib/Logger.js'
 import { localizer } from '../scripts/foundryHelpers.js'
 
-export default class CpActorSettings extends FormApplication {
+export default class CpGeneralSettings extends FormApplication {
   constructor() {
     super()
   }
 
   static get defaultOptions () {
     return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'actor-settings', 'settings'],
+      classes: ['cortexprime', 'general-settings', 'settings'],
       closeOnSubmit: false,
       height: 900,
-      id: 'actor-settings',
+      id: 'general-settings',
       left: 400,
       resizable: true,
       submitOnChange: true,
       submitOnClose: true,
-      template: 'systems/cortexprime/system/templates/CpActorSettings.html',
-      title: localizer('ActorSettings'),
+      template: 'systems/cortexprime/system/templates/CpGeneralSettings.html',
+      title: localizer('GeneralSettings'),
       top: 200,
       width: 600,
     })
@@ -27,9 +27,9 @@ export default class CpActorSettings extends FormApplication {
     const actorTypes = game.settings.get('cortexprime', 'actorTypes')
     
     Logger('warn', 'assert')
-      (actorTypes.types.length > 0, 'CpActorSettings.getData: There are no actor types')
+      (actorTypes.types.length > 0, 'CpGeneralSettings.getData: There are no actor types')
 
-    Logger('debug')(`CpActorSettings.getData actorTypes:`, actorTypes)
+    Logger('debug')(`CpGeneralSettings.getData actorTypes:`, actorTypes)
     
     return actorTypes
   }
