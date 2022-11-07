@@ -15,26 +15,16 @@ export class CpActorSheet extends ActorSheet {
     })
   }
  
-  getData (options) {
-    const data = super.getData(options)
+  async getData (options) {
+    const superData = super.getData(options)
+    
+    Logger('debug')(`CpActorSheet.getData superData:`, superData)
+    
     const actorTypeSettings = game.settings.get('cortexprime', 'actorTypes')
 
     Logger('debug')('CpActorSheet.getData actorTypes', actorTypeSettings)
-    
-    if (!data.data.system.actorType.id) {
-      const actorTypes = actorTypeSettings.types
-        .map(({ id, title }) => ({ id, title }))
 
-      Logger('warn', 'assert')
-        (actorTypes?.length > 0, 'CpActorSheet.getData: There are no actor type options')
-
-      data.actorTypeOptions = actorTypes
-    } else {
-      const matchingActorType = actorTypeSettings.types
-        .find(type => type.id === data.data.system.actorType.id)
-
-      data.sets = matchingActorType.sets
-    }
+    const data = this._getActorData(superData, actorTypeSettings)
 
     Logger('debug')(`CpActorSheet.getData data:`, data)
 
@@ -61,5 +51,18 @@ export class CpActorSheet extends ActorSheet {
     await this.actor.update({
       'system.actorType': actorType
     })
+  }
+
+  _getActorData (data, actorTypeSettings) {
+    if (!data.data.system.actorType.id) {
+      data.actorTypeOptions = actorTypes
+    } else {
+      const matchingActorType = actorTypeSettings.types
+          .find(type => type.id === data.data.system.actorType.id)
+  
+      data.sets = matchingActorType.sets
+    }
+
+    return data
   }
 }
