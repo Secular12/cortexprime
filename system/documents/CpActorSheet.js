@@ -55,7 +55,8 @@ export class CpActorSheet extends ActorSheet {
 
   _getActorData (data, actorTypeSettings) {
     if (!data.data.system.actorType.id) {
-      data.actorTypeOptions = actorTypes
+      data.actorTypeOptions = actorTypeSettings.types
+        .map(({ id, title }) => ({ id, title }))
     } else {
       const matchingActorType = actorTypeSettings.types
           .find(type => type.id === data.data.system.actorType.id)
