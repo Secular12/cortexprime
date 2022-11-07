@@ -5,7 +5,7 @@ const fields = foundry.data.fields
 export default class CpActorTypeModel extends foundry.abstract.DataModel {
   static defineSchema() {
     return {
-      characters: new fields.ArrayField(
+      types: new fields.ArrayField(
         new fields.SchemaField({
           hasNotes: new fields.BooleanField({
             initial: true,
@@ -25,7 +25,7 @@ export default class CpActorTypeModel extends foundry.abstract.DataModel {
           }),
           title: new fields.StringField({
             blank: false,
-            initial: localizer('NewCharacterType'),
+            initial: localizer('NewActorType'),
             nullable: false,
             required: true,
             trim: true,

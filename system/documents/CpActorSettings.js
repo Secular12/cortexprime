@@ -27,7 +27,7 @@ export default class CpActorSettings extends FormApplication {
     const actorTypes = game.settings.get('cortexprime', 'actorTypes')
     
     Logger('warn', 'assert')
-      (actorTypes.characters.length > 0, 'CpActorSettings.getData: There are no character types')
+      (actorTypes.types.length > 0, 'CpActorSettings.getData: There are no actor types')
 
     Logger('debug')(`CpActorSettings.getData actorTypes:`, actorTypes)
     

@@ -1,8 +1,8 @@
 {
   "Actor": {
-    "types": ["character"]
+    "types": ["actor"]
   },
   "Item": {
-    "types": ["asset"]
+    "types": ["item"]
   }
 }

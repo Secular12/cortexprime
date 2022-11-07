@@ -5,9 +5,10 @@ export class CpItemSheet extends ItemSheet {
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'sheet', 'item-sheet', 'item-sheet--asset'],
-      width: 960,
+      classes: ['cortexprime', 'sheet', 'item-sheet'],
       height: 900,
+      template: "systems/cortexprime/system/templates/CpItemSheet.html",
+      width: 960,
     })
   }
  

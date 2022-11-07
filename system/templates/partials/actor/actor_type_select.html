@@ -1,0 +1,8 @@
+<div>
+  <select id="actor-type-select">
+    {{#each actorTypeOptions as |actorType actorTypeIndex|}}
+      <option value="{{actorType.id}}">{{or actorType.title (concat '[' (localize 'NoName') ']')}}</option>
+    {{/each}}
+  </select>
+  <button id="actor-type-confirm">{{localize 'Confirm'}}</button>
+</div>

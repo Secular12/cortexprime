@@ -1,5 +1,5 @@
 export default {
-  characters: [
+  types: [
     {
       hasNotes: true,
       hasPlotPoints: true,

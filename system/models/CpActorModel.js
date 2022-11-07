@@ -1,9 +1,9 @@
 const fields = foundry.data.fields
 
-export default class CpActorCharacterModel extends foundry.abstract.DataModel {
+export default class CpActorModel extends foundry.abstract.DataModel {
   static defineSchema() {
     return {
-      characterType: new fields.SchemaField({
+      actorType: new fields.SchemaField({
         id: new fields.StringField({
           blank: false,
           initial: null,

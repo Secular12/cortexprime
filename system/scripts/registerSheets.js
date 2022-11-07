@@ -1,18 +1,16 @@
-import { CpItemAssetSheet } from '../documents/CpItemAssetSheet.js'
-import { CpActorCharacterSheet } from '../documents/CpActorCharacterSheet.js'
+import { CpItemSheet } from '../documents/CpItemSheet.js'
+import { CpActorSheet } from '../documents/CpActorSheet.js'
 
 export const registerSheets = () => {
   Actors.unregisterSheet('core', ActorSheet)
-  Actors.registerSheet('cortexprime', CpActorCharacterSheet, {
-    label: 'ActorCharacterSheetLabel',
+  Actors.registerSheet('cortexprime', CpActorSheet, {
+    label: 'ActorSheetLabel',
     makeDefault: true,
-    types: ['character']
   })
 
   Items.unregisterSheet('core', ItemSheet)
-  Items.registerSheet('cortexprime', CpItemAssetSheet, {
-    label: 'ItemAssetSheetLabel',
+  Items.registerSheet('cortexprime', CpItemSheet, {
+    label: 'ItemSheetLabel',
     makeDefault: true,
-    types: ['asset']
   })
 }

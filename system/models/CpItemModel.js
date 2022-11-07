@@ -1,9 +1,9 @@
 const fields = foundry.data.fields
 
-export default class CpItemAssetModel extends foundry.abstract.DataModel {
+export default class CpItemModel extends foundry.abstract.DataModel {
   static defineSchema() {
     return {
-      assetType: new fields.StringField({
+      type: new fields.StringField({
         blank: false,
         initial: null,
         nullable: true,

@@ -1,15 +1,10 @@
 <form class="{{cssClass}}" autocomplete="off">
-  <ul>
-    {{#each characters as |character characterIndex|}}
-      <li>
-        <p>{{character.title}}</p>
-    
-        <ul>
-          {{#each character.sets as |set setIndex|}}
-            <li>{{set.title}} ({{set.id}})</li>
-          {{/each}}
-        </ul>
-      </li>
-    {{/each}}
-  </ul>
+  <article class="actor-types">
+    <h1 class="actor-types-heading">{{localize 'ActorTypes'}}</h1>
+    <ul class="actor-type">
+      {{#each types as |actorType actorTypeIndex|}}
+        <li class="actor-type-title">{{actorType.title}}</li>
+      {{/each}}
+    </ul>
+  </article>
 </form>

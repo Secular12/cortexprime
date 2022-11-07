@@ -1,26 +1,26 @@
-// Import utilities.
-@import 'utils/functions';
-@import 'utils/typography';
-@import 'utils/spacing';
+// // Import utilities.
+// @import 'utils/functions';
+// @import 'utils/typography';
+// @import 'utils/spacing';
 
 
-/* Global styles */
-@import 'global/reset';
-@import 'global/text';
-@import 'global/borders';
-@import 'global/buttons';
-@import 'global/icons';
-@import 'global/layout';
-@import 'global/spacing';
-@import 'global/misc';
+// /* Global styles */
+// @import 'global/reset';
+// @import 'global/text';
+// @import 'global/borders';
+// @import 'global/buttons';
+// @import 'global/icons';
+// @import 'global/layout';
+// @import 'global/spacing';
+// @import 'global/misc';
 
-/* Styles limited to cortexprime sheets */
-.cortexprime {
-  @import 'components/forms';
-  @import 'components/tabs';
-  @import 'components/breadcrumbs';
-}
+// /* Styles limited to cortexprime sheets */
+// .cortexprime {
+//   @import 'components/forms';
+//   @import 'components/tabs';
+//   @import 'components/breadcrumbs';
+// }
 
-@import 'components/dice';
-@import 'global/theme';
+// @import 'components/dice';
+// @import 'global/theme';
 
