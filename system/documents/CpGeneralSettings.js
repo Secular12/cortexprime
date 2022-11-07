@@ -24,14 +24,21 @@ export default class CpGeneralSettings extends FormApplication {
   }
 
   getData() {
-    const actorTypes = game.settings.get('cortexprime', 'actorTypes')
+    const actorTypeSettings = game.settings.get('cortexprime', 'actorTypes')
+    const itemTypeSettings = game.settings.get('cortexprime', 'itemTypes')
     
     Logger('warn', 'assert')
-      (actorTypes.types.length > 0, 'CpGeneralSettings.getData: There are no actor types')
+      (actorTypeSettings.types.length > 0, 'CpGeneralSettings.getData: There are no actor types')
+    Logger('warn', 'assert')
+      (itemTypeSettings.types.length > 0, 'CpGeneralSettings.getData: There are no item types')
 
-    Logger('debug')(`CpGeneralSettings.getData actorTypes:`, actorTypes)
+    Logger('debug')(`CpGeneralSettings.getData actorTypeSettings:`, actorTypeSettings)
+    Logger('debug')(`CpGeneralSettings.getData itemTypeSettings:`, itemTypeSettings)
     
-    return actorTypes
+    return {
+      actorTypeSettings,
+      itemTypeSettings
+    }
   }
 
   async _updateObject(event, formData) {

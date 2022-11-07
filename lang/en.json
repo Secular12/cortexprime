@@ -8,7 +8,9 @@
   "GeneralSettings": "General Settings",
   "GeneralSettingsH": "Configure this world's actor and item types.",
   "ItemSheetLabel": "Asset Sheet",
+  "ItemTypes": "Item Types",
   "NewActorType": "New Actor Type",
+  "NewItemType": "New Item Type",
   "NoName": "No Name",
   "Player": "Player"
 }

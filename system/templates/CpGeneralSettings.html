@@ -1,10 +1,21 @@
 <form class="{{cssClass}}" autocomplete="off">
   <article class="actor-types">
-    <h1 class="actor-types-heading">{{localize 'ActorTypes'}}</h1>
-    <ul class="actor-type">
-      {{#each types as |actorType actorTypeIndex|}}
-        <li class="actor-type-title">{{actorType.title}}</li>
-      {{/each}}
-    </ul>
+    <h1 class="general-settings-heading">{{localize 'GeneralSettings'}}</h1>
+    <section class="item-types">
+      <h2 class="item-types-heading">{{localize 'ItemTypes'}}</h2>
+      <ul class="item-types-list">
+        {{#each itemTypeSettings.types as |itemType itemTypeIndex|}}
+          <li class="item-type">{{itemType.title}}</li>
+        {{/each}}
+      </ul>
+    </section>
+    <section class="actor-types">
+      <h2 class="actor-types-heading">{{localize 'ActorTypes'}}</h2>
+      <ul class="actor-types-list">
+        {{#each actorTypeSettings.types as |actorType actorTypeIndex|}}
+          <li class="actor-type">{{actorType.title}}</li>
+        {{/each}}
+      </ul>
+    </section>
   </article>
 </form>

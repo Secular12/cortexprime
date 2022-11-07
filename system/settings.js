@@ -1,6 +1,8 @@
 import defaultActorTypes from './defaultActorTypes.js'
+import defaultItemTypes from './defaultItemTypes.js'
 import CpGeneralSettings from './documents/CpGeneralSettings.js'
 import CpActorTypeModel from './models/CpActorTypeModel.js'
+import CpItemTypeModel from './models/CpItemTypeModel.js'
 import { localizer } from './scripts/foundryHelpers.js'
 
 export const registerSettings = () => {
@@ -19,5 +21,13 @@ export const registerSettings = () => {
     name: localizer('ActorTypes'),
     scope: 'world',
     type: CpActorTypeModel,
+  })
+
+  game.settings.register('cortexprime', 'itemTypes', {
+    config: false,
+    default: defaultItemTypes,
+    name: localizer('ItemTypes'),
+    scope: 'world',
+    type: CpItemTypeModel,
   })
 }
