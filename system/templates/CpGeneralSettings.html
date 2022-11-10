@@ -5,7 +5,7 @@
       <h2 class="item-types-heading">{{localize 'ItemTypes'}}</h2>
       <ul class="item-types-list">
         {{#each itemTypeSettings.types as |itemType itemTypeIndex|}}
-          <li class="item-type">{{itemType.title}}</li>
+          <li class="item-type-list-item" data-type-id="{{itemType.id}}">{{itemType.title}}</li>
         {{/each}}
       </ul>
     </section>
@@ -13,7 +13,7 @@
       <h2 class="actor-types-heading">{{localize 'ActorTypes'}}</h2>
       <ul class="actor-types-list">
         {{#each actorTypeSettings.types as |actorType actorTypeIndex|}}
-          <li class="actor-type">{{actorType.title}}</li>
+          <li class="actor-type-list-item" data-type-id="{{actorType.id}}">{{actorType.title}}</li>
         {{/each}}
       </ul>
     </section>
