@@ -50,8 +50,8 @@ export default class CpGeneralSettings extends FormApplication {
     Logger('verbose')('CpGeneralSettings.activateListeners html:', html)
 
     const dragDropActorTypes = new DragDrop({
-      dragSelector: '.item-type-list-item',
-      dropSelector: '.item-types-list',
+      dragSelector: '.actor-type-list-item',
+      dropSelector: '.actor-types-list',
       callbacks: {
         dragstart: this._onDragStartTypes.bind(this),
         drop: this._onDragDropTypes.bind(this),
