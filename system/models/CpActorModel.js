@@ -3,7 +3,7 @@ const fields = foundry.data.fields
 export default class CpActorModel extends foundry.abstract.DataModel {
   static defineSchema() {
     return {
-      actorType: new fields.SchemaField({
+      type: new fields.SchemaField({
         id: new fields.StringField({
           blank: false,
           initial: null,

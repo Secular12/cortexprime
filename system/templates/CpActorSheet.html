@@ -2,7 +2,7 @@
   {{#unless data.system.actorType.id}}
     {{> 'systems/cortexprime/system/templates/partials/actor/actor_type_select.html'}}
   {{else}}
-    <p><b>Type:</b> {{data.system.actorType.title}}</p>
+    <p><b>Type:</b> {{data.system.type.title}}</p>
     <ul>
       {{#each sets as |set setIndex|}}
         <li>{{ set.title }}</li>

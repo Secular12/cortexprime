@@ -16,7 +16,7 @@ export class CpActor extends Actor {
     if (actorTypes?.length < 1 || actorTypes?.length > 1) return
     
     await this.updateSource({
-      'system.actorType': actorTypes[0]
+      'system.type': actorTypes[0]
     })
   }
 

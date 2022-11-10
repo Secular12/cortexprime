@@ -49,17 +49,17 @@ export class CpActorSheet extends ActorSheet {
     const actorType = actorTypes.find(type => type.id === actorTypeId)
 
     await this.actor.update({
-      'system.actorType': actorType
+      'system.type': actorType
     })
   }
 
   _getActorData (data, actorTypeSettings) {
-    if (!data.data.system.actorType.id) {
+    if (!data.data.system.type.id) {
       data.actorTypeOptions = actorTypeSettings.types
         .map(({ id, title }) => ({ id, title }))
     } else {
       const matchingActorType = actorTypeSettings.types
-          .find(type => type.id === data.data.system.actorType.id)
+          .find(type => type.id === data.data.system.type.id)
   
       data.sets = matchingActorType.sets
     }

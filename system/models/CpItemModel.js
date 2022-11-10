@@ -3,13 +3,6 @@ const fields = foundry.data.fields
 export default class CpItemModel extends foundry.abstract.DataModel {
   static defineSchema() {
     return {
-      type: new fields.StringField({
-        blank: false,
-        initial: null,
-        nullable: true,
-        required: true,
-        trim: true,
-      }),
       description: new fields.StringField({
         blank: true,
         initial: null,
@@ -32,6 +25,13 @@ export default class CpItemModel extends foundry.abstract.DataModel {
         trim: true,
       }),
       setId: new fields.StringField({
+        blank: false,
+        initial: null,
+        nullable: true,
+        required: true,
+        trim: true,
+      }),
+      type: new fields.StringField({
         blank: false,
         initial: null,
         nullable: true,
