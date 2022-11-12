@@ -7,6 +7,9 @@ export default {
       title: 'Player',
       sets: [
         {
+          acceptedItemTypes: [
+            'adcdff38-4ecb-44a4-9d91-3c5c7df22246'
+          ],
           id: '1362055d-5f5c-43be-9385-3610376e0ea1',
           title: 'Distinctions'
         }
