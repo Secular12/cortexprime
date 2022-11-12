@@ -10,11 +10,28 @@ export default class CpItemModel extends foundry.abstract.DataModel {
         required: false,
         trim: false,
       }),
-      identifier: new fields.StringField({
-        blank: false,
+      isLocked: new fields.BooleanField({
+        initial: false,
+        nullable: false,
+        required: true,
+      }),
+      dice: new fields.ArrayField(new fields.NumberField({
+        initial: 4,
+        integer: true,
+        max: 12,
+        min: 4,
+        nullable: true,
+        required: false,
+      }), {
+        initial: [],
+        nullable: false,
+        required: true,
+      }),
+      label: new fields.StringField({
+        blank: true,
         initial: null,
         nullable: true,
-        required: true,
+        required: false,
         trim: true,
       }),
       parentItemId: new fields.StringField({
