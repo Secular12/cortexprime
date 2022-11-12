@@ -5,13 +5,13 @@ export class CpActor extends Actor {
   async _preCreate (data, options, user) {
     const actorTypeSettings = game.settings.get('cortexprime', 'actorTypes')
 
-    Logger('debug')('CpActorSheet.getData actorTypes', actorTypeSettings)
+    Logger('debug')('CpActor._preCreate actorTypeSettings', actorTypeSettings)
 
     const actorTypes = actorTypeSettings.types
       .map(({ id, title }) => ({ id, title }))
 
     Logger('warn', 'assert')
-      (actorTypes?.length > 0, 'CpActorSheet.getData: There are no actor type options')
+      (actorTypes?.length > 0, 'CpActor._preCreate: There are no actor type options')
 
     if (actorTypes?.length < 1 || actorTypes?.length > 1) return
     
