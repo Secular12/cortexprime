@@ -1,5 +1,5 @@
 <form class="{{cssClass}}" autocomplete="off">
-  {{#unless data.system.actorType.id}}
+  {{#unless data.system.type.id}}
     {{> 'systems/cortexprime/system/templates/partials/actor/actor_type_select.html'}}
   {{else}}
     <p><b>Type:</b> {{data.system.type.title}}</p>
