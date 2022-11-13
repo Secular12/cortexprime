@@ -1,3 +1,5 @@
+import Logger from '../../lib/Logger.js'
+
 export class CpItem extends Item {
   async _preCreate (data, options, user) {
     const itemTypeSettings = game.settings.get('cortexprime', 'itemTypes')
