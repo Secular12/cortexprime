@@ -1,3 +1,7 @@
 <form class="{{cssClass}}" autocomplete="off">
-  Item Sheet
+  {{#unless data.system.itemTypeId}}
+    {{> 'systems/cortexprime/system/templates/partials/item/item_type_select.html'}}
+  {{else}}
+    <p><b>Type:</b> {{itemType}}</p>
+  {{/unless}}
 </form>
