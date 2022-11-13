@@ -22,7 +22,7 @@ export class CpActorSheet extends ActorSheet {
     
     const actorTypeSettings = game.settings.get('cortexprime', 'actorTypes')
 
-    Logger('debug')('CpActorSheet.getData actorTypes', actorTypeSettings)
+    Logger('debug')('CpActorSheet.getData actorTypeSettings', actorTypeSettings)
 
     const data = this._getActorData(superData, actorTypeSettings)
 
@@ -40,27 +40,20 @@ export class CpActorSheet extends ActorSheet {
   }
 
   async _actorTypeConfirm (event) {
-    const actorTypeSettings = game.settings.get('cortexprime', 'actorTypes')
-    const actorTypes = actorTypeSettings.types
-      .map(({ id, title }) => ({ id, title }))
-
-    const actorTypeId = $('#actor-type-select').val()
-
-    const actorType = actorTypes.find(type => type.id === actorTypeId)
-
     await this.actor.update({
-      'system.type': actorType
+      'system.actorTypeId': $('#actor-type-select').val()
     })
   }
 
   _getActorData (data, actorTypeSettings) {
-    if (!data.data.system.type.id) {
+    if (!data.data.system.actorTypeId) {
       data.actorTypeOptions = actorTypeSettings.types
         .map(({ id, title }) => ({ id, title }))
     } else {
       const matchingActorType = actorTypeSettings.types
-          .find(type => type.id === data.data.system.type.id)
+        .find(type => type.id === data.data.system.actorTypeId)
   
+      data.actorType = matchingActorType.title
       data.sets = matchingActorType.sets
     }
 

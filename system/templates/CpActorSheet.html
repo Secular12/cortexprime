@@ -1,8 +1,8 @@
 <form class="{{cssClass}}" autocomplete="off">
-  {{#unless data.system.type.id}}
+  {{#unless data.system.actorTypeId}}
     {{> 'systems/cortexprime/system/templates/partials/actor/actor_type_select.html'}}
   {{else}}
-    <p><b>Type:</b> {{data.system.type.title}}</p>
+    <p><b>Type:</b> {{actorType}}</p>
     <ul>
       {{#each sets as |set setIndex|}}
         <li>{{ set.title }}</li>
