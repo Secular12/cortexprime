@@ -1,4 +1,5 @@
 import { CortexPrimeActor } from './module/entities/CortexPrimeActor.js'
+import { CortexPrimeCombatant } from './module/entities/CortexPrimeCombatant.js'
 import PlotPoint from './module/PlotPoint.js'
 import { preloadHandlebarsTemplates } from './module/handlebars/preloadTemplates.js'
 import { registerHandlebarHelpers } from './module/handlebars/helpers.js'
@@ -14,6 +15,7 @@ Hooks.once('init', () => {
   }
 
   CONFIG.Actor.documentClass = CortexPrimeActor
+  CONFIG.Combatant.documentClass = CortexPrimeCombatant
   CONFIG.Dice.terms['p'] = PlotPoint
 
   registerHandlebarHelpers()

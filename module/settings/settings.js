@@ -1,6 +1,7 @@
 import ActorSettings from './ActorSettings.js'
 import ImportExportSettings from './ImportExportSettings.js'
 import defaultActorTypes from '../actor/defaultActorTypes.js'
+import defaultInitiativeTraits from '../actor/defaultInitiativeTraits.js'
 import defaultThemes from '../theme/defaultThemes.js'
 import ThemeSettings from './ThemeSettings.js'
 
@@ -47,6 +48,16 @@ export const registerSettings = () => {
     label: localizer('RollResultSourceCollapsed'),
     default: false,
     type: Boolean,
+    config: true
+  })
+
+  game.settings.register('cortexprime', 'initiativeTraits', {
+    name: localizer('InitiativeTraits'),
+    hint: localizer('InitiativeTraitsHint'),
+    label: localizer('InitiativeTraits'),
+    default: defaultInitiativeTraits,
+    scope: 'world',
+    type: String,
     config: true
   })
 
