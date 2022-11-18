@@ -28,9 +28,15 @@ export class CortexPrimeCombatant extends Combatant {
           }
       })
       // pull the trait values out of the actor and build the roll
-      let myRollFormula = formulae.join(' + ')
-      let myAdditivePercent = additive / 100.0
-      myRollFormula = `${myRollFormula} + ${myAdditivePercent}`
+      let myRollFormula = ''
+      if (formulae.length > 0) {
+        myRollFormula = formulae.join(' + ')
+        let myAdditivePercent = additive / 100.0
+        myRollFormula = `${myRollFormula} + ${myAdditivePercent}`
+      } else {
+	ui.notifications.warn("No rollable initiative traits found, using default.")
+	myRollFormula = "1d20" // default roll
+      }
       const myRoll = new Roll(myRollFormula)
       return myRoll
   }
