@@ -1,4 +1,4 @@
-import { objectReduce } from '../../lib/helpers.js'
+import { objectReduce } from '../../_old_lib/helpers.js.js'
 import { localizer } from './foundryHelpers.js'
 
 const getAppendDiceContent = (data) => renderTemplate('systems/cortexprime/templates/partials/die-display.html', data)

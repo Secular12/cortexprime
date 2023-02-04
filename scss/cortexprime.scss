@@ -1,26 +1,13 @@
-// // Import utilities.
-// @import 'utils/functions';
-// @import 'utils/typography';
-// @import 'utils/spacing';
+@import 'functions';
 
+.cortexprime {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+     tab-size: 4;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-feature-settings: normal;
 
-// /* Global styles */
-// @import 'global/reset';
-// @import 'global/text';
-// @import 'global/borders';
-// @import 'global/buttons';
-// @import 'global/icons';
-// @import 'global/layout';
-// @import 'global/spacing';
-// @import 'global/misc';
-
-// /* Styles limited to cortexprime sheets */
-// .cortexprime {
-//   @import 'components/forms';
-//   @import 'components/tabs';
-//   @import 'components/breadcrumbs';
-// }
-
-// @import 'components/dice';
-// @import 'global/theme';
-
+  @import './global/normalize';
+}

@@ -1,5 +1,5 @@
 import { localizer } from '../scripts/foundryHelpers.js'
-import { getLength, objectFilter, objectMapValues, objectReindexFilter } from '../../lib/helpers.js'
+import { getLength, objectFilter, objectMapValues, objectReindexFilter } from '../../_old_lib/helpers.js.js'
 import rollDice from '../scripts/rollDice.js'
 
 const blankPool = {
