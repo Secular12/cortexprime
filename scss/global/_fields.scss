@@ -1,0 +1,47 @@
+.field {
+  display: block;
+}
+
+.field-hint {
+  font-style: italic;
+}
+
+.field-input {
+  background-color: var(--input-background-color, color("input-background"));
+  border: 0;
+  border-bottom: 2px solid var(--input-border-color, color("input-border"));
+  border-radius: 0;
+  color: var(--input-text-color, color("input-text"));
+  height: toRem(26px);
+  padding: 0 toRem(4px);
+  width: 100%;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 50%;
+  }
+}
+
+.field-label {
+  display: block;
+  font-weight: bold;
+  font-size: toRem(12px);
+  margin-bottom: toRem(4px);
+}
+
+.field-wrapper {
+  display: block;
+}
+
+.field-checkbox {
+  .field-label {
+    cursor: pointer;
+    margin-bottom: 0;
+  }
+}
+
+.field-disabled {
+  .field-label {
+    opacity: 0.5;
+  }
+}

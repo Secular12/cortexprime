@@ -1,0 +1,19 @@
+.section-heading {
+  font-weight: var(--section-heading-weight, 700);
+  color: var(--section-heading-color, color("section-heading"));
+}
+
+.section-heading-2 {
+  font-weight: var(--section-heading-2-weight, 700);
+  color: var(--section-heading-2-color, color("section-heading-2"));
+}
+
+.total-value {
+  font-size: toRem(26px);
+  font-weight: bold;
+}
+
+.trait-name {
+  font-weight: var(--trait-weight, 700);
+  color: var(--trait-color, color("trait"))
+}

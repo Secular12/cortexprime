@@ -1,0 +1,64 @@
+.flex {
+  align-items: center;
+  display: flex;
+  gap: toRem(12px);
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.gap-0 {
+  gap: 0;
+}
+
+.gap-1 {
+  gap: toRem(4px);
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: end;
+}
+
+.items-end {
+  align-items: end;
+}
+
+.items-start {
+  align-items: start;
+}
+
+.items-stretch {
+  align-items: stretch;
+}
+
+.grow-1 {
+  flex-grow: 1;
+}
+
+.self-center {
+  align-self: center;
+}
+
+.shrink-1 {
+  flex-shrink: 1;
+}
+
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    max-width: percentage(calc($i / 12));
+    width: 100%;
+  }
+}

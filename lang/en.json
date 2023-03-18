@@ -1,3 +1,25 @@
 {
-  "CP.DicePool": "Dice Pool"
+  "CP.AddsToTotal": "Adds to Total",
+  "CP.AddToPool": "Add to Pool",
+  "CP.BlindGmRoll": "Blind GM Roll",
+  "CP.Clear": "Clear",
+  "CP.Confirm": "Confirm",
+  "CP.CustomTrait": "Custom Trait",
+  "CP.Dice": "Dice",
+  "CP.DicePool": "Dice Pool",
+  "CP.EffectDice": "Effect Dice",
+  "CP.HasHitches": "Has Hitches",
+  "CP.Name": "Name",
+  "CP.PrivateGmRoll": "Private GM Roll",
+  "CP.PublicRoll": "Public Roll",
+  "CP.ReRoll": "Re-Roll",
+  "CP.RollAndSelect": "Roll And Select",
+  "CP.RollForEffect": "Roll For Effect",
+  "CP.RollForTotal": "Roll For Total",
+  "CP.RollMode": "Roll Mode",
+  "CP.RollsSeparately": "Rolls Separately",
+  "CP.SelectYourDice": "Select Your Dice",
+  "CP.SelfRoll": "Self Roll",
+  "CP.Total": "Total",
+  "CP.Traits": "Traits"
 }

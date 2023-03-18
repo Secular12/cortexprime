@@ -1,0 +1,26 @@
+$options: (
+  'm': ('margin-bottom', 'margin-left', 'margin-right', 'margin-top'),
+  'p': ('padding-bottom', 'padding-left', 'padding-right', 'padding-top'),
+  'mb': ('margin-bottom'),
+  'pb': ('padding-bottom'),
+  'ml': ('margin-left'),
+  'pl': ('padding-left'),
+  'mr': ('margin-right'),
+  'pr': ('padding-right'),
+  'mt': ('margin-top'),
+  'pt': ('padding-top'),
+  'mx': ('margin-left', 'margin-right'),
+  'px': ('padding-left', 'padding-right'),
+  'my': ('margin-bottom', 'margin-top'),
+  'py': ('padding-bottom', 'padding-top')
+);
+
+@each $opt, $props in $options {
+  @for $i from 0 through 12 {
+    .#{$opt}-#{$i} {
+      @each $prop in $props {
+        #{$prop}: $i * toRem(4px);
+      }
+    }
+  }
+}

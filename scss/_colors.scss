@@ -1,0 +1,66 @@
+$pallette: (
+  "black": #141c27,
+  "dark-grey": #555,
+  "darker-grey": #424c59,
+  "green": #2d5931,
+  "light-green": #c9e2d1,
+  "light-grey": #ccd7df,
+  "near-white": #f5f8fa,
+  "off-white": #dedede,
+  "red": #b30044,
+  "white": #fff
+);
+
+@function swatch($name) {
+  @return map-get($pallette, $name);
+};
+
+$colors: (
+  "background": swatch("off-white"),
+  "background-alt": swatch("near-white"),
+  "background-alt-2": swatch("light-grey"),
+  "body-text": swatch("black"),
+  "border": swatch("green"),
+  "button-primary": swatch("green"),
+  "button-secondary": swatch("red"),
+  "button-primary-text": swatch("white"),
+  "button-secondary-text": swatch("white"),
+  "chosen-fill": swatch("white"),
+  "chosen-number": swatch("black"),
+  "chosen-stroke": swatch("red"),
+  "dice-box-background": swatch("light-grey"),
+  "dice-box-border": swatch("green"),
+  "die-rating-fill": swatch("red"),
+  "die-rating-number": swatch("white"),
+  "die-rating-stroke": swatch("red"),
+  "effect-fill": swatch("green"),
+  "effect-number": swatch("white"),
+  "effect-stroke": swatch("green"),
+  "hitch-fill": swatch("black"),
+  "hitch-stroke": swatch("red"),
+  "hitch-number": swatch("white"),
+  "input-background": swatch("light-green"),
+  "input-border": swatch("green"),
+  "input-text": swatch("black"),
+  "result-box-background": swatch("light-grey"),
+  "result-box-border": swatch("green"),
+  "section-heading": swatch("red"),
+  "section-heading-2": swatch("green"),
+  "selected-fill": swatch("light-green"),
+  "selected-stroke": swatch("red"),
+  "selected-number": swatch("black"),
+  "select-option-text": swatch("black"),
+  "separate-trait-background": swatch("light-green"),
+  "separate-trait-border": swatch("red"),
+  "separator": swatch("red"),
+  "trait": swatch("black"),
+  "trait-background": swatch("off-white"),
+  "trait-border": swatch("green"),
+  "unchosen-fill": swatch("off-white"),
+  "unchosen-stroke": swatch("darker-grey"),
+  "unchosen-number": swatch("darker-grey")
+);
+
+@function color($name) {
+  @return map-get($colors, $name);
+};

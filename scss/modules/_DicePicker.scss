@@ -1,0 +1,25 @@
+&.DicePicker {
+  .dialog-buttons {
+    .dialog-button {
+      background-color: var(--button-primary-color, color("button-primary"));
+      border: none;
+      border-radius: 0;
+      color: var(--button-primary-text-color, color("button-primary-text"));
+      font-weight: bold;
+      height: toRem(26px);
+      line-height: 1;
+      width: auto;
+      padding: toRem(2px) toRem(8px) toRem(3px);
+    }
+  }
+}
+
+.DicePicker-die-result {
+  .cp-die {
+    cursor: pointer;
+
+    &.cp-hitch {
+      cursor: not-allowed;
+    }
+  }
+}

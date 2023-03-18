@@ -157,6 +157,7 @@ hr,
 figure,
 p,
 pre {
+  line-height: 1;
   margin: 0;
 }
 
@@ -198,7 +199,8 @@ button,
 }
 
 :disabled {
-  cursor: default;
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 img,

@@ -1,0 +1,54 @@
+.btn {
+  background-color: var(--button-primary-color, color("button-primary"));
+  border-radius: 0;
+  color: var(--button-primary-text-color, color("button-primary-text"));
+  font-weight: bold;
+  height: toRem(26px);
+  line-height: 1;
+  width: auto;
+  padding: toRem(2px) toRem(8px) toRem(3px);
+}
+
+.btn-icon {
+  display: block;
+  border-radius: 50%;
+  height: auto;
+  padding: toRem(4px) toRem(4px);
+  width: auto;
+
+  .fa {
+    display: block;
+    font-size: toRem(12px);
+    height: toRem(12px);
+    line-height: 1;
+    margin: 0;
+    width: toRem(12px);
+  }
+}
+
+.btn-icon-text {
+  background-color: transparent;
+  color: var(--body-text-color, color("body-text"));
+}
+
+.btn-secondary {
+  background-color: var(--button-secondary-color, color("button-secondary"));
+  color: var(--button-secondary-text-color, color("button-secondary-text"));
+}
+
+.btn-small {
+  font-size: toRem(10px);
+  height: toRem(16px);
+  padding: toRem(2px);
+  width: toRem(16px);
+}
+
+.btn-text {
+  background-color: inherit;
+  color: inherit;
+  display: block;
+  height: auto;
+  line-height: 1;
+  padding: 0 0.25rem;
+  width: 100%;
+}

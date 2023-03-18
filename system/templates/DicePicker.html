@@ -1,0 +1,70 @@
+<div class="cortexprime DicePicker">
+  <div class="DicePicker-result-groups">
+    {{#each rollResults as |resultGroup resultGroupIndex|}}
+      <div class="DicePicker-result-group mb-3 mt-1">
+        {{#if resultGroup.name}}
+          <h2 class="DicePicker-result-group-header mb-1 trait-name">{{resultGroup.name}}</h2>
+        {{/if}}
+        <div class="dice-box DicePicker-dice-box flex flex-wrap gap-1 justify-center p-2">
+          {{#each resultGroup.results as |result resultIndex|}}
+            {{
+              dieResult
+              result.value
+              class='DicePicker-die-result'
+              dieRating=result.dieRating
+              key=(concat resultGroupIndex '-' resultIndex)
+              resultGroupIndex=resultGroupIndex
+              type=(tern (and resultGroup.hasHitches (eq result.value 1)) 'hitch' 'unchosen')
+            }}
+          {{/each}}
+        </div>
+      </div>
+    {{/each}}
+  </div>
+  <div class="DicePicker-values flex gap-0 items-stretch my-3">
+    <div class="col-5 DicePicker-total flex flex-col gap-1 p-2 result-box">
+      <div class="DicePicker-total-label section-heading-2">{{localize 'CP.Total'}}</div>
+      <div class="DicePicker-total-value my-1 total-value">0</div>
+      <div class="DicePicker-total-actions">
+        <button
+          class="btn btn-icon btn-secondary DicePicker-add-to-total"
+          disabled
+          type="button"
+        >
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-2 DicePicker-actions flex justify-center self-center">
+      <button
+        class="btn btn-icon btn-secondary DicePicker-reset"
+        disabled
+        type="button"
+      >
+        <i class="fa fa-refresh"></i>
+      </button>
+    </div>
+    <div class="col-5 DicePicker-effect flex flex-col gap-1 p-2 result-box">
+      <div class="DicePicker-effect-label section-heading-2">{{localize 'CP.EffectDice'}}</div>
+      <div class="DicePicker-effect-value my-1">
+        {{
+          diceSelect
+          null
+          dieWrapperClass="default"
+          defaultDie=4
+          displayOnly=true
+          type="effect"
+        }}
+      </div>
+      <div class="DicePicker-effect-actions">
+        <button
+          class="btn btn-icon btn-secondary DicePicker-add-to-effect"
+          disabled
+          type="button"
+        >
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

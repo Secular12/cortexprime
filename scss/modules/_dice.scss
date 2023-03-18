@@ -1,0 +1,159 @@
+.cp-die {
+  height: toRem(26px);
+  position: relative;
+  width: toRem(26px);
+
+  .number {
+    font-size: toRem(14px);
+    font-weight: 700;
+    line-height: 1;
+    padding-bottom: toRem(1px);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+  }
+}
+
+.cp-d4 {
+  .number {
+    transform: translate(-50%, -60%);
+  }
+}
+
+.cp-chosen {
+  .fill {
+    fill: var(--chosen-fill, color('chosen-fill'));
+  }
+
+  .stroke {
+    fill: var(--chosen-stroke, color('chosen-stroke'));
+  }
+
+  .number {
+    color: var(--chosen-number, color('chosen-number'));
+  }
+}
+
+.cp-die-rating {
+  .fill {
+    fill: var(--die-rating-fill, color('die-rating-fill'));
+  }
+
+  .stroke {
+    fill: var(--die-rating-stroke, color('die-rating-stroke'));
+  }
+
+  .number {
+    color: var(--die-rating-number, color('die-rating-number'));
+  }
+}
+
+.cp-effect {
+  .fill {
+    fill: var(--effect-fill, color('effect-fill'));
+  }
+
+  .stroke {
+    fill: var(--effect-stroke, color('effect-stroke'));
+  }
+
+  .number {
+    color: var(--effect-number, color('effect-number'));
+  }
+}
+
+.cp-hitch {
+  .fill {
+    fill: var(--hitch-fill, color('hitch-fill'));
+  }
+
+  .stroke {
+    fill: var(--hitch-stroke, color('hitch-stroke'));
+  }
+
+  .number {
+    color: var(--hitch-number, color('hitch-number'));
+  }
+}
+
+.cp-selected {
+  .fill {
+    fill: var(--selected-fill, color('selected-fill'));
+  }
+
+  .stroke {
+    fill: var(--selected-stroke, color('selected-stroke'));
+  }
+
+  .number {
+    color: var(--selected-number, color('selected-number'));
+  }
+}
+
+.cp-unchosen {
+  .fill {
+    fill: var(--unchosen-fill, color('unchosen-fill'));
+  }
+
+  .stroke {
+    fill: var(--unchosen-stroke, color('unchosen-stroke'));
+  }
+
+  .number {
+    color: var(--unchosen-number, color('unchosen-number'));
+  }
+}
+
+.die-container {
+  height: toRem(26px);
+  width: toRem(26px);
+  position: absolute;
+  z-index: -1;
+}
+
+.die-wrapper {
+  height: toRem(26px);
+  width: toRem(26px);
+  position: relative;
+  z-index: 1;
+}
+
+.die-result-label {
+  display: block;
+  font-weight: bold;
+  font-size: toRem(12px);
+  text-align: center;
+}
+
+.die-select {
+  border: none !important;
+  background-color: transparent !important;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  color: transparent;
+  cursor: pointer;
+  height: toRem(26px);
+  position: relative;
+  text-align: center;
+  text-align-last: center;
+  width: toRem(26px);
+  -moz-text-align-last: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  ::-ms-expand {
+    display: none;
+  }
+  z-index: 1;
+
+  &:focus {
+    box-shadow: none;
+  }
+
+  option {
+    color: black;
+    font-weight: 600;
+  }
+}

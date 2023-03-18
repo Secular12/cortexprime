@@ -1,0 +1,112 @@
+<div class="RollResult-main">
+  <div class="RollResult-traits">
+    <button
+      class="btn btn-text display-toggle my-2 py-1 RollResult-traits-toggle"
+      data-parent=".RollResult-traits"
+      data-target=".RollResult-traits-content"
+      type="button"
+    >
+      <div class="flex justify-between">
+        <div class="RollResult-traits-label section-heading">{{localize 'CP.Traits'}}</div>
+        <div class="icon">
+          <i class="fa fa-chevron-down"></i>
+        </div>
+      </div>
+    </button>
+    <div class="hide RollResult-traits-content">
+      {{#each pool as |sourceGroup|}}
+        <section class="dice-box mb-2 p-2 RollResult-source" data-source="{{sourceGroup.source}}">
+          <h3 class="mb-1 RollResult-source-heading section-heading-2">{{sourceGroup.source}}</h3>
+          <div class="flex flex-wrap items-center RollResult-traits">
+            {{#each sourceGroup.traits as |trait traitIndex|}}
+              <div
+                class="flex flex-wrap gap-1 RollResult-trait{{tern trait.rollsSeparately ' rolls-separately' ''}} trait-tag"
+                data-has-hitches="{{trait.hasHitches}}"
+                data-name="{{trait.name}}"
+                data-parent-name="{{trait.parentName}}"
+                data-rolls-separately="{{trait.rollsSeparately}}"
+              >
+                <div class="flex flex-wrap gap-0 shrink-1">
+                  {{#each trait.dice as |traitDie|}}
+                    <div
+                      class="chat-die"
+                      data-die-rating="{{traitDie}}"
+                      data-hide-label="true"
+                      data-type="die-rating"
+                      data-value="{{traitDie}}"
+                    ></div>
+                  {{/each}}
+                </div>
+                <p class="mr-1 RollResult-trait-name trait-name">{{trait.name}}</p>
+              </div>
+            {{/each}}
+          </div>
+        </section>
+      {{/each}}
+    </div>
+  </div>
+  <div class="separator my-2"></div>
+  <div class="RollResult-result-groups">
+    {{#each resultGroups as |resultGroup resultGroupIndex|}}
+      <div class="mt-1 mb-3 RollResult-result-group">
+        {{#if resultGroup.name}}
+          <h2 class="my-1 RollResult-result-group-header">{{resultGroup.name}}</h2>
+        {{/if}}
+        <div class="dice-box flex flex-wrap gap-1 justify-center p-2 RollResult-dice-box">
+          {{#each resultGroup.diceSelection as |dieSelection|}}
+            <div
+              class="chat-die"
+              data-die-rating="{{dieSelection.dieRating}}"
+              data-result-group-index="{{resultGroupIndex}}"
+              data-type="{{dieSelection.type}}"
+              data-value="{{dieSelection.value}}"
+            ></div>
+          {{/each}}
+        </div>
+      </div>
+    {{/each}}
+  </div>
+  <div class="flex items-stretch my-3 RollResult-values">
+    <div class="col-6 flex flex-col gap-1 p-2 result-box RollResult-total">
+      <div class="RollResult-total-label section-heading-2">{{localize 'CP.Total'}}</div>
+      <div class="my-1 RollResult-total-value total-value">{{total}}</div>
+    </div>
+    <div class="col-6 flex flex-col gap-1 p-2 result-box RollResult-effect">
+      <div class="RollResult-effect-label section-heading-2">{{localize 'CP.EffectDice'}}</div>
+      <div class="my-1 RollResult-effect-value">
+        {{#each effectDice as |effectDie|}}
+          <div
+            class="chat-die"
+            data-die-rating="{{effectDie}}"
+            data-hide-label="true"
+            data-type="effect"
+            data-value="{{effectDie}}"
+          ></div>
+        {{/each}}
+        {{#unless (length effectDice)}}
+          <div
+            class="chat-die"
+            data-die-rating="4"
+            data-hide-label="true"
+            data-type="effect"
+            data-value="4"
+          ></div>
+        {{/unless}}
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-between mt-3 RollResult-actions">
+    <button
+      class="btn btn-secondary RollResult-add-to-pool"
+      type="button"
+    >
+      {{localize 'CP.AddToPool'}}
+    </button>
+    <button
+      class="btn btn-primary RollResult-re-roll"
+      type="button"
+    >
+      {{localize 'CP.ReRoll'}}
+    </button>
+  </div>
+</div>
