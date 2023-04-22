@@ -3,7 +3,7 @@ import { getHtml } from '../lib/handbarHelpers.js/dieResult.js'
 export default (message, html, data) => {
   const $rollResult = html.find('.RollResult-main').first()
 
-  if ($rollResult) {
+  if ($rollResult.length > 0) {
     html.addClass('cortexprime RollResult')
 
     $rollResult
