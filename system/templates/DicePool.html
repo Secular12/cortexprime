@@ -1,135 +1,156 @@
 <form
   autocomplete="off"
   id="DicePool-form"
+  class="theme-body"
 >
-  <fieldset id="DicePool-custom">
-    <legend id="DicePool-custom-trait-heading" class="mb-2 section-heading">{{localize 'CP.CustomTrait'}}</legend>
-    <div
-      class="flex items-end"
-      id="DicePool-custom-fields"
-    >
-      {{
-        diceSelect
-        customAdd.dice
-        class="shrink-1"
-        label=(localize 'CP.Dice')
-        target="customAdd"
-      }}
-      {{
-        fieldText
-        customAdd.name
-        class="DicePool-custom-name grow-1"
-        label=(localize 'CP.Name')
-        name="customAdd.name"
-      }}
-      <div class="flex gap-1 mb-1">
-        <button
-          class="btn btn-icon btn-secondary"
-          id="DicePool-reset-custom-trait"
-          type="button"
-        >
-          <i class="fa fa-undo"></i>
-        </button>
-        <button
-          class="btn btn-icon"
-          {{tern (lt (length customAdd.dice) 1) 'disabled' : ''}}
-          id="DicePool-add-custom-trait"
-          type="button"
-        >
-          <i class="fa fa-plus"></i>
-        </button>
-      </div>
-    </div>
-    <div class="DicePool-custom-options flex mt-2">
-      {{
-        fieldCheckbox
-        customAdd.rollsSeparately
-        id="DicePool-rolls-separately"
-        label=(localize 'CP.RollsSeparately')
-        name="customAdd.rollsSeparately"
-      }}
-      {{
-        fieldCheckbox
-        customAdd.hasHitches
-        disabled=(not customAdd.rollsSeparately)
-        id="DicePool-has-hitches"
-        label=(localize 'CP.HasHitches')
-        name="customAdd.hasHitches"
-      }}
-    </div>
-  </fieldset>
-  {{#unless poolIsEmpty}}
-    <div class="separator my-2"></div>
-    <section id="DicePool-pool">
-      <h2 id="DicePool-pool-heading" class="mb-2 section-heading">{{localize 'CP.Traits'}}</h2>
-      {{#each pool as |sourceGroup sourceGroupIndex|}}
-        <section class="dice-box DicePool-source mb-2 p-2">
-          <h3 class="DicePool-source-heading mb-1 section-heading-2">{{sourceGroup.source}}</h3>
-          <div class="DicePool-traits flex flex-wrap">
-            {{#each sourceGroup.traits as |trait traitIndex|}}
-              <div
-                class="DicePool-trait flex gap-1{{tern trait.rollsSeparately ' rolls-separately' ''}} trait-tag"
-                data-source-index="{{sourceGroupIndex}}"
-                data-trait-index="{{traitIndex}}"
+<div class="theme-body-background-color"></div>
+  <div class="theme-body-background-image"></div>
+  <div class="theme-body-content">
+    <div class="theme-section">
+      <div class="theme-section-background-color"></div>
+      <div class="theme-section-background-image"></div>
+      <div class="theme-section-content p-2">
+        <fieldset id="DicePool-custom">
+          <legend id="DicePool-custom-trait-heading" class="mb-2 heading-1">{{localize 'CP.CustomTrait'}}</legend>
+          <div
+            class="flex items-end"
+            id="DicePool-custom-fields"
+          >
+            {{
+              diceSelect
+              customAdd.dice
+              class="shrink-1"
+              label=(localize 'CP.Dice')
+              target="customAdd"
+            }}
+            {{
+              fieldText
+              customAdd.name
+              class="DicePool-custom-name grow-1"
+              label=(localize 'CP.Name')
+              name="customAdd.name"
+            }}
+            <div class="flex gap-1 mb-1">
+              <button
+                class="btn btn-icon btn-secondary"
+                id="DicePool-reset-custom-trait"
+                type="button"
               >
-                {{
-                  diceSelect
-                  trait.dice
-                  target="trait"
-                }}
-                <p class="DicePool-trait-name mr-1 trait-name">{{trait.name}}</p>
-                <button
-                  class="btn btn-icon btn-small DicePool-remove-trait"
-                  type="button"
-                >
-                  <i class="fa fa-times"></i>
-                </button>
-              </div>
-            {{/each}}
+                <i class="fa fa-undo"></i>
+              </button>
+              <button
+                class="btn btn-icon"
+                {{tern (lt (length customAdd.dice) 1) 'disabled' : ''}}
+                id="DicePool-add-custom-trait"
+                type="button"
+              >
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
           </div>
-        </section>
-      {{/each}}
-    </section>
-    <div
-      class="flex flex-wrap justify-between mt-3"
-      id="DicePool-actions"
-    >
-      <div class="col-12 DicePool-meta flex">
-        {{
-          fieldSelect
-          rollMode
-          rollModes
-          'name'
-          'value'
-          class="shrink-1"
-          label=(localize 'CP.RollMode')
-          name="rollMode"
-        }}
+          <div class="DicePool-custom-options flex mt-2">
+            {{
+              fieldCheckbox
+              customAdd.rollsSeparately
+              id="DicePool-rolls-separately"
+              label=(localize 'CP.RollsSeparately')
+              name="customAdd.rollsSeparately"
+            }}
+            {{
+              fieldCheckbox
+              customAdd.hasHitches
+              disabled=(not customAdd.rollsSeparately)
+              id="DicePool-has-hitches"
+              label=(localize 'CP.HasHitches')
+              name="customAdd.hasHitches"
+            }}
+          </div>
+        </fieldset>
       </div>
-      <div class="DicePool-clear-buttons">
-        <button
-          id="DicePool-clear"
-          class="btn btn-secondary"
-          type="button"
-        >{{localize 'CP.Clear'}}</button>
       </div>
-      <div class="DicePool-roll-buttons">
-        <button
-          id="DicePool-roll-effect"
-          class="btn"
-          type="button"
-        >{{localize 'CP.RollForEffect'}}</button>
-        <button
-          id="DicePool-roll-total"
-          class="btn"
-          type="button"
-        >{{localize 'CP.RollForTotal'}}</button>
-        <button
-          id="DicePool-roll-select"
-          class="btn"
-          type="button"
-        >{{localize 'CP.RollAndSelect'}}</button>
+    {{#unless poolIsEmpty}}
+      <div class="separator my-2"></div>
+      <div class="theme-section">
+        <div class="theme-section-background-image"></div>
+        <div class="theme-section-content">
+          <section id="DicePool-pool">
+            <div class="theme-relative-section p-2">
+              <div class="theme-section-background-color"></div>
+              <h2 id="DicePool-pool-heading" class="heading-1">{{localize 'CP.Traits'}}</h2>
+            </div>
+            {{#each pool as |sourceGroup sourceGroupIndex|}}
+              <section class="dice-box DicePool-source theme-relative-section">
+                <div class="theme-section-background-alt-color"></div>
+                <h3 class="DicePool-source-heading px-2 py-1 heading-2">{{sourceGroup.source}}</h3>
+                <ul class="DicePool-traits">
+                  {{#each sourceGroup.traits as |trait traitIndex|}}
+                    <li
+                      class="DicePool-trait flex gap-1 px-2 py-1{{tern trait.rollsSeparately ' rolls-separately' ''}}"
+                      data-source-index="{{sourceGroupIndex}}"
+                      data-trait-index="{{traitIndex}}"
+                    >
+                      {{
+                        diceSelect
+                        trait.dice
+                        target="trait"
+                      }}
+                      <span class="DicePool-trait-name mr-1 trait-name">{{trait.name}}</span>
+                      <button
+                        class="btn btn-icon btn-small DicePool-remove-trait"
+                        type="button"
+                      >
+                        <i class="fa fa-times"></i>
+                      </button>
+                    </li>
+                  {{/each}}
+                  </ul>
+              </section>
+            {{/each}}
+          </section>
+          <div
+            class="flex flex-wrap justify-between theme-relative-section p-2"
+            id="DicePool-actions"
+          >
+            <div class="theme-section-background-color"></div>
+            <div class="col-12 DicePool-meta flex">
+              {{
+                fieldSelect
+                rollMode
+                rollModes
+                'name'
+                'value'
+                class="shrink-1"
+                label=(localize 'CP.RollMode')
+                name="rollMode"
+              }}
+            </div>
+            <div class="DicePool-clear-buttons">
+              <button
+                id="DicePool-clear"
+                class="btn btn-secondary"
+                type="button"
+              >{{localize 'CP.Clear'}}</button>
+            </div>
+            <div class="DicePool-roll-buttons">
+              <button
+                id="DicePool-roll-effect"
+                class="btn"
+                type="button"
+              >{{localize 'CP.RollForEffect'}}</button>
+              <button
+                id="DicePool-roll-total"
+                class="btn"
+                type="button"
+              >{{localize 'CP.RollForTotal'}}</button>
+              <button
+                id="DicePool-roll-select"
+                class="btn"
+                type="button"
+              >{{localize 'CP.RollAndSelect'}}</button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  {{/unless}}
+    {{/unless}}
+  </div>
 </form>

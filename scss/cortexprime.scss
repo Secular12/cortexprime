@@ -26,7 +26,13 @@
   @import './modules/dice';
   
   @import './modules/DicePicker';
+  @import './modules/DicePool';
+  @import './modules/RollResult';
+
+  @import './theme';
 
   @import './layout/flex';
   @import './layout/spacing';
+
+  @import './modules/ThemeEditor';
 }

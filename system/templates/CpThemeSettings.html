@@ -1,0 +1,55 @@
+<form class="Theme-form theme-body">
+  <div class="theme-body-background-color"></div>
+  <div class="flex flex-col items-stretch theme-body-content Theme-main">
+    <div class="flex items-end Theme-form-header">
+      {{
+        fieldSelect
+        selectedTheme
+        themeOptions
+        'name'
+        'value'
+        class="grow-1"
+        id="Theme-theme-select"
+        label=(localize 'CP.SelectedTheme')
+        name="selectedTheme"
+      }}
+      {{
+        fieldText
+        null
+        class="grow-1"
+        id="Theme-custom-theme-name"
+        label=(localize 'CP.CustomThemeName')
+      }}
+      <button
+        class="btn btn-primary"
+        id="Theme-custom-theme-create"
+        type="button"
+      >
+        {{localize 'CP.Create'}}
+      </button>
+    </div>
+    <div class="grow-1 Theme-form-body">
+      <div>
+        {{#each currentSettings as |settingValue settingName|}}
+          <p><b>{{settingName}}</b>: {{settingValue}}</p>
+        {{/each}}
+      </div>
+    </div>
+    <div class="flex justify-end shrink-1 Theme-form-actions">
+      <button
+        id="Theme-delete"
+        class="btn btn-secondary{{tern isPresetTheme ' hide' ''}}"
+        type="button"
+      >
+        {{localize 'CP.Delete'}}
+      </button>
+      <button
+        id="Theme-save"
+        class="btn btn-primary"
+        type="submit"
+      >
+        {{localize 'CP.Save'}}
+      </button>
+    </div>
+  </div>
+</form>

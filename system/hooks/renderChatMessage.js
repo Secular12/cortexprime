@@ -4,7 +4,7 @@ export default (message, html, data) => {
   const $rollResult = html.find('.RollResult-main').first()
 
   if ($rollResult.length > 0) {
-    html.addClass('cortexprime RollResult')
+    html.addClass('cortexprime RollResult theme-body')
 
     $rollResult
       .find('.chat-die')

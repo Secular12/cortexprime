@@ -1,0 +1,82 @@
+&.ThemeEditor {
+  --body-background-color: #{color('body-background')};
+  --body-background-color-opacity: 1;
+  --body-background-image: none;
+  --body-background-image-opacity: 0.5;
+  --body-background-image-position: center;
+  --body-background-image-repeat: no-repeat;
+  --body-background-image-size: cover;
+  --body-font-color: #{color('body-font')};
+  --body-font-size: #{toRem(14px)};
+  --body-font-weight: 400;
+  --button-background-primary-color: #{color('button-background-primary')};
+  --button-background-secondary-color: #{color('button-background-secondary')};
+  --button-font-primary-color: #{color('button-font-primary')};
+  --button-font-secondary-color: #{color('button-font-secondary')};
+  --chosen-fill: #{color('chosen-fill')};
+  --chosen-number: #{color('chosen-number')};
+  --chosen-stroke: #{color('chosen-stroke')};
+  --die-rating-fill: #{color('die-rating-fill')};
+  --die-rating-number: #{color('die-rating-number')};
+  --die-rating-stroke: #{color('die-rating-stroke')};
+  --effect-fill: #{color('effect-fill')};
+  --effect-number: #{color('effect-number')};
+  --effect-stroke: #{color('effect-stroke')};
+  --heading-1-casing: capitalize;
+  --heading-1-color: #{color('heading-1')};
+  --heading-1-size: #{toRem(16px)};
+  --heading-1-style: normal;
+  --heading-1-weight: 700;
+  --heading-2-casing: capitalize;
+  --heading-2-color: #{color('heading-2')};
+  --heading-2-size: #{toRem(15px)};
+  --heading-2-style: normal;
+  --heading-2-weight: 700;
+  --hitch-fill: #{color('hitch-fill')};
+  --hitch-number: #{color('hitch-number')} #ffb433;
+  --hitch-stroke: #{color('hitch-stroke')};
+  --input-background-color: #{color('input-background')};
+  --input-border: solid #{color('input-border')};
+  --input-border-radius: 0;
+  --input-border-width: 0 0 2px;
+  --input-label-casing: capitalize;
+  --input-font-color: #{color('input-font')};
+  --input-label-color: #{color('input-label')};
+  --input-label-size: #{toRem(12px)};
+  --input-label-style: normal;
+  --input-label-weight: 700;
+  --section-background-alt-color: #{color('section-background-alt')};
+  --section-background-alt-2-color: #{color('section-background-alt-2')};
+  --section-background-color: #{color('section-background')};
+  --section-background-color-opacity: 1;
+  --section-background-image: none;
+  --section-background-image-opacity: 0;
+  --section-background-image-position: center;
+  --section-background-image-repeat: no-repeat;
+  --section-background-image-size: cover;
+  --section-border: solid #{color('section-border')};
+  --section-border-radius: 0;
+  --section-border-width: 2px;
+  --selected-fill: #{color('selected-fill')};
+  --selected-number: #{color('selected-number')};
+  --selected-stroke: #{color('selected-stroke')};
+  --separator-color: #{color('separator')};
+  --trait-casing: capitalize;
+  --trait-color: #{color('trait')};
+  --trait-size: #{toRem(14px)};
+  --trait-style: normal;
+  --trait-weight: 700;
+  --unchosen-fill: #{color('unchosen-fill')};
+  --unchosen-number: #{color('unchosen-number')};
+  --unchosen-stroke: #{color('unchosen-stroke')};
+}
+
+&.ThemeEditor {
+  .Theme-main {
+    height: 100%;
+  }
+
+  .Theme-form-body {
+    overflow-y: auto;
+  }
+}

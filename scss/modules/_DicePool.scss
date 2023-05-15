@@ -1,0 +1,5 @@
+.DicePool-trait {
+  &.rolls-separately {
+    background-color: var(--section-background-alt-2-color, color('section-background-alt-2'));
+  }
+}

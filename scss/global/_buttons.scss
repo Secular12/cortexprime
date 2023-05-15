@@ -1,7 +1,7 @@
 .btn {
-  background-color: var(--button-primary-color, color("button-primary"));
+  background-color: var(--button-background-primary-color, color('button-background-primary'));
   border-radius: 0;
-  color: var(--button-primary-text-color, color("button-primary-text"));
+  color: var(--button-font-primary-color, color('button-font-primary'));
   font-weight: bold;
   height: toRem(26px);
   line-height: 1;
@@ -28,12 +28,12 @@
 
 .btn-icon-text {
   background-color: transparent;
-  color: var(--body-text-color, color("body-text"));
+  color: var(--body-font-color, color('body-font'));
 }
 
 .btn-secondary {
-  background-color: var(--button-secondary-color, color("button-secondary"));
-  color: var(--button-secondary-text-color, color("button-secondary-text"));
+  background-color: var(--button-background-secondary-color, color('button-background-secondary'));
+  color: var(--button-font-secondary-color, color('button-font-secondary'));
 }
 
 .btn-small {

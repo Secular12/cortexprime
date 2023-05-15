@@ -1,19 +1,28 @@
-.section-heading {
-  font-weight: var(--section-heading-weight, 700);
-  color: var(--section-heading-color, color("section-heading"));
+.heading-1 {
+  color: var(--heading-1-color, color('heading-1'));
+  font-size: var(--heading-1-size, toRem(16px));
+  font-style: var(--heading-1-style, normal);
+  text-transform: var(--heading-1-casing, uppercase);
+  font-weight: var(--heading-1-weight, 700);
 }
 
-.section-heading-2 {
-  font-weight: var(--section-heading-2-weight, 700);
-  color: var(--section-heading-2-color, color("section-heading-2"));
+.heading-2 {
+  color: var(--heading-2-color, color('heading-2'));
+  font-size: var(--heading-2-size, toRem(15px));
+  font-style: var(--heading-2-style, normal);
+  text-transform: var(--heading-2-casing, uppercase);
+  font-weight: var(--heading-2-weight, 700);
 }
 
 .total-value {
-  font-size: toRem(26px);
   font-weight: bold;
+  font-size: toRem(26px);
 }
 
 .trait-name {
+  color: var(--trait-color, color('trait'));
+  font-size: var(--trait-size, toRem(14px));
+  font-style: var(--trait-style, normal);
+  text-transform: var(--trait-casing, capitalize);
   font-weight: var(--trait-weight, 700);
-  color: var(--trait-color, color("trait"))
 }

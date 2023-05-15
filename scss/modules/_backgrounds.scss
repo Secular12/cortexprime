@@ -1,6 +1,6 @@
 &#DicePool .window-content,
 &.DicePicker .window-content,
 &.RollResult {
-  background-color: var(--sheet-background-color, color('background-alt'));
+  background-color: transparent;
   background-image: none;
 }

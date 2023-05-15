@@ -36,3 +36,11 @@ const rounding = (dir = null) => (number, increment, offset) => {
 }
 
 export const round = rounding()
+
+export const camelCasetoKebabCase = (str) => {
+  return str.split('').map((letter, idx) => {
+    return letter.toUpperCase() === letter
+     ? `${idx !== 0 ? '-' : ''}${letter.toLowerCase()}`
+     : letter;
+  }).join('');
+}

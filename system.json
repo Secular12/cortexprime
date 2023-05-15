@@ -28,6 +28,7 @@
   "name": "cortexprime",
   "packs": [],
   "scripts": [],
+  "socket": true,
   "styles": ["css/cortexprime.css"],
   "templateVersion": 2,
   "title": "Cortex Prime",

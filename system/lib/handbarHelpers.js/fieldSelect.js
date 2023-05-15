@@ -7,6 +7,23 @@ export default (value, items, name, val, options) => {
     'wrapperClass'
   ]
 
+  const getOptions = (items, value, name, val) => {
+    return items
+      .map(item => {
+        return item.label 
+          ? item.options?.length > 0
+            ? `<optgroup label="${item.label}">` +
+              getOptions(item.options, value, name, val) +
+              `</optgroup>`
+            : null
+          : `<option value="${item[val]}"` +
+            (item[val] === value ? ' selected>' : '>') +
+            `${item[name]}</option>`
+      })
+      .filter(itemString => itemString)
+      .join('')
+  }
+
   return new Handlebars.SafeString(
     '<div class="field field-select' +
     (options.hash.disabled === true ? ' field-disabled' : '') +
@@ -39,13 +56,7 @@ export default (value, items, name, val, options) => {
       }, ['class="field-input"'])
       .join(' ') +
     `>` +
-    items
-      .map(item => {
-        return `<option value="${item[val]}"` +
-        (item[val] === value ? ' selected>' : '>') +
-        `${item[name]}</option>`
-      })
-      .join('') +
+    getOptions(items, value, name, val) +
     `</select>` +
     (options.hash.label ? `</label>` : '</div>') +
     (options.hash.hint ? `<p class="field-hint">${options.hash.hint}</p>` : '') +

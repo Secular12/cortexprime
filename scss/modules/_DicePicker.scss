@@ -1,10 +1,10 @@
 &.DicePicker {
   .dialog-buttons {
     .dialog-button {
-      background-color: var(--button-primary-color, color("button-primary"));
+      background-color: var(--button-background-primary-color, color('button-background-primary'));
       border: none;
       border-radius: 0;
-      color: var(--button-primary-text-color, color("button-primary-text"));
+      color: var(--button-font-primary-color, color('button-font-primary'));
       font-weight: bold;
       height: toRem(26px);
       line-height: 1;
@@ -22,4 +22,13 @@
       cursor: not-allowed;
     }
   }
+}
+
+.DicePicker-result-group-header {
+  text-align: center;
+}
+
+.dialog-buttons {
+  position: relative;
+  z-index: 2;
 }

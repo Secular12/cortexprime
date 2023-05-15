@@ -1,0 +1,118 @@
+&.window-app {
+  .window-header {
+    position: relative;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .window-resizable-handle {
+    z-index: 3;
+  }
+}
+
+&.theme-body.RollResult {
+  position: relative;
+  height: auto;
+
+  .message-header {
+    background-color: var(--section-background-color, color('section-background'));
+    color: var(--body-font-color, color('body-font'));
+    line-height: 1;
+    padding: toRem(6px);
+    vertical-align: middle;
+    z-index: 3;
+  }
+}
+
+.theme-body, &.theme-body {
+  color: var(--body-font-color, color('body-font'));
+  font-size: var(--body-font-size, toRem(14px));
+  font-weight: var(--body-font-weight, 400);
+  height: 100%;
+
+  .theme-body-background-color {
+    background-color: var(--body-background-color, color('body-background'));
+    height: 100%;
+    left: 0;
+    opacity: var(--body-background-color-opacity, 1);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+  }
+
+  .theme-body-background-image {
+    background-image: var(--body-background-image, none);
+    background-position: var(--body-background-image-position, center);
+    background-repeat: var(--body-background-image-repeat, no-repeat);
+    background-size: var(--body-background-image-size, cover);
+    height: 100%;
+    left: 0;
+    opacity: var(--body-background-image-opacity, 0.5);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .theme-body-content {
+    position: relative;
+    z-index: 3;
+  }
+
+  .theme-section {
+    background: transparent;
+    border: var(--section-border, solid color('section-border'));
+    border-radius: var(--section-border-radius, 0);
+    border-width: var(--section-border-width, 2px);
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+  }
+
+  .theme-section-background-color,
+  .theme-section-background-alt-color,
+  .theme-section-background-image {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  .theme-section-background-color {
+    background-color: var(--section-background-color, color('section-background'));
+    opacity: var(--section-background-color-opacity, 1);
+    z-index: 4;
+  }
+
+  .theme-section-background-alt-color {
+    background-color: var(--section-background-alt-color, color('section-background-alt'));
+    opacity: var(--section-background--color-opacity, 1);
+    z-index: 4;
+  }
+
+  .theme-section-background-image {
+    background-image: var(--section-background-image, none);
+    background-position: var(--section-background-image-position, center);
+    background-repeat: var(--section-background-image-repeat, no-repeat);
+    background-size: var(--section-background-image-size, cover);
+    opacity: var(--section-background-image-opacity, 0);
+    z-index: 3;
+  }
+
+  .theme-section-content {
+    position: relative;
+    z-index: 5;
+    height: 100%;
+  }
+
+  .theme-relative-section {
+    position: relative;
+
+    .theme-section-background-color, .theme-section-background-alt-color {
+      z-index: -1;
+    }
+  }
+}
