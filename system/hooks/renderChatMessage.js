@@ -1,4 +1,4 @@
-import { getHtml } from '../lib/handbarHelpers.js/dieResult.js'
+import { getHtml } from '../lib/handlebarHelpers/dieResult.js'
 
 export default (message, html, data) => {
   const $rollResult = html.find('.RollResult-main').first()

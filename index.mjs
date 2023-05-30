@@ -1,5 +1,6 @@
 import hooks from './system/hooks/index.js'
-import { registerHandlebarHelpers, } from './system/lib/handbarHelpers.js/index.js'
+import { registerHandlebarHelpers } from './system/lib/handlebarHelpers/index.js'
+import { preloadHandlebarsTemplates } from './system/lib/handlebarHelpers/preloadTemplates.js'
 import Logger from './system/lib/Logger.js'
 import sockets from './system/lib/sockets.js'
 import { registerSettings } from './system/settings.js'
@@ -17,6 +18,7 @@ Hooks.once('init', () => {
   game.cortexprime = {}
 
   registerHandlebarHelpers()
+  preloadHandlebarsTemplates()
   registerSettings()
   hooks()
 })

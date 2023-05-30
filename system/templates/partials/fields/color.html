@@ -1,0 +1,33 @@
+<div class="field field-color-picker{{tern noEdit ' field-view' ''}}{{tern class (concat ' ' class) ''}}">
+  {{#if (and label (not noEdit))}}
+    <label class="field-wrapper">
+  {{else}}
+    <div class="field-wrapper">
+  {{/if}}
+    {{#if label}}
+      <span class="field-label">{{label}}</span>
+    {{/if}}
+    {{#if noEdit}}
+      <div class="field-color-view field-view-value flex justify-between">
+        <span class="view-color">{{value}}</span>
+        <span class="swatch" style="background-color: {{value}};"></span>
+      </div>
+    {{else}}
+      <div class="field-color">
+        {{
+          colorPicker
+          default=default
+          name=name
+          value=value
+        }}
+      </div>
+    {{/if}}
+  {{#if (and label (not noEdit))}}
+    </label>
+  {{else}}
+    </div>
+  {{/if}}
+  {{#if (and hint (not noEdit))}}
+    <p class="field-hint">{{hint}}</p>
+  {{/if}}
+</div>

@@ -1,3 +1,4 @@
+import { fieldListeners } from '../lib/formHelpers'
 import { localizer } from '../lib/helpers'
 import Logger from '../lib/Logger'
 import presetThemes from '../lib/presetThemes'
@@ -50,14 +51,24 @@ export default class CpThemeSettings extends FormApplication {
     return this.allThemes[this.selectedTheme]
   }
 
-  get isPrimaryTheme () {
+  get isPresetTheme () {
     return !!presetThemes[this.selectedTheme]
   }
 
   getData() {
     const data = {
-      isPresetTheme: this.isPrimaryTheme,
+      borderPositions: [
+        { name: localizer('CP.None'), value: 'none' },
+        { name: localizer('CP.All'), value: 'all' },
+        { name: localizer('CP.Bottom'), value: 'bottom' },
+        { name: localizer('CP.Top'), value: 'top' },
+        { name: localizer('CP.Left'), value: 'left' },
+        { name: localizer('CP.Right'), value: 'right' },
+        { name: localizer('CP.TopAndBottom'), value: 'top-and-bottom' },
+        { name: localizer('CP.LeftAndRight'), value: 'left-and-right' },
+      ],
       currentSettings: this.currentSettings,
+      isPresetTheme: this.isPresetTheme,
       selectedTheme: this.selectedTheme,
       themeOptions: [
         {
@@ -94,6 +105,7 @@ export default class CpThemeSettings extends FormApplication {
 
   activateListeners(html) {
     super.activateListeners(html)
+    fieldListeners.call(this, html)
 
     html.find('#Theme-theme-select').change(this.onChangeTheme.bind(this))
     html.find('#Theme-custom-theme-create').click(() => this.createCustomTheme.call(this, html))
@@ -147,30 +159,40 @@ export default class CpThemeSettings extends FormApplication {
   }
 
   async deleteTheme () {
-    if (this.isPrimaryTheme) {
+    if (this.isPresetTheme) {
       Dialog.prompt({
         title: localizer('CP.ValidationError'),
         content: localizer('CP.ThemeDeleteErrorPreset'),
       })
+
+      return
     }
 
-    const themeSettings = game.settings.get('cortexprime', 'themes')
-
-    delete themeSettings.customList[this.selectedTheme]
-
-    themeSettings.selectedTheme = 'Cortex Prime'
-
-    this.selectedTheme = 'Cortex Prime'
-
-    await game.settings.set('cortexprime', 'themes', themeSettings)
-
-    await this.render(true)
-
-    setThemeProperties(this.currentSettings)
-
-    game.socket.emit('system.cortexprime', {
-      type: 'setThemeProperties'
+    const confirmed = await Dialog.confirm({
+      title: localizer('CP.DeleteThemeConfirmTitle'),
+      content: localizer('CP.DeleteThemeConfirmContent'),
+      defaultYes: false,
     })
+
+    if (confirmed) {
+      const themeSettings = game.settings.get('cortexprime', 'themes')
+  
+      delete themeSettings.customList[this.selectedTheme]
+  
+      themeSettings.selectedTheme = 'Cortex Prime'
+  
+      this.selectedTheme = 'Cortex Prime'
+  
+      await game.settings.set('cortexprime', 'themes', themeSettings)
+  
+      await this.render(true)
+  
+      setThemeProperties(this.currentSettings)
+  
+      game.socket.emit('system.cortexprime', {
+        type: 'setThemeProperties'
+      })
+    }
   }
 
   async onChangeTheme (event) {
@@ -184,13 +206,23 @@ export default class CpThemeSettings extends FormApplication {
   async save (expandedData) {
     const themeSettings = game.settings.get('cortexprime', 'themes')
 
-    setThemeProperties(this.allThemes[expandedData.selectedTheme])
+    const newThemeSettings = mergeObject(themeSettings, expandedData)
 
     this.selectedTheme = expandedData.selectedTheme
 
-    await game.settings.set('cortexprime', 'themes', mergeObject(themeSettings, expandedData))
+    if (!presetThemes[expandedData.selectedTheme]) {
+      const customThemeSettings = mergeObject(newThemeSettings.customList[this.selectedTheme], expandedData.currentSettings)
+      this.customThemes[this.selectedTheme] = customThemeSettings
+      newThemeSettings.customList[this.selectedTheme] = customThemeSettings
+    }
+
+    Log('CpThemeSettings.save newThemeSettings', newThemeSettings)
+
+    await game.settings.set('cortexprime', 'themes', newThemeSettings)
 
     await this.render(true)
+
+    setThemeProperties(this.currentSettings)
 
     game.socket.emit('system.cortexprime', {
       type: 'setThemeProperties'
@@ -199,11 +231,16 @@ export default class CpThemeSettings extends FormApplication {
 }
 
 // TODO:
-// Fix background colors for all themes to work with text and look good
-// fix relative backgrounds to stay in place int he case of scrolls
-// Create theme variables for what currently exists
-  // input label colors and font sizes, styles, etc.
-  // heading colors and font sizes, styles, etc.
-// create fields for various variables in theme settings
-// Apply themes to everything that currently exists
+// Add expansion/collapse options for the field sections
+// add a refresh/revert button
+// add a preview button
+// border options shouldn't effect theme settings page
+// // switch changing themes to not preview that
+// Add feedback to clicking "save"
+// Image file picker field
+// fix layout of theme settings page
+// Fix listing traits in RollResult! (showing side by side)
+// Fix Multiple Effect Dice in RollResult! (showing one over the other)
 // Relook at, finalize, and refactor colors and other styles
+// // Heading 1 and 2 for regular cortex prime theme needs some adjusting
+// Add swatches option?

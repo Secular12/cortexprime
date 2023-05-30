@@ -1,0 +1,21 @@
+<section class="theme-section my-4">
+  <div class="theme-section-background-image"></div>
+  <div class="theme-section-background-color"></div>
+  <div class="theme-section-content px-2">
+    <h2 class="heading-1 my-2">{{localize 'CP.Miscellaneous'}}</h2>
+    <div class="separator mb-4"></div>
+    <section>
+      <h3 class="heading-2 my-2">{{localize 'CP.Separator'}}</h3>
+      {{>
+        "systems/cortexprime/system/templates/partials/fields/color.html"
+        default=currentSettings.separatorColor
+        class="Theme-field-separator-color my-3"
+        hint=(localize 'CP.ColorHint')
+        label=(localize 'CP.Color')
+        noEdit=isPresetTheme
+        name="currentSettings.separatorColor"
+        value=currentSettings.separatorColor
+      }}
+    </section>
+  </div>
+</section>

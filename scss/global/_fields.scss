@@ -4,9 +4,14 @@
 
 .field-hint {
   font-style: italic;
+  margin-top: toRem(4px);
+
+  a {
+    text-decoration: underline;
+  }
 }
 
-.field-input {
+.field-input, .color {
   background-color: var(--input-background-color, color('input-background'));
   border: var(--input-border, solid color('input-border'));
   border-width: var(--input-border-width, 0 0 2px);
@@ -40,15 +45,57 @@
   display: block;
 }
 
+.field-color-picker {
+  .swatch {
+    border: 1px solid black;
+    box-sizing: border-box;
+    height: toRem(18px);
+    margin: toRem(4px) 0;
+    width: toRem(18px);
+  }
+}
+
+.field-color {
+  display: flex;
+  gap: toRem(8px);
+  width: toRem(116px);
+
+  input[type="color"] {
+    border: 0;
+    cursor: pointer;
+    flex: none;
+    margin: 0;
+    padding: 0;
+    height: toRem(26px);
+    width: toRem(26px);
+  }
+}
+
+.field-color-view {
+  display: flex;
+  gap: toRem(8px);
+  width: toRem(116px);
+}
+
 .field-checkbox {
   .field-label {
     cursor: pointer;
     margin-bottom: 0;
   }
+
+  &.field-disabled {
+    .field-label {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
 }
 
-.field-disabled {
-  .field-label {
-    opacity: 0.5;
-  }
+.field-view {
+  width: auto;
+}
+
+.field-view-value {
+  height: toRem(26px);
+  padding: toRem(4px);
 }

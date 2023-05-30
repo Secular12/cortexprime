@@ -2,39 +2,61 @@
   <div class="theme-body-background-image"></div>
   <div class="theme-body-background-color"></div>
   <div class="flex flex-col items-stretch theme-body-content Theme-main">
-    <div class="flex items-end Theme-form-header">
-      {{
-        fieldSelect
-        selectedTheme
-        themeOptions
-        'name'
-        'value'
-        class="grow-1"
-        id="Theme-theme-select"
-        label=(localize 'CP.SelectedTheme')
-        name="selectedTheme"
-      }}
-      {{
-        fieldText
-        null
-        class="grow-1"
-        id="Theme-custom-theme-name"
-        label=(localize 'CP.CustomThemeName')
-      }}
-      <button
-        class="btn btn-primary"
-        id="Theme-custom-theme-create"
-        type="button"
-      >
-        {{localize 'CP.Create'}}
-      </button>
+    <div class="Theme-form-header">
+      <div class="theme-section">
+        <div class="theme-section-background-image"></div>
+        <div class="theme-section-background-color"></div>
+        <div class="flex items-end theme-section-content p-2">
+          {{
+            fieldSelect
+            selectedTheme
+            themeOptions
+            'name'
+            'value'
+            class="grow-1"
+            id="Theme-theme-select"
+            label=(localize 'CP.SelectedTheme')
+            name="selectedTheme"
+          }}
+          {{
+            fieldText
+            null
+            class="grow-1"
+            id="Theme-custom-theme-name"
+            label=(localize 'CP.CustomThemeName')
+          }}
+          <button
+            class="btn btn-primary"
+            id="Theme-custom-theme-create"
+            type="button"
+          >
+            {{localize 'CP.Create'}}
+          </button>
+        </div>
+      </div>
     </div>
     <div class="grow-1 Theme-form-body">
-      <div>
-        {{#each currentSettings as |settingValue settingName|}}
-          <p><b>{{settingName}}</b>: {{settingValue}}</p>
-        {{/each}}
-      </div>
+      {{>
+        "systems/cortexprime/system/templates/partials/themes/body.html"
+      }}
+      {{>
+        "systems/cortexprime/system/templates/partials/themes/buttons.html"
+      }}
+      {{>
+        "systems/cortexprime/system/templates/partials/themes/dice.html"
+      }}
+      {{>
+        "systems/cortexprime/system/templates/partials/themes/headings.html"
+      }}
+      {{>
+        "systems/cortexprime/system/templates/partials/themes/inputs.html"
+      }}
+      {{>
+        "systems/cortexprime/system/templates/partials/themes/sections.html"
+      }}
+      {{>
+        "systems/cortexprime/system/templates/partials/themes/misc.html"
+      }}
     </div>
     <div class="flex justify-end shrink-1 Theme-form-actions">
       <button

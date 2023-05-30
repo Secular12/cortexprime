@@ -1,0 +1,23 @@
+<div class="field field-image-picker{{tern noEdit ' field-view' ''}}{{tern class (concat ' ' class) ''}}">
+  {{#if (and label (not noEdit))}}
+    <label class="field-wrapper">
+  {{else}}
+    <div class="field-wrapper">
+  {{/if}}
+    {{#if label}}
+      <span class="field-label">{{label}}</span>
+    {{/if}}
+    {{#if noEdit}}
+      <p>TO DO</p>
+    {{else}}
+      <p>TO DO</p>
+    {{/if}}
+  {{#if (and label (not noEdit))}}
+    </label>
+  {{else}}
+    </div>
+  {{/if}}
+  {{#if (and hint (not noEdit))}}
+    <p class="field-hint">{{hint}}</p>
+  {{/if}}
+</div>

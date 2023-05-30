@@ -79,4 +79,28 @@
   .Theme-form-body {
     overflow-y: auto;
   }
+
+  .Theme-field-border-radius,
+  .Theme-field-border-width,
+  .Theme-field-opacity-input,
+  .Theme-field-font-weight,
+  .Theme-field-font-size {
+    width: toRem(40px)
+  }
+
+  .Theme-field-background-position-input,
+  .Theme-field-background-repeat-input,
+  .Theme-field-background-size-input,
+  .Theme-field-border-position,
+  .Theme-field-border-style,
+  .Theme-field-font-style,
+  .Theme-field-text-transform {
+    width: toRem(120px)
+  }
+
+  .field-hint {
+    a {
+      color: #{color('link')}
+    }
+  }
 }

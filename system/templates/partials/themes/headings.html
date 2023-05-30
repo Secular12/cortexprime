@@ -1,0 +1,174 @@
+<section class="theme-section my-4">
+  <div class="theme-section-background-image"></div>
+  <div class="theme-section-background-color"></div>
+  <div class="theme-section-content px-2">
+    <h2 class="heading-1 my-2">{{localize 'CP.Headings'}}</h2>
+    <div class="separator mb-4"></div>
+    <section>
+      <h3 class="heading-2 my-2">{{localize 'CP.Heading1'}}</h3>
+      {{>
+        "systems/cortexprime/system/templates/partials/fields/color.html"
+        default=currentSettings.heading1Color
+        class="Theme-field-heading-1-font-color my-3"
+        hint=(localize 'CP.ColorHint')
+        label=(localize 'CP.Color')
+        noEdit=isPresetTheme
+        name="currentSettings.heading1Color"
+        value=currentSettings.heading1Color
+      }}
+      {{
+        fieldNumber
+        currentSettings.heading1Size_rem
+        append="px"
+        class="Theme-field-heading-1-font-size my-3"
+        inputClass="Theme-field-font-size"
+        label=(localize 'CP.Size')
+        min=1
+        name="currentSettings.heading1Size_rem"
+        noEdit=isPresetTheme
+        step=1
+      }}
+      {{
+        fieldText
+        currentSettings.heading1Weight
+        class="Theme-field-heading-1-font-weight my-3"
+        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight">' (localize 'CP.ClickForDetails') '</a>')
+        inputClass="Theme-field-font-weight"
+        label=(localize 'CP.Weight')
+        name="currentSettings.heading1Weight"
+        noEdit=isPresetTheme
+      }}
+      {{
+        fieldText
+        currentSettings.heading1Style
+        class="Theme-field-heading-1-font-style my-3"
+        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-style">' (localize 'CP.ClickForDetails') '</a>')
+        inputClass="Theme-field-font-style"
+        label=(localize 'CP.Style')
+        name="currentSettings.heading1Style"
+        noEdit=isPresetTheme
+      }}
+      {{
+        fieldText
+        currentSettings.heading1Casing
+        class="Theme-field-heading-1-text-transform my-3"
+        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform">' (localize 'CP.ClickForDetails') '</a>')
+        inputClass="Theme-field-text-transform"
+        label=(localize 'CP.Casing')
+        name="currentSettings.heading1Casing"
+        noEdit=isPresetTheme
+      }}
+    </section>
+    <div class="separator mb-4"></div>
+    <section>
+      <h3 class="heading-2 my-2">{{localize 'CP.Heading2'}}</h3>
+      {{>
+        "systems/cortexprime/system/templates/partials/fields/color.html"
+        default=currentSettings.heading2Color
+        class="Theme-field-heading-2-font-color my-3"
+        hint=(localize 'CP.ColorHint')
+        label=(localize 'CP.Color')
+        noEdit=isPresetTheme
+        name="currentSettings.heading2Color"
+        value=currentSettings.heading2Color
+      }}
+      {{
+        fieldNumber
+        currentSettings.heading2Size_rem
+        append="px"
+        class="Theme-field-heading-2-font-size my-3"
+        inputClass="Theme-field-font-size"
+        label=(localize 'CP.Size')
+        min=1
+        name="currentSettings.heading2Size_rem"
+        noEdit=isPresetTheme
+        step=1
+      }}
+      {{
+        fieldText
+        currentSettings.heading2Weight
+        class="Theme-field-heading-2-font-weight my-3"
+        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight">' (localize 'CP.ClickForDetails') '</a>')
+        inputClass="Theme-field-font-weight"
+        label=(localize 'CP.Weight')
+        name="currentSettings.heading2Weight"
+        noEdit=isPresetTheme
+      }}
+      {{
+        fieldText
+        currentSettings.heading2Style
+        class="Theme-field-heading-2-font-style my-3"
+        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-style">' (localize 'CP.ClickForDetails') '</a>')
+        inputClass="Theme-field-font-style"
+        label=(localize 'CP.Style')
+        name="currentSettings.heading2Style"
+        noEdit=isPresetTheme
+      }}
+      {{
+        fieldText
+        currentSettings.heading2Casing
+        class="Theme-field-heading-2-text-transform my-3"
+        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform">' (localize 'CP.ClickForDetails') '</a>')
+        inputClass="Theme-field-text-transform"
+        label=(localize 'CP.Casing')
+        name="currentSettings.heading2Casing"
+        noEdit=isPresetTheme
+      }}
+    </section>
+    <section>
+      <h3 class="heading-2 my-2">{{localize 'CP.Traits'}}</h3>
+      {{>
+        "systems/cortexprime/system/templates/partials/fields/color.html"
+        default=currentSettings.traitColor
+        class="Theme-field-traits-font-color my-3"
+        hint=(localize 'CP.ColorHint')
+        label=(localize 'CP.Color')
+        noEdit=isPresetTheme
+        name="currentSettings.traitColor"
+        value=currentSettings.traitColor
+      }}
+      {{
+        fieldNumber
+        currentSettings.traitSize_rem
+        append="px"
+        class="Theme-field-traits-font-size my-3"
+        inputClass="Theme-field-font-size"
+        label=(localize 'CP.Size')
+        min=1
+        name="currentSettings.traitSize_rem"
+        noEdit=isPresetTheme
+        step=1
+      }}
+      {{
+        fieldText
+        currentSettings.traitWeight
+        class="Theme-field-traits-font-weight my-3"
+        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight">' (localize 'CP.ClickForDetails') '</a>')
+        inputClass="Theme-field-font-weight"
+        label=(localize 'CP.Weight')
+        name="currentSettings.traitWeight"
+        noEdit=isPresetTheme
+      }}
+      {{
+        fieldText
+        currentSettings.traitStyle
+        class="Theme-field-traits-font-style my-3"
+        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-style">' (localize 'CP.ClickForDetails') '</a>')
+        inputClass="Theme-field-font-style"
+        label=(localize 'CP.Style')
+        name="currentSettings.traitStyle"
+        noEdit=isPresetTheme
+      }}
+      {{
+        fieldText
+        currentSettings.traitCasing
+        class="Theme-field-traits-text-transform my-3"
+        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform">' (localize 'CP.ClickForDetails') '</a>')
+        inputClass="Theme-field-text-transform"
+        label=(localize 'CP.Casing')
+        name="currentSettings.traitCasing"
+        noEdit=isPresetTheme
+      }}
+    </section>
+  </div>
+</section>
