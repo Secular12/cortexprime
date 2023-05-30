@@ -1,5 +1,5 @@
 import { fieldListeners } from '../lib/formHelpers'
-import { localizer } from '../lib/helpers'
+import { displayToggle, localizer } from '../lib/helpers'
 import Logger from '../lib/Logger'
 import presetThemes from '../lib/presetThemes'
 import { setThemeProperties } from '../lib/setThemeProperties'
@@ -106,6 +106,7 @@ export default class CpThemeSettings extends FormApplication {
   activateListeners(html) {
     super.activateListeners(html)
     fieldListeners.call(this, html)
+    displayToggle(html)
 
     html.find('#Theme-theme-select').change(this.onChangeTheme.bind(this))
     html.find('#Theme-custom-theme-create').click(() => this.createCustomTheme.call(this, html))

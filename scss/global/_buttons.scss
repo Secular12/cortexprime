@@ -25,6 +25,12 @@
       width: toRem(12px);
     }
   }
+
+  &.display-toggle {
+    &:hover, &:focus {
+      box-shadow: none;
+    }
+  }
 }
 
 
@@ -49,6 +55,8 @@
 
 .btn-text {
   background-color: inherit;
+  border: 0;
+  border-radius: 0;
   color: inherit;
   display: block;
   height: auto;
