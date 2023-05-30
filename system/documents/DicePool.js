@@ -79,7 +79,7 @@ export class DicePool extends FormApplication {
 
   activateListeners (html) {
     super.activateListeners(html)
-    fieldListeners.call(this, html)
+    fieldListeners(html)
     diceSelectListener(
       html,
       this.onAddDie.bind(this),

@@ -105,7 +105,7 @@ export default class CpThemeSettings extends FormApplication {
 
   activateListeners(html) {
     super.activateListeners(html)
-    fieldListeners.call(this, html)
+    fieldListeners(html)
     displayToggle(html)
 
     html.find('#Theme-theme-select').change(this.onChangeTheme.bind(this))
