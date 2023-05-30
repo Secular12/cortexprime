@@ -1,166 +1,179 @@
-<section class="theme-section my-4">
+<section class="theme-section Theme-sections-section my-4">
   <div class="theme-section-background-image"></div>
   <div class="theme-section-background-color"></div>
   <div class="theme-section-content px-2">
-    <h2 class="heading-1 my-2">{{localize 'CP.Sections'}}</h2>
-    <div class="separator mb-4"></div>
-    <section>
-      <h3 class="heading-2 my-2">{{localize 'CP.Background'}}</h3>
-      {{>
-        "systems/cortexprime/system/templates/partials/fields/color.html"
-        default=currentSettings.sectionBackgroundColor
-        class="Theme-field-section-background-color my-3"
-        hint=(localize 'CP.ColorHint')
-        label=(localize 'CP.Color')
-        noEdit=isPresetTheme
-        name="currentSettings.sectionBackgroundColor"
-        value=currentSettings.sectionBackgroundColor
-      }}
-      {{>
-        "systems/cortexprime/system/templates/partials/fields/color.html"
-        default=currentSettings.sectionBackgroundAltColor
-        class="Theme-field-section-alt-background-color my-3"
-        hint=(localize 'CP.ColorHint')
-        label=(localize 'CP.AlternateColor')
-        noEdit=isPresetTheme
-        name="currentSettings.sectionBackgroundAltColor"
-        value=currentSettings.sectionBackgroundAltColor
-      }}
-      {{>
-        "systems/cortexprime/system/templates/partials/fields/color.html"
-        default=currentSettings.sectionBackgroundAlt2Color
-        class="Theme-field-section-alt-2-background-color my-3"
-        hint=(localize 'CP.ColorHint')
-        label=(localize 'CP.Alternate2Color')
-        noEdit=isPresetTheme
-        name="currentSettings.sectionBackgroundAlt2Color"
-        value=currentSettings.sectionBackgroundAlt2Color
-      }}
-      {{
-        fieldNumber
-        currentSettings.sectionBackgroundColorOpacity
-        class="Theme-field-section-background-color-opacity my-3"
-        hint=(localize 'CP.OpacityHint')
-        inputClass="Theme-field-opacity-input"
-        label=(localize 'CP.ColorOpacity')
-        max=1
-        min=0
-        name="currentSettings.sectionBackgroundColorOpacity"
-        noEdit=isPresetTheme
-        step=0.01
-      }}
-      {{>
-        "systems/cortexprime/system/templates/partials/fields/image.html"
-        default=currentSettings.sectionBackgroundImage
-        class="Theme-field-section-background-image my-3"
-        label=(localize 'CP.Image')
-        noEdit=isPresetTheme
-        name="currentSettings.sectionBackgroundImage"
-        value=currentSettings.sectionBackgroundImage
-      }}
-      {{
-        fieldNumber
-        currentSettings.sectionBackgroundImageOpacity
-        class="Theme-field-section-background-image-opacity my-3"
-        hint=(localize 'CP.OpacityHint')
-        inputClass="Theme-field-opacity-input"
-        label=(localize 'CP.ImageOpacity')
-        max=1
-        min=0
-        name="currentSettings.sectionBackgroundImageOpacity"
-        noEdit=isPresetTheme
-        step=0.01
-      }}
-      {{
-        fieldText
-        currentSettings.sectionBackgroundImagePosition
-        class="Theme-field-section-background-image-position my-3"
-        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-position">' (localize 'CP.ClickForDetails') '</a>')
-        inputClass="Theme-field-background-position-input"
-        label=(localize 'CP.ImagePosition')
-        name="currentSettings.sectionBackgroundImagePosition"
-        noEdit=isPresetTheme
-      }}
-      {{
-        fieldText
-        currentSettings.sectionBackgroundImageRepeat
-        class="Theme-field-section-background-image-repeat my-3"
-        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-repeat">' (localize 'CP.ClickForDetails') '</a>')
-        inputClass="Theme-field-background-repeat-input"
-        label=(localize 'CP.ImageRepeat')
-        name="currentSettings.sectionBackgroundImageRepeat"
-        noEdit=isPresetTheme
-      }}
-      {{
-        fieldText
-        currentSettings.sectionBackgroundImageSize
-        class="Theme-field-section-background-image-size my-3"
-        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-size">' (localize 'CP.ClickForDetails') '</a>')
-        inputClass="Theme-field-background-size-input"
-        label=(localize 'CP.ImageSize')
-        name="currentSettings.sectionBackgroundImageSize"
-        noEdit=isPresetTheme
-      }}
-    </section>
-    <div class="separator my-4"></div>
-    <section>
-      <h3 class="heading-2 my-2">{{localize 'CP.Border'}}</h3>
-      {{>
-        "systems/cortexprime/system/templates/partials/fields/color.html"
-        default=currentSettings.border_section_color
-        class="Theme-field-section-border-color my-3"
-        hint=(localize 'CP.ColorHint')
-        label=(localize 'CP.Color')
-        noEdit=isPresetTheme
-        name="currentSettings.border_section_color"
-        value=currentSettings.border_section_color
-      }}
-      {{
-        fieldSelect
-        currentSettings.border_section_position
-        borderPositions
-        'name'
-        'value'
-        class="Theme-field-section-border-position my-3"
-        inputClass="Theme-field-border-position"
-        label=(localize 'CP.Position')
-        name="currentSettings.border_section_position"
-        noEdit=isPresetTheme
-      }}
-      {{
-        fieldText
-        currentSettings.border_section_style
-        class="Theme-field-section-border-style my-3"
-        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-style">' (localize 'CP.ClickForDetails') '</a>')
-        inputClass="Theme-field-border-style"
-        label=(localize 'CP.Style')
-        name="currentSettings.border_section_style"
-        noEdit=isPresetTheme
-      }}
-      {{
-        fieldNumber
-        currentSettings.border_section_width
-        append="px"
-        class="Theme-field-section-border-width my-3"
-        inputClass="Theme-field-border-width"
-        label=(localize 'CP.Width')
-        min=1
-        name="currentSettings.border_section_width"
-        noEdit=isPresetTheme
-        step=1
-      }}
-      {{
-        fieldNumber
-        currentSettings.sectionBorderRadius_rem
-        append="px"
-        class="Theme-field-section-border-radius my-3"
-        inputClass="Theme-field-border-radius"
-        label=(localize 'CP.Radius')
-        min=0
-        name="currentSettings.sectionBorderRadius_rem"
-        noEdit=isPresetTheme
-        step=1
-      }}
-    </section>
+    <button
+      class="btn btn-text display-toggle px-0 py-2 Theme-sections-section-toggle"
+      data-parent=".Theme-sections-section"
+      data-target=".Theme-sections-section-content"
+      type="button"
+    >
+      <div class="flex justify-between">
+        <h2 class="Theme-sections-section-heading heading-1">{{localize 'CP.Sections'}}</h2>
+        <div class="icon">
+          <i class="fa fa-chevron-down"></i>
+        </div>
+      </div>
+    </button>
+    <div class="hide Theme-sections-section-content">
+      <section>
+        <h3 class="heading-2 my-2">{{localize 'CP.Background'}}</h3>
+        {{>
+          "systems/cortexprime/system/templates/partials/fields/color.html"
+          default=currentSettings.sectionBackgroundColor
+          class="Theme-field-section-background-color my-3"
+          hint=(localize 'CP.ColorHint')
+          label=(localize 'CP.Color')
+          noEdit=isPresetTheme
+          name="currentSettings.sectionBackgroundColor"
+          value=currentSettings.sectionBackgroundColor
+        }}
+        {{>
+          "systems/cortexprime/system/templates/partials/fields/color.html"
+          default=currentSettings.sectionBackgroundAltColor
+          class="Theme-field-section-alt-background-color my-3"
+          hint=(localize 'CP.ColorHint')
+          label=(localize 'CP.AlternateColor')
+          noEdit=isPresetTheme
+          name="currentSettings.sectionBackgroundAltColor"
+          value=currentSettings.sectionBackgroundAltColor
+        }}
+        {{>
+          "systems/cortexprime/system/templates/partials/fields/color.html"
+          default=currentSettings.sectionBackgroundAlt2Color
+          class="Theme-field-section-alt-2-background-color my-3"
+          hint=(localize 'CP.ColorHint')
+          label=(localize 'CP.Alternate2Color')
+          noEdit=isPresetTheme
+          name="currentSettings.sectionBackgroundAlt2Color"
+          value=currentSettings.sectionBackgroundAlt2Color
+        }}
+        {{
+          fieldNumber
+          currentSettings.sectionBackgroundColorOpacity
+          class="Theme-field-section-background-color-opacity my-3"
+          hint=(localize 'CP.OpacityHint')
+          inputClass="Theme-field-opacity-input"
+          label=(localize 'CP.ColorOpacity')
+          max=1
+          min=0
+          name="currentSettings.sectionBackgroundColorOpacity"
+          noEdit=isPresetTheme
+          step=0.01
+        }}
+        {{>
+          "systems/cortexprime/system/templates/partials/fields/image.html"
+          default=currentSettings.sectionBackgroundImage
+          class="Theme-field-section-background-image my-3"
+          label=(localize 'CP.Image')
+          noEdit=isPresetTheme
+          name="currentSettings.sectionBackgroundImage"
+          value=currentSettings.sectionBackgroundImage
+        }}
+        {{
+          fieldNumber
+          currentSettings.sectionBackgroundImageOpacity
+          class="Theme-field-section-background-image-opacity my-3"
+          hint=(localize 'CP.OpacityHint')
+          inputClass="Theme-field-opacity-input"
+          label=(localize 'CP.ImageOpacity')
+          max=1
+          min=0
+          name="currentSettings.sectionBackgroundImageOpacity"
+          noEdit=isPresetTheme
+          step=0.01
+        }}
+        {{
+          fieldText
+          currentSettings.sectionBackgroundImagePosition
+          class="Theme-field-section-background-image-position my-3"
+          hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-position">' (localize 'CP.ClickForDetails') '</a>')
+          inputClass="Theme-field-background-position-input"
+          label=(localize 'CP.ImagePosition')
+          name="currentSettings.sectionBackgroundImagePosition"
+          noEdit=isPresetTheme
+        }}
+        {{
+          fieldText
+          currentSettings.sectionBackgroundImageRepeat
+          class="Theme-field-section-background-image-repeat my-3"
+          hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-repeat">' (localize 'CP.ClickForDetails') '</a>')
+          inputClass="Theme-field-background-repeat-input"
+          label=(localize 'CP.ImageRepeat')
+          name="currentSettings.sectionBackgroundImageRepeat"
+          noEdit=isPresetTheme
+        }}
+        {{
+          fieldText
+          currentSettings.sectionBackgroundImageSize
+          class="Theme-field-section-background-image-size my-3"
+          hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-size">' (localize 'CP.ClickForDetails') '</a>')
+          inputClass="Theme-field-background-size-input"
+          label=(localize 'CP.ImageSize')
+          name="currentSettings.sectionBackgroundImageSize"
+          noEdit=isPresetTheme
+        }}
+      </section>
+      <div class="separator my-4"></div>
+      <section>
+        <h3 class="heading-2 my-2">{{localize 'CP.Border'}}</h3>
+        {{>
+          "systems/cortexprime/system/templates/partials/fields/color.html"
+          default=currentSettings.border_section_color
+          class="Theme-field-section-border-color my-3"
+          hint=(localize 'CP.ColorHint')
+          label=(localize 'CP.Color')
+          noEdit=isPresetTheme
+          name="currentSettings.border_section_color"
+          value=currentSettings.border_section_color
+        }}
+        {{
+          fieldSelect
+          currentSettings.border_section_position
+          borderPositions
+          'name'
+          'value'
+          class="Theme-field-section-border-position my-3"
+          inputClass="Theme-field-border-position"
+          label=(localize 'CP.Position')
+          name="currentSettings.border_section_position"
+          noEdit=isPresetTheme
+        }}
+        {{
+          fieldText
+          currentSettings.border_section_style
+          class="Theme-field-section-border-style my-3"
+          hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-style">' (localize 'CP.ClickForDetails') '</a>')
+          inputClass="Theme-field-border-style"
+          label=(localize 'CP.Style')
+          name="currentSettings.border_section_style"
+          noEdit=isPresetTheme
+        }}
+        {{
+          fieldNumber
+          currentSettings.border_section_width
+          append="px"
+          class="Theme-field-section-border-width my-3"
+          inputClass="Theme-field-border-width"
+          label=(localize 'CP.Width')
+          min=1
+          name="currentSettings.border_section_width"
+          noEdit=isPresetTheme
+          step=1
+        }}
+        {{
+          fieldNumber
+          currentSettings.sectionBorderRadius_rem
+          append="px"
+          class="Theme-field-section-border-radius my-3"
+          inputClass="Theme-field-border-radius"
+          label=(localize 'CP.Radius')
+          min=0
+          name="currentSettings.sectionBorderRadius_rem"
+          noEdit=isPresetTheme
+          step=1
+        }}
+      </section>
+    </div>
   </div>
 </section>

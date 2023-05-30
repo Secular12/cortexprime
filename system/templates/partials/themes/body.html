@@ -1,122 +1,135 @@
-<section class="theme-section">
+<section class="theme-section Theme-body-section">
   <div class="theme-section-background-image"></div>
   <div class="theme-section-background-color"></div>
   <div class="theme-section-content px-2">
-    <h2 class="heading-1 my-2">{{localize 'CP.Body'}}</h2>
-    <div class="separator mb-4"></div>
-    <section>
-      <h3 class="heading-2 my-2">{{localize 'CP.Background'}}</h3>
-      {{>
-        "systems/cortexprime/system/templates/partials/fields/color.html"
-        default=currentSettings.bodyBackgroundColor
-        class="Theme-field-body-background-color my-3"
-        hint=(localize 'CP.ColorHint')
-        label=(localize 'CP.Color')
-        noEdit=isPresetTheme
-        name="currentSettings.bodyBackgroundColor"
-        value=currentSettings.bodyBackgroundColor
-      }}
-      {{
-        fieldNumber
-        currentSettings.bodyBackgroundColorOpacity
-        class="Theme-field-body-background-color-opacity my-3"
-        hint=(localize 'CP.OpacityHint')
-        inputClass="Theme-field-opacity-input"
-        label=(localize 'CP.ColorOpacity')
-        max=1
-        min=0
-        name="currentSettings.bodyBackgroundColorOpacity"
-        noEdit=isPresetTheme
-        step=0.01
-      }}
-      {{>
-        "systems/cortexprime/system/templates/partials/fields/image.html"
-        default=currentSettings.bodyBackgroundImage
-        class="Theme-field-body-background-image my-3"
-        label=(localize 'CP.Image')
-        noEdit=isPresetTheme
-        name="currentSettings.bodyBackgroundImage"
-        value=currentSettings.bodyBackgroundImage
-      }}
-      {{
-        fieldNumber
-        currentSettings.bodyBackgroundImageOpacity
-        class="Theme-field-body-background-image-opacity my-3"
-        hint=(localize 'CP.OpacityHint')
-        inputClass="Theme-field-opacity-input"
-        label=(localize 'CP.ImageOpacity')
-        max=1
-        min=0
-        name="currentSettings.bodyBackgroundImageOpacity"
-        noEdit=isPresetTheme
-        step=0.01
-      }}
-      {{
-        fieldText
-        currentSettings.bodyBackgroundImagePosition
-        class="Theme-field-body-background-image-position my-3"
-        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-position">' (localize 'CP.ClickForDetails') '</a>')
-        inputClass="Theme-field-background-position-input"
-        label=(localize 'CP.ImagePosition')
-        name="currentSettings.bodyBackgroundImagePosition"
-        noEdit=isPresetTheme
-      }}
-      {{
-        fieldText
-        currentSettings.bodyBackgroundImageRepeat
-        class="Theme-field-body-background-image-repeat my-3"
-        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-repeat">' (localize 'CP.ClickForDetails') '</a>')
-        inputClass="Theme-field-background-repeat-input"
-        label=(localize 'CP.ImageRepeat')
-        name="currentSettings.bodyBackgroundImageRepeat"
-        noEdit=isPresetTheme
-      }}
-      {{
-        fieldText
-        currentSettings.bodyBackgroundImageSize
-        class="Theme-field-body-background-image-size my-3"
-        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-size">' (localize 'CP.ClickForDetails') '</a>')
-        inputClass="Theme-field-background-size-input"
-        label=(localize 'CP.ImageSize')
-        name="currentSettings.bodyBackgroundImageSize"
-        noEdit=isPresetTheme
-      }}
-    </section>
-    <div class="separator my-4"></div>
-    <section>
-      <h3 class="heading-2 my-2">{{localize 'CP.Font'}}</h3>
-      {{>
-        "systems/cortexprime/system/templates/partials/fields/color.html"
-        default=currentSettings.bodyFontColor
-        class="Theme-field-body-font-color my-3"
-        hint=(localize 'CP.ColorHint')
-        label=(localize 'CP.Color')
-        noEdit=isPresetTheme
-        name="currentSettings.bodyFontColor"
-        value=currentSettings.bodyFontColor
-      }}
-      {{
-        fieldNumber
-        currentSettings.bodyFontSize_rem
-        append="px"
-        class="Theme-field-body-font-size my-3"
-        inputClass="Theme-field-font-size"
-        label=(localize 'CP.Size')
-        min=1
-        name="currentSettings.bodyFontSize_rem"
-        noEdit=isPresetTheme
-        step=1
-      }}
-      {{
-        fieldText
-        currentSettings.bodyFontWeight
-        class="Theme-field-body-font-weight my-3"
-        hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight">' (localize 'CP.ClickForDetails') '</a>')
-        inputClass="Theme-field-font-weight"
-        label=(localize 'CP.Weight')
-        name="currentSettings.bodyFontWeight"
-        noEdit=isPresetTheme
-      }}
-    </section>
+    <button
+      class="btn btn-text display-toggle px-0 py-2 Theme-body-section-toggle"
+      data-parent=".Theme-body-section"
+      data-target=".Theme-body-section-content"
+      type="button"
+    >
+      <div class="flex justify-between">
+        <h2 class="Theme-body-section-heading heading-1">{{localize 'CP.Body'}}</h2>
+        <div class="icon">
+          <i class="fa fa-chevron-down"></i>
+        </div>
+      </div>
+    </button>
+    <div class="hide Theme-body-section-content">
+      <section>
+        <h3 class="heading-2 my-2">{{localize 'CP.Background'}}</h3>
+        {{>
+          "systems/cortexprime/system/templates/partials/fields/color.html"
+          default=currentSettings.bodyBackgroundColor
+          class="Theme-field-body-background-color my-3"
+          hint=(localize 'CP.ColorHint')
+          label=(localize 'CP.Color')
+          noEdit=isPresetTheme
+          name="currentSettings.bodyBackgroundColor"
+          value=currentSettings.bodyBackgroundColor
+        }}
+        {{
+          fieldNumber
+          currentSettings.bodyBackgroundColorOpacity
+          class="Theme-field-body-background-color-opacity my-3"
+          hint=(localize 'CP.OpacityHint')
+          inputClass="Theme-field-opacity-input"
+          label=(localize 'CP.ColorOpacity')
+          max=1
+          min=0
+          name="currentSettings.bodyBackgroundColorOpacity"
+          noEdit=isPresetTheme
+          step=0.01
+        }}
+        {{>
+          "systems/cortexprime/system/templates/partials/fields/image.html"
+          default=currentSettings.bodyBackgroundImage
+          class="Theme-field-body-background-image my-3"
+          label=(localize 'CP.Image')
+          noEdit=isPresetTheme
+          name="currentSettings.bodyBackgroundImage"
+          value=currentSettings.bodyBackgroundImage
+        }}
+        {{
+          fieldNumber
+          currentSettings.bodyBackgroundImageOpacity
+          class="Theme-field-body-background-image-opacity my-3"
+          hint=(localize 'CP.OpacityHint')
+          inputClass="Theme-field-opacity-input"
+          label=(localize 'CP.ImageOpacity')
+          max=1
+          min=0
+          name="currentSettings.bodyBackgroundImageOpacity"
+          noEdit=isPresetTheme
+          step=0.01
+        }}
+        {{
+          fieldText
+          currentSettings.bodyBackgroundImagePosition
+          class="Theme-field-body-background-image-position my-3"
+          hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-position">' (localize 'CP.ClickForDetails') '</a>')
+          inputClass="Theme-field-background-position-input"
+          label=(localize 'CP.ImagePosition')
+          name="currentSettings.bodyBackgroundImagePosition"
+          noEdit=isPresetTheme
+        }}
+        {{
+          fieldText
+          currentSettings.bodyBackgroundImageRepeat
+          class="Theme-field-body-background-image-repeat my-3"
+          hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-repeat">' (localize 'CP.ClickForDetails') '</a>')
+          inputClass="Theme-field-background-repeat-input"
+          label=(localize 'CP.ImageRepeat')
+          name="currentSettings.bodyBackgroundImageRepeat"
+          noEdit=isPresetTheme
+        }}
+        {{
+          fieldText
+          currentSettings.bodyBackgroundImageSize
+          class="Theme-field-body-background-image-size my-3"
+          hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-size">' (localize 'CP.ClickForDetails') '</a>')
+          inputClass="Theme-field-background-size-input"
+          label=(localize 'CP.ImageSize')
+          name="currentSettings.bodyBackgroundImageSize"
+          noEdit=isPresetTheme
+        }}
+      </section>
+      <div class="separator my-4"></div>
+      <section>
+        <h3 class="heading-2 my-2">{{localize 'CP.Font'}}</h3>
+        {{>
+          "systems/cortexprime/system/templates/partials/fields/color.html"
+          default=currentSettings.bodyFontColor
+          class="Theme-field-body-font-color my-3"
+          hint=(localize 'CP.ColorHint')
+          label=(localize 'CP.Color')
+          noEdit=isPresetTheme
+          name="currentSettings.bodyFontColor"
+          value=currentSettings.bodyFontColor
+        }}
+        {{
+          fieldNumber
+          currentSettings.bodyFontSize_rem
+          append="px"
+          class="Theme-field-body-font-size my-3"
+          inputClass="Theme-field-font-size"
+          label=(localize 'CP.Size')
+          min=1
+          name="currentSettings.bodyFontSize_rem"
+          noEdit=isPresetTheme
+          step=1
+        }}
+        {{
+          fieldText
+          currentSettings.bodyFontWeight
+          class="Theme-field-body-font-weight my-3"
+          hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight">' (localize 'CP.ClickForDetails') '</a>')
+          inputClass="Theme-field-font-weight"
+          label=(localize 'CP.Weight')
+          name="currentSettings.bodyFontWeight"
+          noEdit=isPresetTheme
+        }}
+      </section>
+    </div>
   </div>
 </section>
