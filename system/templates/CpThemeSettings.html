@@ -59,13 +59,22 @@
       }}
     </div>
     <div class="flex justify-end shrink-1 Theme-form-actions">
-      <button
-        id="Theme-delete"
-        class="btn btn-secondary{{tern isPresetTheme ' hide' ''}}"
-        type="button"
-      >
-        {{localize 'CP.Delete'}}
-      </button>
+      {{#unless isPresetTheme}}
+        <button
+          id="Theme-revert"
+          class="btn btn-secondary"
+          type="button"
+        >
+          {{localize 'CP.Revert'}}
+        </button>
+        <button
+          id="Theme-delete"
+          class="btn btn-secondary"
+          type="button"
+        >
+          {{localize 'CP.Delete'}}
+        </button>
+      {{/unless}}
       <button
         id="Theme-save"
         class="btn btn-primary"

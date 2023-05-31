@@ -111,6 +111,7 @@ export default class CpThemeSettings extends FormApplication {
     html.find('#Theme-theme-select').change(this.onChangeTheme.bind(this))
     html.find('#Theme-custom-theme-create').click(() => this.createCustomTheme.call(this, html))
     html.find('#Theme-delete').click(this.deleteTheme.bind(this))
+    html.find('#Theme-revert').click(this.revert.bind(this))
   }
 
   close () {
@@ -204,6 +205,18 @@ export default class CpThemeSettings extends FormApplication {
     setThemeProperties(this.currentSettings)
   }
 
+  async revert () {
+    const confirmed = await Dialog.confirm({
+      title: localizer('CP.RevertThemeConfirmTitle'),
+      content: localizer('CP.RevertThemeConfirmContent'),
+      defaultYes: false,
+    })
+
+    if (confirmed) {
+      this.render(true)
+    }
+  }
+
   async save (expandedData) {
     const themeSettings = game.settings.get('cortexprime', 'themes')
 
@@ -232,11 +245,10 @@ export default class CpThemeSettings extends FormApplication {
 }
 
 // TODO:
-// Add expansion/collapse options for the field sections
 // add a refresh/revert button
 // add a preview button
+// // change to not automatically preview when switching themes 
 // border options shouldn't effect theme settings page
-// // switch changing themes to not preview that
 // Add feedback to clicking "save"
 // Image file picker field
 // fix layout of theme settings page
