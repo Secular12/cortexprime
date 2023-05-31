@@ -180,6 +180,8 @@ export default class CpThemeSettings extends FormApplication {
       const themeSettings = game.settings.get('cortexprime', 'themes')
   
       delete themeSettings.customList[this.selectedTheme]
+      
+      delete this.customThemes[this.selectedTheme]
   
       themeSettings.selectedTheme = 'Cortex Prime'
   
@@ -245,7 +247,6 @@ export default class CpThemeSettings extends FormApplication {
 }
 
 // TODO:
-// add a refresh/revert button
 // add a preview button
 // // change to not automatically preview when switching themes 
 // border options shouldn't effect theme settings page
