@@ -203,8 +203,6 @@ export default class CpThemeSettings extends FormApplication {
     this.selectedTheme = event.currentTarget.value
 
     await this.render(true)
-
-    setThemeProperties(this.currentSettings)
   }
 
   async revert () {
@@ -248,9 +246,9 @@ export default class CpThemeSettings extends FormApplication {
 
 // TODO:
 // add a preview button
-// // change to not automatically preview when switching themes 
 // border options shouldn't effect theme settings page
 // Add feedback to clicking "save"
+// prevent collapsing sections on theme changes, reverts, and saves
 // Image file picker field
 // fix layout of theme settings page
 // Fix listing traits in RollResult! (showing side by side)
