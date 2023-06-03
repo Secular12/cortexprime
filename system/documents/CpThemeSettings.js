@@ -17,6 +17,8 @@ export default class CpThemeSettings extends FormApplication {
     this.customThemes = themeSettings.customList
 
     this.selectedTheme = themeSettings.selectedTheme
+
+    this.themeSelection = themeSettings.selectedTheme
   }
 
   static get defaultOptions () {
@@ -111,6 +113,7 @@ export default class CpThemeSettings extends FormApplication {
     html.find('#Theme-theme-select').change(this.onChangeTheme.bind(this))
     html.find('#Theme-custom-theme-create').click(() => this.createCustomTheme.call(this, html))
     html.find('#Theme-delete').click(this.deleteTheme.bind(this))
+    html.find('#Theme-preview').click(this.preview.bind(this, html))
     html.find('#Theme-revert').click(this.revert.bind(this))
   }
 
@@ -200,9 +203,36 @@ export default class CpThemeSettings extends FormApplication {
   }
 
   async onChangeTheme (event) {
-    this.selectedTheme = event.currentTarget.value
+    const confirmed = !this.isPresetTheme
+      ? await Dialog.confirm({
+          title: localizer('CP.ChangeThemeConfirmTitle'),
+          content: localizer('CP.ChangeThemeConfirmContent'),
+          defaultYes: false,
+        })
+      : true
 
-    await this.render(true)
+    if (confirmed) {
+      this.selectedTheme = event.currentTarget.value
+  
+      await this.render(true)
+    }
+  }
+
+  preview (html) {
+    const formData = Object.fromEntries(new FormData(html[0]).entries())
+
+    const expandedData = expandObject(formData)
+
+    Log('CpThemeSettings.preview expandedData:', expandedData)
+
+    const {
+      selectedTheme,
+      currentSettings,
+    } = expandedData
+
+    setThemeProperties (
+      presetThemes[selectedTheme] ?? currentSettings
+    )
   }
 
   async revert () {
@@ -213,6 +243,11 @@ export default class CpThemeSettings extends FormApplication {
     })
 
     if (confirmed) {
+      const themeSettings = game.settings.get('cortexprime', 'themes')
+
+      this.selectedTheme = themeSettings.selectedTheme
+
+      setThemeProperties()
       this.render(true)
     }
   }
@@ -245,7 +280,6 @@ export default class CpThemeSettings extends FormApplication {
 }
 
 // TODO:
-// add a preview button
 // border options shouldn't effect theme settings page
 // Add feedback to clicking "save"
 // prevent collapsing sections on theme changes, reverts, and saves

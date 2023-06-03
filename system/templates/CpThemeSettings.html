@@ -58,8 +58,28 @@
         "systems/cortexprime/system/templates/partials/themes/misc.html"
       }}
     </div>
-    <div class="flex justify-end shrink-1 Theme-form-actions">
-      {{#unless isPresetTheme}}
+    <div class="flex justify-between shrink-1 Theme-form-actions">
+      <div class="flex w-1-2">
+        {{#unless isPresetTheme}}
+          <button
+            id="Theme-delete"
+            class="btn btn-secondary"
+            type="button"
+          >
+            {{localize 'CP.Delete'}}
+          </button>
+        {{/unless}}
+      </div>
+      <div class="flex justify-center">
+        <button
+          id="Theme-preview"
+          class="btn btn-primary justify-self-center"
+          type="button"
+        >
+          {{localize 'CP.Preview'}}
+        </button>
+      </div>
+      <div class="w-1-2 flex justify-end">
         <button
           id="Theme-revert"
           class="btn btn-secondary"
@@ -68,20 +88,13 @@
           {{localize 'CP.Revert'}}
         </button>
         <button
-          id="Theme-delete"
-          class="btn btn-secondary"
-          type="button"
+          id="Theme-save"
+          class="btn btn-primary"
+          type="submit"
         >
-          {{localize 'CP.Delete'}}
+          {{localize 'CP.Save'}}
         </button>
-      {{/unless}}
-      <button
-        id="Theme-save"
-        class="btn btn-primary"
-        type="submit"
-      >
-        {{localize 'CP.Save'}}
-      </button>
+      </div>
     </div>
   </div>
 </form>
