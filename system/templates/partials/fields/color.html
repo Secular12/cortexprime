@@ -1,4 +1,4 @@
-<div class="field field-color-picker{{tern noEdit ' field-view' ''}}{{tern class (concat ' ' class) ''}}">
+<div class="field field-color-picker{{ifThen noEdit ' field-view' ''}}{{ifThen class (concat ' ' class) ''}}">
   {{#if (and label (not noEdit))}}
     <label class="field-wrapper">
   {{else}}
@@ -9,12 +9,12 @@
     {{/if}}
     {{#if noEdit}}
       <div class="field-color-view field-view-value flex justify-between">
-        <span class="view-color">{{tern value value 'none'}}</span>
-        <span class="swatch{{tern value '' ' transparent'}}" style="background-color: {{tern value value '#ffffff'}};"></span>
+        <span class="view-color">{{ifThen value value 'none'}}</span>
+        <span class="swatch{{ifThen value '' ' transparent'}}" style="background-color: {{ifThen value value '#ffffff'}};"></span>
       </div>
     {{else}}
       <div class="field-color">
-        <span class="swatch{{tern value '' ' transparent'}}" style="background-color: {{tern value value '#ffffff'}};"></span>
+        <span class="swatch{{ifThen value '' ' transparent'}}" style="background-color: {{ifThen value value '#ffffff'}};"></span>
         {{
           colorPicker
           default=default

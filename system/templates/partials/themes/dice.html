@@ -16,7 +16,7 @@
         </div>
       </div>
     </button>
-    <div class="{{tern (not (includes expandedSections 'dice')) 'hide ' ''}}Theme-dice-section-content">
+    <div class="{{ifThen (not (includes expandedSections 'dice')) 'hide ' ''}}Theme-dice-section-content">
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.DieRating'}}</h3>
         {{>

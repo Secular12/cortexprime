@@ -1,4 +1,4 @@
-<div class="field field-image-picker{{tern noEdit ' field-view' ''}}{{tern class (concat ' ' class) ''}}">
+<div class="field field-image-picker{{ifThen noEdit ' field-view' ''}}{{ifThen class (concat ' ' class) ''}}">
   {{#if (and label (not noEdit))}}
     <label class="field-wrapper">
   {{else}}

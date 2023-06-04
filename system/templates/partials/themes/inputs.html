@@ -16,7 +16,7 @@
         </div>
       </div>
     </button>
-    <div class="{{tern (not (includes expandedSections 'inputs')) 'hide ' ''}}Theme-inputs-section-content">
+    <div class="{{ifThen (not (includes expandedSections 'inputs')) 'hide ' ''}}Theme-inputs-section-content">
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Background'}}</h3>
         {{>

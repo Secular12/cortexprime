@@ -16,7 +16,7 @@
         </div>
       </div>
     </button>
-    <div class="{{tern (not (includes expandedSections 'headings')) 'hide ' ''}}Theme-headings-section-content">
+    <div class="{{ifThen (not (includes expandedSections 'headings')) 'hide ' ''}}Theme-headings-section-content">
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Heading1'}}</h3>
         {{>

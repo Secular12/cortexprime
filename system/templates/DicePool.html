@@ -40,7 +40,7 @@
               </button>
               <button
                 class="btn btn-icon"
-                {{tern (lt (length customAdd.dice) 1) 'disabled' : ''}}
+                {{ifThen (lt (length customAdd.dice) 1) 'disabled' : ''}}
                 id="DicePool-add-custom-trait"
                 type="button"
               >
@@ -85,7 +85,7 @@
                 <ul class="DicePool-traits">
                   {{#each sourceGroup.traits as |trait traitIndex|}}
                     <li
-                      class="DicePool-trait flex gap-1 px-2 py-1{{tern trait.rollsSeparately ' rolls-separately' ''}}"
+                      class="DicePool-trait flex gap-1 px-2 py-1{{ifThen trait.rollsSeparately ' rolls-separately' ''}}"
                       data-source-index="{{sourceGroupIndex}}"
                       data-trait-index="{{traitIndex}}"
                     >

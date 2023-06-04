@@ -26,7 +26,7 @@
               <div class="flex flex-wrap items-center RollResult-traits">
                 {{#each sourceGroup.traits as |trait traitIndex|}}
                   <div
-                    class="flex flex-wrap gap-1 RollResult-trait{{tern trait.rollsSeparately ' rolls-separately' ''}} trait-tag"
+                    class="flex flex-wrap gap-1 RollResult-trait{{ifThen trait.rollsSeparately ' rolls-separately' ''}} trait-tag"
                     data-has-hitches="{{trait.hasHitches}}"
                     data-name="{{trait.name}}"
                     data-parent-name="{{trait.parentName}}"
