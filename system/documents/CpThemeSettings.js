@@ -292,11 +292,15 @@ export default class CpThemeSettings extends FormApplication {
     game.socket.emit('system.cortexprime', {
       type: 'setThemeProperties'
     })
+
+    Dialog.prompt({
+      title: localizer('CP.PromptThemeSaveTitle'),
+      content: localizer('CP.PromptThemeSaveContent'),
+    })
   }
 }
 
 // TODO:
-// Add feedback to clicking "save"
 // change transparent to be "leave empty"
 // keep scroll position when changing theme (on re-render)
 // Image file picker field

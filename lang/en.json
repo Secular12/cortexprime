@@ -61,6 +61,8 @@
   "CP.PrimaryButtonBorder": "Primary Button Border",
   "CP.PrimaryFontColor": "Primary Font Color",
   "CP.PrivateGmRoll": "Private GM Roll",
+  "CP.PromptThemeSaveContent": "Your theme settings have been saved!",
+  "CP.PromptThemeSaveTitle": "Theme Setting Saved!",
   "CP.PublicRoll": "Public Roll",
   "CP.Radius": "Radius",
   "CP.ReRoll": "Re-Roll",
