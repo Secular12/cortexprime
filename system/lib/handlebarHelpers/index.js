@@ -8,6 +8,7 @@ export const registerHandlebarHelpers = () => {
   Handlebars.registerHelper({
     add: (a, b) => +a + +b,
     get: (list, key) => list[key] ?? false,
+    includes: (arr, item) => arr.includes(item),
     length: (value) => value?.length ?? null,
     sub: (a, b) => +a - +b,
     tern: (a, b, c) => a ? b : c,

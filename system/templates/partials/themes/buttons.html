@@ -5,6 +5,7 @@
     <button
       class="btn btn-text display-toggle px-0 py-2 Theme-buttons-section-toggle"
       data-parent=".Theme-buttons-section"
+      data-section="buttons"
       data-target=".Theme-buttons-section-content"
       type="button"
     >
@@ -15,7 +16,7 @@
         </div>
       </div>
     </button>
-    <div class="hide Theme-buttons-section-content">
+    <div class="{{tern (not (includes expandedSections 'buttons')) 'hide ' ''}}Theme-buttons-section-content">
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Color'}}</h3>
         {{>

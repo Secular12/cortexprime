@@ -5,6 +5,7 @@
     <button
       class="btn btn-text display-toggle px-0 py-2 Theme-headings-section-toggle"
       data-parent=".Theme-headings-section"
+      data-section="headings"
       data-target=".Theme-headings-section-content"
       type="button"
     >
@@ -15,7 +16,7 @@
         </div>
       </div>
     </button>
-    <div class="hide Theme-headings-section-content">
+    <div class="{{tern (not (includes expandedSections 'headings')) 'hide ' ''}}Theme-headings-section-content">
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Heading1'}}</h3>
         {{>

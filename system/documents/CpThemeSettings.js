@@ -1,5 +1,5 @@
 import { fieldListeners } from '../lib/formHelpers'
-import { displayToggle, localizer } from '../lib/helpers'
+import { displayToggleMethod, localizer } from '../lib/helpers'
 import Logger from '../lib/Logger'
 import presetThemes from '../lib/presetThemes'
 import { setThemeProperties } from '../lib/setThemeProperties'
@@ -15,6 +15,8 @@ export default class CpThemeSettings extends FormApplication {
     Log('CpThemeSettings.constructor themeSettings', themeSettings)
 
     this.customThemes = themeSettings.customList
+
+    this.expandedSections = []
 
     this.selectedTheme = themeSettings.selectedTheme
 
@@ -70,6 +72,7 @@ export default class CpThemeSettings extends FormApplication {
         { name: localizer('CP.LeftAndRight'), value: 'left-and-right' },
       ],
       currentSettings: this.currentSettings,
+      expandedSections: this.expandedSections,
       isPresetTheme: this.isPresetTheme,
       selectedTheme: this.selectedTheme,
       themeOptions: [
@@ -108,8 +111,8 @@ export default class CpThemeSettings extends FormApplication {
   activateListeners(html) {
     super.activateListeners(html)
     fieldListeners(html)
-    displayToggle(html)
 
+    html.find('.display-toggle').click(this.onDisplayToggle.bind(this))
     html.find('#Theme-theme-select').change(this.onChangeTheme.bind(this))
     html.find('#Theme-custom-theme-create').click(() => this.createCustomTheme.call(this, html))
     html.find('#Theme-delete').click(this.deleteTheme.bind(this))
@@ -119,6 +122,8 @@ export default class CpThemeSettings extends FormApplication {
 
   close () {
     super.close()
+
+    this.expandedSections = []
 
     setThemeProperties()
   }
@@ -218,6 +223,17 @@ export default class CpThemeSettings extends FormApplication {
     }
   }
 
+  async onDisplayToggle (event) {
+    const { section } = event.currentTarget.dataset
+
+    this.expandedSections = this.expandedSections.includes(section)
+      ? this.expandedSections
+        .filter(expandedSection => expandedSection !== section)
+      : [...this.expandedSections, section]
+
+    displayToggleMethod.call(event.target, event)
+  }
+
   preview (html) {
     const formData = Object.fromEntries(new FormData(html[0]).entries())
 
@@ -280,9 +296,8 @@ export default class CpThemeSettings extends FormApplication {
 }
 
 // TODO:
-// border options shouldn't effect theme settings page
 // Add feedback to clicking "save"
-// prevent collapsing sections on theme changes, reverts, and saves
+// keep scroll position when changing theme (on re-render)
 // Image file picker field
 // fix layout of theme settings page
 // Fix listing traits in RollResult! (showing side by side)
