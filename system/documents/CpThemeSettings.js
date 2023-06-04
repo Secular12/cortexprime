@@ -297,6 +297,7 @@ export default class CpThemeSettings extends FormApplication {
 
 // TODO:
 // Add feedback to clicking "save"
+// change transparent to be "leave empty"
 // keep scroll position when changing theme (on re-render)
 // Image file picker field
 // fix layout of theme settings page
@@ -304,4 +305,3 @@ export default class CpThemeSettings extends FormApplication {
 // Fix Multiple Effect Dice in RollResult! (showing one over the other)
 // Relook at, finalize, and refactor colors and other styles
 // // Heading 1 and 2 for regular cortex prime theme needs some adjusting
-// Add swatches option?
