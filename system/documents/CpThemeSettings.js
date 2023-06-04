@@ -31,6 +31,7 @@ export default class CpThemeSettings extends FormApplication {
       id: 'ThemeSettings',
       left: 400,
       resizable: false,
+      scrollY: ['.Theme-form-body'],
       submitOnChange: false,
       subitOnClose: false,
       template: 'systems/cortexprime/system/templates/CpThemeSettings.html',
@@ -323,10 +324,11 @@ export default class CpThemeSettings extends FormApplication {
 }
 
 // TODO:
-// keep scroll position when changing theme (on re-render)
 // Image file picker field
 // fix layout of theme settings page
 // Fix listing traits in RollResult! (showing side by side)
 // Fix Multiple Effect Dice in RollResult! (showing one over the other)
 // Relook at, finalize, and refactor colors and other styles
 // // Heading 1 and 2 for regular cortex prime theme needs some adjusting
+// fix label to not wrap the entire field
+// // use the for attribute if there is a name attribute
