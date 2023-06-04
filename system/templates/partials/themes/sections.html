@@ -21,33 +21,33 @@
         <h3 class="heading-2 my-2">{{localize 'CP.Background'}}</h3>
         {{>
           "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.sectionBackgroundColor
+          default=currentSettings.sectionBackground_color
           class="Theme-field-section-background-color my-3"
           hint=(localize 'CP.ColorHint')
           label=(localize 'CP.Color')
           noEdit=isPresetTheme
-          name="currentSettings.sectionBackgroundColor"
-          value=currentSettings.sectionBackgroundColor
+          name="currentSettings.sectionBackground_color"
+          value=currentSettings.sectionBackground_color
         }}
         {{>
           "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.sectionBackgroundAltColor
+          default=currentSettings.sectionBackgroundAlt_color
           class="Theme-field-section-alt-background-color my-3"
           hint=(localize 'CP.ColorHint')
           label=(localize 'CP.AlternateColor')
           noEdit=isPresetTheme
-          name="currentSettings.sectionBackgroundAltColor"
-          value=currentSettings.sectionBackgroundAltColor
+          name="currentSettings.sectionBackgroundAlt_color"
+          value=currentSettings.sectionBackgroundAlt_color
         }}
         {{>
           "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.sectionBackgroundAlt2Color
+          default=currentSettings.sectionBackgroundAlt2_color
           class="Theme-field-section-alt-2-background-color my-3"
           hint=(localize 'CP.ColorHint')
           label=(localize 'CP.Alternate2Color')
           noEdit=isPresetTheme
-          name="currentSettings.sectionBackgroundAlt2Color"
-          value=currentSettings.sectionBackgroundAlt2Color
+          name="currentSettings.sectionBackgroundAlt2_color"
+          value=currentSettings.sectionBackgroundAlt2_color
         }}
         {{
           fieldNumber

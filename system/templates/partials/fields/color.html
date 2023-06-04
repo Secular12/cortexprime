@@ -9,11 +9,12 @@
     {{/if}}
     {{#if noEdit}}
       <div class="field-color-view field-view-value flex justify-between">
-        <span class="view-color">{{value}}</span>
-        <span class="swatch" style="background-color: {{value}};"></span>
+        <span class="view-color">{{tern value value 'none'}}</span>
+        <span class="swatch{{tern value '' ' transparent'}}" style="background-color: {{tern value value '#ffffff'}};"></span>
       </div>
     {{else}}
       <div class="field-color">
+        <span class="swatch{{tern value '' ' transparent'}}" style="background-color: {{tern value value '#ffffff'}};"></span>
         {{
           colorPicker
           default=default

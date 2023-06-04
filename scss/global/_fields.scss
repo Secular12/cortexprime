@@ -49,25 +49,46 @@
   .swatch {
     border: 1px solid black;
     box-sizing: border-box;
-    height: toRem(18px);
-    margin: toRem(4px) 0;
-    width: toRem(18px);
-  }
-}
-
-.field-color {
-  display: flex;
-  gap: toRem(8px);
-  width: toRem(116px);
-
-  input[type="color"] {
-    border: 0;
-    cursor: pointer;
-    flex: none;
-    margin: 0;
-    padding: 0;
     height: toRem(26px);
+    pointer-events: none;
+    position: relative;
     width: toRem(26px);
+
+    &.transparent::before {
+      border-bottom: 2px solid red;
+      content: '';
+      display: block;
+      height: toRem(34px);
+      left: toRem(11px);
+      position: absolute;
+      top: toRem(-28px);
+      transform: rotate(45deg);
+      transform-origin: left;
+      width: toRem(34px);
+    }
+  }
+
+  .field-color {
+    display: flex;
+    gap: toRem(8px);
+    position: relative;
+    width: toRem(116px);
+  
+    input[type="color"] {
+      border: 0;
+      cursor: pointer;
+      flex: none;
+      margin: 0;
+      padding: 0;
+      height: toRem(26px);
+      width: toRem(26px);
+    }
+
+    .swatch {
+      position: absolute;
+      right: 0;
+      z-index: 1;
+    }
   }
 }
 

@@ -18,7 +18,7 @@
   "CP.ClickForDetails": "Click Here For Details",
   "CP.Color": "Color",
   "CP.ColorOpacity": "Color Opacity",
-  "CP.ColorHint": "For invisible enter 'transparent'",
+  "CP.ColorHint": "For invisible leave empty",
   "CP.Confirm": "Confirm",
   "CP.Create": "Create",
   "CP.CustomThemeName": "Custom Theme Name",

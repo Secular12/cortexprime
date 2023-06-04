@@ -21,13 +21,13 @@
         <h3 class="heading-2 my-2">{{localize 'CP.Background'}}</h3>
         {{>
           "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.bodyBackgroundColor
+          default=currentSettings.bodyBackground_color
           class="Theme-field-body-background-color my-3"
           hint=(localize 'CP.ColorHint')
           label=(localize 'CP.Color')
           noEdit=isPresetTheme
-          name="currentSettings.bodyBackgroundColor"
-          value=currentSettings.bodyBackgroundColor
+          name="currentSettings.bodyBackground_color"
+          value=currentSettings.bodyBackground_color
         }}
         {{
           fieldNumber
@@ -100,13 +100,13 @@
         <h3 class="heading-2 my-2">{{localize 'CP.Font'}}</h3>
         {{>
           "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.bodyFontColor
+          default=currentSettings.bodyFont_color
           class="Theme-field-body-font-color my-3"
           hint=(localize 'CP.ColorHint')
           label=(localize 'CP.Color')
           noEdit=isPresetTheme
-          name="currentSettings.bodyFontColor"
-          value=currentSettings.bodyFontColor
+          name="currentSettings.bodyFont_color"
+          value=currentSettings.bodyFont_color
         }}
         {{
           fieldNumber

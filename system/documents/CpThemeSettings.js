@@ -112,6 +112,7 @@ export default class CpThemeSettings extends FormApplication {
     super.activateListeners(html)
     fieldListeners(html)
 
+    html.find('input.color,input[type="color"]').change(this.onColorChange)
     html.find('.display-toggle').click(this.onDisplayToggle.bind(this))
     html.find('#Theme-theme-select').change(this.onChangeTheme.bind(this))
     html.find('#Theme-custom-theme-create').click(() => this.createCustomTheme.call(this, html))
@@ -223,6 +224,27 @@ export default class CpThemeSettings extends FormApplication {
     }
   }
 
+  onColorChange (event) {
+    const $input = $(event.target)
+
+    const $swatch = $input
+      .parent()
+      .children('.swatch')
+      .first()
+    const value = $input.val()
+
+    $swatch.css('background-color', value || '#ffffff')
+
+    const hasTransparentClass = $swatch.hasClass('transparent')
+
+    if (
+      (value && hasTransparentClass) ||
+      (!value && !hasTransparentClass)
+    ) {
+      $swatch.toggleClass('transparent')
+    }
+  }
+
   async onDisplayToggle (event) {
     const { section } = event.currentTarget.dataset
 
@@ -301,7 +323,6 @@ export default class CpThemeSettings extends FormApplication {
 }
 
 // TODO:
-// change transparent to be "leave empty"
 // keep scroll position when changing theme (on re-render)
 // Image file picker field
 // fix layout of theme settings page

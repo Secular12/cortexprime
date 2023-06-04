@@ -13,11 +13,14 @@ export const setThemeProperties = (properties) => {
 
   const { borderProperties, mainProperties } = Object.entries(properties)
     .reduce((acc, [property, value]) => {
+      const isColor = property?.endsWith('_color')
+
       if (property?.startsWith('border_')) {
         const splitProperty = property.split('_')
 
         const namespace = splitProperty[1]
         const prop = splitProperty[2]
+        value = isColor ? (value || 'transparent') : value
 
         acc.borderProperties = {
           ...acc.borderProperties,
@@ -37,6 +40,8 @@ export const setThemeProperties = (properties) => {
           value = numValue === 0 
             ? 0
             : `${numValue / 16}rem`
+        } else {
+          value = isColor ? (value || 'transparent') : value
         }
 
         acc.mainProperties.push([property, value])

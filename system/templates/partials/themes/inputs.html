@@ -21,13 +21,13 @@
         <h3 class="heading-2 my-2">{{localize 'CP.Background'}}</h3>
         {{>
           "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.inputBackgroundColor
+          default=currentSettings.inputBackground_color
           class="Theme-field-input-background-color my-3"
           hint=(localize 'CP.ColorHint')
           label=(localize 'CP.Color')
           noEdit=isPresetTheme
-          name="currentSettings.inputBackgroundColor"
-          value=currentSettings.inputBackgroundColor
+          name="currentSettings.inputBackground_color"
+          value=currentSettings.inputBackground_color
         }}
       </section>
       <div class="separator my-4"></div>
@@ -35,13 +35,13 @@
         <h3 class="heading-2 my-2">{{localize 'CP.Font'}}</h3>
         {{>
           "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.inputFontColor
+          default=currentSettings.inputFont_color
           class="Theme-field-input-font-color my-3"
           hint=(localize 'CP.ColorHint')
           label=(localize 'CP.Color')
           noEdit=isPresetTheme
-          name="currentSettings.inputFontColor"
-          value=currentSettings.inputFontColor
+          name="currentSettings.inputFont_color"
+          value=currentSettings.inputFont_color
         }}
       </section>
       <div class="separator my-4"></div>
@@ -49,13 +49,13 @@
         <h3 class="heading-2 my-2">{{localize 'CP.Label'}}</h3>
         {{>
           "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.inputLabelColor
+          default=currentSettings.inputLabel_color
           class="Theme-field-input-label-font-color my-3"
           hint=(localize 'CP.ColorHint')
           label=(localize 'CP.Color')
           noEdit=isPresetTheme
-          name="currentSettings.inputLabelColor"
-          value=currentSettings.inputLabelColor
+          name="currentSettings.inputLabel_color"
+          value=currentSettings.inputLabel_color
         }}
         {{
           fieldNumber
