@@ -20,7 +20,7 @@
                   dieRating=result.dieRating
                   key=(concat resultGroupIndex '-' resultIndex)
                   resultGroupIndex=resultGroupIndex
-                  type=(tern (and resultGroup.hasHitches (eq result.value 1)) 'hitch' 'unchosen')
+                  type=(ifThen (and resultGroup.hasHitches (eq result.value 1)) 'hitch' 'unchosen')
                 }}
               {{/each}}
             </div>
