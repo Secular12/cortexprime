@@ -1,0 +1,35 @@
+@mixin btn {
+  background-color: var(--button-background-primary-color, color('button-background-primary'));
+  border:var(--button-primary-border-width, 0) var(--button-primary-border-style, solid) var(--button-primary-border-color, color('button-border-primary'));
+  border-radius: var(--button-primary-border-radius, 0);
+  color: var(--button-font-primary-color, color('button-font-primary'));
+  font-weight: bold;
+  height: toRem(26px);
+  line-height: 1;
+  width: auto;
+  padding: toRem(2px) toRem(8px) toRem(3px);
+}
+
+@mixin btn-icon {
+  display: block;
+  border-radius: 50%;
+  height: auto;
+  padding: toRem(4px) toRem(4px);
+  width: auto;
+
+  .fa, .fas {
+    display: block;
+    font-size: toRem(12px);
+    height: toRem(12px);
+    line-height: 1;
+    margin: 0;
+    width: toRem(12px);
+  }
+}
+
+@mixin btn-secondary {
+  background-color: var(--button-background-secondary-color, color('button-background-secondary'));
+  border:var(--button-secondary-border-width, 0) var(--button-secondary-border-style, solid) var(--button-secondary-border-color, color('button-border-secondary'));
+  border-radius: var(--button-secondary-border-radius, 0);
+  color: var(--button-font-secondary-color, color('button-font-secondary'));
+}

@@ -51,6 +51,8 @@
   "CP.LeftAndRight": "Left and Right",
   "CP.Miscellaneous": "Miscellaneous",
   "CP.Name": "Name",
+  "CP.NoImage": "No Image",
+  "CP.NoImageSelected": "No Image Selected",
   "CP.None": "None",
   "CP.NumberColor": "Number Color",
   "CP.OpacityHint": "Value between 0 and 1.",

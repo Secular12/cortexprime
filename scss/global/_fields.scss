@@ -11,6 +11,47 @@
   }
 }
 
+.field-img {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 1px solid black;
+  height: toRem(100px);
+  position: relative;
+  width: toRem(100px);
+
+  .file-picker {
+    @include btn;
+    @include btn-icon;
+    position: absolute;
+    bottom: toRem(-5px);
+    right: toRem(-5px);
+  }
+
+  .image-remove {
+    position: absolute;
+    top: toRem(-5px);
+    right: toRem(-5px);
+  }
+
+  .no-image-msg {
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+  }
+
+}
+
+.field-img-value {
+  width: toRem(100px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .field-input, .color {
   background-color: var(--input-background-color, color('input-background'));
   border: var(--input-border, solid color('input-border'));

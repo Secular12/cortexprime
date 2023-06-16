@@ -1,22 +1,33 @@
 <div class="field field-image-picker{{ifThen noEdit ' field-view' ''}}{{ifThen class (concat ' ' class) ''}}">
-  {{#if (and label (not noEdit))}}
-    <label class="field-wrapper">
-  {{else}}
-    <div class="field-wrapper">
-  {{/if}}
+
+  <div class="field-wrapper">
     {{#if label}}
       <span class="field-label">{{label}}</span>
     {{/if}}
-    {{#if noEdit}}
-      <p>TO DO</p>
-    {{else}}
-      <p>TO DO</p>
-    {{/if}}
-  {{#if (and label (not noEdit))}}
-    </label>
-  {{else}}
+    <div class="field-img-wrapper">
+      <div
+        class="field-img"
+        style="{{ifThen value (concat 'background-image: url(' value ');') ''}}"
+      >
+       {{#unless noEdit}}
+          <input
+            class="field-hidden-image-picker"
+            name={{name}}
+            type="hidden"
+          />
+          {{filePicker type="image" target=name}}
+          <button
+            class="btn btn-icon btn-secondary image-remove{{ifThen value '' ' hide'}}"
+            type="button"
+          >
+            <i class="fa fa-trash"></i>
+          </button>
+        {{/unless}}
+        <p class="no-image-msg{{ifThen value ' hide' ''}}">{{localize 'CP.NoImageSelected'}}</p>
+      </div>
     </div>
-  {{/if}}
+    <p class="field-img-value mt-1 p-1">{{ifThen value value (localize 'CP.NoImage')}}</p>
+  </div>
   {{#if (and hint (not noEdit))}}
     <p class="field-hint">{{hint}}</p>
   {{/if}}

@@ -113,6 +113,8 @@ export default class CpThemeSettings extends FormApplication {
     super.activateListeners(html)
     fieldListeners(html)
 
+    html.find('.field-hidden-image-picker').change(this.onImageChange)
+    html.find('.image-remove').click(this.removeImage)
     html.find('input.color,input[type="color"]').change(this.onColorChange)
     html.find('.display-toggle').click(this.onDisplayToggle.bind(this))
     html.find('#Theme-theme-select').change(this.onChangeTheme.bind(this))
@@ -257,6 +259,46 @@ export default class CpThemeSettings extends FormApplication {
     displayToggleMethod.call(event.target, event)
   }
 
+  onImageChange (event) {
+    const value = event.target.value
+
+    const $fieldWrapper = $(event.target)
+      .closest('.field-wrapper')
+
+    const $imageRemove = $fieldWrapper
+      .find('.image-remove')
+
+    const $noImageMsg = $fieldWrapper
+      .find('.no-image-msg')
+
+    $fieldWrapper
+      .find('.field-hidden-image-picker')
+      .val(value)
+
+    $fieldWrapper
+      .find('.field-img')
+      .first()
+      .css('background-image', value ? `url('${value}')` : '')
+
+    if (value) {
+      $imageRemove
+        .removeClass('hide')
+  
+      $noImageMsg
+        .addClass('hide')
+    } else {
+      $imageRemove
+        .addClass('hide')
+  
+      $noImageMsg
+        .removeClass('hide')
+    }
+
+    $fieldWrapper
+      .find('.field-img-value')
+      .text(value || localizer('CP.NoImage'))
+  }
+
   preview (html) {
     const formData = Object.fromEntries(new FormData(html[0]).entries())
 
@@ -272,6 +314,32 @@ export default class CpThemeSettings extends FormApplication {
     setThemeProperties (
       presetThemes[selectedTheme] ?? currentSettings
     )
+  }
+
+  removeImage (event) {
+    const $fieldWrapper = $(event.target)
+      .closest('.field-wrapper')
+
+    $fieldWrapper
+      .find('.field-img')
+      .first()
+      .css('background-image', '')
+
+    $fieldWrapper
+      .find('.field-hidden-image-picker')
+      .val('')
+
+    $fieldWrapper
+      .find('.image-remove')
+      .addClass('hide')
+
+    $fieldWrapper
+      .find('.no-image-msg')
+      .removeClass('hide')
+
+    $fieldWrapper
+      .find('.field-img-value')
+      .text(localizer('CP.NoImage'))
   }
 
   async revert () {
@@ -324,9 +392,13 @@ export default class CpThemeSettings extends FormApplication {
 }
 
 // TODO:
-// Image file picker field
+// images do not work need a flag (i.e. _image) for the properties and add url() in the value
+// swap z-index of background color and image and how they appear in the HTML
+// check if there is a better on change for color
 // fix layout of theme settings page
 // Fix listing traits in RollResult! (showing side by side)
+// Fix RollResult styling of roll seperately trait names in pool section
+// Fix background coloring of roll separately traits in RollResult trait list
 // Fix Multiple Effect Dice in RollResult! (showing one over the other)
 // Relook at, finalize, and refactor colors and other styles
 // // Heading 1 and 2 for regular cortex prime theme needs some adjusting
