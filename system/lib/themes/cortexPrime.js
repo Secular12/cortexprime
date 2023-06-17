@@ -77,7 +77,7 @@ export default {
   sectionBackgroundAlt2_color: COLORS.lightGreen,
   sectionBackground_color: COLORS.white,
   sectionBackgroundColorOpacity: 1,
-  sectionBackground_image: 'none',
+  sectionBackground_image: null,
   sectionBackgroundImageOpacity: 0,
   sectionBackgroundImagePosition: 'center',
   sectionBackgroundImageRepeat: 'no-repeat',

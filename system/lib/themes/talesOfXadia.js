@@ -82,7 +82,7 @@ export default {
   sectionBackgroundAlt2_color: COLORS.brown,
   sectionBackground_color: COLORS.darkerBrown,
   sectionBackgroundColorOpacity: 1,
-  sectionBackground_image: 'none',
+  sectionBackground_image: null,
   sectionBackgroundImageOpacity: 0,
   sectionBackgroundImagePosition: 'center',
   sectionBackgroundImageRepeat: 'no-repeat',
