@@ -50,8 +50,12 @@ export const setThemeProperties = (properties) => {
               ? `url('${value}')` 
               : `url('/${value}')`
             : 'none'
-        } else {
-          value = isColor ? (value || 'transparent') : value
+        } else if (isColor) {
+          const splitProperty = property.split('_color')
+
+          property = `${splitProperty[0]}Color`
+
+          value = value || 'transparent'
         }
 
         acc.mainProperties.push([property, value])

@@ -19,31 +19,7 @@
     <div class="{{ifThen (not (includes expandedSections 'body')) 'hide ' ''}}Theme-body-section-content">
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Background'}}</h3>
-        <div class="flex items-start">
-          {{>
-            "systems/cortexprime/system/templates/partials/fields/color.html"
-            default=currentSettings.bodyBackground_color
-            class="Theme-field-body-background-color my-3"
-            hint=(localize 'CP.ColorHint')
-            label=(localize 'CP.Color')
-            noEdit=isPresetTheme
-            name="currentSettings.bodyBackground_color"
-            value=currentSettings.bodyBackground_color
-          }}
-          {{
-            fieldNumber
-            currentSettings.bodyBackgroundColorOpacity
-            class="Theme-field-body-background-color-opacity my-3"
-            hint=(localize 'CP.OpacityHint')
-            inputClass="Theme-field-opacity-input"
-            label=(localize 'CP.ColorOpacity')
-            max=1
-            min=0
-            name="currentSettings.bodyBackgroundColorOpacity"
-            noEdit=isPresetTheme
-            step=0.01
-          }}
-        </div>
+        <p class="my-1">{{localize 'CP.BackgroundColorImageHint'}}</p>
         <div class="flex items-start">
           {{>
             "systems/cortexprime/system/templates/partials/fields/image.html"
@@ -101,6 +77,31 @@
               noEdit=isPresetTheme
             }}
           </div>
+        </div>
+        <div class="flex items-start">
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.bodyBackground_color
+            class="Theme-field-body-background-color my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.Color')
+            noEdit=isPresetTheme
+            name="currentSettings.bodyBackground_color"
+            value=currentSettings.bodyBackground_color
+          }}
+          {{
+            fieldNumber
+            currentSettings.bodyBackgroundColorOpacity
+            class="Theme-field-body-background-color-opacity my-3"
+            hint=(localize 'CP.OpacityHint')
+            inputClass="Theme-field-opacity-input"
+            label=(localize 'CP.ColorOpacity')
+            max=1
+            min=0
+            name="currentSettings.bodyBackgroundColorOpacity"
+            noEdit=isPresetTheme
+            step=0.01
+          }}
         </div>
       </section>
       <div class="separator my-4"></div>

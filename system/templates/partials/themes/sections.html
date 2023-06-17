@@ -19,6 +19,7 @@
     <div class="{{ifThen (not (includes expandedSections 'sections')) 'hide ' ''}}Theme-sections-section-content">
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Background'}}</h3>
+        <p class="my-1">{{localize 'CP.BackgroundColorImageHint'}}</p>
         {{>
           "systems/cortexprime/system/templates/partials/fields/color.html"
           default=currentSettings.sectionBackground_color
