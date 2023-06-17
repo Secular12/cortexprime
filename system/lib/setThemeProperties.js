@@ -40,6 +40,16 @@ export const setThemeProperties = (properties) => {
           value = numValue === 0 
             ? 0
             : `${numValue / 16}rem`
+        } else if (property?.endsWith('_image')) {
+          const splitProperty = property.split('_image')
+
+          property = `${splitProperty[0]}Image`
+
+          value = value ? 
+            value.startsWith('http')
+              ? `url('${value}')` 
+              : `url('/${value}')`
+            : 'none'
         } else {
           value = isColor ? (value || 'transparent') : value
         }

@@ -16,7 +16,7 @@ const COLORS = {
 export default {
   bodyBackground_color: COLORS.black,
   bodyBackgroundColorOpacity: 1,
-  bodyBackgroundImage: null,
+  bodyBackground_image: null,
   bodyBackgroundImageOpacity: 0.5,
   bodyBackgroundImagePosition: 'center',
   bodyBackgroundImageRepeat: 'no-repeat',
@@ -80,7 +80,7 @@ export default {
   sectionBackgroundAlt2_color: COLORS.darkerGrey,
   sectionBackground_color: COLORS.black,
   sectionBackgroundColorOpacity: 1,
-  sectionBackgroundImage: 'none',
+  sectionBackground_image: 'none',
   sectionBackgroundImageOpacity: 0,
   sectionBackgroundImagePosition: 'center',
   sectionBackgroundImageRepeat: 'no-repeat',

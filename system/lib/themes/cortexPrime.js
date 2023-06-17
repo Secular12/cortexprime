@@ -13,7 +13,7 @@ const COLORS = {
 export default {
   bodyBackground_color: COLORS.white,
   bodyBackgroundColorOpacity: 1,
-  bodyBackgroundImage: null,
+  bodyBackground_image: null,
   bodyBackgroundImageOpacity: 0.5,
   bodyBackgroundImagePosition: 'center',
   bodyBackgroundImageRepeat: 'no-repeat',
@@ -77,7 +77,7 @@ export default {
   sectionBackgroundAlt2_color: COLORS.lightGreen,
   sectionBackground_color: COLORS.white,
   sectionBackgroundColorOpacity: 1,
-  sectionBackgroundImage: 'none',
+  sectionBackground_image: 'none',
   sectionBackgroundImageOpacity: 0,
   sectionBackgroundImagePosition: 'center',
   sectionBackgroundImageRepeat: 'no-repeat',
