@@ -89,7 +89,7 @@
 
   .theme-section-background-alt-color {
     background-color: var(--section-background-alt-color, color('section-background-alt'));
-    opacity: var(--section-background--color-opacity, 1);
+    opacity: var(--section-background-color-opacity, 1);
     z-index: 4;
   }
 
