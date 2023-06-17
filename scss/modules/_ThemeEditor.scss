@@ -15,15 +15,15 @@
   --button-font-secondary-color: #{color('button-font-secondary')};
   --button-primary-border-radius: 0;
   --button-secondary-border-radius: 0;
-  --chosen-fill: #{color('chosen-fill')};
-  --chosen-number: #{color('chosen-number')};
-  --chosen-stroke: #{color('chosen-stroke')};
-  --die-rating-fill: #{color('die-rating-fill')};
-  --die-rating-number: #{color('die-rating-number')};
-  --die-rating-stroke: #{color('die-rating-stroke')};
-  --effect-fill: #{color('effect-fill')};
-  --effect-number: #{color('effect-number')};
-  --effect-stroke: #{color('effect-stroke')};
+  --chosen-fill-color: #{color('chosen-fill')};
+  --chosen-number-color: #{color('chosen-number')};
+  --chosen-stroke-color: #{color('chosen-stroke')};
+  --die-rating-fill-color: #{color('die-rating-fill')};
+  --die-rating-number-color: #{color('die-rating-number')};
+  --die-rating-stroke-color: #{color('die-rating-stroke')};
+  --effect-fill-color: #{color('effect-fill')};
+  --effect-number-color: #{color('effect-number')};
+  --effect-stroke-color: #{color('effect-stroke')};
   --heading-1-casing: capitalize;
   --heading-1-color: #{color('heading-1')};
   --heading-1-size: #{toRem(16px)};
@@ -59,18 +59,18 @@
   --section-border: solid #{color('section-border')};
   --section-border-radius: 0;
   --section-border-width: 2px;
-  --selected-fill: #{color('selected-fill')};
-  --selected-number: #{color('selected-number')};
-  --selected-stroke: #{color('selected-stroke')};
+  --selected-fill-color: #{color('selected-fill')};
+  --selected-number-color: #{color('selected-number')};
+  --selected-stroke-color: #{color('selected-stroke')};
   --separator-color: #{color('separator')};
   --trait-casing: capitalize;
   --trait-color: #{color('trait')};
   --trait-size: #{toRem(14px)};
   --trait-style: normal;
   --trait-weight: 700;
-  --unchosen-fill: #{color('unchosen-fill')};
-  --unchosen-number: #{color('unchosen-number')};
-  --unchosen-stroke: #{color('unchosen-stroke')};
+  --unchosen-fill-color: #{color('unchosen-fill')};
+  --unchosen-number-color: #{color('unchosen-number')};
+  --unchosen-stroke-color: #{color('unchosen-stroke')};
 }
 
 &.ThemeEditor {
