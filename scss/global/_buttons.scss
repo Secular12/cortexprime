@@ -15,6 +15,8 @@
 
 .btn-icon-text {
   background-color: transparent;
+  border: solid transparent;
+  border-width: 0;
   color: var(--body-font-color, color('body-font'));
 }
 
@@ -31,7 +33,8 @@
 
 .btn-text {
   background-color: inherit;
-  border: 0;
+  border: solid transparent;
+  border-width: 0;
   border-radius: 0;
   color: inherit;
   display: block;

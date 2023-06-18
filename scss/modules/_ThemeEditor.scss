@@ -13,8 +13,12 @@
   --button-background-secondary-color: #{color('button-background-secondary')};
   --button-font-primary-color: #{color('button-font-primary')};
   --button-font-secondary-color: #{color('button-font-secondary')};
+  --button-primary-border: solid #{color('button-border-primary')};
   --button-primary-border-radius: 0;
+  --button-primary-border-width: 0;
+  --button-secondary-border: solid #{color('button-border-primary')};
   --button-secondary-border-radius: 0;
+  --button-secondary-border-width: 0;
   --chosen-fill-color: #{color('chosen-fill')};
   --chosen-number-color: #{color('chosen-number')};
   --chosen-stroke-color: #{color('chosen-stroke')};

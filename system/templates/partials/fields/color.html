@@ -9,7 +9,7 @@
     {{/if}}
     {{#if noEdit}}
       <div class="field-color-view field-view-value flex justify-between">
-        <span class="view-color">{{ifThen value value 'none'}}</span>
+        <span class="view-color">{{ifThen value value 'transparent'}}</span>
         <span class="swatch{{ifThen value '' ' transparent'}}" style="background-color: {{ifThen value value '#ffffff'}};"></span>
       </div>
     {{else}}
