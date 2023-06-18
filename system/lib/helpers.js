@@ -32,7 +32,13 @@ export const localizer = target => game.i18n.localize(target)
 const rounding = (dir = null) => (number, increment, offset) => {
   const roundingDir = dir ?? 'round'
   if (!increment) return number
-  return Math[roundingDir]((number - offset) / increment ) * increment + offset
+
+  const incSplit = increment.toString().split('.')
+
+  const precision = incSplit.length > 1 ? incSplit[1].length : null
+  const value = Math[roundingDir]((number - offset) / increment ) * increment + offset
+  
+  return precision ? parseFloat(value.toPrecision(precision)) : value
 }
 
 export const round = rounding()
