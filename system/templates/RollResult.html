@@ -23,15 +23,16 @@
           {{#each pool as |sourceGroup|}}
             <section class="dice-box p-2 RollResult-source" data-source="{{sourceGroup.source}}">
               <h3 class="mb-1 RollResult-source-heading heading-2">{{sourceGroup.source}}</h3>
-              <div class="flex flex-wrap items-center RollResult-traits">
+              <ul class="RollResult-traits">
                 {{#each sourceGroup.traits as |trait traitIndex|}}
-                  <div
-                    class="flex flex-wrap gap-1 RollResult-trait{{ifThen trait.rollsSeparately ' rolls-separately' ''}} trait-tag"
+                  <li
+                    class="flex gap-1 px-2 py-1 RollResult-trait theme-relative-section{{ifThen trait.rollsSeparately ' rolls-separately' ''}} trait-tag"
                     data-has-hitches="{{trait.hasHitches}}"
                     data-name="{{trait.name}}"
                     data-parent-name="{{trait.parentName}}"
                     data-rolls-separately="{{trait.rollsSeparately}}"
                   >
+                    <div class="theme-section-background-alt-{{ifThen trait.rollsSeparately '2-' ''}}color"></div>
                     <div class="flex flex-wrap gap-0 shrink-1">
                       {{#each trait.dice as |traitDie|}}
                         <div
@@ -46,9 +47,9 @@
                     {{#if trait.name}}
                       <p class="mr-1 RollResult-trait-name trait-name">{{trait.name}}</p>
                     {{/if}}
-                  </div>
+                  </li>
                 {{/each}}
-              </div>
+                </ul>
             </section>
           {{/each}}
         </div>
