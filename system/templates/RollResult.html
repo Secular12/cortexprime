@@ -63,7 +63,7 @@
           {{#each resultGroups as |resultGroup resultGroupIndex|}}
             <div class="py-1 RollResult-result-group">
               {{#if resultGroup.name}}
-                <h2 class="my-1 RollResult-result-group-header">{{resultGroup.name}}</h2>
+                <h2 class="px-2 my-1 RollResult-result-group-header trait-name">{{resultGroup.name}}</h2>
               {{/if}}
               <div class="dice-box flex flex-wrap gap-1 justify-center p-2 RollResult-dice-box">
                 {{#each resultGroup.diceSelection as |dieSelection|}}
