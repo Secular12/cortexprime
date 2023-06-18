@@ -19,166 +19,178 @@
     <div class="{{ifThen (not (includes expandedSections 'buttons')) 'hide ' ''}}Theme-buttons-section-content">
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Color'}}</h3>
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.buttonBackgroundPrimary_color
-          class="Theme-field-button-background-primary-color my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.PrimaryBackgroundColor')
-          noEdit=isPresetTheme
-          name="currentSettings.buttonBackgroundPrimary_color"
-          value=currentSettings.buttonBackgroundPrimary_color
-        }}
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.buttonFontPrimary_color
-          class="Theme-field-button-font-primary-color my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.PrimaryFontColor')
-          noEdit=isPresetTheme
-          name="currentSettings.buttonFontPrimary_color"
-          value=currentSettings.buttonFontPrimary_color
-        }}
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.buttonBackgroundSecondary_color
-          class="Theme-field-button-background-secondary-color my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.SecondaryBackgroundColor')
-          noEdit=isPresetTheme
-          name="currentSettings.buttonBackgroundSecondary_color"
-          value=currentSettings.buttonBackgroundSecondary_color
-        }}
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.buttonFontSecondary_color
-          class="Theme-field-button-font-secondary-color my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.SecondaryFontColor')
-          noEdit=isPresetTheme
-          name="currentSettings.buttonFontSecondary_color"
-          value=currentSettings.buttonFontSecondary_color
-        }}
+        <div class="flex items-start">
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.buttonBackgroundPrimary_color
+            class="Theme-field-button-background-primary-color my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.PrimaryBackgroundColor')
+            noEdit=isPresetTheme
+            name="currentSettings.buttonBackgroundPrimary_color"
+            value=currentSettings.buttonBackgroundPrimary_color
+          }}
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.buttonFontPrimary_color
+            class="Theme-field-button-font-primary-color my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.PrimaryFontColor')
+            noEdit=isPresetTheme
+            name="currentSettings.buttonFontPrimary_color"
+            value=currentSettings.buttonFontPrimary_color
+          }}
+        </div>
+        <div class="flex items-start">
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.buttonBackgroundSecondary_color
+            class="Theme-field-button-background-secondary-color my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.SecondaryBackgroundColor')
+            noEdit=isPresetTheme
+            name="currentSettings.buttonBackgroundSecondary_color"
+            value=currentSettings.buttonBackgroundSecondary_color
+          }}
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.buttonFontSecondary_color
+            class="Theme-field-button-font-secondary-color my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.SecondaryFontColor')
+            noEdit=isPresetTheme
+            name="currentSettings.buttonFontSecondary_color"
+            value=currentSettings.buttonFontSecondary_color
+          }}
+        </div>
       </section>
       <div class="separator my-4"></div>
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.PrimaryButtonBorder'}}</h3>
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.border_primaryButton_color
-          class="Theme-field-button-primary-border-color my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.Color')
-          noEdit=isPresetTheme
-          name="currentSettings.border_buttonPrimary_color"
-          value=currentSettings.border_buttonPrimary_color
-        }}
-        {{
-          fieldSelect
-          currentSettings.border_buttonPrimary_position
-          borderPositions
-          'name'
-          'value'
-          class="Theme-field-button-primary-border-position my-3"
-          inputClass="Theme-field-border-position"
-          label=(localize 'CP.Position')
-          name="currentSettings.border_buttonPrimary_position"
-          noEdit=isPresetTheme
-        }}
-        {{
-          fieldText
-          currentSettings.border_buttonPrimary_style
-          class="Theme-field-button=primary-border-style my-3"
-          hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-style">' (localize 'CP.ClickForDetails') '</a>')
-          inputClass="Theme-field-border-style"
-          label=(localize 'CP.Style')
-          name="currentSettings.border_buttonPrimary_style"
-          noEdit=isPresetTheme
-        }}
-        {{
-          fieldNumber
-          currentSettings.border_buttonPrimary_width
-          append="px"
-          class="Theme-field-button-primary-border-width my-3"
-          inputClass="Theme-field-border-width"
-          label=(localize 'CP.Width')
-          min=1
-          name="currentSettings.border_buttonPrimary_width"
-          noEdit=isPresetTheme
-          step=1
-        }}
-        {{
-          fieldNumber
-          currentSettings.buttonPrimaryBorderRadius_rem
-          append="px"
-          class="Theme-field-button-primary-border-radius my-3"
-          inputClass="Theme-field-border-radius"
-          label=(localize 'CP.Radius')
-          min=0
-          name="currentSettings.buttonPrimaryBorderRadius_rem"
-          noEdit=isPresetTheme
-          step=1
-        }}
+        <div class="flex items-start">
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.border_primaryButton_color
+            class="Theme-field-button-primary-border-color my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.Color')
+            noEdit=isPresetTheme
+            name="currentSettings.border_buttonPrimary_color"
+            value=currentSettings.border_buttonPrimary_color
+          }}
+          {{
+            fieldNumber
+            currentSettings.border_buttonPrimary_width
+            append="px"
+            class="Theme-field-button-primary-border-width my-3"
+            inputClass="Theme-field-border-width"
+            label=(localize 'CP.Width')
+            min=1
+            name="currentSettings.border_buttonPrimary_width"
+            noEdit=isPresetTheme
+            step=1
+          }}
+          {{
+            fieldNumber
+            currentSettings.buttonPrimaryBorderRadius_rem
+            append="px"
+            class="Theme-field-button-primary-border-radius my-3"
+            inputClass="Theme-field-border-radius"
+            label=(localize 'CP.Radius')
+            min=0
+            name="currentSettings.buttonPrimaryBorderRadius_rem"
+            noEdit=isPresetTheme
+            step=1
+          }}
+        </div>
+        <div class="flex items-start">
+          {{
+            fieldSelect
+            currentSettings.border_buttonPrimary_position
+            borderPositions
+            'name'
+            'value'
+            class="Theme-field-button-primary-border-position my-3"
+            inputClass="Theme-field-border-position"
+            label=(localize 'CP.Position')
+            name="currentSettings.border_buttonPrimary_position"
+            noEdit=isPresetTheme
+          }}
+          {{
+            fieldText
+            currentSettings.border_buttonPrimary_style
+            class="Theme-field-button=primary-border-style my-3"
+            hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-style">' (localize 'CP.ClickForDetails') '</a>')
+            inputClass="Theme-field-border-style"
+            label=(localize 'CP.Style')
+            name="currentSettings.border_buttonPrimary_style"
+            noEdit=isPresetTheme
+          }}
+        </div>
       </section>
       <div class="separator my-4"></div>
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.SecondaryButtonBorder'}}</h3>
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.border_buttonSecondary_color
-          class="Theme-field-button-secondary-border-color my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.Color')
-          noEdit=isPresetTheme
-          name="currentSettings.border_buttonSecondary_color"
-          value=currentSettings.border_buttonSecondary_color
-        }}
-        {{
-          fieldSelect
-          currentSettings.border_buttonSecondary_position
-          borderPositions
-          'name'
-          'value'
-          class="Theme-field-button-secondary-border-position my-3"
-          inputClass="Theme-field-border-position"
-          label=(localize 'CP.Position')
-          name="currentSettings.border_buttonSecondary_position"
-          noEdit=isPresetTheme
-        }}
-        {{
-          fieldText
-          currentSettings.border_buttonSecondary_style
-          class="Theme-field-button-secondary-border-style my-3"
-          hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-style">' (localize 'CP.ClickForDetails') '</a>')
-          inputClass="Theme-field-border-style"
-          label=(localize 'CP.Style')
-          name="currentSettings.border_buttonSecondary_style"
-          noEdit=isPresetTheme
-        }}
-        {{
-          fieldNumber
-          currentSettings.border_buttonSecondary_width
-          append="px"
-          class="Theme-field-button-secondary-border-width my-3"
-          inputClass="Theme-field-border-width"
-          label=(localize 'CP.Width')
-          min=1
-          name="currentSettings.border_buttonSecondary_width"
-          noEdit=isPresetTheme
-          step=1
-        }}
-        {{
-          fieldNumber
-          currentSettings.buttonSecondaryBorderRadius_rem
-          append="px"
-          class="Theme-field-button-secondary-border-radius my-3"
-          inputClass="Theme-field-border-radius"
-          label=(localize 'CP.Radius')
-          min=0
-          name="currentSettings.buttonSecondaryBorderRadius_rem"
-          noEdit=isPresetTheme
-          step=1
-        }}
+        <div class="flex items-start">
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.border_buttonSecondary_color
+            class="Theme-field-button-secondary-border-color my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.Color')
+            noEdit=isPresetTheme
+            name="currentSettings.border_buttonSecondary_color"
+            value=currentSettings.border_buttonSecondary_color
+          }}
+          {{
+            fieldNumber
+            currentSettings.border_buttonSecondary_width
+            append="px"
+            class="Theme-field-button-secondary-border-width my-3"
+            inputClass="Theme-field-border-width"
+            label=(localize 'CP.Width')
+            min=1
+            name="currentSettings.border_buttonSecondary_width"
+            noEdit=isPresetTheme
+            step=1
+          }}
+          {{
+            fieldNumber
+            currentSettings.buttonSecondaryBorderRadius_rem
+            append="px"
+            class="Theme-field-button-secondary-border-radius my-3"
+            inputClass="Theme-field-border-radius"
+            label=(localize 'CP.Radius')
+            min=0
+            name="currentSettings.buttonSecondaryBorderRadius_rem"
+            noEdit=isPresetTheme
+            step=1
+          }}
+        </div>
+        <div class="flex items-start">
+          {{
+            fieldSelect
+            currentSettings.border_buttonSecondary_position
+            borderPositions
+            'name'
+            'value'
+            class="Theme-field-button-secondary-border-position my-3"
+            inputClass="Theme-field-border-position"
+            label=(localize 'CP.Position')
+            name="currentSettings.border_buttonSecondary_position"
+            noEdit=isPresetTheme
+          }}
+          {{
+            fieldText
+            currentSettings.border_buttonSecondary_style
+            class="Theme-field-button-secondary-border-style my-3"
+            hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-style">' (localize 'CP.ClickForDetails') '</a>')
+            inputClass="Theme-field-border-style"
+            label=(localize 'CP.Style')
+            name="currentSettings.border_buttonSecondary_style"
+            noEdit=isPresetTheme
+          }}
+        </div>
       </section>
     </div>
   </div>

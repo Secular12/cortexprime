@@ -19,172 +19,182 @@
     <div class="{{ifThen (not (includes expandedSections 'dice')) 'hide ' ''}}Theme-dice-section-content">
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.DieRating'}}</h3>
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.dieRatingFill_color
-          class="Theme-field-die-rating-fill my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.FillColor')
-          noEdit=isPresetTheme
-          name="currentSettings.dieRatingFill_color"
-          value=currentSettings.dieRatingFill_color
-        }}
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.dieRatingNumber_color
-          class="Theme-field-die-rating-number my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.NumberColor')
-          noEdit=isPresetTheme
-          name="currentSettings.dieRatingNumber_color"
-          value=currentSettings.dieRatingNumber_color
-        }}
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.dieRatingStroke_color
-          class="Theme-field-die-rating-stroke my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.StrokeColor')
-          noEdit=isPresetTheme
-          name="currentSettings.dieRatingStroke_color"
-          value=currentSettings.dieRatingStroke_color
-        }}
+        <div class="flex items-start">
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.dieRatingFill_color
+            class="Theme-field-die-rating-fill my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.FillColor')
+            noEdit=isPresetTheme
+            name="currentSettings.dieRatingFill_color"
+            value=currentSettings.dieRatingFill_color
+          }}
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.dieRatingStroke_color
+            class="Theme-field-die-rating-stroke my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.StrokeColor')
+            noEdit=isPresetTheme
+            name="currentSettings.dieRatingStroke_color"
+            value=currentSettings.dieRatingStroke_color
+          }}
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.dieRatingNumber_color
+            class="Theme-field-die-rating-number my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.NumberColor')
+            noEdit=isPresetTheme
+            name="currentSettings.dieRatingNumber_color"
+            value=currentSettings.dieRatingNumber_color
+          }}
+        </div>
       </section>
       <div class="separator mb-4"></div>
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Chosen'}}</h3>
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.chosenFill_color
-          class="Theme-field-chosen-fill my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.FillColor')
-          noEdit=isPresetTheme
-          name="currentSettings.chosenFill_color"
-          value=currentSettings.chosenFill_color
-        }}
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.chosenNumber_color
-          class="Theme-field-chosen-number my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.NumberColor')
-          noEdit=isPresetTheme
-          name="currentSettings.chosenNumber_color"
-          value=currentSettings.chosenNumber_color
-        }}
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.chosenStroke_color
-          class="Theme-field-chosen-stroke my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.StrokeColor')
-          noEdit=isPresetTheme
-          name="currentSettings.chosenStroke_color"
-          value=currentSettings.chosenStroke_color
-        }}
+        <div class="flex items-start">
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.chosenFill_color
+            class="Theme-field-chosen-fill my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.FillColor')
+            noEdit=isPresetTheme
+            name="currentSettings.chosenFill_color"
+            value=currentSettings.chosenFill_color
+          }}
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.chosenStroke_color
+            class="Theme-field-chosen-stroke my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.StrokeColor')
+            noEdit=isPresetTheme
+            name="currentSettings.chosenStroke_color"
+            value=currentSettings.chosenStroke_color
+          }}
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.chosenNumber_color
+            class="Theme-field-chosen-number my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.NumberColor')
+            noEdit=isPresetTheme
+            name="currentSettings.chosenNumber_color"
+            value=currentSettings.chosenNumber_color
+          }}
+        </div>
       </section>
       <div class="separator mb-4"></div>
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Effect'}}</h3>
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.effectFill_color
-          class="Theme-field-effect-fill my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.FillColor')
-          noEdit=isPresetTheme
-          name="currentSettings.effectFill_color"
-          value=currentSettings.effectFill_color
-        }}
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.effectNumber_color
-          class="Theme-field-effect-number my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.NumberColor')
-          noEdit=isPresetTheme
-          name="currentSettings.effectNumber_color"
-          value=currentSettings.effectNumber_color
-        }}
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.effectStroke_color
-          class="Theme-field-effect-stroke my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.StrokeColor')
-          noEdit=isPresetTheme
-          name="currentSettings.effectStroke_color"
-          value=currentSettings.effectStroke_color
-        }}
+        <div class="flex items-start">
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.effectFill_color
+            class="Theme-field-effect-fill my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.FillColor')
+            noEdit=isPresetTheme
+            name="currentSettings.effectFill_color"
+            value=currentSettings.effectFill_color
+          }}
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.effectStroke_color
+            class="Theme-field-effect-stroke my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.StrokeColor')
+            noEdit=isPresetTheme
+            name="currentSettings.effectStroke_color"
+            value=currentSettings.effectStroke_color
+          }}
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.effectNumber_color
+            class="Theme-field-effect-number my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.NumberColor')
+            noEdit=isPresetTheme
+            name="currentSettings.effectNumber_color"
+            value=currentSettings.effectNumber_color
+          }}
+        </div>
       </section>
       <div class="separator mb-4"></div>
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Unchosen'}}</h3>
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.unchosenFill_color
-          class="Theme-field-unchosen-fill my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.FillColor')
-          noEdit=isPresetTheme
-          name="currentSettings.unchosenFill_color"
-          value=currentSettings.unchosenFill_color
-        }}
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.unchosenNumber_color
-          class="Theme-field-unchosen-number my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.NumberColor')
-          noEdit=isPresetTheme
-          name="currentSettings.unchosenNumber_color"
-          value=currentSettings.unchosenNumber_color
-        }}
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.unchosenStroke_color
-          class="Theme-field-unchosen-stroke my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.StrokeColor')
-          noEdit=isPresetTheme
-          name="currentSettings.unchosenStroke_color"
-          value=currentSettings.unchosenStroke_color
-        }}
+        <div class="flex items-start">
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.unchosenFill_color
+            class="Theme-field-unchosen-fill my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.FillColor')
+            noEdit=isPresetTheme
+            name="currentSettings.unchosenFill_color"
+            value=currentSettings.unchosenFill_color
+          }}
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.unchosenStroke_color
+            class="Theme-field-unchosen-stroke my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.StrokeColor')
+            noEdit=isPresetTheme
+            name="currentSettings.unchosenStroke_color"
+            value=currentSettings.unchosenStroke_color
+          }}
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.unchosenNumber_color
+            class="Theme-field-unchosen-number my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.NumberColor')
+            noEdit=isPresetTheme
+            name="currentSettings.unchosenNumber_color"
+            value=currentSettings.unchosenNumber_color
+          }}
+        </div>
       </section>
       <div class="separator mb-4"></div>
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Selected'}}</h3>
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.selectedFill_color
-          class="Theme-field-selected-fill my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.FillColor')
-          noEdit=isPresetTheme
-          name="currentSettings.selectedFill_color"
-          value=currentSettings.selectedFill_color
-        }}
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.selectedNumber_color
-          class="Theme-field-selected-number my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.NumberColor')
-          noEdit=isPresetTheme
-          name="currentSettings.selectedNumber_color"
-          value=currentSettings.selectedNumber_color
-        }}
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.selectedStroke_color
-          class="Theme-field-selected-stroke my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.StrokeColor')
-          noEdit=isPresetTheme
-          name="currentSettings.selectedStroke_color"
-          value=currentSettings.selectedStroke_color
-        }}
+        <div class="flex items-start">
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.selectedFill_color
+            class="Theme-field-selected-fill my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.FillColor')
+            noEdit=isPresetTheme
+            name="currentSettings.selectedFill_color"
+            value=currentSettings.selectedFill_color
+          }}
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.selectedStroke_color
+            class="Theme-field-selected-stroke my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.StrokeColor')
+            noEdit=isPresetTheme
+            name="currentSettings.selectedStroke_color"
+            value=currentSettings.selectedStroke_color
+          }}
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.selectedNumber_color
+            class="Theme-field-selected-number my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.NumberColor')
+            noEdit=isPresetTheme
+            name="currentSettings.selectedNumber_color"
+            value=currentSettings.selectedNumber_color
+          }}
+        </div>
       </section>
     </div>
   </div>

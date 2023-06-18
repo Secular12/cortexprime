@@ -19,146 +19,158 @@
     <div class="{{ifThen (not (includes expandedSections 'inputs')) 'hide ' ''}}Theme-inputs-section-content">
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Background'}}</h3>
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.inputBackground_color
-          class="Theme-field-input-background-color my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.Color')
-          noEdit=isPresetTheme
-          name="currentSettings.inputBackground_color"
-          value=currentSettings.inputBackground_color
-        }}
+        <div class="flex items-start">
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.inputBackground_color
+            class="Theme-field-input-background-color my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.Color')
+            noEdit=isPresetTheme
+            name="currentSettings.inputBackground_color"
+            value=currentSettings.inputBackground_color
+          }}
+        </div>
       </section>
       <div class="separator my-4"></div>
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Font'}}</h3>
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.inputFont_color
-          class="Theme-field-input-font-color my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.Color')
-          noEdit=isPresetTheme
-          name="currentSettings.inputFont_color"
-          value=currentSettings.inputFont_color
-        }}
+        <div class="flex items-start">
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.inputFont_color
+            class="Theme-field-input-font-color my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.Color')
+            noEdit=isPresetTheme
+            name="currentSettings.inputFont_color"
+            value=currentSettings.inputFont_color
+          }}
+        </div>
       </section>
       <div class="separator my-4"></div>
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Label'}}</h3>
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.inputLabel_color
-          class="Theme-field-input-label-font-color my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.Color')
-          noEdit=isPresetTheme
-          name="currentSettings.inputLabel_color"
-          value=currentSettings.inputLabel_color
-        }}
-        {{
-          fieldNumber
-          currentSettings.inputLabelSize_rem
-          append="px"
-          class="Theme-field-input-label-font-size my-3"
-          inputClass="Theme-field-font-size"
-          label=(localize 'CP.Size')
-          min=1
-          name="currentSettings.inputLabelSize_rem"
-          noEdit=isPresetTheme
-          step=1
-        }}
-        {{
-          fieldText
-          currentSettings.inputLabelWeight
-          class="Theme-field-input-label-font-weight my-3"
-          hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight">' (localize 'CP.ClickForDetails') '</a>')
-          inputClass="Theme-field-font-weight"
-          label=(localize 'CP.Weight')
-          name="currentSettings.inputLabelWeight"
-          noEdit=isPresetTheme
-        }}
-        {{
-          fieldText
-          currentSettings.inputLabelStyle
-          class="Theme-field-input-label-font-style my-3"
-          hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-style">' (localize 'CP.ClickForDetails') '</a>')
-          inputClass="Theme-field-font-style"
-          label=(localize 'CP.Style')
-          name="currentSettings.inputLabelStyle"
-          noEdit=isPresetTheme
-        }}
-        {{
-          fieldText
-          currentSettings.inputLabelCasing
-          class="Theme-field-input-label-text-transform my-3"
-          hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform">' (localize 'CP.ClickForDetails') '</a>')
-          inputClass="Theme-field-text-transform"
-          label=(localize 'CP.Casing')
-          name="currentSettings.inputLabelCasing"
-          noEdit=isPresetTheme
-        }}
+        <div class="flex items-start">
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.inputLabel_color
+            class="Theme-field-input-label-font-color my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.Color')
+            noEdit=isPresetTheme
+            name="currentSettings.inputLabel_color"
+            value=currentSettings.inputLabel_color
+          }}
+          {{
+            fieldNumber
+            currentSettings.inputLabelSize_rem
+            append="px"
+            class="Theme-field-input-label-font-size my-3"
+            inputClass="Theme-field-font-size"
+            label=(localize 'CP.Size')
+            min=1
+            name="currentSettings.inputLabelSize_rem"
+            noEdit=isPresetTheme
+            step=1
+          }}
+          {{
+            fieldText
+            currentSettings.inputLabelWeight
+            class="Theme-field-input-label-font-weight my-3"
+            hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight">' (localize 'CP.ClickForDetails') '</a>')
+            inputClass="Theme-field-font-weight"
+            label=(localize 'CP.Weight')
+            name="currentSettings.inputLabelWeight"
+            noEdit=isPresetTheme
+          }}
+        </div>
+        <div class="flex items-start">
+          {{
+            fieldText
+            currentSettings.inputLabelStyle
+            class="Theme-field-input-label-font-style my-3"
+            hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-style">' (localize 'CP.ClickForDetails') '</a>')
+            inputClass="Theme-field-font-style"
+            label=(localize 'CP.Style')
+            name="currentSettings.inputLabelStyle"
+            noEdit=isPresetTheme
+          }}
+          {{
+            fieldText
+            currentSettings.inputLabelCasing
+            class="Theme-field-input-label-text-transform my-3"
+            hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform">' (localize 'CP.ClickForDetails') '</a>')
+            inputClass="Theme-field-text-transform"
+            label=(localize 'CP.Casing')
+            name="currentSettings.inputLabelCasing"
+            noEdit=isPresetTheme
+          }}
+        </div>
       </section>
       <div class="separator my-4"></div>
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Border'}}</h3>
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.border_input_color
-          class="Theme-field-input-border-color my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.Color')
-          noEdit=isPresetTheme
-          name="currentSettings.border_input_color"
-          value=currentSettings.border_input_color
-        }}
-        {{
-          fieldSelect
-          currentSettings.border_input_position
-          borderPositions
-          'name'
-          'value'
-          class="Theme-field-input-border-position my-3"
-          inputClass="Theme-field-border-position"
-          label=(localize 'CP.Position')
-          name="currentSettings.border_input_position"
-          noEdit=isPresetTheme
-        }}
-        {{
-          fieldText
-          currentSettings.border_input_style
-          class="Theme-field-input-border-style my-3"
-          hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-style">' (localize 'CP.ClickForDetails') '</a>')
-          inputClass="Theme-field-border-style"
-          label=(localize 'CP.Style')
-          name="currentSettings.border_input_style"
-          noEdit=isPresetTheme
-        }}
-        {{
-          fieldNumber
-          currentSettings.border_input_width
-          append="px"
-          class="Theme-field-input-border-width my-3"
-          inputClass="Theme-field-border-width"
-          label=(localize 'CP.Width')
-          min=1
-          name="currentSettings.border_input_width"
-          noEdit=isPresetTheme
-          step=1
-        }}
-        {{
-          fieldNumber
-          currentSettings.inputBorderRadius_rem
-          append="px"
-          class="Theme-field-input-border-radius my-3"
-          inputClass="Theme-field-border-radius"
-          label=(localize 'CP.Radius')
-          min=0
-          name="currentSettings.inputBorderRadius_rem"
-          noEdit=isPresetTheme
-          step=1
-        }}
+        <div class="flex items-start">
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.border_input_color
+            class="Theme-field-input-border-color my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.Color')
+            noEdit=isPresetTheme
+            name="currentSettings.border_input_color"
+            value=currentSettings.border_input_color
+          }}
+          {{
+            fieldNumber
+            currentSettings.border_input_width
+            append="px"
+            class="Theme-field-input-border-width my-3"
+            inputClass="Theme-field-border-width"
+            label=(localize 'CP.Width')
+            min=1
+            name="currentSettings.border_input_width"
+            noEdit=isPresetTheme
+            step=1
+          }}
+          {{
+            fieldNumber
+            currentSettings.inputBorderRadius_rem
+            append="px"
+            class="Theme-field-input-border-radius my-3"
+            inputClass="Theme-field-border-radius"
+            label=(localize 'CP.Radius')
+            min=0
+            name="currentSettings.inputBorderRadius_rem"
+            noEdit=isPresetTheme
+            step=1
+          }}
+        </div>
+        <div class="flex items-start">
+          {{
+            fieldSelect
+            currentSettings.border_input_position
+            borderPositions
+            'name'
+            'value'
+            class="Theme-field-input-border-position my-3"
+            inputClass="Theme-field-border-position"
+            label=(localize 'CP.Position')
+            name="currentSettings.border_input_position"
+            noEdit=isPresetTheme
+          }}
+          {{
+            fieldText
+            currentSettings.border_input_style
+            class="Theme-field-input-border-style my-3"
+            hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-style">' (localize 'CP.ClickForDetails') '</a>')
+            inputClass="Theme-field-border-style"
+            label=(localize 'CP.Style')
+            name="currentSettings.border_input_style"
+            noEdit=isPresetTheme
+          }}
+        </div>
       </section>
     </div>
   </div>

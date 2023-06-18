@@ -19,16 +19,18 @@
     <div class="{{ifThen (not (includes expandedSections 'misc')) 'hide ' ''}}Theme-misc-section-content">
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Separator'}}</h3>
-        {{>
-          "systems/cortexprime/system/templates/partials/fields/color.html"
-          default=currentSettings.separator_color
-          class="Theme-field-separator-color my-3"
-          hint=(localize 'CP.ColorHint')
-          label=(localize 'CP.Color')
-          noEdit=isPresetTheme
-          name="currentSettings.separator_color"
-          value=currentSettings.separator_color
-        }}
+        <div class="flex items-start">
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.separator_color
+            class="Theme-field-separator-color my-3"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.Color')
+            noEdit=isPresetTheme
+            name="currentSettings.separator_color"
+            value=currentSettings.separator_color
+          }}
+        </div>
       </section>
     </div>
   </div>
