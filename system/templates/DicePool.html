@@ -79,16 +79,19 @@
               <h2 id="DicePool-pool-heading" class="heading-1">{{localize 'CP.Traits'}}</h2>
             </div>
             {{#each pool as |sourceGroup sourceGroupIndex|}}
-              <section class="dice-box DicePool-source theme-relative-section">
-                <div class="theme-section-background-alt-color"></div>
-                <h3 class="DicePool-source-heading px-2 py-1 heading-2">{{sourceGroup.source}}</h3>
+              <section class="dice-box DicePool-source">
+                <div class="theme-relative-section">
+                  <div class="theme-section-background-alt-color"></div>
+                  <h3 class="DicePool-source-heading px-2 py-1 heading-2">{{sourceGroup.source}}</h3>
+                </div>
                 <ul class="DicePool-traits">
                   {{#each sourceGroup.traits as |trait traitIndex|}}
                     <li
-                      class="DicePool-trait flex gap-1 px-2 py-1{{ifThen trait.rollsSeparately ' rolls-separately' ''}}"
+                      class="DicePool-trait flex gap-1 px-2 py-1 theme-relative-section{{ifThen trait.rollsSeparately ' rolls-separately' ''}}"
                       data-source-index="{{sourceGroupIndex}}"
                       data-trait-index="{{traitIndex}}"
                     >
+                      <div class="theme-section-background-alt-{{ifThen trait.rollsSeparately '2-' ''}}color"></div>
                       {{
                         diceSelect
                         trait.dice

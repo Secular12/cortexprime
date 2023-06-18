@@ -73,6 +73,7 @@
 
   .theme-section-background-color,
   .theme-section-background-alt-color,
+  .theme-section-background-alt-2-color,
   .theme-section-background-image {
     height: 100%;
     left: 0;
@@ -81,16 +82,24 @@
     width: 100%;
   }
 
-  .theme-section-background-color {
-    background-color: var(--section-background-color, color('section-background'));
+  .theme-section-background-color,
+  .theme-section-background-alt-color,
+  .theme-section-background-alt-2-color {
     opacity: var(--section-background-color-opacity, 1);
     z-index: 4;
   }
 
+  .theme-section-background-color {
+    background-color: var(--section-background-color, color('section-background'));
+    
+  }
+
   .theme-section-background-alt-color {
     background-color: var(--section-background-alt-color, color('section-background-alt'));
-    opacity: var(--section-background-color-opacity, 1);
-    z-index: 4;
+  }
+
+  .theme-section-background-alt-2-color {
+    background-color: var(--section-background-alt-2-color, color('section-background-alt-2'));
   }
 
   .theme-section-background-image {
@@ -111,7 +120,9 @@
   .theme-relative-section {
     position: relative;
 
-    .theme-section-background-color, .theme-section-background-alt-color {
+    .theme-section-background-color,
+    .theme-section-background-alt-color,
+    .theme-section-background-alt-2-color {
       z-index: -1;
     }
   }
