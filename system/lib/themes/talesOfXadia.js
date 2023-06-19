@@ -93,7 +93,7 @@ export default {
   selectedStroke_color: COLORS.gold,
   separator_color: COLORS.gold,
   traitCasing: 'capitalize',
-  trait_color: COLORS.orange,
+  trait_color: COLORS.gold,
   traitSize_rem: 14,
   traitStyle: 'normal',
   traitWeight: 700,
