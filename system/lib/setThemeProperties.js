@@ -56,6 +56,11 @@ export const setThemeProperties = (properties) => {
           property = `${splitProperty[0]}Color`
 
           value = value || 'transparent'
+        } else if (property?.endsWith('_px')) {
+          const splitProperty = property.split('_px')
+
+          property = splitProperty[0]
+          value = `${value}px`
         }
 
         acc.mainProperties.push([property, value])

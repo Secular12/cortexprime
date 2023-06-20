@@ -92,6 +92,8 @@ export default {
   selectedNumber_color: COLORS.black,
   selectedStroke_color: COLORS.gold,
   separator_color: COLORS.gold,
+  separatorStyle: 'solid',
+  separatorWidth_px: 2,
   traitCasing: 'capitalize',
   trait_color: COLORS.gold,
   traitSize_rem: 14,

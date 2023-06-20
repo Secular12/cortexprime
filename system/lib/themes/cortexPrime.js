@@ -87,6 +87,8 @@ export default {
   selectedNumber_color: COLORS.black,
   selectedStroke_color: COLORS.red,
   separator_color: COLORS.red,
+  separatorStyle: 'solid',
+  separatorWidth_px: 2,
   traitCasing: 'capitalize',
   trait_color: COLORS.black,
   traitSize_rem: 14,

@@ -90,6 +90,8 @@ export default {
   selectedNumber_color: COLORS.lightBlue,
   selectedStroke_color: COLORS.lightBlue,
   separator_color: COLORS.lightRed,
+  separatorStyle: 'solid',
+  separatorWidth_px: 2,
   traitCasing: 'capitalize',
   trait_color: COLORS.white,
   traitSize_rem: 14,

@@ -30,6 +30,28 @@
             name="currentSettings.separator_color"
             value=currentSettings.separator_color
           }}
+          {{
+            fieldNumber
+            currentSettings.separatorWidth_px
+            append="px"
+            class="Theme-field-input-separator-width my-3"
+            inputClass="Theme-field-separator-width"
+            label=(localize 'CP.Width')
+            min=0
+            name="currentSettings.separatorWidth_px"
+            noEdit=isPresetTheme
+            step=1
+          }}
+          {{
+            fieldText
+            currentSettings.separatorStyle
+            class="Theme-field-input-separator-style my-3"
+            hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-style">' (localize 'CP.ClickForDetails') '</a>')
+            inputClass="Theme-field-separator-style"
+            label=(localize 'CP.Style')
+            name="currentSettings.separatorStyle"
+            noEdit=isPresetTheme
+          }}
         </div>
       </section>
     </div>
