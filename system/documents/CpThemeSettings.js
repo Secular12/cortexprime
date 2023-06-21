@@ -25,13 +25,13 @@ export default class CpThemeSettings extends FormApplication {
 
   static get defaultOptions () {
     return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'ThemeEditor', 'settings'],
+      classes: ['cortexprime', 'settings'],
       closeOnSubmit: false,
       height: 900,
       id: 'ThemeSettings',
       left: 400,
       resizable: false,
-      scrollY: ['.Theme-form-body'],
+      scrollY: ['#ThemeSettings-form-body'],
       submitOnChange: false,
       subitOnClose: false,
       template: 'systems/cortexprime/system/templates/CpThemeSettings.html',
@@ -117,11 +117,11 @@ export default class CpThemeSettings extends FormApplication {
     html.find('.image-remove').click(this.removeImage)
     html.find('input.color,input[type="color"]').change(this.onColorChange)
     html.find('.display-toggle').click(this.onDisplayToggle.bind(this))
-    html.find('#Theme-theme-select').change(this.onChangeTheme.bind(this))
-    html.find('#Theme-custom-theme-create').click(() => this.createCustomTheme.call(this, html))
-    html.find('#Theme-delete').click(this.deleteTheme.bind(this))
-    html.find('#Theme-preview').click(this.preview.bind(this, html))
-    html.find('#Theme-revert').click(this.revert.bind(this))
+    html.find('#ThemeSettings-theme-select').change(this.onChangeTheme.bind(this))
+    html.find('#ThemeSettings-custom-theme-create').click(() => this.createCustomTheme.call(this, html))
+    html.find('#ThemeSettings-delete').click(this.deleteTheme.bind(this))
+    html.find('#ThemeSettings-preview').click(this.preview.bind(this, html))
+    html.find('#ThemeSettings-revert').click(this.revert.bind(this))
   }
 
   close () {
@@ -133,7 +133,7 @@ export default class CpThemeSettings extends FormApplication {
   }
 
   async createCustomTheme (html) {
-    const customThemeName = (html.find('#Theme-custom-theme-name').val() ?? '').trim()
+    const customThemeName = (html.find('#ThemeSettings-custom-theme-name').val() ?? '').trim()
 
     const errorMessage = !customThemeName
       ? localizer('CP.CustomThemeNameErrorRequired')
@@ -397,17 +397,3 @@ export default class CpThemeSettings extends FormApplication {
     })
   }
 }
-
-// TODO:
-// images do not work need a flag (i.e. _image) for the properties and add url() in the value
-// swap z-index of background color and image and how they appear in the HTML
-// check if there is a better on change for color
-// fix layout of theme settings page
-// Fix listing traits in RollResult! (showing side by side)
-// Fix RollResult styling of roll seperately trait names in pool section
-// Fix background coloring of roll separately traits in RollResult trait list
-// Fix Multiple Effect Dice in RollResult! (showing one over the other)
-// Relook at, finalize, and refactor colors and other styles
-// // Heading 1 and 2 for regular cortex prime theme needs some adjusting
-// fix label to not wrap the entire field
-// // use the for attribute if there is a name attribute

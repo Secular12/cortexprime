@@ -11,7 +11,7 @@
             {{#if resultGroup.name}}
               <h2 class="DicePicker-result-group-header my-1 trait-name">{{resultGroup.name}}</h2>
             {{/if}}
-            <div class="dice-box DicePicker-dice-box flex flex-wrap gap-1 justify-center p-2">
+            <div class="DicePicker-dice-box flex flex-wrap gap-1 justify-center p-2">
               {{#each resultGroup.results as |result resultIndex|}}
                 {{
                   dieResult
@@ -32,7 +32,7 @@
       <div class="theme-section-background-image"></div>
       <div class="theme-section-background-color"></div>
       <div class="flex gap-0 items-stretch theme-section-content">
-        <div class="col-5 DicePicker-total flex flex-col gap-1 p-2 result-box">
+        <div class="col-5 DicePicker-total flex flex-col gap-1 p-2">
           <div class="DicePicker-total-label heading-2">{{localize 'CP.Total'}}</div>
           <div class="DicePicker-total-value my-1 total-value">0</div>
           <div class="DicePicker-total-actions">
@@ -54,14 +54,14 @@
             <i class="fa fa-refresh"></i>
           </button>
         </div>
-        <div class="col-5 DicePicker-effect flex flex-col gap-1 p-2 result-box">
+        <div class="col-5 DicePicker-effect flex flex-col gap-1 p-2">
           <div class="DicePicker-effect-label heading-2">{{localize 'CP.EffectDice'}}</div>
           <div class="DicePicker-effect-value my-1">
             {{
               diceSelect
               null
-              dieWrapperClass="default"
               defaultDie=4
+              dieWrapperClass="default"
               displayOnly=true
               type="effect"
             }}

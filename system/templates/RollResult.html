@@ -14,7 +14,7 @@
             type="button"
           >
             <div class="flex justify-between">
-              <div class="RollResult-traits-label heading-1">{{localize 'CP.Traits'}}</div>
+              <div class="heading-1 RollResult-traits-label">{{localize 'CP.Traits'}}</div>
               <div class="icon">
                 <i class="fa fa-chevron-down"></i>
               </div>
@@ -23,7 +23,7 @@
         </div>
         <div class="hide RollResult-traits-content">
           {{#each pool as |sourceGroup|}}
-            <section class="dice-box RollResult-source" data-source="{{sourceGroup.source}}">
+            <section class="RollResult-source" data-source="{{sourceGroup.source}}">
               <div class="theme-relative-section">
                 <div class="theme-section-background-alt-color"></div>
                 <h3 class="heading-2 p-2 RollResult-source-heading">{{sourceGroup.source}}</h3>
@@ -31,7 +31,7 @@
               <ul class="RollResult-traits">
                 {{#each sourceGroup.traits as |trait traitIndex|}}
                   <li
-                    class="flex gap-1 px-2 py-1 RollResult-trait theme-relative-section{{ifThen trait.rollsSeparately ' rolls-separately' ''}} trait-tag"
+                    class="flex gap-1 px-2 py-1 RollResult-trait{{ifThen trait.rollsSeparately ' rolls-separately' ''}} theme-relative-section"
                     data-has-hitches="{{trait.hasHitches}}"
                     data-name="{{trait.name}}"
                     data-parent-name="{{trait.parentName}}"
@@ -68,9 +68,9 @@
           {{#each resultGroups as |resultGroup resultGroupIndex|}}
             <div class="py-1 RollResult-result-group">
               {{#if resultGroup.name}}
-                <h2 class="px-2 my-1 RollResult-result-group-header trait-name">{{resultGroup.name}}</h2>
+                <h2 class="my-1 px-2 RollResult-result-group-header trait-name">{{resultGroup.name}}</h2>
               {{/if}}
-              <div class="dice-box flex flex-wrap gap-1 justify-center p-2 RollResult-dice-box">
+              <div class="flex flex-wrap gap-1 justify-center p-2 RollResult-dice-box">
                 {{#each resultGroup.diceSelection as |dieSelection|}}
                   <div
                     class="chat-die"
@@ -87,12 +87,12 @@
         <div class="separator"></div>
         <div class="flex items-stretch py-2 RollResult-values theme-relative-section">
           <div class="theme-section-background-color"></div>
-          <div class="col-6 flex flex-col gap-1 p-2 result-box RollResult-total">
-            <div class="RollResult-total-label heading-2">{{localize 'CP.Total'}}</div>
+          <div class="col-6 flex flex-col gap-1 p-2 RollResult-total">
+            <div class="heading-2 RollResult-total-label">{{localize 'CP.Total'}}</div>
             <div class="my-1 RollResult-total-value total-value">{{total}}</div>
           </div>
-          <div class="col-6 flex flex-col gap-1 p-2 result-box RollResult-effect">
-            <div class="RollResult-effect-label heading-2">{{localize 'CP.EffectDice'}}</div>
+          <div class="col-6 flex flex-col gap-1 p-2 RollResult-effect">
+            <div class="heading-2 RollResult-effect-label">{{localize 'CP.EffectDice'}}</div>
             <div class="flex gap-0 my-1 RollResult-effect-value">
               {{#each effectDice as |effectDie|}}
                 <div

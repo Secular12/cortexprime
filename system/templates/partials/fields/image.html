@@ -1,5 +1,4 @@
 <div class="field field-image-picker{{ifThen noEdit ' field-view' ''}}{{ifThen class (concat ' ' class) ''}}">
-
   <div class="field-wrapper">
     {{#if label}}
       <span class="field-label">{{label}}</span>
@@ -18,13 +17,13 @@
           />
           {{filePicker type="image" target=name}}
           <button
-            class="btn btn-icon btn-secondary image-remove{{ifThen value '' ' hide'}}"
+            class="btn btn-icon btn-secondary{{ifThen value '' ' hide'}} image-remove"
             type="button"
           >
             <i class="fa fa-trash"></i>
           </button>
         {{/unless}}
-        <p class="no-image-msg{{ifThen value ' hide' ''}}">{{localize 'CP.NoImageSelected'}}</p>
+        <p class="{{ifThen value 'hide ' ''}}no-image-msg">{{localize 'CP.NoImageSelected'}}</p>
       </div>
     </div>
     <p class="field-img-value mt-1 p-1">{{ifThen value value (localize 'CP.NoImage')}}</p>

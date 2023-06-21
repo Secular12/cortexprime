@@ -1,41 +1,41 @@
-<section class="theme-section Theme-misc-section my-4">
+<section class="my-4 theme-section ThemeSettings-misc-section">
   <div class="theme-section-background-image"></div>
   <div class="theme-section-background-color"></div>
-  <div class="theme-section-content px-2">
+  <div class="px-2 theme-section-content">
     <button
-      class="btn btn-text display-toggle px-0 py-2 Theme-misc-section-toggle"
-      data-parent=".Theme-misc-section"
+      class="btn btn-text display-toggle px-0 py-2 ThemeSettings-misc-section-toggle"
+      data-parent=".ThemeSettings-misc-section"
       data-section="misc"
-      data-target=".Theme-misc-section-content"
+      data-target=".ThemeSettings-misc-section-content"
       type="button"
     >
       <div class="flex justify-between">
-        <h2 class="Theme-misc-section-heading heading-1">{{localize 'CP.Miscellaneous'}}</h2>
+        <h2 class="heading-1 ThemeSettings-misc-section-heading">{{localize 'CP.Miscellaneous'}}</h2>
         <div class="icon">
           <i class="fa fa-chevron-down"></i>
         </div>
       </div>
     </button>
-    <div class="{{ifThen (not (includes expandedSections 'misc')) 'hide ' ''}}Theme-misc-section-content">
+    <div class="{{ifThen (not (includes expandedSections 'misc')) 'hide ' ''}}ThemeSettings-misc-section-content">
       <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Separator'}}</h3>
         <div class="flex items-start">
           {{>
             "systems/cortexprime/system/templates/partials/fields/color.html"
             default=currentSettings.separator_color
-            class="Theme-field-separator-color my-3"
+            class="my-3 ThemeSettings-field-separator-color"
             hint=(localize 'CP.ColorHint')
             label=(localize 'CP.Color')
-            noEdit=isPresetTheme
             name="currentSettings.separator_color"
+            noEdit=isPresetTheme
             value=currentSettings.separator_color
           }}
           {{
             fieldNumber
             currentSettings.separatorWidth_px
             append="px"
-            class="Theme-field-input-separator-width my-3"
-            inputClass="Theme-field-separator-width"
+            class="my-3 ThemeSettings-field-input-separator-width"
+            inputClass="ThemeSettings-field-separator-width"
             label=(localize 'CP.Width')
             min=0
             name="currentSettings.separatorWidth_px"
@@ -45,9 +45,9 @@
           {{
             fieldText
             currentSettings.separatorStyle
-            class="Theme-field-input-separator-style my-3"
+            class="my-3 ThemeSettings-field-input-separator-style"
             hint=(concat '<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-style">' (localize 'CP.ClickForDetails') '</a>')
-            inputClass="Theme-field-separator-style"
+            inputClass="ThemeSettings-field-separator-style"
             label=(localize 'CP.Style')
             name="currentSettings.separatorStyle"
             noEdit=isPresetTheme

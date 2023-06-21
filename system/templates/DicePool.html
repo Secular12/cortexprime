@@ -11,7 +11,12 @@
       <div class="theme-section-background-color"></div>
       <div class="theme-section-content p-2">
         <fieldset id="DicePool-custom">
-          <legend id="DicePool-custom-trait-heading" class="mb-2 heading-1">{{localize 'CP.CustomTrait'}}</legend>
+          <legend
+            class="heading-1 mb-2"
+            id="DicePool-custom-trait-heading"
+          >
+            {{localize 'CP.CustomTrait'}}
+          </legend>
           <div
             class="flex items-end"
             id="DicePool-custom-fields"
@@ -69,25 +74,30 @@
       </div>
       </div>
     {{#unless poolIsEmpty}}
-      <div class="separator my-2"></div>
+      <div class="my-2 separator"></div>
       <div class="theme-section">
         <div class="theme-section-background-image"></div>
         <div class="theme-section-content">
           <section id="DicePool-pool">
-            <div class="theme-relative-section p-2">
+            <div class="p-2 theme-relative-section">
               <div class="theme-section-background-color"></div>
-              <h2 id="DicePool-pool-heading" class="heading-1">{{localize 'CP.Traits'}}</h2>
+              <h2
+                class="heading-1"
+                id="DicePool-pool-heading"
+              >
+                {{localize 'CP.Traits'}}
+              </h2>
             </div>
             {{#each pool as |sourceGroup sourceGroupIndex|}}
-              <section class="dice-box DicePool-source">
+              <section class="DicePool-source">
                 <div class="theme-relative-section">
                   <div class="theme-section-background-alt-color"></div>
-                  <h3 class="DicePool-source-heading px-2 py-1 heading-2">{{sourceGroup.source}}</h3>
+                  <h3 class="DicePool-source-heading heading-2 px-2 py-1">{{sourceGroup.source}}</h3>
                 </div>
                 <ul class="DicePool-traits">
                   {{#each sourceGroup.traits as |trait traitIndex|}}
                     <li
-                      class="DicePool-trait flex gap-1 px-2 py-1 theme-relative-section{{ifThen trait.rollsSeparately ' rolls-separately' ''}}"
+                      class="DicePool-trait flex gap-1 px-2 py-1 {{ifThen trait.rollsSeparately 'rolls-separately ' ''}}theme-relative-section"
                       data-source-index="{{sourceGroupIndex}}"
                       data-trait-index="{{traitIndex}}"
                     >
@@ -111,7 +121,7 @@
             {{/each}}
           </section>
           <div
-            class="flex flex-wrap justify-between theme-relative-section p-2"
+            class="flex flex-wrap justify-between p-2 theme-relative-section"
             id="DicePool-actions"
           >
             <div class="theme-section-background-color"></div>
@@ -123,31 +133,32 @@
                 'name'
                 'value'
                 class="shrink-1"
+                id="DicePool-rollmode"
                 label=(localize 'CP.RollMode')
                 name="rollMode"
               }}
             </div>
             <div class="DicePool-clear-buttons">
               <button
-                id="DicePool-clear"
                 class="btn btn-secondary"
+                id="DicePool-clear"
                 type="button"
               >{{localize 'CP.Clear'}}</button>
             </div>
             <div class="DicePool-roll-buttons">
               <button
-                id="DicePool-roll-effect"
                 class="btn"
+                id="DicePool-roll-effect"
                 type="button"
               >{{localize 'CP.RollForEffect'}}</button>
               <button
-                id="DicePool-roll-total"
                 class="btn"
+                id="DicePool-roll-total"
                 type="button"
               >{{localize 'CP.RollForTotal'}}</button>
               <button
-                id="DicePool-roll-select"
                 class="btn"
+                id="DicePool-roll-select"
                 type="button"
               >{{localize 'CP.RollAndSelect'}}</button>
             </div>

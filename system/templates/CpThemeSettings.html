@@ -1,12 +1,15 @@
-<form class="Theme-form theme-body">
+<form class="theme-body ThemeSettings-form">
   <div class="theme-body-background-image"></div>
   <div class="theme-body-background-color"></div>
-  <div class="flex flex-col items-stretch theme-body-content Theme-main">
-    <div class="Theme-form-header">
+  <div
+    class="flex flex-col items-stretch theme-body-content"
+    id="ThemeSettings-main"
+  >
+    <div id="ThemeSettings-form-header">
       <div class="theme-section">
         <div class="theme-section-background-image"></div>
         <div class="theme-section-background-color"></div>
-        <div class="flex items-end theme-section-content p-2">
+        <div class="flex items-end p-2 theme-section-content">
           {{
             fieldSelect
             selectedTheme
@@ -14,7 +17,7 @@
             'name'
             'value'
             class="grow-1"
-            id="Theme-theme-select"
+            id="ThemeSettings-theme-select"
             label=(localize 'CP.SelectedTheme')
             name="selectedTheme"
           }}
@@ -22,12 +25,12 @@
             fieldText
             null
             class="grow-1"
-            id="Theme-custom-theme-name"
+            id="ThemeSettings-custom-theme-name"
             label=(localize 'CP.CustomThemeName')
           }}
           <button
             class="btn btn-primary"
-            id="Theme-custom-theme-create"
+            id="ThemeSettings-custom-theme-create"
             type="button"
           >
             {{localize 'CP.Create'}}
@@ -35,7 +38,10 @@
         </div>
       </div>
     </div>
-    <div class="grow-1 Theme-form-body">
+    <div
+      class="grow-1"
+      id="ThemeSettings-form-body"
+    >
       {{>
         "systems/cortexprime/system/templates/partials/themes/body.html"
       }}
@@ -58,11 +64,14 @@
         "systems/cortexprime/system/templates/partials/themes/misc.html"
       }}
     </div>
-    <div class="flex justify-between shrink-1 Theme-form-actions">
+    <div
+      class="flex justify-between shrink-1"
+      id="ThemeSettings-form-actions"
+    >
       <div class="flex w-1-2">
         {{#unless isPresetTheme}}
           <button
-            id="Theme-delete"
+            id="ThemeSettings-delete"
             class="btn btn-secondary"
             type="button"
           >
@@ -72,23 +81,23 @@
       </div>
       <div class="flex justify-center">
         <button
-          id="Theme-preview"
+          id="ThemeSettings-preview"
           class="btn btn-primary justify-self-center"
           type="button"
         >
           {{localize 'CP.Preview'}}
         </button>
       </div>
-      <div class="w-1-2 flex justify-end">
+      <div class="flex justify-end w-1-2">
         <button
-          id="Theme-revert"
+          id="ThemeSettings-revert"
           class="btn btn-secondary"
           type="button"
         >
           {{localize 'CP.Revert'}}
         </button>
         <button
-          id="Theme-save"
+          id="ThemeSettings-save"
           class="btn btn-primary"
           type="submit"
         >

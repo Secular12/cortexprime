@@ -77,30 +77,30 @@
   --unchosen-stroke-color: #{color('unchosen-stroke')};
 }
 
-&.ThemeEditor {
-  .Theme-main {
+&#ThemeSettings {
+  #ThemeSettings-main {
     height: 100%;
   }
 
-  .Theme-form-body {
+  #ThemeSettings-form-body {
     overflow-y: auto;
   }
 
-  .Theme-field-border-radius,
-  .Theme-field-border-width,
-  .Theme-field-opacity-input,
-  .Theme-field-font-weight,
-  .Theme-field-font-size {
+  .ThemeSettings-field-border-radius,
+  .ThemeSettings-field-border-width,
+  .ThemeSettings-field-opacity-input,
+  .ThemeSettings-field-font-weight,
+  .ThemeSettings-field-font-size {
     width: toRem(40px)
   }
 
-  .Theme-field-background-position-input,
-  .Theme-field-background-repeat-input,
-  .Theme-field-background-size-input,
-  .Theme-field-border-position,
-  .Theme-field-border-style,
-  .Theme-field-font-style,
-  .Theme-field-text-transform {
+  .ThemeSettings-field-background-position-input,
+  .ThemeSettings-field-background-repeat-input,
+  .ThemeSettings-field-background-size-input,
+  .ThemeSettings-field-border-position,
+  .ThemeSettings-field-border-style,
+  .ThemeSettings-field-font-style,
+  .ThemeSettings-field-text-transform {
     width: toRem(120px)
   }
 
