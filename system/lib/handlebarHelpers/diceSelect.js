@@ -1,7 +1,7 @@
 import { getDieIcon } from '../dice.js'
 
 const getAddButton = (options) => {
-  return '<button class="new-die btn btn-icon btn-icon-text btn-small ml-1" ' +
+  return '<button class="btn btn-icon btn-icon-text btn-small ml-1 new-die" ' +
     (options.hash.target ? `data-target="${options.hash.target}" ` : '') +
     'type="button">' +
     '<i class="fa fa-plus"></i>' +
