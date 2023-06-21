@@ -4,25 +4,30 @@
   <div class="theme-body-content">
     <div class="mb-2 RollResult-traits theme-section">
       <div class="theme-section-background-image"></div>
-      <div class="theme-section-background-color"></div>
       <div class="theme-section-content">
-        <button
-          class="btn btn-text display-toggle py-2 RollResult-traits-toggle"
-          data-parent=".RollResult-traits"
-          data-target=".RollResult-traits-content"
-          type="button"
-        >
-          <div class="flex justify-between">
-            <div class="RollResult-traits-label heading-1">{{localize 'CP.Traits'}}</div>
-            <div class="icon">
-              <i class="fa fa-chevron-down"></i>
+        <div class="theme-relative-section">
+          <div class="theme-section-background-color"></div>
+          <button
+            class="btn btn-text display-toggle px-2 py-1 RollResult-traits-toggle"
+            data-parent=".RollResult-traits"
+            data-target=".RollResult-traits-content"
+            type="button"
+          >
+            <div class="flex justify-between">
+              <div class="RollResult-traits-label heading-1">{{localize 'CP.Traits'}}</div>
+              <div class="icon">
+                <i class="fa fa-chevron-down"></i>
+              </div>
             </div>
-          </div>
-        </button>
+          </button>
+        </div>
         <div class="hide RollResult-traits-content">
           {{#each pool as |sourceGroup|}}
-            <section class="dice-box p-2 RollResult-source" data-source="{{sourceGroup.source}}">
-              <h3 class="mb-1 RollResult-source-heading heading-2">{{sourceGroup.source}}</h3>
+            <section class="dice-box RollResult-source" data-source="{{sourceGroup.source}}">
+              <div class="theme-relative-section">
+                <div class="theme-section-background-alt-color"></div>
+                <h3 class="heading-2 p-2 RollResult-source-heading">{{sourceGroup.source}}</h3>
+              </div>
               <ul class="RollResult-traits">
                 {{#each sourceGroup.traits as |trait traitIndex|}}
                   <li
@@ -80,7 +85,7 @@
           {{/each}}
         </div>
         <div class="separator"></div>
-        <div class="flex items-stretch my-2 RollResult-values theme-relative-section">
+        <div class="flex items-stretch py-2 RollResult-values theme-relative-section">
           <div class="theme-section-background-color"></div>
           <div class="col-6 flex flex-col gap-1 p-2 result-box RollResult-total">
             <div class="RollResult-total-label heading-2">{{localize 'CP.Total'}}</div>

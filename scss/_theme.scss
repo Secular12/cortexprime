@@ -11,16 +11,19 @@
 }
 
 &.theme-body.RollResult {
-  position: relative;
   height: auto;
+  padding: 0;
 
   .message-header {
-    background-color: var(--section-background-color, color('section-background'));
-    color: var(--body-font-color, color('body-font'));
+    background-color: #000;
+    color: #fff;
     line-height: 1;
-    padding: toRem(6px);
-    vertical-align: middle;
-    z-index: 3;
+    padding: toRem(4px);
+  }
+
+  .message-content {
+    padding: toRem(8px);
+    position: relative;
   }
 }
 
