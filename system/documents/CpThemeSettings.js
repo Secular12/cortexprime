@@ -229,12 +229,19 @@ export default class CpThemeSettings extends FormApplication {
 
   onColorChange (event) {
     const $input = $(event.target)
+    const $fieldColor = $input.closest('.field-color')
 
-    const $swatch = $input
-      .parent()
-      .children('.swatch')
+    const $swatch = $fieldColor
+      .find('.swatch')
       .first()
+
     const value = $input.val()
+
+    const $pickerField = $fieldColor
+      .find('input[type="color"]')
+      .first()
+
+    $pickerField.val(value)
 
     $swatch.css('background-color', value || '#ffffff')
 
