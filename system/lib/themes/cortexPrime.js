@@ -58,7 +58,7 @@ export default {
   heading1Style: 'normal',
   heading1Weight: 700,
   heading2Casing: 'uppercase',
-  heading2_color: COLORS.red,
+  heading2_color: COLORS.darkGreen,
   heading2Size_rem: 14,
   heading2Style: 'normal',
   heading2Weight: 700,
