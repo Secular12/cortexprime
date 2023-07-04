@@ -3,6 +3,6 @@
     "types": ["actor"]
   },
   "Item": {
-    "types": ["item"]
+    "types": ["Trait", "Subtrait"]
   }
 }
