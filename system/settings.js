@@ -1,6 +1,7 @@
-import { localizer } from './lib/helpers'
-import defaultThemes from './lib/defaultThemes'
 import CpThemeSettings from './documents/CpThemeSettings'
+import defaultItemTypes from './lib/defaultItemTypes'
+import defaultThemes from './lib/defaultThemes'
+import { localizer } from './lib/helpers'
 
 export const registerSettings = () => {
   game.settings.register('cortexprime', 'themes', {
@@ -18,5 +19,13 @@ export const registerSettings = () => {
     name: localizer('CP.ThemeSettings'),
     restricted: true,
     type: CpThemeSettings,
+  })
+
+  game.settings.register('cortexprime', 'itemTypes', {
+    config: false,
+    default: defaultItemTypes,
+    name: localizer('CP.ItemTypes'),
+    scope: 'world',
+    type: Object,
   })
 }
