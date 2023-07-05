@@ -9,6 +9,8 @@ export default class CpTraitSettings extends FormApplication {
 
     const traitSettings = game.settings.get('cortexprime', 'itemTypes')
 
+    this.traitSettings = traitSettings
+
     Log('CpTraitSettings.constructor traitSettings', traitSettings)
   }
 
