@@ -99,6 +99,8 @@
   "CP.TopAndBottom": "Top and Bottom",
   "CP.Total": "Total",
   "CP.Traits": "Traits",
+  "CP.TraitSettings": "Trait Settings",
+  "CP.TraitSettingsHint": "Set up configuration for trait and subtraits for your Cortex Prime game.",
   "CP.Unchosen": "Unchosen",
   "CP.ValidationError": "Validation Error!",
   "CP.Weight": "Weight",
