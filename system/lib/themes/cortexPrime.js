@@ -36,7 +36,7 @@ export default {
   border_section_color: COLORS.red,
   border_section_position: 'all',
   border_section_style: 'solid',
-  border_section_width: 1,
+  border_section_width: 2,
   buttonBackgroundPrimary_color: COLORS.darkGreen,
   buttonBackgroundSecondary_color: COLORS.red,
   buttonFontPrimary_color: COLORS.white,
