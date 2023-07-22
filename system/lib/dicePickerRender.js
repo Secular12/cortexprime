@@ -1,4 +1,5 @@
 import { getDieIcon } from './dice.js'
+import { addListeners } from './helpers.js'
 
 const getAppendDiceContent = ({ isDefault, dieRating, key }) => {
   return '<div class="die-wrapper' + 
@@ -12,77 +13,70 @@ const getAppendDiceContent = ({ isDefault, dieRating, key }) => {
     '</div>'
 }
 
-export default (resolve) => (html) => {
-  const $addToTotal = html.find('.DicePicker-add-to-total')
-  const $addToEffect = html.find('.DicePicker-add-to-effect')
-  const $closeButton = html
-    .closest('.window-app.dialog')
-    .find('.header-button.close')
-  const $dieResults = html.find('.DicePicker-die-result')
-  const $resetSelection = html.find('.DicePicker-reset')
-  const $resultGroups = html.find('.DicePicker-result-groups')
-  const $effectDiceContainer = html.find('.DicePicker-effect-value .dice-container')
+export default (resolve) => ([$html]) => {
+  const $addToTotal = $html.querySelector('.DicePicker-add-to-total')
+  const $addToEffect = $html.querySelector('.DicePicker-add-to-effect')
+  const $effectDiceContainer = $html.querySelector('.DicePicker-effect-value .dice-container')
+  const $resetSelection = $html.querySelector('.DicePicker-reset')
 
   const setSelectionOptionsDisableTo = (value) => {
-    $addToTotal.prop('disabled', value ?? !$addToTotal.prop('disabled'))
-    $addToEffect.prop('disabled', value ?? !$addToEffect.prop('disabled'))
+    $addToTotal.disabled = value ?? !$addToTotal.disabled
+    $addToEffect.disabled = value ?? !$addToEffect.disabled
   }
 
   const setSelectionDisable = () => {
-    const $selectedDice = html.find('.DicePicker-die-result.selected')
-    const $usedDice = html.find('.DicePicker-die-result[data-type="effect"], .DicePicker-die-result[data-type="chosen"]')
+    const $selectedDice = $html.querySelectorAll('.DicePicker-die-result.selected')
+    const $usedDice = $html.querySelectorAll('.DicePicker-die-result[data-type="effect"], .DicePicker-die-result[data-type="chosen"]')
 
     setSelectionOptionsDisableTo(!($selectedDice.length > 0))
 
-    $resetSelection.prop('disabled', !($selectedDice.length > 0 || $usedDice.length > 0))
+    $resetSelection.disabled = !($selectedDice.length > 0 || $usedDice.length > 0)
   }
 
   const deselectEffectDie = ($effectDie, $selectedDie) => {
-    $selectedDie
-      .attr('data-type', 'unchosen')
+    $selectedDie.dataset.type = 'unchosen'
 
-    $selectedDie.find('.cp-die').toggleClass('cp-unchosen cp-effect')
+    const $selectedCpDie = $selectedDie.querySelector('.cp-die')
+    
+    $selectedCpDie.classList.toggle('cp-unchosen')
+    $selectedCpDie.classList.toggle('cp-effect')
 
     $effectDie.remove()
 
-    const $effectDice = $effectDiceContainer.find('.die-wrapper')
+    const $effectDice = $effectDiceContainer.querySelectorAll('.die-wrapper')
 
     if ($effectDice.length === 0) {
       const dieContent = getAppendDiceContent({ isDefault: true, dieRating: '4' })
 
       $effectDiceContainer
-        .append(dieContent)
+        .insertAdjacentHTML('beforeend', dieContent)
     }
 
     setSelectionDisable()
   }
 
   $addToEffect
-    .click(function () {
-      const $diceForEffect = html.find('.DicePicker-die-result.selected')
+    .addEventListener('click', () => {
+      const $diceForEffect = $html.querySelectorAll('.DicePicker-die-result.selected')
 
       if ($diceForEffect.length > 0) {
+        $effectDiceContainer.querySelector('.default')?.remove()
 
-        $effectDiceContainer.find('.default')?.remove()
+        $diceForEffect.forEach(($die) => {
+          const $cpDie = $die.querySelector('.cp-die')
+          const dieRating = $die.dataset.dieRating
+          const key = $die.dataset.key
 
-        $diceForEffect.each(function () {
-          const $die = $(this)
+          $die.dataset.type = 'effect'
+          $die.classList.remove('selected')
 
-          const dieRating = $die.data('die-rating')
-          const key = $die.data('key')
-
-          $die
-            .attr('data-type', 'effect')
-            .removeClass('selected')
-
-          $die
-            .find('.cp-die')
-            .toggleClass('cp-selected cp-effect')
+          $cpDie.classList.toggle('cp-selected')
+          $cpDie.classList.toggle('cp-effect')
 
           const dieContent = getAppendDiceContent({ dieRating, key })
 
           $effectDiceContainer
-            .append(dieContent)
+            .insertAdjacentHTML('beforeend', dieContent)
         })
 
         setSelectionDisable()
@@ -90,45 +84,44 @@ export default (resolve) => (html) => {
     })
 
   $addToTotal
-    .click(function () {
-      const $diceForTotal = html.find('.DicePicker-die-result.selected')
+    .addEventListener('click', () => {
+      const $diceForTotal = $html.querySelectorAll('.DicePicker-die-result.selected')
 
-      $diceForTotal.each(function () {
-        const $die = $(this)
+      $diceForTotal.forEach(($die) => {
+        const $cpDie = $die.querySelector('.cp-die')
+        const value = parseInt($die.dataset.value, 10)
 
-        const value = parseInt($die.data('value'), 10)
-
-        $die
-          .attr('data-type', 'chosen')
-          .removeClass('selected')
+        $die.dataset.type = 'chosen'
+        $die.classList.remove('selected')
         
-        $die
-          .find('.cp-die')
-          .toggleClass('cp-chosen cp-selected')
+        $cpDie.classList.toggle('cp-chosen')
+        $cpDie.classList.toggle('cp-selected')
 
-        const $totalValue = html.find('.DicePicker-total-value')
+        const $totalValue = $html.querySelector('.DicePicker-total-value')
 
-        const currentValue = parseInt($totalValue.text(), 10)
+        const currentValue = parseInt($totalValue.textContent, 10)
         
-        $totalValue.text(value + currentValue)
+        $totalValue.textContent = value + currentValue
       })
 
       setSelectionDisable()
     })
 
-  $closeButton
-    .click((event) => {
+  $html
+    .closest('.window-app.dialog')
+    .querySelector('.header-button.close')
+    .addEventListener('click', (event) => {
       event.preventDefault()
 
       const values = { dice: [], total: 0, effectDice: [] }
 
-      $dieResults
-        .each(function () {
-          const $die = $(this)
-          const dieRating = $die.data('die-rating')
-          const resultGroupIndex = parseInt($die.data('result-group-index'), 10)
-          const type = $die.data('type')
-          const value = parseInt($die.data('value'), 10)
+      $html
+        .querySelectorAll('.DicePicker-die-result')
+        .forEach(($die) => {
+          const dieRating = $die.dataset.dieRating
+          const resultGroupIndex = parseInt($die.dataset.resultGroupIndex, 10)
+          const type = $die.dataset.type
+          const value = parseInt($die.dataset.value, 10)
 
           const groupValues = values.dice[resultGroupIndex] ?? []
 
@@ -146,84 +139,91 @@ export default (resolve) => (html) => {
     })
 
   $resetSelection
-    .click(function () {
-      $dieResults
-        .not('[data-type="hitch"]')
-        .each(function () {
-          const $target = $(this)
+    .addEventListener('click', ($selection) => {
+      $html
+        .querySelectorAll('.DicePicker-die-result:not([data-type="hitch"])')
+        .forEach(($target) => {
+          $target.classList.remove('selected')
+          $target.dataset.type = 'unchosen'
 
-          $target.removeClass('selected')
-          $target.attr('data-type', 'unchosen')
-
-          $target
-            .find('.cp-die')
-            .removeClass('cp-chosen cp-effect cp-selected')
-            .addClass('cp-unchosen')
+          const $cpDie = $target.querySelector('.cp-die')
+            
+          $cpDie.classList.remove('cp-chosen', 'cp-effect', 'cp-selected')
+          $cpDie.classList.add('cp-unchosen')
         })
 
-      html
-        .find('.DicePicker-total-value')
-        .text(0)
+      $html
+        .querySelector('.DicePicker-total-value')
+        .textContent = '0'
 
-        const dieContent = getAppendDiceContent({ isDefault: true, dieRating: '4' })
+      const dieContent = getAppendDiceContent({ isDefault: true, dieRating: '4' })
 
-        $effectDiceContainer
-          .html(dieContent)
+      $effectDiceContainer.innerHtml = dieContent
 
       setSelectionOptionsDisableTo(true)
-      $(this).prop('disabled', true)
+      $selection.disabled = true
     })
 
-  $effectDiceContainer.on('mouseup', '.die-wrapper', function (event) {
-    if (event.button === 2) {
-      const $effectDie = $(this)
+  $effectDiceContainer
+    .addEventListener('mouseup', (event) => {
+      const $effectDie = event.target.closest('.die-wrapper')
+      
+      if ($effectDie && event.button === 2) {
+        const key = $effectDie.dataset.key
 
-      const key = $effectDie.data('key')
+        const $selectedDie = $html
+          .querySelector(`.DicePicker-result-groups [data-key="${key}"]`)
 
-      const $selectedDie = $resultGroups.find(`[data-key="${key}"]`)
+        deselectEffectDie($effectDie, $selectedDie)
+      }
+    })
 
-      deselectEffectDie($effectDie, $selectedDie)
+  addListeners(
+    $html,
+    '.DicePicker-result-groups',
+    'click',
+    (event) => {
+      const $chosenDie = event.target.closest('[data-type="chosen"]')
+      const $effectDie = event.target.closest('[data-type="effect"]')
+      const $unchosenDie = event.target.closest('[data-type="unchosen"]')
+
+      if ($chosenDie) {
+        const value = parseInt($chosenDie.dataset.value, 10)
+
+        $chosenDie.dataset.type = 'unchosen'
+        
+        const $cpDie = $chosenDie.querySelector('.cp-die')
+
+        $cpDie.classList.toggle('cp-chosen')
+        $cpDie.classList.toggle('cp-unchosen')
+
+        const $totalValue = $html.querySelector('.DicePicker-total-value')
+
+        const currentValue = parseInt($totalValue.textContent, 10)
+
+        $totalValue.textContent = currentValue - value
+
+        setSelectionDisable()
+      }
+
+      if ($effectDie) {
+        const key = $effectDie.dataset.key
+
+        const $currentEffectDie = $effectDiceContainer.querySelector(`[data-key="${key}"]`)
+
+        deselectEffectDie($currentEffectDie, $effectDie)
+      }
+
+      if ($unchosenDie) {
+        $unchosenDie.classList.toggle('selected')
+
+        const $cpDie = $unchosenDie.querySelector('.cp-die')
+        
+        $cpDie.classList.toggle('cp-selected')
+        $cpDie.classList.toggle('cp-unchosen')
+
+        setSelectionDisable()
+      }
     }
-  })
-
-  $resultGroups.on('click', '[data-type="chosen"]', function () {
-    const $selectedDie = $(this)
-
-    const value = parseInt($selectedDie.data('value'), 10)
-
-    $selectedDie
-      .attr('data-type', 'unchosen')
-    
-    $selectedDie
-      .find('.cp-die')
-      .toggleClass('cp-chosen cp-unchosen')
-
-    const $totalValue = html.find('.DicePicker-total-value')
-
-    const currentValue = parseInt($totalValue.text(), 10)
-
-    $totalValue.text(currentValue - value)
-
-    setSelectionDisable()
-  })
-
-  $resultGroups.on('click', '[data-type="effect"]', function () {
-    const $selectedDie = $(this)
-
-    const key = $selectedDie.data('key')
-
-    const $effectDie = $effectDiceContainer.find(`[data-key="${key}"]`)
-
-    deselectEffectDie($effectDie, $selectedDie)
-  })
-
-  $resultGroups.on('click', '[data-type="unchosen"]', function () {
-    const $target = $(this)
-
-    $target.toggleClass('selected')
-
-    $target.find('.cp-die').toggleClass('cp-selected cp-unchosen')
-
-    setSelectionDisable()
-  })
+  )
 }

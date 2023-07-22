@@ -1,5 +1,5 @@
 import { diceSelectListener, fieldListeners } from '../lib/formHelpers.js'
-import { localizer, objectToArray } from '../lib/helpers.js'
+import { addListeners, localizer } from '../lib/helpers.js'
 import Logger from '../lib/Logger'
 import rollDice from '../lib/rollDice.js'
 
@@ -79,48 +79,55 @@ export class DicePool extends FormApplication {
 
   activateListeners (html) {
     super.activateListeners(html)
-    fieldListeners(html)
+
+    const [$html] = html
+
+    fieldListeners($html)
+
     diceSelectListener(
-      html,
+      $html,
       this.onAddDie.bind(this),
       this.onChangeDie.bind(this),
       this.onRemoveDie.bind(this),
     )
 
-    html
-      .find('#DicePool-add-custom-trait')
-      .click(this.addCustomTrait.bind(this))
+    $html
+      .querySelector('#DicePool-add-custom-trait')
+      .addEventListener('click', this.addCustomTrait.bind(this))
     
-    html
-      .find('#DicePool-clear')
-      .click(() => {
+    $html
+      .querySelector('#DicePool-clear')
+      ?.addEventListener('click', () => {
         this.clear()
         this.render(true)
       })
     
-    html
-      .find('.DicePool-remove-trait')
-      .click(this.removeTrait.bind(this))
+      addListeners(
+        $html,
+        '.DicePool-remove-trait',
+        'click',
+        this.removeTrait.bind(this)
+      )
     
-    html
-      .find('#DicePool-reset-custom-trait')
-      .click(this.resetCustomTrait.bind(this))
+    $html
+      .querySelector('#DicePool-reset-custom-trait')
+      .addEventListener('click', this.resetCustomTrait.bind(this))
     
-    html
-      .find('#DicePool-roll-effect')
-      .click(() => this._rollDice.call(this, 'effect'))
+    $html
+      .querySelector('#DicePool-roll-effect')
+      ?.addEventListener('click', () => this._rollDice.call(this, 'effect'))
     
-    html
-      .find('#DicePool-roll-select')
-      .click(() => this._rollDice.call(this, 'select'))
+    $html
+      .querySelector('#DicePool-roll-select')
+      ?.addEventListener('click', () => this._rollDice.call(this, 'select'))
     
-    html
-      .find('#DicePool-roll-total')
-      .click(() => this._rollDice.call(this, 'total'))
+    $html
+      .querySelector('#DicePool-roll-total')
+      ?.addEventListener('click', () => this._rollDice.call(this, 'total'))
 
-    html
-      .find('#DicePool-rolls-separately')
-      .change(event => this._onRollsSeparatelyChange.call(this, event, html))
+    $html
+      .querySelector('#DicePool-rolls-separately')
+      .addEventListener('change', event => this._onChangeRollsSeparately.call(this, event, html))
   }
 
   get poolIsEmpty() {
@@ -151,27 +158,25 @@ export class DicePool extends FormApplication {
   }
 
   async _rollDice (rollType) {
-    event.preventDefault()
-
     Log('DicePool._rollDice this.pool, rollType:', this.pool, rollType)
 
     await rollDice.call(this, this.pool, rollType, this.rollMode)
   }
 
-  _onRollsSeparatelyChange (event, html) {
-    const $target = $(event.currentTarget)
-    const isRolledSeparately = $target.prop('checked')
+  _onChangeRollsSeparately (event, [$html]) {
+    const $target = event.currentTarget
+    const isRolledSeparately = $target.checked
 
-    const $hasHitchesCheckbox = html
-    .find('#DicePool-has-hitches')
+    const $hasHitchesCheckbox = $html
+    .querySelector('#DicePool-has-hitches')
 
-    $hasHitchesCheckbox
-      .prop('disabled', !isRolledSeparately)
-      .prop('checked', !isRolledSeparately)
+    $hasHitchesCheckbox.disabled = !isRolledSeparately
+    $hasHitchesCheckbox.checked = !isRolledSeparately
 
     $hasHitchesCheckbox
       .closest('.field-checkbox')
-      .toggleClass('field-disabled')
+      .classList
+      .toggle('field-disabled')
   }
 
   async addCustomTrait (event) {
@@ -195,21 +200,23 @@ export class DicePool extends FormApplication {
     this.resetCustomTrait()
   }
 
-  addToPool (event) {
-    const $addToPoolButton = $(event.currentTarget)
+  addToPool (event, $addToPoolButton) {
     const $rollResult = $addToPoolButton.closest('.RollResult')
 
-    this.pool = Array.from($rollResult.find('.RollResult-source'))
-      .map(sourceGroup => ({
-        source: sourceGroup.dataset.source ?? null,
-        traits: Array.from($(sourceGroup).find('.RollResult-trait'))
-          .map(trait => ({
-            dice: Array.from($(trait).find('.cp-die .number'))
-              .map(number => parseInt(number.innerText, 10)),
-            hasHitches: trait.dataset.hasHitches ?? false,
-            name: trait.dataset.name ?? null,
-            parentName: trait.dataset.parentName ?? null,
-            rollsSeparately: trait.dataset.rollsSeparately !== 'false'
+    this.pool = Array
+      .from($rollResult.querySelectorAll('.RollResult-source'))
+      .map($sourceGroup => ({
+        source: $sourceGroup.dataset.source ?? null,
+        traits: Array
+          .from($sourceGroup.querySelectorAll('.RollResult-trait'))
+          .map($trait => ({
+            dice: Array
+              .from($trait.querySelectorAll('.cp-die .number'))
+              .map($number => parseInt($number.innerText, 10)),
+            hasHitches: $trait.dataset.hasHitches ?? false,
+            name: $trait.dataset.name ?? null,
+            parentName: $trait.dataset.parentName ?? null,
+            rollsSeparately: $trait.dataset.rollsSeparately !== 'false'
           }))
       }))
   }

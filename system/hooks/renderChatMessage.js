@@ -1,19 +1,21 @@
 import { getHtml } from '../lib/handlebarHelpers/dieResult.js'
 
-export default (message, html, data) => {
-  const $rollResult = html.find('.RollResult-main').first()
+export default (message, [$html], data) => {
+  const $rollResult = $html.querySelector('.RollResult-main')
 
-  if ($rollResult.length > 0) {
-    html.addClass('cortexprime RollResult theme-body')
+  if ($rollResult) {
+    $html.classList.add('cortexprime', 'RollResult', 'theme-body')
 
     $rollResult
-      .find('.chat-die')
-      .each(function () {
-        const $die = $(this)
-
-        const data = $die.data()
-
-        const { dieRating, hideLabel, resultGroupIndex, type, value } = data
+      .querySelectorAll('.chat-die')
+      .forEach(($die) => {
+        const {
+          dieRating,
+          hideLabel,
+          resultGroupIndex,
+          type,
+          value
+        } = $die.dataset
 
         const html = getHtml(value, {
           hash: {
@@ -21,11 +23,11 @@ export default (message, html, data) => {
             dieRating,
             hideLabel: !!hideLabel,
             resultGroupIndex,
-            type
+            type,
           }
         })
 
-        $die.replaceWith(html)
+        $die.outerHTML = html
       })
   }
 }

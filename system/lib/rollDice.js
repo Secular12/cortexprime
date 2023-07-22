@@ -19,19 +19,18 @@ const dicePicker = async rollResults => {
         confirm: {
           icon: '<i class="fas fa-check"></i>',
           label: localizer('CP.Confirm'),
-          callback (html) {
-            const $dieResults = html.find('.DicePicker-die-result')
+          callback ([$html]) {
+            const $dieResults = $html
+              .querySelectorAll('.DicePicker-die-result')
 
             const values = { dice: [], total: null, effectDice: [] }
 
             $dieResults
-              .each(function () {
-                const $die = $(this)
-                
-                const dieRating = $die.data('die-rating')
-                const resultGroupIndex = parseInt($die.data('result-group-index'), 10)
-                const type = $die.data('type')
-                const value = parseInt($die.data('value'), 10)
+              .forEach(($die) => {
+                const dieRating = $die.dataset.dieRating
+                const resultGroupIndex = parseInt($die.dataset.resultGroupIndex, 10)
+                const type = $die.dataset.type
+                const value = parseInt($die.dataset.value, 10)
 
                 if (type === 'chosen') {
                   values.total = values.total ? values.total + value : value

@@ -1,5 +1,5 @@
 import { fieldListeners } from '../lib/formHelpers'
-import { displayToggleMethod, localizer } from '../lib/helpers'
+import { addListeners, displayToggleMethod, localizer } from '../lib/helpers'
 import Logger from '../lib/Logger'
 import presetThemes from '../lib/presetThemes'
 import { setThemeProperties } from '../lib/setThemeProperties'
@@ -111,17 +111,58 @@ export default class CpThemeSettings extends FormApplication {
 
   activateListeners(html) {
     super.activateListeners(html)
-    fieldListeners(html)
+    
+    const [$html] = html
+    
+    fieldListeners($html)
 
-    html.find('.field-hidden-image-picker').change(this.onImageChange)
-    html.find('.image-remove').click(this.removeImage)
-    html.find('input.color,input[type="color"]').change(this.onColorChange)
-    html.find('.display-toggle').click(this.onDisplayToggle.bind(this))
-    html.find('#ThemeSettings-theme-select').change(this.onChangeTheme.bind(this))
-    html.find('#ThemeSettings-custom-theme-create').click(() => this.createCustomTheme.call(this, html))
-    html.find('#ThemeSettings-delete').click(this.deleteTheme.bind(this))
-    html.find('#ThemeSettings-preview').click(this.preview.bind(this, html))
-    html.find('#ThemeSettings-revert').click(this.revert.bind(this))
+    addListeners(
+      $html,
+      '.field-hidden-image-picker',
+      'change',
+      this.onImageChange
+    )
+
+    addListeners(
+      $html,
+      '.image-remove',
+      'click',
+      this.removeImage
+    )
+
+    addListeners(
+      $html,
+      'input.color,input[type="color"]',
+      'change',
+      this.onColorChange
+    )
+
+    addListeners(
+      $html,
+      '.display-toggle',
+      'click',
+      this.onDisplayToggle.bind(this)
+    )
+
+    $html
+      .querySelector('#ThemeSettings-theme-select')
+      ?.addEventListener('change', this.onChangeTheme.bind(this))
+    
+    $html
+      .querySelector('#ThemeSettings-custom-theme-create')
+      ?.addEventListener('click', () => this.createCustomTheme.call(this, $html))
+
+    $html
+      .querySelector('#ThemeSettings-delete')
+      ?.addEventListener('click', this.deleteTheme.bind(this))
+
+    $html
+      .querySelector('#ThemeSettings-preview')
+      ?.addEventListener('click', this.preview.bind(this, html))
+
+    $html
+      .querySelector('#ThemeSettings-revert')
+      ?.addEventListener('click', this.revert.bind(this))
   }
 
   close () {
@@ -132,8 +173,12 @@ export default class CpThemeSettings extends FormApplication {
     setThemeProperties()
   }
 
-  async createCustomTheme (html) {
-    const customThemeName = (html.find('#ThemeSettings-custom-theme-name').val() ?? '').trim()
+  async createCustomTheme ($html) {
+    const customThemeName = (
+      $html
+        .querySelector('#ThemeSettings-custom-theme-name')
+        .value ?? ''
+      ).trim()
 
     const errorMessage = !customThemeName
       ? localizer('CP.CustomThemeNameErrorRequired')
@@ -212,6 +257,7 @@ export default class CpThemeSettings extends FormApplication {
   }
 
   async onChangeTheme (event) {
+    const $currentTarget = event.currentTarget
     const confirmed = !this.isPresetTheme
       ? await Dialog.confirm({
           title: localizer('CP.ChangeThemeConfirmTitle'),
@@ -221,37 +267,35 @@ export default class CpThemeSettings extends FormApplication {
       : true
 
     if (confirmed) {
-      this.selectedTheme = event.currentTarget.value
+      this.selectedTheme = $currentTarget.value
   
       await this.render(true)
     }
   }
 
   onColorChange (event) {
-    const $input = $(event.target)
+    const $input = event.target
     const $fieldColor = $input.closest('.field-color')
 
     const $swatch = $fieldColor
-      .find('.swatch')
-      .first()
+      .querySelector('.swatch')
 
-    const value = $input.val()
+    const value = $input.value
 
     const $pickerField = $fieldColor
-      .find('input[type="color"]')
-      .first()
+      .querySelector('input[type="color"]')
 
-    $pickerField.val(value)
+    $pickerField.value = value
 
-    $swatch.css('background-color', value || '#ffffff')
+    $swatch.style.backgroundColor = value || '#ffffff'
 
-    const hasTransparentClass = $swatch.hasClass('transparent')
+    const hasTransparentClass = $swatch.classList.contains('transparent')
 
     if (
       (value && hasTransparentClass) ||
       (!value && !hasTransparentClass)
     ) {
-      $swatch.toggleClass('transparent')
+      $swatch.classList.toggle('transparent')
     }
   }
 
@@ -263,47 +307,44 @@ export default class CpThemeSettings extends FormApplication {
         .filter(expandedSection => expandedSection !== section)
       : [...this.expandedSections, section]
 
-    displayToggleMethod.call(event.target, event)
+    displayToggleMethod(event)
   }
 
   onImageChange (event) {
     const value = event.target.value
 
-    const $fieldWrapper = $(event.target)
+    const $fieldWrapper = event
+      .target
       .closest('.field-wrapper')
 
     const $imageRemove = $fieldWrapper
-      .find('.image-remove')
+      .querySelector('.image-remove')
 
     const $noImageMsg = $fieldWrapper
-      .find('.no-image-msg')
+      .querySelector('.no-image-msg')
 
     $fieldWrapper
-      .find('.field-hidden-image-picker')
-      .val(value)
+      .querySelector('.field-hidden-image-picker')
+      .value = value
 
     $fieldWrapper
-      .find('.field-img')
-      .first()
-      .css('background-image', value ? `url('${value}')` : '')
+      .querySelector('.field-img')
+      .style
+      .backgroundImage = value ? `url('${value}')` : ''
 
     if (value) {
-      $imageRemove
-        .removeClass('hide')
+      $imageRemove.classList.remove('hide')
   
-      $noImageMsg
-        .addClass('hide')
+      $noImageMsg.classList.add('hide')
     } else {
-      $imageRemove
-        .addClass('hide')
-  
-      $noImageMsg
-        .removeClass('hide')
+      $imageRemove.classList.add('hide')
+
+      $noImageMsg.classList.remove('hide')
     }
 
     $fieldWrapper
-      .find('.field-img-value')
-      .text(value || localizer('CP.NoImage'))
+      .querySelector('.field-img-value')
+      .textContent = value || localizer('CP.NoImage')
   }
 
   preview (html) {
@@ -324,29 +365,31 @@ export default class CpThemeSettings extends FormApplication {
   }
 
   removeImage (event) {
-    const $fieldWrapper = $(event.target)
+    const $fieldWrapper = event
+      .target
       .closest('.field-wrapper')
 
     $fieldWrapper
-      .find('.field-img')
-      .first()
-      .css('background-image', '')
+      .querySelector('.field-img')
+      .style.backgroundImage = null
 
     $fieldWrapper
-      .find('.field-hidden-image-picker')
-      .val('')
+      .querySelector('.field-hidden-image-picker')
+      .value = ''
 
     $fieldWrapper
-      .find('.image-remove')
-      .addClass('hide')
+      .querySelector('.image-remove')
+      .classList
+      .add('hide')
 
     $fieldWrapper
-      .find('.no-image-msg')
-      .removeClass('hide')
+      .querySelector('.no-image-msg')
+      .classList
+      .remove('hide')
 
     $fieldWrapper
-      .find('.field-img-value')
-      .text(localizer('CP.NoImage'))
+      .querySelector('.field-img-value')
+      .textContent = localizer('CP.NoImage')
   }
 
   async revert () {

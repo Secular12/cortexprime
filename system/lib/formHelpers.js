@@ -1,17 +1,21 @@
-import { round } from './helpers.js'
+import { addListeners, round } from './helpers.js'
 
-export const diceSelectListener = function (html, addCb, changeCb, removeCb) {
-  html
-    .find('.new-die')
-    .click((event) => {
+export const diceSelectListener = ($html, addCb, changeCb, removeCb) => {
+  addListeners(
+    $html,
+    '.new-die',
+    'click',
+    (event) => {
       const { target } = event.currentTarget.dataset ?? {}
-
       addCb(event, { target })
-    })
-  
-  html
-    .find('.die-select')
-    .change((event) => {
+    }
+  )
+
+  addListeners(
+    $html,
+    '.die-select',
+    'change',
+    (event) => {
       const {
         index,
         target
@@ -22,11 +26,14 @@ export const diceSelectListener = function (html, addCb, changeCb, removeCb) {
         target,
         value: parseInt(event.currentTarget.value, 10)
       })
-    })
+    }
+  )
 
-  html
-    .find('.die-select')
-    .on('mouseup', (event) => {
+  addListeners(
+    $html,
+    '.die-select',
+    'mouseup',
+    (event) => {
       event.preventDefault()
 
       const {
@@ -38,35 +45,39 @@ export const diceSelectListener = function (html, addCb, changeCb, removeCb) {
         index: parseInt(index, 10),
         target
       })
-    })
+    }
+  )
 }
 
-const numberFieldListener = function (html) {
-  html
-    .find('.field-number .field-input')
-    .change(event => {
-      const el = event.target
-      
-      if (!el.required && !el.value && el.value !== 0) return
-
-      const max = el.max || el.max === 0 ? +el.max : null
-      const min = el.min || el.min === 0 ? +el.min : null
-      const step = +el.step
-      const value = +el.value
-      
-      if ((min || min === 0) && value < min) {
-        el.value = min
-        return
-      }
-      
-      if ((max || max === 0) && value > max) {
-        el.value = max
-        return
-      }
-
-      if (step) {
-        el.value = round(value, step, min ?? 0)
-      }
+const numberFieldListener = ($html) => {
+  $html
+    .querySelectorAll('.field-number .field-input')
+    .forEach($numberInput => {
+      $numberInput
+        .addEventListener('change', event => {
+          const el = event.target
+          
+          if (!el.required && !el.value && el.value !== 0) return
+    
+          const max = el.max || el.max === 0 ? +el.max : null
+          const min = el.min || el.min === 0 ? +el.min : null
+          const step = +el.step
+          const value = +el.value
+          
+          if ((min || min === 0) && value < min) {
+            el.value = min
+            return
+          }
+          
+          if ((max || max === 0) && value > max) {
+            el.value = max
+            return
+          }
+    
+          if (step) {
+            el.value = round(value, step, min ?? 0)
+          }
+        })
     })
 }
 

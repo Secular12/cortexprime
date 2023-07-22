@@ -1,16 +1,39 @@
-export const displayToggleMethod = function (event) {
-  const $toggler = $(this)
-  const $chevronIcon = $toggler.find('.fa')
-  const { parent, target } = event.currentTarget.dataset
-
-  $chevronIcon.toggleClass('fa-chevron-down fa-chevron-up')
-  $toggler.closest(parent).find(target).toggleClass('hide')
+export const addListeners = ($html, selector, event, callback) => {
+  $html
+    .querySelectorAll(selector)
+    .forEach($item => {
+      $item.addEventListener(event, callback)
+    })
 }
 
-export const displayToggle = (html) => {
-  html
-    .find('.display-toggle')
-    .click(displayToggleMethod)
+export const displayToggleMethod = function (event, $target) {
+  const $toggler = $target ?? event.currentTarget
+
+  const $chevronIcon = $toggler.querySelector('.fa')
+  const { parent, target } = $toggler.dataset
+
+  $chevronIcon
+    .classList
+    .toggle('fa-chevron-down')
+
+  $chevronIcon
+    .classList
+    .toggle('fa-chevron-up')
+
+  $toggler
+    .closest(parent)
+    ?.querySelector(target)
+    .classList
+    .toggle('hide')
+}
+
+export const displayToggle = ($html) => {
+  addListeners(
+    $html,
+    '.display-toggle',
+    'click',
+    displayToggleMethod
+  )
 }
 
 export const isObject = value => (

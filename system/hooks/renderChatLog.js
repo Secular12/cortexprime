@@ -1,17 +1,26 @@
 import { displayToggleMethod } from '../lib/helpers.js'
 
-export default (log, html, data) => {
-  const $chatLog = html.find('#chat-log')
-  
-  $chatLog
-    .on('click', '.display-toggle', displayToggleMethod)
-    .on('click', '.RollResult-add-to-pool', (event) => {
-      game.cortexprime.DicePool.addToPool(event)
-      game.cortexprime.DicePool.render(true)
-    })
-    .on('click', '.RollResult-re-roll', (event) => {
-      game.cortexprime.DicePool.addToPool(event)
-      game.cortexprime.DicePool._rollDice('select')
-      game.cortexprime.DicePool.clear()
+export default (log, [$html], data) => {
+  $html
+    .querySelector('#chat-log')
+    .addEventListener('click', (event) => {
+      const $displayToggle = event.target.closest('.display-toggle')
+      const $rollResultAddToPool = event.target.closest('.RollResult-add-to-pool')
+      const $rollResultReRoll = event.target.closest('.RollResult-re-roll')
+
+      if ($displayToggle) {
+        displayToggleMethod(event, $displayToggle)
+      }
+
+      if ($rollResultAddToPool) {
+        game.cortexprime.DicePool.addToPool(event, $rollResultAddToPool)
+        game.cortexprime.DicePool.render(true)
+      }
+
+      if ($rollResultReRoll) {
+        game.cortexprime.DicePool.addToPool(event, $rollResultReRoll)
+        game.cortexprime.DicePool._rollDice('select')
+        game.cortexprime.DicePool.clear()
+      }
     })
 }
