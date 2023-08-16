@@ -126,6 +126,42 @@
       </section>
       <div class="mb-4 separator"></div>
       <section>
+        <h3 class="heading-2 my-2">{{localize 'CP.Hitch'}}</h3>
+        <div class="flex items-start">
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.hitchFill_color
+            class="my-3 ThemeSettings-field-hitch-fill-color"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.FillColor')
+            name="currentSettings.hitchFill_color"
+            noEdit=isPresetTheme
+            value=currentSettings.hitchFill_color
+          }}
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.hitchStroke_color
+            class="my-3 ThemeSettings-field-hitch-stroke-color"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.StrokeColor')
+            name="currentSettings.hitchStroke_color"
+            noEdit=isPresetTheme
+            value=currentSettings.hitchStroke_color
+          }}
+          {{>
+            "systems/cortexprime/system/templates/partials/fields/color.html"
+            default=currentSettings.hitchNumber_color
+            class="my-3 ThemeSettings-field-hitch-number-color"
+            hint=(localize 'CP.ColorHint')
+            label=(localize 'CP.NumberColor')
+            name="currentSettings.hitchNumber_color"
+            noEdit=isPresetTheme
+            value=currentSettings.hitchNumber_color
+          }}
+        </div>
+      </section>
+      <div class="mb-4 separator"></div>
+      <section>
         <h3 class="heading-2 my-2">{{localize 'CP.Unchosen'}}</h3>
         <div class="flex items-start">
           {{>
