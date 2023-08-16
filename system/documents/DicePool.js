@@ -213,7 +213,7 @@ export class DicePool extends FormApplication {
             dice: Array
               .from($trait.querySelectorAll('.cp-die .number'))
               .map($number => parseInt($number.innerText, 10)),
-            hasHitches: $trait.dataset.hasHitches ?? false,
+            hasHitches: $trait.dataset.hasHitches !== 'false',
             name: $trait.dataset.name ?? null,
             parentName: $trait.dataset.parentName ?? null,
             rollsSeparately: $trait.dataset.rollsSeparately !== 'false'
