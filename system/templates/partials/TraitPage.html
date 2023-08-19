@@ -97,7 +97,7 @@
       class="shrink-1 GeneralSettings-trait-field-min-die-rating"
       disabled=(not trait.hasDice)
       label=(localize 'CP.MinimumDieRating')
-      name="trait.minDieRating"
+      name=(concat  'traits.' trait.id '.minDieRating')
     }}
     {{
       diceSelect
@@ -105,7 +105,7 @@
       class="shrink-1 GeneralSettings-trait-field-max-die-rating"
       disabled=(not trait.hasDice)
       label=(localize 'CP.MaximumDieRating')
-      name="trait.maxDieRating"
+      name=(concat  'traits.' trait.id '.maxDieRating')
     }}
   </div>
 </section>

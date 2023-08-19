@@ -98,7 +98,7 @@
       class="shrink-1 GeneralSettings-subtrait-field-min-die-rating"
       disabled=(not subtrait.hasDice)
       label=(localize 'CP.MinimumDieRating')
-      name="trait.minDieRating"
+      name=(concat  'subtraits.' subtrait.id '.minDieRating')
     }}
     {{
       diceSelect
@@ -106,7 +106,7 @@
       class="shrink-1 GeneralSettings-subtrait-field-max-die-rating"
       disabled=(not subtrait.hasDice)
       label=(localize 'CP.MaximumDieRating')
-      name="trait.maxDieRating"
+      name=(concat  'subtraits.' subtrait.id '.maxDieRating')
     }}
   </div>
 </div>

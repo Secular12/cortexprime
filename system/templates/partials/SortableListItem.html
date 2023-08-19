@@ -1,5 +1,6 @@
 <li
   class="drag-sort-item flex gap-1 py-1 {{pluralClassAffix}}-list-item"
+  data-id="{{item.id}}"
   data-sort-sequence="{{?? item.sequence itemIndex}}"
 >
   <input
@@ -26,6 +27,12 @@
     type="button"
   >
     <i class="fa fa-trash"></i>
+  </button>
+  <button
+    class="btn btn-icon btn-icon-text duplicate-{{singularClassAffix}}"
+    type="button"
+  >
+    <i class="fa fa-copy"></i>
   </button>
   <span class="list-item-name {{singularClassAffix}}-list-item-name">{{item.name}}</span>
 </li>
