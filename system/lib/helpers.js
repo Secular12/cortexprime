@@ -6,6 +6,14 @@ export const addListeners = ($html, selector, event, callback) => {
     })
 }
 
+export const camelCasetoKebabCase = (str) => {
+  return str.split('').map((letter, idx) => {
+    return letter.toUpperCase() === letter
+     ? `${idx !== 0 ? '-' : ''}${letter.toLowerCase()}`
+     : letter;
+  }).join('');
+}
+
 export const displayToggleMethod = function (event, $target) {
   const $toggler = $target ?? event.currentTarget
 
@@ -42,6 +50,8 @@ export const isObject = value => (
   !Array.isArray(value)
 )
 
+export const localizer = target => game.i18n.localize(target)
+
 export const objectToArray = obj => {
   return Object.entries(obj)
     .reduce((arr, [key, value]) => {
@@ -50,7 +60,18 @@ export const objectToArray = obj => {
     }, [])
 }
 
-export const localizer = target => game.i18n.localize(target)
+export const objectSortToArray = (obj, cb) => {
+  const entries = Object.entries(obj)
+
+  const callback = cb
+    ? cb
+    : ([a], [b]) => b > a ? -1 : a > b ? 1 : 0
+
+  entries.sort((a, b) => callback(a, b, entries.length))
+
+  return entries
+    .map(([_, value]) => value)
+}
 
 const rounding = (dir = null) => (number, increment, offset) => {
   const roundingDir = dir ?? 'round'
@@ -66,10 +87,8 @@ const rounding = (dir = null) => (number, increment, offset) => {
 
 export const round = rounding()
 
-export const camelCasetoKebabCase = (str) => {
-  return str.split('').map((letter, idx) => {
-    return letter.toUpperCase() === letter
-     ? `${idx !== 0 ? '-' : ''}${letter.toLowerCase()}`
-     : letter;
-  }).join('');
+export const uuid = () => {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c => {
+    return (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  })
 }

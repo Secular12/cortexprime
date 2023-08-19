@@ -33,7 +33,7 @@ export default class CpThemeSettings extends FormApplication {
       resizable: false,
       scrollY: ['#ThemeSettings-form-body'],
       submitOnChange: false,
-      subitOnClose: false,
+      submitOnClose: false,
       template: 'systems/cortexprime/system/templates/CpThemeSettings.html',
       title: localizer('CP.ThemeSettings'),
       top: 200,
@@ -394,8 +394,8 @@ export default class CpThemeSettings extends FormApplication {
 
   async revert () {
     const confirmed = await Dialog.confirm({
-      title: localizer('CP.RevertThemeConfirmTitle'),
-      content: localizer('CP.RevertThemeConfirmContent'),
+      title: localizer('CP.ResetConfirmTitle'),
+      content: localizer('CP.ResetConfirmContent'),
       defaultYes: false,
     })
 

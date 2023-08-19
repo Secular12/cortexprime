@@ -10,17 +10,20 @@ export default (log, [$html], data) => {
 
       if ($displayToggle) {
         displayToggleMethod(event, $displayToggle)
+        return
       }
 
       if ($rollResultAddToPool) {
         game.cortexprime.DicePool.addToPool(event, $rollResultAddToPool)
         game.cortexprime.DicePool.render(true)
+        return
       }
 
       if ($rollResultReRoll) {
         game.cortexprime.DicePool.addToPool(event, $rollResultReRoll)
         game.cortexprime.DicePool._rollDice('select')
         game.cortexprime.DicePool.clear()
+        return
       }
     })
 }

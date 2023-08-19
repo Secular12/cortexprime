@@ -1,5 +1,5 @@
 import CpThemeSettings from './documents/CpThemeSettings'
-import CpTraitSettings from './documents/CpTraitSettings'
+import CpGeneralSettings from './documents/CpGeneralSettings'
 import defaultItemTypes from './lib/defaultItemTypes'
 import defaultThemes from './lib/defaultThemes'
 import { localizer } from './lib/helpers'
@@ -30,12 +30,12 @@ export const registerSettings = () => {
     type: Object,
   })
 
-  game.settings.registerMenu('cortexprime', 'Traitettings', {
-    hint: localizer('CP.TraitSettingsHint'),
+  game.settings.registerMenu('cortexprime', 'Generalettings', {
+    hint: localizer('CP.GeneralSettingsHint'),
     icon: 'fas fa-palette',
-    label: localizer('CP.TraitSettings'),
-    name: localizer('CP.TraitSettings'),
+    label: localizer('CP.GeneralSettings'),
+    name: localizer('CP.GeneralSettings'),
     restricted: true,
-    type: CpTraitSettings,
+    type: CpGeneralSettings,
   })
 }

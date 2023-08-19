@@ -1,0 +1,111 @@
+<section 
+  class="GeneralSettings-page hide list-item-page theme-section trait-page"
+  data-id="{{trait.id}}"
+>
+  <div class="theme-section-background-image"></div>
+  <div class="theme-section-background-color"></div>
+  <div class="p-2 theme-section-content">
+    <header class="flex">
+      <button
+        class="btn btn-secondary go-to-page"
+        type="button"
+        data-current-id="{{trait.id}}"
+      >
+        <i class="fa fa-chevron-left"></i>
+        <span>{{localize 'CP.Back'}}</span>
+      </button>
+      <h3 class="heading-1">{{trait.name}}</h3>
+    </header>
+    <div class="my-2 separator"></div>
+    {{
+      fieldText
+      trait.name
+      class="my-3 GeneralSettings-trait-field-name"
+      label=(localize 'CP.Name')
+      name=(concat 'traits.' trait.id '.name')
+    }}
+    {{
+      fieldCheckbox
+      trait.hasDescription
+      class="GeneralSettings-trait-field-has-description"
+      label=(localize 'CP.HasDescription')
+      name=(concat 'traits.' trait.id '.hasDescription')
+    }}
+    {{
+      fieldCheckbox
+      trait.hasLabel
+      class="GeneralSettings-trait-field-has-label"
+      label=(localize 'CP.HasLabel')
+      name=(concat 'traits.' trait.id '.hasLabel')
+    }}
+    {{
+      fieldCheckbox
+      trait.hasTags
+      class="GeneralSettings-trait-field-has-tags"
+      label=(localize 'CP.HasTags')
+      name=(concat 'traits.' trait.id '.hasTags')
+    }}
+    {{
+      fieldCheckbox
+      trait.isUnlockable
+      class="GeneralSettings-trait-field-is-unlockable"
+      label=(localize 'CP.Unlockable')
+      name=(concat 'traits.' trait.id '.isUnlockable')
+    }}
+    {{
+      fieldCheckbox
+      trait.hasDice
+      class="GeneralSettings-trait-field-has-dice"
+      label=(localize 'CP.HasDice')
+      name=(concat 'traits.' trait.id '.hasDice')
+    }}
+    {{
+      fieldCheckbox
+      trait.hasConsumableDice
+      class="GeneralSettings-trait-field-has-consumable-dice"
+      disabled=(not trait.hasDice)
+      label=(localize 'CP.HasConsumableDice')
+      name=(concat 'traits.' trait.id '.hasConsumableDice')
+    }}
+    {{
+      fieldCheckbox
+      trait.isRolledSeparately
+      class="GeneralSettings-trait-field-is-rolled-separately"
+      disabled=(not trait.hasDice)
+      label=(localize 'CP.RollsSeparately')
+      name=(concat 'traits.' trait.id '.isRolledSeparately')
+    }}
+    {{
+      fieldCheckbox
+      (or trait.hasHitches (not trait.isRolledSeparately))
+      class="GeneralSettings-trait-field-has-hitches"
+      disabled=(or (not trait.hasDice) (not trait.isRolledSeparately))
+      label=(localize 'CP.HasHitches')
+      name=(concat 'traits.' trait.id '.hasHitches')
+    }}
+    {{
+      fieldCheckbox
+      trait.allowMultipleDice
+      class="GeneralSettings-trait-field-allow-multiple-dice"
+      disabled=(not trait.hasDice)
+      label=(localize 'CP.AllowMultipleDice')
+      name=(concat 'traits.' trait.id '.allowMultipleDice')
+    }}
+    {{
+      diceSelect
+      trait.minDieRating
+      class="shrink-1 GeneralSettings-trait-field-min-die-rating"
+      disabled=(not trait.hasDice)
+      label=(localize 'CP.MinimumDieRating')
+      name="trait.minDieRating"
+    }}
+    {{
+      diceSelect
+      trait.maxDieRating
+      class="shrink-1 GeneralSettings-trait-field-max-die-rating"
+      disabled=(not trait.hasDice)
+      label=(localize 'CP.MaximumDieRating')
+      name="trait.maxDieRating"
+    }}
+  </div>
+</section>

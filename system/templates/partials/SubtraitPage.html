@@ -1,0 +1,112 @@
+<div 
+  class="GeneralSettings-page hide list-item-page theme-section subtrait-page"
+  data-id="{{subtrait.id}}"
+>
+  <div class="theme-section-background-image"></div>
+  <div class="theme-section-background-color"></div>
+  <div class="p-2 theme-section-content">
+    <header class="flex">
+      <button
+        class="btn btn-secondary go-to-page"
+        type="button"
+        data-current-id="{{subtrait.id}}"
+      >
+        <i class="fa fa-chevron-left"></i>
+        <span>{{localize 'CP.Back'}}</span>
+      </button>
+      <h3 class="heading-1">{{subtrait.name}}</h3>
+    </header>
+    <div class="my-2 separator"></div>
+    {{
+      fieldText
+      subtrait.name
+      class="my-3 GeneralSettings-subtrait-field-name"
+      inputClass="GeneralSettings-subtrait-field-name-input"
+      label=(localize 'CP.Name')
+      name=(concat 'subtraits.' subtrait.id '.name')
+    }}
+    {{
+      fieldCheckbox
+      subtrait.hasDescription
+      class="GeneralSettings-subtrait-field-has-description"
+      label=(localize 'CP.HasDescription')
+      name=(concat  'subtraits.' subtrait.id '.hasDescription')
+    }}
+    {{
+      fieldCheckbox
+      subtrait.hasLabel
+      class="GeneralSettings-subtrait-field-has-label"
+      label=(localize 'CP.HasLabel')
+      name=(concat  'subtraits.' subtrait.id '.hasLabel')
+    }}
+    {{
+      fieldCheckbox
+      subtrait.hasTags
+      class="GeneralSettings-subtrait-field-has-tags"
+      label=(localize 'CP.HasTags')
+      name=(concat  'subtraits.' subtrait.id '.hasTags')
+    }}
+    {{
+      fieldCheckbox
+      subtrait.isUnlockable
+      class="GeneralSettings-subtrait-field-is-unlockable"
+      label=(localize 'CP.Unlockable')
+      name=(concat  'subtraits.' subtrait.id '.isUnlockable')
+    }}
+    {{
+      fieldCheckbox
+      subtrait.hasDice
+      class="GeneralSettings-subtrait-field-has-dice"
+      label=(localize 'CP.HasDice')
+      name=(concat  'subtraits.' subtrait.id '.hasDice')
+    }}
+    {{
+      fieldCheckbox
+      subtrait.hasConsumableDice
+      class="GeneralSettings-subtrait-field-has-consumable-dice"
+      disabled=(not subtrait.hasDice)
+      label=(localize 'CP.HasConsumableDice')
+      name=(concat  'subtraits.' subtrait.id '.hasConsumableDice')
+    }}
+    {{
+      fieldCheckbox
+      subtrait.isRolledSeparately
+      class="GeneralSettings-subtrait-field-is-rolled-separately"
+      disabled=(not subtrait.hasDice)
+      label=(localize 'CP.RollsSeparately')
+      name=(concat  'subtraits.' subtrait.id '.isRolledSeparately')
+    }}
+    {{
+      fieldCheckbox
+      (or subtrait.hasHitches (not subtrait.isRolledSeparately))
+      class="GeneralSettings-subtrait-field-has-hitches"
+      disabled=(or (not subtrait.hasDice) (not subtrait.isRolledSeparately))
+      label=(localize 'CP.HasHitches')
+      name=(concat  'subtraits.' subtrait.id '.hasHitches')
+    }}
+    {{
+      fieldCheckbox
+      subtrait.allowMultipleDice
+      class="GeneralSettings-subtrait-field-allow-multiple-dice"
+      disabled=(not subtrait.hasDice)
+      label=(localize 'CP.AllowMultipleDice')
+      name=(concat  'subtraits.' subtrait.id '.allowMultipleDice')
+    }}
+    {{
+      diceSelect
+      subtrait.minDieRating
+      class="shrink-1 GeneralSettings-subtrait-field-min-die-rating"
+      disabled=(not subtrait.hasDice)
+      label=(localize 'CP.MinimumDieRating')
+      name="trait.minDieRating"
+    }}
+    {{
+      diceSelect
+      subtrait.maxDieRating
+      class="shrink-1 GeneralSettings-subtrait-field-max-die-rating"
+      disabled=(not subtrait.hasDice)
+      label=(localize 'CP.MaximumDieRating')
+      name="trait.maxDieRating"
+    }}
+  </div>
+</div>

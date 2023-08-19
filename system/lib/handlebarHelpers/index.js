@@ -11,6 +11,7 @@ export const registerHandlebarHelpers = () => {
     includes: (arr, item) => arr.includes(item),
     length: (value) => value?.length ?? null,
     sub: (a, b) => +a - +b,
+    '??': (a, b) => a ?? b,
   }),
   Handlebars.registerHelper('times', (n, block) => {
     let accum = '';

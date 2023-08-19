@@ -1,0 +1,30 @@
+<section class="{{pluralClassAffix}}-list-section item-list">
+  <h3 class="flex heading-2 mb-2">
+    <div>
+      {{label}}
+    </div>
+    <div>
+      <button
+        class="add-{{singularClassAffix}} btn btn-icon"
+        type="button"
+      >
+        <i class="fa fa-plus"></i>
+      </button>
+    </div>
+  </h3>
+  <ul
+    class="drag-sort-list {{pluralClassAffix}}-list"
+    data-sort-list="{{listType}}"
+  >
+    {{#each items as |item itemIndex|}}
+      {{>
+        "systems/cortexprime/system/templates/partials/SortableListItem.html"
+        pluralClassAffix=../pluralClassAffix
+        singularClassAffix=../singularClassAffix
+        item=item
+        itemIndex=itemIndex
+        itemsPath=../itemsPath
+      }}
+    {{/each}}
+  </ul>
+</section>

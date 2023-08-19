@@ -1,0 +1,8 @@
+.drag-sort-handle {
+  cursor: pointer;
+}
+
+.drag-sort-item--active {
+  border: var(--separator-width, 2px) var(--separator-style, solid) var(--separator-color, color('separator'));
+  padding: toRem(4px);
+}
