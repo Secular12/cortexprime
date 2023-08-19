@@ -17,7 +17,8 @@ export const camelCasetoKebabCase = (str) => {
 export const displayToggleMethod = function (event, $target) {
   const $toggler = $target ?? event.currentTarget
 
-  const $chevronIcon = $toggler.querySelector('.fa')
+  const $chevronIcon = $toggler.querySelector('.toggler-icon')
+  
   const { parent, target } = $toggler.dataset
 
   $chevronIcon
@@ -31,8 +32,8 @@ export const displayToggleMethod = function (event, $target) {
   $toggler
     .closest(parent)
     ?.querySelector(target)
-    .classList
-    .toggle('hide')
+    ?.classList
+    ?.toggle('hide')
 }
 
 export const displayToggle = ($html) => {

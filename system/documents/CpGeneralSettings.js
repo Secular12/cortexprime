@@ -1,5 +1,16 @@
-import { addDragSort, dragSort } from '../lib/dragSort'
-import { addListeners, localizer, objectSortToArray, uuid } from '../lib/helpers'
+import {
+  addDragSort,
+  dragSort
+} from '../lib/dragSort'
+
+import {
+  addListeners,
+  displayToggle,
+  localizer,
+  objectSortToArray,
+  uuid
+} from '../lib/helpers'
+
 import Logger from '../lib/Logger'
 
 const Log = Logger()
@@ -54,6 +65,8 @@ export default class CpGeneralSettings extends FormApplication {
     const [$html] = html
 
     dragSort($html, this._onDragSortDrop.bind(this))
+
+    displayToggle($html)
 
     addListeners(
       $html,
@@ -316,7 +329,6 @@ export default class CpGeneralSettings extends FormApplication {
 }
 
 // "Are you sure?"" on closing, or reset and save; warning that any unsaved progress will be lost
-// Make trait/subtrait list collapsable
 // Add duplicate option for list items
 // TODO: Edit form for traits and subtraits
 // // On changing min/max die rating should adjust the other to fit

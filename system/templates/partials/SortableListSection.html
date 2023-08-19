@@ -1,19 +1,28 @@
 <section class="{{pluralClassAffix}}-list-section item-list">
-  <h3 class="flex heading-2 mb-2">
-    <div>
-      {{label}}
+  <h3
+    class="display-toggle flex"
+    data-parent=".{{pluralClassAffix}}-list-section"
+    data-target=".{{pluralClassAffix}}-list"
+  >
+    <div class="grow-1 flex">
+      <div class="heading-2">
+        {{label}}
+      </div>
+      <div>
+        <button
+          class="add-{{singularClassAffix}} btn btn-icon"
+          type="button"
+        >
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
     </div>
-    <div>
-      <button
-        class="add-{{singularClassAffix}} btn btn-icon"
-        type="button"
-      >
-        <i class="fa fa-plus"></i>
-      </button>
+    <div class="shrink-1">
+      <i class="fa fa-chevron-down toggler-icon"></i>
     </div>
   </h3>
   <ul
-    class="drag-sort-list {{pluralClassAffix}}-list"
+    class="drag-sort-list hide mt-2 {{pluralClassAffix}}-list"
     data-sort-list="{{listType}}"
   >
     {{#each items as |item itemIndex|}}
