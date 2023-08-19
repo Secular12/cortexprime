@@ -36,6 +36,37 @@ export const displayToggleMethod = function (event, $target) {
     ?.toggle('hide')
 }
 
+export const displayOpenIfClosed = (event, $target) => {
+  const $toggler = $target ?? event.currentTarget
+
+  const { parent, target } = $toggler.dataset
+
+  const $targetDisplay = $toggler
+    .closest(parent)
+    ?.querySelector(target)
+  
+  if (
+    $targetDisplay
+      ?.classList
+      ?.contains('hide') ?? false
+  ) {
+    const $chevronIcon = $toggler.querySelector('.toggler-icon')
+
+    $chevronIcon
+      .classList
+      .toggle('fa-chevron-down')
+  
+    $chevronIcon
+      .classList
+      .toggle('fa-chevron-up')
+  
+    $targetDisplay
+      ?.classList
+      ?.remove('hide')
+  }
+
+}
+
 export const displayToggle = ($html) => {
   addListeners(
     $html,

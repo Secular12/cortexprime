@@ -6,6 +6,7 @@ import {
 import {
   addListeners,
   displayToggle,
+  displayOpenIfClosed,
   localizer,
   objectSortToArray,
   uuid
@@ -388,7 +389,6 @@ export default class CpGeneralSettings extends FormApplication {
       }
     )
 
-    console.log(id)
     this._switchPage($html, { targetId: id })
   }
 
@@ -447,8 +447,8 @@ export default class CpGeneralSettings extends FormApplication {
     } = payload
 
     const $list = $addListButton
-    .closest(`.${listTypePlural}-list-section`)
-    .querySelector(`.${listTypePlural}-list`)
+      .closest(`.${listTypePlural}-list-section`)
+      .querySelector(`.${listTypePlural}-list`)
 
     const $listItems = $list
       .querySelectorAll(`.${listTypePlural}-list-item`)
@@ -488,6 +488,14 @@ export default class CpGeneralSettings extends FormApplication {
     $html
       .querySelector(`.${listTypeSingular}-pages`)
       .insertAdjacentHTML('beforeend', pageHtml)
+
+    const $displayToggle = $addListButton
+      .closest(`.${listTypePlural}-list-section`)
+      .querySelector('.display-toggle')
+
+    displayOpenIfClosed(null, $displayToggle)
+
+    this._switchPage($html, { targetId: id })
   }
 
   _onDragSortDrop ($dragSortList) {
@@ -517,17 +525,17 @@ export default class CpGeneralSettings extends FormApplication {
   }
 }
 
-// "Are you sure?"" on closing, or reset and save; warning that any unsaved progress will be lost
-// stress/trauma trait should have no dice'
-// Add dice selector functionality
-// TODO: Edit form for traits and subtraits
-// // On changing min/max die rating should adjust the other to fit
-// // Add subtraits allowed checkbox area to traits
-// // // Upon resorting or deleting subtraits, adjust the allowed subtraits in traits areas
-// TODO: [numbers?] Think about how to add number fields (life points, quantity, weight, distance, etc.)
-// TODO: [booleans?] Think about how to add boolean/checkbox fields (shaken & stricken)
-// TODO: [descriptors] Think about how to add key/value pair fields (limits)
-// TODO: Growth Tracking
-// TODO: (FUTURE) when deleting trait or subtrait other sheets will be properly updated
-// TODO: (FUTURE) save trait settings; wait until editing is working properly
-// Make Traits expanded in RollResult a setting for precollapsed or not (default not)
+// tweak: hitting add should not toggle list
+// fix: missing dice selector functionality
+// // tweak: On changing min/max die rating should adjust the other to fit
+// feat: [descriptors] Think about how to add key/value pair fields (limits)
+// feat: subtrait types to traits
+// tweak: style Edit form for traits and subtraits
+// feat: "Are you sure?"" on closing, or reset and save; warning that any unsaved progress will be lost
+// tweak: Upon resorting or deleting subtraits, adjust the allowed subtraits in traits areas
+// feat: [numbers?] Think about how to add number fields (life points, quantity, weight, distance, etc.)
+// feat: [booleans or just tags?] Think about how to add boolean/checkbox fields (shaken & stricken)
+// feat: Growth Tracking
+// feat: save trait settings; wait until editing is working properly
+// tweak: (FUTURE) when deleting trait or subtrait other sheets will be properly updated
+// feat: expandable roll result traits setting (default not)
