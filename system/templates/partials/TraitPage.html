@@ -47,6 +47,13 @@
     }}
     {{
       fieldCheckbox
+      trait.hasDescriptors
+      class="GeneralSettings-trait-field-has-descriptors"
+      label=(localize 'CP.HasDescriptors')
+      name=(concat 'traits.' trait.id '.hasDescriptors')
+    }}
+    {{
+      fieldCheckbox
       trait.isUnlockable
       class="GeneralSettings-trait-field-is-unlockable"
       label=(localize 'CP.Unlockable')

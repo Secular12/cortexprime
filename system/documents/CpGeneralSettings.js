@@ -525,9 +525,9 @@ export default class CpGeneralSettings extends FormApplication {
   }
 }
 
-// tweak: hitting add should not toggle list
 // fix: missing dice selector functionality
 // // tweak: On changing min/max die rating should adjust the other to fit
+// // tweak: rethink null values for min/max die ratings
 // feat: [descriptors] Think about how to add key/value pair fields (limits)
 // feat: subtrait types to traits
 // tweak: style Edit form for traits and subtraits
@@ -539,3 +539,6 @@ export default class CpGeneralSettings extends FormApplication {
 // feat: save trait settings; wait until editing is working properly
 // tweak: (FUTURE) when deleting trait or subtrait other sheets will be properly updated
 // feat: expandable roll result traits setting (default not)
+// feat: temporary dice ratings
+// feat: preview button in DicePool to preview pool prior to rolling
+// feat: textarea icon interpolation

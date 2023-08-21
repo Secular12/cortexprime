@@ -48,6 +48,13 @@
     }}
     {{
       fieldCheckbox
+      subtrait.hasDescriptors
+      class="GeneralSettings-subtrait-field-has-descriptors"
+      label=(localize 'CP.HasDescriptors')
+      name=(concat  'subtraits.' subtrait.id '.hasDescriptors')
+    }}
+    {{
+      fieldCheckbox
       subtrait.isUnlockable
       class="GeneralSettings-subtrait-field-is-unlockable"
       label=(localize 'CP.Unlockable')

@@ -45,6 +45,7 @@
   "CP.GeneralSettingsHint": "Set up configuration for actors, traits, and subtraits for your Cortex Prime game.",
   "CP.HasConsumableDice": "Has Consumable Dice",
   "CP.HasDescription": "Has Description",
+  "CP.HasDescriptors": "Has Descriptors",
   "CP.HasDice": "Has Dice",
   "CP.HasHitches": "Has Hitches",
   "CP.HasLabel": "Has Label",
