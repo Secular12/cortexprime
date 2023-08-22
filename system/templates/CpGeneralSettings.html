@@ -54,15 +54,16 @@
       <div class="GeneralSettings-pages trait-pages">
         {{#each traits as |trait traitIndex|}}
           {{>
-            "systems/cortexprime/system/templates/partials/TraitPage.html"
+            "systems/cortexprime/system/templates/partials/GeneralSettings/TraitPage.html"
             trait=trait
+            subtraits=../subtraits
           }}
         {{/each}}
       </div>
       <div class="GeneralSettings-pages subtrait-pages">
         {{#each subtraits as |subtrait subtraitIndex|}}
           {{>
-            "systems/cortexprime/system/templates/partials/SubtraitPage.html"
+            "systems/cortexprime/system/templates/partials/GeneralSettings/SubtraitPage.html"
             subtrait=subtrait
           }}
         {{/each}}

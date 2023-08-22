@@ -114,5 +114,17 @@
       label=(localize 'CP.MaximumDieRating')
       name=(concat  'traits.' trait.id '.maxDieRating')
     }}
+    <h4 class="heading-2">{{localize 'CP.AssociatedSubtraits'}}</h4>
+    <div class="GeneralSettings-subtrait-types">
+      {{#each subtraits as |subtrait subtraitIndex|}}
+        {{>
+          "systems/cortexprime/system/templates/partials/GeneralSettings/SubtraitType.html"
+          checked=(includes ../trait.subtraitTypes subtrait.id)
+          subtraitId=subtrait.id
+          traitId=../trait.id
+          label=subtrait.name
+        }}
+      {{/each}}
+    </div>
   </div>
 </section>

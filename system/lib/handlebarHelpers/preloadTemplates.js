@@ -2,9 +2,11 @@ export const preloadHandlebarsTemplates = async () => {
   const templatePaths = [
     'fields/color',
     'fields/image',
+    'GeneralSettings/SubtraitPage',
+    'GeneralSettings/SubtraitType',
+    'GeneralSettings/TraitPage',
     'SortableListSection',
     'SortableListItem',
-    'SubtraitPage',
     'themes/body',
     'themes/buttons',
     'themes/dice',
@@ -12,7 +14,6 @@ export const preloadHandlebarsTemplates = async () => {
     'themes/inputs',
     'themes/misc',
     'themes/sections',
-    'TraitPage',
   ]
     .map(template => `systems/cortexprime/system/templates/partials/${template}.html`)
 

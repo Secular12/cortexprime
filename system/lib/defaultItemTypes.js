@@ -471,6 +471,10 @@ export default {
       maxDieRating: null,
       minDieRating: null,
       name: 'Talent',
+      subtraitTypes: [
+        'subtrait-stress',
+        'subtrait-trauma',
+      ],
     },
     {
       id: 'trait-trauma',

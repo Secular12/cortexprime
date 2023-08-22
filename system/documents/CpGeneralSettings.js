@@ -65,7 +65,7 @@ export default class CpGeneralSettings extends FormApplication {
     super.activateListeners(html)
     const [$html] = html
 
-    dragSort($html, this._onDragSortDrop.bind(this))
+    dragSort($html, this._onDragSortDrop.bind(this, $html))
 
     displayToggle($html)
 
@@ -105,7 +105,7 @@ export default class CpGeneralSettings extends FormApplication {
         const $deleteSubtrait = event.target.closest('.delete-subtrait')
 
         if ($deleteSubtrait) {
-          this.deletePageItem($html, $deleteSubtrait, '.subtraits-list-item')
+          this.deleteSubtrait($html, $deleteSubtrait)
         }
       }
     )
@@ -154,7 +154,7 @@ export default class CpGeneralSettings extends FormApplication {
         itemName: 'New Subtrait',
         listTypePlural: 'subtraits',
         listTypeSingular: 'subtrait',
-        templatePath: 'SubtraitPage.html',
+        templatePath: 'GeneralSettings/SubtraitPage.html',
         templateData: {
           subtrait: {
             id,
@@ -174,10 +174,23 @@ export default class CpGeneralSettings extends FormApplication {
         },
       }
     )
+
+    await this._appendSubtraitType($html, {
+      subtraitId: id,
+      label: 'New Subtrait'
+    })
   }
 
   async addTrait ($html, $addTrait) {
     const id = uuid()
+
+    const subtraits = Array.from(
+      $html.querySelectorAll('.subtraits-list-item')
+    )
+      .map($subTrait => ({
+        id: $subTrait.dataset.id,
+        name: $subTrait.dataset.name,
+      }))
 
     await this._addPageItem(
       $html,
@@ -188,8 +201,9 @@ export default class CpGeneralSettings extends FormApplication {
         itemsPath: 'traits',
         listTypePlural: 'traits',
         listTypeSingular: 'trait',
-        templatePath: 'TraitPage.html',
+        templatePath: 'GeneralSettings/TraitPage.html',
         templateData: {
+          subtraits,
           trait: {
             id,
             allowMultipleDice: false,
@@ -232,13 +246,31 @@ export default class CpGeneralSettings extends FormApplication {
     if (confirmed) {
       $parentListItem.remove()
 
-      console.log(id)
-
       $html
         .querySelector(`.GeneralSettings-page[data-id="${id}"]`)
         .remove()
 
-      this._reapplySortSequence($dragSortList)
+      this._reapplySortSequence($html, $dragSortList)
+    }
+
+    return confirmed
+  }
+
+  async deleteSubtrait ($html, $deleteSubtrait) {
+    const { id } = $deleteSubtrait
+      .closest('.subtraits-list-item')
+      .dataset
+
+    const deleted = await this.deletePageItem($html, $deleteSubtrait, '.subtraits-list-item')
+
+    if (deleted) {
+      $html
+        .querySelectorAll(`.GeneralSettings-subtrait-types [data-subtrait-id="${id}"]`)
+        .forEach($subtraitTypeCheckbox => {
+          $subtraitTypeCheckbox
+            .closest('.GeneralSettings-trait-field-subtrait-types')
+            .remove()
+        })
     }
   }
 
@@ -267,7 +299,7 @@ export default class CpGeneralSettings extends FormApplication {
         itemsPath: 'subtraits',
         listTypePlural: 'subtraits',
         listTypeSingular: 'subtrait',
-        templatePath: 'SubtraitPage.html',
+        templatePath: 'GeneralSettings/SubtraitPage.html',
         templateData: {
           subtrait: {
             id,
@@ -314,6 +346,11 @@ export default class CpGeneralSettings extends FormApplication {
       }
     )
 
+    await this._appendSubtraitType($html, {
+      label: name,
+      subtraitId: id,
+    })
+
     this._switchPage($html, { targetId: id })
   }
 
@@ -333,6 +370,14 @@ export default class CpGeneralSettings extends FormApplication {
         ?.value ?? 'New Trait'
     ) + ' (duplicate)'
 
+    const subtraits = Array.from(
+      $html.querySelectorAll('.subtraits-list-item')
+    )
+      .map($subTrait => ({
+        id: $subTrait.dataset.id,
+        name: $subTrait.dataset.name,
+      }))
+
     await this._addPageItem(
       $html,
       $duplicateTrait,
@@ -342,8 +387,9 @@ export default class CpGeneralSettings extends FormApplication {
         itemsPath: 'traits',
         listTypePlural: 'traits',
         listTypeSingular: 'trait',
-        templatePath: 'TraitPage.html',
+        templatePath: 'GeneralSettings/TraitPage.html',
         templateData: {
+          subtraits,
           trait: {
             id,
             allowMultipleDice: $currentTraitPage
@@ -380,10 +426,15 @@ export default class CpGeneralSettings extends FormApplication {
             , 10) || null,
             minDieRating: parseInt(
               $currentTraitPage
-              ?.querySelector(`[name="traits.${currentId}.minDieRating"]`)
-              ?.value ?? null
+                ?.querySelector(`[name="traits.${currentId}.minDieRating"]`)
+                ?.value ?? null
             , 10) || null,
             name,
+            subtraitTypes: Array.from(
+              $currentTraitPage
+                ?.querySelectorAll(`[name="traits.${currentId}.subtraitTypes"]:checked`)
+            )
+              .map($subtraitType => $subtraitType.value)
           }
         },
       }
@@ -423,6 +474,8 @@ export default class CpGeneralSettings extends FormApplication {
     const traits = objectSortToArray(expandedData.traits, sequenceSort)
       .map(trait => {
         delete trait.sequence
+
+        trait.subtraitTypes = trait.subtraitTypes.filter(x => x)
 
         return trait
       })
@@ -478,7 +531,7 @@ export default class CpGeneralSettings extends FormApplication {
     const $dragSortHandler = $newListItem
       .querySelector('.drag-sort-handle')
 
-    addDragSort($dragSortHandler, this._onDragSortDrop)
+    addDragSort($dragSortHandler, () => this._onDragSortDrop($html))
 
     const pageHtml = await renderTemplate(
       `systems/cortexprime/system/templates/partials/${templatePath}`,
@@ -498,17 +551,57 @@ export default class CpGeneralSettings extends FormApplication {
     this._switchPage($html, { targetId: id })
   }
 
-  _onDragSortDrop ($dragSortList) {
-    this._reapplySortSequence($dragSortList)
+  async _appendSubtraitType ($html, data) {
+    const $traitPages = $html
+      .querySelectorAll('.trait-page')
+
+    await Promise.all(
+      Array.from($traitPages)
+        .map(async ($traitPage) => {
+          const { id: traitId } = $traitPage.dataset
+          
+          const subtraitTypeHtml = await renderTemplate(
+            'systems/cortexprime/system/templates/partials/GeneralSettings/SubtraitType.html',
+            {
+              checked: false,
+              subtraitId: data.subtraitId,
+              trait: traitId,
+              label: data.label,
+            }
+          )
+
+          $traitPage
+            .querySelector('.GeneralSettings-subtrait-types')
+            .insertAdjacentHTML('beforeend', subtraitTypeHtml)
+        })
+    )
   }
 
-  _reapplySortSequence ($dragSortList) {
+  _onDragSortDrop ($html, $dragSortList) {
+    this._reapplySortSequence($html, $dragSortList)
+  }
+
+  _reapplySortSequence ($html, $dragSortList) {
+    const { sortList } = $dragSortList.dataset
+
     Array.from($dragSortList.children)
       .forEach(($item, index) => {
         $item.dataset.sortSequence = index
         $item
           .querySelector('.drag-sort-item-sequence')
           .value = index
+
+        if (sortList === 'subtraits') {
+          $html
+            .querySelectorAll('.GeneralSettings-subtrait-types')
+            .forEach($subtraitSection => {
+              const $subtraitType = $subtraitSection
+                .querySelector(`[data-subtrait-id="${$item.dataset.id}"]`)
+                .closest('.GeneralSettings-trait-field-subtrait-types')
+
+                $subtraitSection.append($subtraitType)
+            })
+        }
       })
   }
 
@@ -528,11 +621,9 @@ export default class CpGeneralSettings extends FormApplication {
 // fix: missing dice selector functionality
 // // tweak: On changing min/max die rating should adjust the other to fit
 // // tweak: rethink null values for min/max die ratings
-// feat: [descriptors] Think about how to add key/value pair fields (limits)
-// feat: subtrait types to traits
+// tweak: Editing Name should update visual names
 // tweak: style Edit form for traits and subtraits
 // feat: "Are you sure?"" on closing, or reset and save; warning that any unsaved progress will be lost
-// tweak: Upon resorting or deleting subtraits, adjust the allowed subtraits in traits areas
 // feat: [numbers?] Think about how to add number fields (life points, quantity, weight, distance, etc.)
 // feat: [booleans or just tags?] Think about how to add boolean/checkbox fields (shaken & stricken)
 // feat: Growth Tracking
