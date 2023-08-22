@@ -14,13 +14,14 @@
         <i class="fa fa-chevron-left"></i>
         <span>{{localize 'CP.Back'}}</span>
       </button>
-      <h3 class="heading-1">{{trait.name}}</h3>
+      <h3 class="heading-1 trait-page-name">{{trait.name}}</h3>
     </header>
     <div class="my-2 separator"></div>
     {{
       fieldText
       trait.name
       class="my-3 GeneralSettings-trait-field-name"
+      inputClass="GeneralSettings-trait-field-name-input"
       label=(localize 'CP.Name')
       name=(concat 'traits.' trait.id '.name')
     }}

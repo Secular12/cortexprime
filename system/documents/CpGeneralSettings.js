@@ -112,6 +112,21 @@ export default class CpGeneralSettings extends FormApplication {
 
     addListeners(
       $html,
+      '.subtrait-pages',
+      'change',
+      (event) => {
+        const $subtraitName = event
+          .target
+          .closest('.GeneralSettings-subtrait-field-name-input')
+
+        if ($subtraitName) {
+          this.updateSubtraitName($html, $subtraitName)
+        }
+      }
+    )
+
+    addListeners(
+      $html,
       '.traits-list-section',
       'click',
       (event) => {
@@ -133,6 +148,21 @@ export default class CpGeneralSettings extends FormApplication {
 
         if ($deleteTrait) {
           this.deletePageItem($html, $deleteTrait, '.traits-list-item')
+        }
+      }
+    )
+
+    addListeners(
+      $html,
+      '.trait-pages',
+      'change',
+      (event) => {
+        const $traitName = event
+          .target
+          .closest('.GeneralSettings-trait-field-name-input')
+
+        if ($traitName) {
+          this.updateTraitName($html, $traitName)
         }
       }
     )
@@ -488,6 +518,47 @@ export default class CpGeneralSettings extends FormApplication {
     Log('CpGeneralSettings.save serializedData', serializedData)
   }
 
+  updateSubtraitName ($html, $subtraitName) {
+    const $subtraitPage = $subtraitName.closest('.subtrait-page')
+
+    const { id } = $subtraitPage.dataset
+
+    const subtraitName = $subtraitName.value
+
+    $subtraitPage
+      .querySelector('.subtrait-page-name')
+      .textContent = subtraitName
+    
+    $html
+      .querySelector(`.subtraits-list-item[data-id="${id}"] .subtraits-list-item-name`)
+      .textContent = subtraitName
+
+    $html
+      .querySelectorAll(`.GeneralSettings-trait-field-subtrait-types [data-subtrait-id="${id}"]`)
+      .forEach($subtraitType => {
+        $subtraitType
+          .closest('.field-wrapper')
+          .querySelector('.field-label')
+          .textContent = subtraitName
+      })
+  }
+
+  updateTraitName ($html, $traitName) {
+    const $traitPage = $traitName.closest('.trait-page')
+
+    const { id } = $traitPage.dataset
+
+    const traitName = $traitName.value
+
+    $traitPage
+      .querySelector('.trait-page-name')
+      .textContent = traitName
+    
+    $html
+      .querySelector(`.traits-list-item[data-id="${id}"] .traits-list-item-name`)
+      .textContent = traitName
+  }
+
   async _addPageItem ($html, $addListButton, payload) {
     const {
       id,
@@ -621,7 +692,6 @@ export default class CpGeneralSettings extends FormApplication {
 // fix: missing dice selector functionality
 // // tweak: On changing min/max die rating should adjust the other to fit
 // // tweak: rethink null values for min/max die ratings
-// tweak: Editing Name should update visual names
 // tweak: style Edit form for traits and subtraits
 // feat: "Are you sure?"" on closing, or reset and save; warning that any unsaved progress will be lost
 // feat: [numbers?] Think about how to add number fields (life points, quantity, weight, distance, etc.)
