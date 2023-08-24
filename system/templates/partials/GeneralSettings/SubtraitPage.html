@@ -100,6 +100,14 @@
       name=(concat  'subtraits.' subtrait.id '.allowMultipleDice')
     }}
     {{
+      fieldCheckbox
+      subtrait.allowNoDice
+      class="GeneralSettings-subtrait-field-allow-no-dice"
+      disabled=(not subtrait.hasDice)
+      label=(localize 'CP.AllowNoDice')
+      name=(concat  'subtraits.' subtrait.id '.allowNoDice')
+    }}
+    {{
       diceSelect
       subtrait.minDieRating
       class="shrink-1 GeneralSettings-subtrait-field-min-die-rating"

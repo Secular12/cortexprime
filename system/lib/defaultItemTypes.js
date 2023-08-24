@@ -3,6 +3,7 @@ export default {
     {
       id: 'subtrait-power',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -19,6 +20,7 @@ export default {
     {
       id: 'subtrait-sfx',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: true,
       hasDescriptors: false,
@@ -28,13 +30,14 @@ export default {
       hasTags: false,
       isRolledSeparately: false,
       isUnlockable: true,
-      maxDieRating: null,
-      minDieRating: null,
+      maxDieRating: 12,
+      minDieRating: 4,
       name: 'SFX',
     },
     {
       id: 'subtrait-specialty',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -51,6 +54,7 @@ export default {
     {
       id: 'subtrait-specialty-split',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -67,6 +71,7 @@ export default {
     {
       id: 'subtrait-stress',
       allowMultipleDice: false,
+      allowNoDice: true,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -83,6 +88,7 @@ export default {
     {
       id: 'subtrait-trait-statement',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: true,
       hasDescriptors: false,
@@ -99,6 +105,7 @@ export default {
     {
       id: 'subtrait-trauma',
       allowMultipleDice: false,
+      allowNoDice: true,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -118,6 +125,7 @@ export default {
     {
       id: 'trait-ability',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: true,
       hasDescriptors: false,
@@ -137,6 +145,7 @@ export default {
     {
       id: 'trait-affiliation',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -154,6 +163,7 @@ export default {
     {
       id: 'trait-asset',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -171,6 +181,7 @@ export default {
     {
       id: 'trait-attribute',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -188,6 +199,7 @@ export default {
     {
       id: 'trait-complication',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -205,6 +217,7 @@ export default {
     {
       id: 'trait-distinction',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: true,
       hasDescriptors: false,
@@ -224,6 +237,7 @@ export default {
     {
       id: 'trait-hero-dice',
       allowMultipleDice: true,
+      allowNoDice: true,
       hasConsumableDice: true,
       hasDescription: true,
       hasDescriptors: false,
@@ -241,6 +255,7 @@ export default {
     {
       id: 'trait-pool',
       allowMultipleDice: true,
+      allowNoDice: true,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -258,6 +273,7 @@ export default {
     {
       id: 'trait-power-set',
       allowMultipleDice: true,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -267,8 +283,8 @@ export default {
       hasTags: false,
       isRolledSeparately: false,
       isUnlockable: false,
-      maxDieRating: null,
-      minDieRating: null,
+      maxDieRating: 12,
+      minDieRating: 4,
       name: 'Power Set',
       subtraitTypes: [
         'subtrait-power',
@@ -278,6 +294,7 @@ export default {
     {
       id: 'trait-relationship',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: true,
       hasDescriptors: false,
@@ -295,6 +312,7 @@ export default {
     {
       id: 'trait-reputation',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: true,
       hasDescriptors: false,
@@ -314,6 +332,7 @@ export default {
     {
       id: 'trait-resource',
       allowMultipleDice: true,
+      allowNoDice: true,
       hasConsumableDice: true,
       hasDescription: false,
       hasDescriptors: false,
@@ -331,6 +350,7 @@ export default {
     {
       id: 'trait-role',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -348,6 +368,7 @@ export default {
     {
       id: 'trait-signature-asset',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: true,
       hasDescriptors: false,
@@ -367,6 +388,7 @@ export default {
     {
       id: 'trait-skill-split',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -386,6 +408,7 @@ export default {
     {
       id: 'trait-skill',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -405,6 +428,7 @@ export default {
     {
       id: 'trait-specialty',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -422,6 +446,7 @@ export default {
     {
       id: 'trait-stress',
       allowMultipleDice: false,
+      allowNoDice: true,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -439,6 +464,7 @@ export default {
     {
       id: 'trait-stress-and-trauma',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -448,8 +474,8 @@ export default {
       hasTags: false,
       isRolledSeparately: false,
       isUnlockable: false,
-      maxDieRating: null,
-      minDieRating: null,
+      maxDieRating: 12,
+      minDieRating: 4,
       name: 'Stress/Trauma',
       subtraitTypes: [
         'subtrait-stress',
@@ -459,6 +485,7 @@ export default {
     {
       id: 'trait-talent',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: true,
       hasDescriptors: true,
@@ -468,8 +495,8 @@ export default {
       hasTags: false,
       isRolledSeparately: false,
       isUnlockable: false,
-      maxDieRating: null,
-      minDieRating: null,
+      maxDieRating: 12,
+      minDieRating: 4,
       name: 'Talent',
       subtraitTypes: [
         'subtrait-stress',
@@ -479,6 +506,7 @@ export default {
     {
       id: 'trait-trauma',
       allowMultipleDice: false,
+      allowNoDice: true,
       hasConsumableDice: false,
       hasDescription: false,
       hasDescriptors: false,
@@ -496,6 +524,7 @@ export default {
     {
       id: 'trait-value',
       allowMultipleDice: false,
+      allowNoDice: false,
       hasConsumableDice: false,
       hasDescription: true,
       hasDescriptors: false,

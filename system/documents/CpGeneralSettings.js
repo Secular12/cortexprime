@@ -189,6 +189,7 @@ export default class CpGeneralSettings extends FormApplication {
           subtrait: {
             id,
             allowMultipleDice: false,
+            allowNoDice: false,
             hasConsumableDice: false,
             hasDescription: false,
             hasDice: true,
@@ -237,6 +238,7 @@ export default class CpGeneralSettings extends FormApplication {
           trait: {
             id,
             allowMultipleDice: false,
+            allowNoDice: false,
             hasConsumableDice: false,
             hasDescription: false,
             hasDice: true,
@@ -336,6 +338,9 @@ export default class CpGeneralSettings extends FormApplication {
             allowMultipleDice: $currentSubtraitPage
               ?.querySelector(`[name="subtraits.${currentId}.allowMultipleDice"]`)
               ?.checked ?? false,
+            allowNoDice: $currentSubtraitPage
+              ?.querySelector(`[name="subtraits.${currentId}.allowNoDice"]`)
+              ?.checked ?? false,
             hasConsumableDice: $currentSubtraitPage
               ?.querySelector(`[name="subtraits.${currentId}.hasConsumableDice"]`)
               ?.checked ?? false,
@@ -424,6 +429,9 @@ export default class CpGeneralSettings extends FormApplication {
             id,
             allowMultipleDice: $currentTraitPage
               ?.querySelector(`[name="traits.${currentId}.allowMultipleDice"]`)
+              ?.checked ?? false,
+            allowNoDice: $currentTraitPage
+              ?.querySelector(`[name="traits.${currentId}.allowNoDice"]`)
               ?.checked ?? false,
             hasConsumableDice: $currentTraitPage
               ?.querySelector(`[name="traits.${currentId}.hasConsumableDice"]`)
@@ -690,8 +698,7 @@ export default class CpGeneralSettings extends FormApplication {
 }
 
 // fix: missing dice selector functionality
-// // tweak: On changing min/max die rating should adjust the other to fit
-// // tweak: rethink null values for min/max die ratings
+// // tweak: On changing min/max die rating should adjust the others to fit
 // tweak: style Edit form for traits and subtraits
 // feat: "Are you sure?"" on closing, or reset and save; warning that any unsaved progress will be lost
 // feat: [numbers?] Think about how to add number fields (life points, quantity, weight, distance, etc.)
