@@ -86,9 +86,11 @@ export class DicePool extends FormApplication {
 
     diceSelectListener(
       $html,
-      this.onAddDie.bind(this),
-      this.onChangeDie.bind(this),
-      this.onRemoveDie.bind(this),
+      {
+        addDie: this.onAddDie.bind(this),
+        changeDie: this.onChangeDie.bind(this),
+        removeDie: this.onRemoveDie.bind(this),
+      }
     )
 
     $html

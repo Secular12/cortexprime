@@ -1,52 +1,59 @@
 import { addListeners, round } from './helpers.js'
 
-export const diceSelectListener = ($html, addCb, changeCb, removeCb) => {
-  addListeners(
-    $html,
-    '.new-die',
-    'click',
-    (event) => {
-      const { target } = event.currentTarget.dataset ?? {}
-      addCb(event, { target })
-    }
-  )
+export const diceSelectListener = ($html, { addDie, changeDie, removeDie }) => {
 
-  addListeners(
-    $html,
-    '.die-select',
-    'change',
-    (event) => {
-      const {
-        index,
-        target
-      } = event.currentTarget.dataset ?? {}
+  if (addDie) {
+    addListeners(
+      $html,
+      '.new-die',
+      'click',
+      (event) => {
+        const { target } = event.currentTarget.dataset ?? {}
+        addDie(event, { target })
+      }
+    )
+  }
 
-      changeCb(event, {
-        index: parseInt(index, 10),
-        target,
-        value: parseInt(event.currentTarget.value, 10)
-      })
-    }
-  )
+  if (changeDie) {
+    addListeners(
+      $html,
+      '.die-select',
+      'change',
+      (event) => {
+        const {
+          index,
+          target
+        } = event.currentTarget.dataset ?? {}
+  
+        changeDie(event, {
+          index: parseInt(index, 10),
+          target,
+          value: parseInt(event.currentTarget.value, 10)
+        })
+      }
+    )
+  }
 
-  addListeners(
-    $html,
-    '.die-select',
-    'mouseup',
-    (event) => {
-      event.preventDefault()
-
-      const {
-        index,
-        target
-      } = event.currentTarget.dataset ?? {}
-
-      if (event.button === 2) removeCb(event, {
-        index: parseInt(index, 10),
-        target
-      })
-    }
-  )
+  if (removeDie) {
+    addListeners(
+      $html,
+      '.die-select',
+      'mouseup',
+      (event) => {
+        event.preventDefault()
+  
+        const {
+          index,
+          target
+        } = event.currentTarget.dataset ?? {}
+  
+        if (event.button === 2) removeDie(event, {
+          index: parseInt(index, 10),
+          target
+        })
+      }
+    )
+  }
 }
 
 const numberFieldListener = ($html) => {
