@@ -37,6 +37,11 @@ const getSelect = (options, { dieIndex, dieRating }) => {
     (options.hash.disabled === true ? 'disabled ' : '') +
     `data-index="${dieIndex}" ` +
     (options.hash.target ? `data-target="${options.hash.target}" ` : '') +
+    (
+      options.hash.name
+        ? ` name="${options.hash.name}"`
+        : ''
+    ) +
     '>' +
     diceOptions.reduce((selectOptions, rating) => {
       if (rating >= (options.hash.min ?? 4) && rating <= (options.hash.max ?? 12)) {
@@ -81,11 +86,6 @@ export default (val, options) => {
       (options.hash.displayOnly ? '' : getSelect(options, { dieIndex, dieRating })) +
       '</div>'
     }, '') +
-    (
-      options.hash.name
-        ? `<input type="hidden" name="${options.hash.name}" value="${value}">`
-        : ''
-    ) +
     '</div>' +
     (
       !options.hash.displayOnly &&

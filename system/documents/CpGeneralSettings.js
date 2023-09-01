@@ -1,3 +1,5 @@
+import { diceSelectListener } from '../lib/formHelpers.js'
+
 import {
   addDragSort,
   dragSort
@@ -13,6 +15,7 @@ import {
 } from '../lib/helpers'
 
 import Logger from '../lib/Logger'
+import { getDieIcon } from '../lib/dice.js'
 
 const Log = Logger()
 
@@ -66,6 +69,13 @@ export default class CpGeneralSettings extends FormApplication {
     const [$html] = html
 
     dragSort($html, this._onDragSortDrop.bind(this, $html))
+
+    diceSelectListener(
+      $html,
+      {
+        changeDie: this.onChangeDie.bind(this),
+      }
+    )
 
     displayToggle($html)
 
@@ -490,6 +500,50 @@ export default class CpGeneralSettings extends FormApplication {
     this._switchPage($html, { currentId, targetId })
   }
 
+  async onChangeDie (event, { index, value }) {
+    const $diceSelect = event.target.closest('.dice-select')
+    const $dieWrapper = event.target.closest('.die-wrapper')
+    const $dieSelect = $dieWrapper.querySelector('.die-select')
+
+    $diceSelect
+      .querySelector('.cp-die')
+      .outerHTML = getDieIcon(value)
+
+    $dieSelect.value = value
+
+    const $listItemPage = $diceSelect.closest('.list-item-page')
+    const $maxDieRating = $listItemPage.querySelector('.max-die-rating')
+    const $minDieRating = $listItemPage.querySelector('.min-die-rating')
+
+    if (
+      $diceSelect.classList.contains('min-die-rating') &&
+      parseInt(value, 10) > parseInt($maxDieRating.querySelector('.die-select').value, 10) 
+    ) {
+      $maxDieRating.value = value
+
+      $maxDieRating
+        .querySelector('.cp-die')
+        .outerHTML = getDieIcon(value)
+
+      $maxDieRating
+        .querySelector('.die-select')
+        .value = value
+    } else if (
+      $diceSelect.classList.contains('max-die-rating') &&
+      parseInt(value, 10) < parseInt($minDieRating.querySelector('.die-select').value, 10) 
+    ) {
+      $minDieRating.value = value
+
+      $minDieRating
+        .querySelector('.cp-die')
+        .outerHTML = getDieIcon(value)
+
+      $minDieRating
+        .querySelector('.die-select')
+        .value = value
+    }
+  }
+
   async save (expandedData) {
     const sequenceSort = ([_, aValue], [__, bValue]) => {
       const aSortValue = parseInt(aValue.sequence, 10)
@@ -697,8 +751,7 @@ export default class CpGeneralSettings extends FormApplication {
   }
 }
 
-// fix: missing dice selector functionality
-// // tweak: On changing min/max die rating should adjust the others to fit
+// tweak: change general settings to be Item Settings; remove collapse
 // tweak: style Edit form for traits and subtraits
 // feat: "Are you sure?"" on closing, or reset and save; warning that any unsaved progress will be lost
 // feat: [numbers?] Think about how to add number fields (life points, quantity, weight, distance, etc.)
