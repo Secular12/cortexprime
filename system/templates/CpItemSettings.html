@@ -1,23 +1,23 @@
-<form class="theme-body GeneralSettings-form">
+<form class="theme-body ItemSettings-form">
   <div class="theme-body-background-image"></div>
   <div class="theme-body-background-color"></div>
   <section
     class="flex flex-col items-stretch theme-body-content"
-    id="GeneralSettings-main"
+    id="ItemSettings-main"
   >
-    <header id="GeneralSettings-form-header" class="theme-section">
+    <header id="ItemSettings-form-header" class="theme-section">
       <div class="theme-section-background-image"></div>
       <div class="theme-section-background-color"></div>
       <div class="p-2 theme-section-content">
-        <h2 class="heading-1 mb-1">{{localize 'CP.GeneralSettings'}}</h2>
-        <p>{{localize 'CP.GeneralSettingsHint'}}</p>
+        <h2 class="heading-1 mb-1">{{localize 'CP.ItemSettings'}}</h2>
+        <p>{{localize 'CP.ItemSettingsHint'}}</p>
       </div>
     </header>
     <div
       class="grow-1"
-      id="GeneralSettings-form-body"
+      id="ItemSettings-form-body"
     >
-      <div class="GeneralSettings-page list-page">
+      <div class="ItemSettings-page list-page">
         <div class="flex items-start">
           <div class="theme-section w-1-2">
             <div class="theme-section-background-image"></div>
@@ -51,19 +51,19 @@
           </div>
         </div>
       </div>
-      <div class="GeneralSettings-pages trait-pages">
+      <div class="ItemSettings-pages trait-pages">
         {{#each traits as |trait traitIndex|}}
           {{>
-            "systems/cortexprime/system/templates/partials/GeneralSettings/TraitPage.html"
+            "systems/cortexprime/system/templates/partials/ItemSettings/TraitPage.html"
             trait=trait
             subtraits=../subtraits
           }}
         {{/each}}
       </div>
-      <div class="GeneralSettings-pages subtrait-pages">
+      <div class="ItemSettings-pages subtrait-pages">
         {{#each subtraits as |subtrait subtraitIndex|}}
           {{>
-            "systems/cortexprime/system/templates/partials/GeneralSettings/SubtraitPage.html"
+            "systems/cortexprime/system/templates/partials/ItemSettings/SubtraitPage.html"
             subtrait=subtrait
           }}
         {{/each}}

@@ -1,5 +1,5 @@
 <div 
-  class="GeneralSettings-page hide list-item-page theme-section subtrait-page"
+  class="ItemSettings-page hide list-item-page theme-section subtrait-page"
   data-id="{{subtrait.id}}"
 >
   <div class="theme-section-background-image"></div>
@@ -20,57 +20,57 @@
     {{
       fieldText
       subtrait.name
-      class="my-3 GeneralSettings-subtrait-field-name"
-      inputClass="GeneralSettings-subtrait-field-name-input"
+      class="my-3 ItemSettings-subtrait-field-name"
+      inputClass="ItemSettings-subtrait-field-name-input"
       label=(localize 'CP.Name')
       name=(concat 'subtraits.' subtrait.id '.name')
     }}
     {{
       fieldCheckbox
       subtrait.hasDescription
-      class="GeneralSettings-subtrait-field-has-description"
+      class="ItemSettings-subtrait-field-has-description"
       label=(localize 'CP.HasDescription')
       name=(concat  'subtraits.' subtrait.id '.hasDescription')
     }}
     {{
       fieldCheckbox
       subtrait.hasLabel
-      class="GeneralSettings-subtrait-field-has-label"
+      class="ItemSettings-subtrait-field-has-label"
       label=(localize 'CP.HasLabel')
       name=(concat  'subtraits.' subtrait.id '.hasLabel')
     }}
     {{
       fieldCheckbox
       subtrait.hasTags
-      class="GeneralSettings-subtrait-field-has-tags"
+      class="ItemSettings-subtrait-field-has-tags"
       label=(localize 'CP.HasTags')
       name=(concat  'subtraits.' subtrait.id '.hasTags')
     }}
     {{
       fieldCheckbox
       subtrait.hasDescriptors
-      class="GeneralSettings-subtrait-field-has-descriptors"
+      class="ItemSettings-subtrait-field-has-descriptors"
       label=(localize 'CP.HasDescriptors')
       name=(concat  'subtraits.' subtrait.id '.hasDescriptors')
     }}
     {{
       fieldCheckbox
       subtrait.isUnlockable
-      class="GeneralSettings-subtrait-field-is-unlockable"
+      class="ItemSettings-subtrait-field-is-unlockable"
       label=(localize 'CP.Unlockable')
       name=(concat  'subtraits.' subtrait.id '.isUnlockable')
     }}
     {{
       fieldCheckbox
       subtrait.hasDice
-      class="GeneralSettings-subtrait-field-has-dice"
+      class="ItemSettings-subtrait-field-has-dice"
       label=(localize 'CP.HasDice')
       name=(concat  'subtraits.' subtrait.id '.hasDice')
     }}
     {{
       fieldCheckbox
       subtrait.hasConsumableDice
-      class="GeneralSettings-subtrait-field-has-consumable-dice"
+      class="ItemSettings-subtrait-field-has-consumable-dice"
       disabled=(not subtrait.hasDice)
       label=(localize 'CP.HasConsumableDice')
       name=(concat  'subtraits.' subtrait.id '.hasConsumableDice')
@@ -78,7 +78,7 @@
     {{
       fieldCheckbox
       subtrait.isRolledSeparately
-      class="GeneralSettings-subtrait-field-is-rolled-separately"
+      class="ItemSettings-subtrait-field-is-rolled-separately"
       disabled=(not subtrait.hasDice)
       label=(localize 'CP.RollsSeparately')
       name=(concat  'subtraits.' subtrait.id '.isRolledSeparately')
@@ -86,7 +86,7 @@
     {{
       fieldCheckbox
       (or subtrait.hasHitches (not subtrait.isRolledSeparately))
-      class="GeneralSettings-subtrait-field-has-hitches"
+      class="ItemSettings-subtrait-field-has-hitches"
       disabled=(or (not subtrait.hasDice) (not subtrait.isRolledSeparately))
       label=(localize 'CP.HasHitches')
       name=(concat  'subtraits.' subtrait.id '.hasHitches')
@@ -94,7 +94,7 @@
     {{
       fieldCheckbox
       subtrait.allowMultipleDice
-      class="GeneralSettings-subtrait-field-allow-multiple-dice"
+      class="ItemSettings-subtrait-field-allow-multiple-dice"
       disabled=(not subtrait.hasDice)
       label=(localize 'CP.AllowMultipleDice')
       name=(concat  'subtraits.' subtrait.id '.allowMultipleDice')
@@ -102,7 +102,7 @@
     {{
       fieldCheckbox
       subtrait.allowNoDice
-      class="GeneralSettings-subtrait-field-allow-no-dice"
+      class="ItemSettings-subtrait-field-allow-no-dice"
       disabled=(not subtrait.hasDice)
       label=(localize 'CP.AllowNoDice')
       name=(concat  'subtraits.' subtrait.id '.allowNoDice')
@@ -110,7 +110,7 @@
     {{
       diceSelect
       subtrait.minDieRating
-      class="shrink-1 GeneralSettings-subtrait-field-min-die-rating"
+      class="shrink-1 ItemSettings-subtrait-field-min-die-rating"
       disabled=(not subtrait.hasDice)
       label=(localize 'CP.MinimumDieRating')
       name=(concat  'subtraits.' subtrait.id '.minDieRating')
@@ -118,7 +118,7 @@
     {{
       diceSelect
       subtrait.maxDieRating
-      class="shrink-1 GeneralSettings-subtrait-field-max-die-rating"
+      class="shrink-1 ItemSettings-subtrait-field-max-die-rating"
       disabled=(not subtrait.hasDice)
       label=(localize 'CP.MaximumDieRating')
       name=(concat  'subtraits.' subtrait.id '.maxDieRating')

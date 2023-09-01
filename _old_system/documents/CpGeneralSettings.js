@@ -1,7 +1,7 @@
 import Logger from '../../lib/Logger.js'
 import { arrayMove, localizer, sort } from '../scripts/foundryHelpers.js'
 
-export default class CpGeneralSettings extends FormApplication {
+export default class CpItemSettings extends FormApplication {
   constructor() {
     super()
   }
@@ -16,8 +16,8 @@ export default class CpGeneralSettings extends FormApplication {
       resizable: true,
       submitOnChange: true,
       submitOnClose: true,
-      template: 'systems/cortexprime/system/templates/CpGeneralSettings.html',
-      title: localizer('GeneralSettings'),
+      template: 'systems/cortexprime/system/templates/CpItemSettings.html',
+      title: localizer('ItemSettings'),
       top: 200,
       width: 600,
     })
@@ -28,12 +28,12 @@ export default class CpGeneralSettings extends FormApplication {
     const itemTypeSettings = game.settings.get('cortexprime', 'itemTypes')
     
     Logger('warn', 'assert')
-      (actorTypeSettings.types.length > 0, 'CpGeneralSettings.getData: There are no actor types')
+      (actorTypeSettings.types.length > 0, 'CpItemSettings.getData: There are no actor types')
     Logger('warn', 'assert')
-      (itemTypeSettings.types.length > 0, 'CpGeneralSettings.getData: There are no item types')
+      (itemTypeSettings.types.length > 0, 'CpItemSettings.getData: There are no item types')
 
-    Logger('debug')(`CpGeneralSettings.getData actorTypeSettings:`, actorTypeSettings)
-    Logger('debug')(`CpGeneralSettings.getData itemTypeSettings:`, itemTypeSettings)
+    Logger('debug')(`CpItemSettings.getData actorTypeSettings:`, actorTypeSettings)
+    Logger('debug')(`CpItemSettings.getData itemTypeSettings:`, itemTypeSettings)
     
     return {
       actorTypeSettings,
@@ -47,7 +47,7 @@ export default class CpGeneralSettings extends FormApplication {
   activateListeners(html) {
     super.activateListeners(html)
     
-    Logger('verbose')('CpGeneralSettings.activateListeners html:', html)
+    Logger('verbose')('CpItemSettings.activateListeners html:', html)
 
     const dragDropActorTypes = new DragDrop({
       dragSelector: '.actor-type-list-item',
@@ -73,7 +73,7 @@ export default class CpGeneralSettings extends FormApplication {
   }
 
   _onDragStartTypes (event) {
-    Logger('verbose')('CpGeneralSettings._onDragStartTypes event:', event)
+    Logger('verbose')('CpItemSettings._onDragStartTypes event:', event)
 
     const { typeId } = event.target.dataset
 
@@ -85,7 +85,7 @@ export default class CpGeneralSettings extends FormApplication {
   }
 
   _onDragDropTypes (event) {
-    Logger('verbose')('CpGeneralSettings._onDragDropTypes event:', event)
+    Logger('verbose')('CpItemSettings._onDragDropTypes event:', event)
 
     const { typeId: toId } = event.target.dataset
 
@@ -97,7 +97,7 @@ export default class CpGeneralSettings extends FormApplication {
   }
 
   async _reorderTypes({ fromId, toId, type }) {
-    Logger('debug')('CpGeneralSettings._reorderTypes fromId, toId, type:', fromId, toId, type)
+    Logger('debug')('CpItemSettings._reorderTypes fromId, toId, type:', fromId, toId, type)
 
     const typeSettings = game.settings.get('cortexprime', type)
 

@@ -15,17 +15,19 @@
         </button>
       </div>
     </div>
-    <button
-      class="btn btn-icon btn-icon-text display-toggle shrink-1"
-      data-parent=".{{pluralClassAffix}}-list-section"
-      data-target=".{{pluralClassAffix}}-list"
-      type="button"
-    >
-      <i class="fa fa-chevron-down toggler-icon"></i>
-    </button>
+    {{#if collapsable}}
+      <button
+        class="btn btn-icon btn-icon-text display-toggle shrink-1"
+        data-parent=".{{pluralClassAffix}}-list-section"
+        data-target=".{{pluralClassAffix}}-list"
+        type="button"
+      >
+        <i class="fa fa-chevron-down toggler-icon"></i>
+      </button>
+    {{/if}}
   </h3>
   <ul
-    class="drag-sort-list hide mt-2 {{pluralClassAffix}}-list"
+    class="drag-sort-list{{ifThen collapsable ' hide' ''}} mt-2 {{pluralClassAffix}}-list"
     data-sort-list="{{listType}}"
   >
     {{#each items as |item itemIndex|}}

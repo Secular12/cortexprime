@@ -2,9 +2,9 @@ export const preloadHandlebarsTemplates = async () => {
   const templatePaths = [
     'fields/color',
     'fields/image',
-    'GeneralSettings/SubtraitPage',
-    'GeneralSettings/SubtraitType',
-    'GeneralSettings/TraitPage',
+    'ItemSettings/SubtraitPage',
+    'ItemSettings/SubtraitType',
+    'ItemSettings/TraitPage',
     'SortableListSection',
     'SortableListItem',
     'themes/body',

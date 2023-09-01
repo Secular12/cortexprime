@@ -3,7 +3,7 @@ import { diceSelectListener } from '../lib/formHelpers.js'
 import {
   addDragSort,
   dragSort
-} from '../lib/dragSort'
+} from '../lib/dragSort.js'
 
 import {
   addListeners,
@@ -12,14 +12,14 @@ import {
   localizer,
   objectSortToArray,
   uuid
-} from '../lib/helpers'
+} from '../lib/helpers.js'
 
-import Logger from '../lib/Logger'
+import Logger from '../lib/Logger.js'
 import { getDieIcon } from '../lib/dice.js'
 
 const Log = Logger()
 
-export default class CpGeneralSettings extends FormApplication {
+export default class CpItemSettings extends FormApplication {
   constructor() {
     super()
 
@@ -27,7 +27,7 @@ export default class CpGeneralSettings extends FormApplication {
 
     this.traitSettings = traitSettings
 
-    Log('CpGeneralSettings.constructor traitSettings', traitSettings)
+    Log('CpItemSettings.constructor traitSettings', traitSettings)
   }
 
   static get defaultOptions () {
@@ -35,14 +35,14 @@ export default class CpGeneralSettings extends FormApplication {
       classes: ['cortexprime', 'settings'],
       closeOnSubmit: false,
       height: 900,
-      id: 'GeneralSettings',
+      id: 'ItemSettings',
       left: 400,
       resizable: false,
-      scrollY: ['#GeneralSettings-form-body'],
+      scrollY: ['#ItemSettings-form-body'],
       submitOnChange: false,
       submitOnClose: false,
-      template: 'systems/cortexprime/system/templates/CpGeneralSettings.html',
-      title: localizer('CP.GeneralSettings'),
+      template: 'systems/cortexprime/system/templates/CpItemSettings.html',
+      title: localizer('CP.ItemSettings'),
       top: 200,
       width: 600,
     })
@@ -51,7 +51,7 @@ export default class CpGeneralSettings extends FormApplication {
   getData() {
     const data = this.traitSettings
 
-    Log('CPGeneralSettings.getData data:', data)
+    Log('CPItemSettings.getData data:', data)
 
     return data
   }
@@ -59,7 +59,7 @@ export default class CpGeneralSettings extends FormApplication {
   async _updateObject(event, formData) {
     const expandedData = expandObject(formData)
 
-    Log('CPGeneralSettings._updateSettings expandedData:', expandedData)
+    Log('CPItemSettings._updateSettings expandedData:', expandedData)
     
     await this.save(expandedData)
   }
@@ -81,7 +81,7 @@ export default class CpGeneralSettings extends FormApplication {
 
     addListeners(
       $html,
-      '#GeneralSettings-main',
+      '#ItemSettings-main',
       'click',
       (event) => {
         const $goToPage = event.target.closest('.go-to-page')
@@ -127,7 +127,7 @@ export default class CpGeneralSettings extends FormApplication {
       (event) => {
         const $subtraitName = event
           .target
-          .closest('.GeneralSettings-subtrait-field-name-input')
+          .closest('.ItemSettings-subtrait-field-name-input')
 
         if ($subtraitName) {
           this.updateSubtraitName($html, $subtraitName)
@@ -169,7 +169,7 @@ export default class CpGeneralSettings extends FormApplication {
       (event) => {
         const $traitName = event
           .target
-          .closest('.GeneralSettings-trait-field-name-input')
+          .closest('.ItemSettings-trait-field-name-input')
 
         if ($traitName) {
           this.updateTraitName($html, $traitName)
@@ -194,7 +194,7 @@ export default class CpGeneralSettings extends FormApplication {
         itemName: 'New Subtrait',
         listTypePlural: 'subtraits',
         listTypeSingular: 'subtrait',
-        templatePath: 'GeneralSettings/SubtraitPage.html',
+        templatePath: 'ItemSettings/SubtraitPage.html',
         templateData: {
           subtrait: {
             id,
@@ -242,7 +242,7 @@ export default class CpGeneralSettings extends FormApplication {
         itemsPath: 'traits',
         listTypePlural: 'traits',
         listTypeSingular: 'trait',
-        templatePath: 'GeneralSettings/TraitPage.html',
+        templatePath: 'ItemSettings/TraitPage.html',
         templateData: {
           subtraits,
           trait: {
@@ -289,7 +289,7 @@ export default class CpGeneralSettings extends FormApplication {
       $parentListItem.remove()
 
       $html
-        .querySelector(`.GeneralSettings-page[data-id="${id}"]`)
+        .querySelector(`.ItemSettings-page[data-id="${id}"]`)
         .remove()
 
       this._reapplySortSequence($html, $dragSortList)
@@ -307,10 +307,10 @@ export default class CpGeneralSettings extends FormApplication {
 
     if (deleted) {
       $html
-        .querySelectorAll(`.GeneralSettings-subtrait-types [data-subtrait-id="${id}"]`)
+        .querySelectorAll(`.ItemSettings-subtrait-types [data-subtrait-id="${id}"]`)
         .forEach($subtraitTypeCheckbox => {
           $subtraitTypeCheckbox
-            .closest('.GeneralSettings-trait-field-subtrait-types')
+            .closest('.ItemSettings-trait-field-subtrait-types')
             .remove()
         })
     }
@@ -324,7 +324,7 @@ export default class CpGeneralSettings extends FormApplication {
       .dataset
 
     const $currentSubtraitPage = $html
-      .querySelector(`.GeneralSettings-page[data-id="${currentId}"]`)
+      .querySelector(`.ItemSettings-page[data-id="${currentId}"]`)
 
     const name = (
       $currentSubtraitPage
@@ -341,7 +341,7 @@ export default class CpGeneralSettings extends FormApplication {
         itemsPath: 'subtraits',
         listTypePlural: 'subtraits',
         listTypeSingular: 'subtrait',
-        templatePath: 'GeneralSettings/SubtraitPage.html',
+        templatePath: 'ItemSettings/SubtraitPage.html',
         templateData: {
           subtrait: {
             id,
@@ -407,7 +407,7 @@ export default class CpGeneralSettings extends FormApplication {
       .dataset
 
     const $currentTraitPage = $html
-      .querySelector(`.GeneralSettings-page[data-id="${currentId}"]`)
+      .querySelector(`.ItemSettings-page[data-id="${currentId}"]`)
 
     const name = (
       $currentTraitPage
@@ -432,7 +432,7 @@ export default class CpGeneralSettings extends FormApplication {
         itemsPath: 'traits',
         listTypePlural: 'traits',
         listTypeSingular: 'trait',
-        templatePath: 'GeneralSettings/TraitPage.html',
+        templatePath: 'ItemSettings/TraitPage.html',
         templateData: {
           subtraits,
           trait: {
@@ -577,7 +577,7 @@ export default class CpGeneralSettings extends FormApplication {
       traits
     }
 
-    Log('CpGeneralSettings.save serializedData', serializedData)
+    Log('CpItemSettings.save serializedData', serializedData)
   }
 
   updateSubtraitName ($html, $subtraitName) {
@@ -596,7 +596,7 @@ export default class CpGeneralSettings extends FormApplication {
       .textContent = subtraitName
 
     $html
-      .querySelectorAll(`.GeneralSettings-trait-field-subtrait-types [data-subtrait-id="${id}"]`)
+      .querySelectorAll(`.ItemSettings-trait-field-subtrait-types [data-subtrait-id="${id}"]`)
       .forEach($subtraitType => {
         $subtraitType
           .closest('.field-wrapper')
@@ -694,7 +694,7 @@ export default class CpGeneralSettings extends FormApplication {
           const { id: traitId } = $traitPage.dataset
           
           const subtraitTypeHtml = await renderTemplate(
-            'systems/cortexprime/system/templates/partials/GeneralSettings/SubtraitType.html',
+            'systems/cortexprime/system/templates/partials/ItemSettings/SubtraitType.html',
             {
               checked: false,
               subtraitId: data.subtraitId,
@@ -704,7 +704,7 @@ export default class CpGeneralSettings extends FormApplication {
           )
 
           $traitPage
-            .querySelector('.GeneralSettings-subtrait-types')
+            .querySelector('.ItemSettings-subtrait-types')
             .insertAdjacentHTML('beforeend', subtraitTypeHtml)
         })
     )
@@ -726,11 +726,11 @@ export default class CpGeneralSettings extends FormApplication {
 
         if (sortList === 'subtraits') {
           $html
-            .querySelectorAll('.GeneralSettings-subtrait-types')
+            .querySelectorAll('.ItemSettings-subtrait-types')
             .forEach($subtraitSection => {
               const $subtraitType = $subtraitSection
                 .querySelector(`[data-subtrait-id="${$item.dataset.id}"]`)
-                .closest('.GeneralSettings-trait-field-subtrait-types')
+                .closest('.ItemSettings-trait-field-subtrait-types')
 
                 $subtraitSection.append($subtraitType)
             })
@@ -740,12 +740,12 @@ export default class CpGeneralSettings extends FormApplication {
 
   _switchPage ($html, { currentId, targetId }) {
     $html
-      .querySelector(currentId ? `.GeneralSettings-page[data-id="${currentId}"]` : '.list-page')
+      .querySelector(currentId ? `.ItemSettings-page[data-id="${currentId}"]` : '.list-page')
       .classList
       .add('hide')
 
     $html
-      .querySelector(targetId ? `.GeneralSettings-page[data-id="${targetId}"]` : '.list-page')
+      .querySelector(targetId ? `.ItemSettings-page[data-id="${targetId}"]` : '.list-page')
       .classList
       .remove('hide')
   }
