@@ -17,111 +17,118 @@
       <h3 class="heading-1 subtrait-page-name">{{subtrait.name}}</h3>
     </header>
     <div class="my-2 separator"></div>
-    {{
-      fieldText
-      subtrait.name
-      class="my-3 ItemSettings-subtrait-field-name"
-      inputClass="ItemSettings-subtrait-field-name-input"
-      label=(localize 'CP.Name')
-      name=(concat 'subtraits.' subtrait.id '.name')
-    }}
-    {{
-      fieldCheckbox
-      subtrait.hasDescription
-      class="ItemSettings-subtrait-field-has-description"
-      label=(localize 'CP.HasDescription')
-      name=(concat  'subtraits.' subtrait.id '.hasDescription')
-    }}
-    {{
-      fieldCheckbox
-      subtrait.hasLabel
-      class="ItemSettings-subtrait-field-has-label"
-      label=(localize 'CP.HasLabel')
-      name=(concat  'subtraits.' subtrait.id '.hasLabel')
-    }}
-    {{
-      fieldCheckbox
-      subtrait.hasTags
-      class="ItemSettings-subtrait-field-has-tags"
-      label=(localize 'CP.HasTags')
-      name=(concat  'subtraits.' subtrait.id '.hasTags')
-    }}
-    {{
-      fieldCheckbox
-      subtrait.hasDescriptors
-      class="ItemSettings-subtrait-field-has-descriptors"
-      label=(localize 'CP.HasDescriptors')
-      name=(concat  'subtraits.' subtrait.id '.hasDescriptors')
-    }}
-    {{
-      fieldCheckbox
-      subtrait.isUnlockable
-      class="ItemSettings-subtrait-field-is-unlockable"
-      label=(localize 'CP.Unlockable')
-      name=(concat  'subtraits.' subtrait.id '.isUnlockable')
-    }}
-    {{
-      fieldCheckbox
-      subtrait.hasDice
-      class="ItemSettings-subtrait-field-has-dice"
-      label=(localize 'CP.HasDice')
-      name=(concat  'subtraits.' subtrait.id '.hasDice')
-    }}
-    {{
-      fieldCheckbox
-      subtrait.hasConsumableDice
-      class="ItemSettings-subtrait-field-has-consumable-dice"
-      disabled=(not subtrait.hasDice)
-      label=(localize 'CP.HasConsumableDice')
-      name=(concat  'subtraits.' subtrait.id '.hasConsumableDice')
-    }}
-    {{
-      fieldCheckbox
-      subtrait.isRolledSeparately
-      class="ItemSettings-subtrait-field-is-rolled-separately"
-      disabled=(not subtrait.hasDice)
-      label=(localize 'CP.RollsSeparately')
-      name=(concat  'subtraits.' subtrait.id '.isRolledSeparately')
-    }}
-    {{
-      fieldCheckbox
-      (or subtrait.hasHitches (not subtrait.isRolledSeparately))
-      class="ItemSettings-subtrait-field-has-hitches"
-      disabled=(or (not subtrait.hasDice) (not subtrait.isRolledSeparately))
-      label=(localize 'CP.HasHitches')
-      name=(concat  'subtraits.' subtrait.id '.hasHitches')
-    }}
-    {{
-      fieldCheckbox
-      subtrait.allowMultipleDice
-      class="ItemSettings-subtrait-field-allow-multiple-dice"
-      disabled=(not subtrait.hasDice)
-      label=(localize 'CP.AllowMultipleDice')
-      name=(concat  'subtraits.' subtrait.id '.allowMultipleDice')
-    }}
-    {{
-      fieldCheckbox
-      subtrait.allowNoDice
-      class="ItemSettings-subtrait-field-allow-no-dice"
-      disabled=(not subtrait.hasDice)
-      label=(localize 'CP.AllowNoDice')
-      name=(concat  'subtraits.' subtrait.id '.allowNoDice')
-    }}
-    {{
-      diceSelect
-      subtrait.minDieRating
-      class="shrink-1 ItemSettings-subtrait-field-min-die-rating"
-      disabled=(not subtrait.hasDice)
-      label=(localize 'CP.MinimumDieRating')
-      name=(concat  'subtraits.' subtrait.id '.minDieRating')
-    }}
-    {{
-      diceSelect
-      subtrait.maxDieRating
-      class="shrink-1 ItemSettings-subtrait-field-max-die-rating"
-      disabled=(not subtrait.hasDice)
-      label=(localize 'CP.MaximumDieRating')
-      name=(concat  'subtraits.' subtrait.id '.maxDieRating')
-    }}
+    <div class="flex items-start">
+      <div class="grow-1">
+        {{
+          fieldText
+          subtrait.name
+          class="ItemSettings-subtrait-field-name mb-2"
+          inputClass="ItemSettings-subtrait-field-name-input"
+          label=(localize 'CP.Name')
+          name=(concat 'subtraits.' subtrait.id '.name')
+        }}
+        {{
+          fieldCheckbox
+          subtrait.hasDescription
+          class="ItemSettings-subtrait-field-has-description my-2"
+          label=(localize 'CP.HasDescription')
+          name=(concat  'subtraits.' subtrait.id '.hasDescription')
+        }}
+        {{
+          fieldCheckbox
+          subtrait.hasLabel
+          class="ItemSettings-subtrait-field-has-label my-2"
+          label=(localize 'CP.HasLabel')
+          name=(concat  'subtraits.' subtrait.id '.hasLabel')
+        }}
+        {{
+          fieldCheckbox
+          subtrait.hasTags
+          class="ItemSettings-subtrait-field-has-tags my-2"
+          label=(localize 'CP.HasTags')
+          name=(concat  'subtraits.' subtrait.id '.hasTags')
+        }}
+        {{
+          fieldCheckbox
+          subtrait.hasDescriptors
+          class="ItemSettings-subtrait-field-has-descriptors my-2"
+          label=(localize 'CP.HasDescriptors')
+          name=(concat  'subtraits.' subtrait.id '.hasDescriptors')
+        }}
+        {{
+          fieldCheckbox
+          subtrait.isUnlockable
+          class="ItemSettings-subtrait-field-is-unlockable mt-2"
+          label=(localize 'CP.Unlockable')
+          name=(concat  'subtraits.' subtrait.id '.isUnlockable')
+        }}
+      </div>
+      <div class="grow-1">
+        <h4 class="heading-2 mb-2">{{localize 'CP.Dice'}}</h4>
+        {{
+          fieldCheckbox
+          subtrait.hasDice
+          class="ItemSettings-subtrait-field-has-dice"
+          label=(localize 'CP.HasDice')
+          name=(concat  'subtraits.' subtrait.id '.hasDice')
+        }}
+        {{
+          fieldCheckbox
+          subtrait.hasConsumableDice
+          class="ItemSettings-subtrait-field-has-consumable-dice my-2"
+          disabled=(not subtrait.hasDice)
+          label=(localize 'CP.HasConsumableDice')
+          name=(concat  'subtraits.' subtrait.id '.hasConsumableDice')
+        }}
+        {{
+          fieldCheckbox
+          subtrait.isRolledSeparately
+          class="ItemSettings-subtrait-field-is-rolled-separately my-2"
+          disabled=(not subtrait.hasDice)
+          label=(localize 'CP.RollsSeparately')
+          name=(concat  'subtraits.' subtrait.id '.isRolledSeparately')
+        }}
+        {{
+          fieldCheckbox
+          (or subtrait.hasHitches (not subtrait.isRolledSeparately))
+          class="ItemSettings-subtrait-field-has-hitches my-2"
+          disabled=(or (not subtrait.hasDice) (not subtrait.isRolledSeparately))
+          label=(localize 'CP.HasHitches')
+          name=(concat  'subtraits.' subtrait.id '.hasHitches')
+        }}
+        {{
+          fieldCheckbox
+          subtrait.allowMultipleDice
+          class="ItemSettings-subtrait-field-allow-multiple-dice my-2"
+          disabled=(not subtrait.hasDice)
+          label=(localize 'CP.AllowMultipleDice')
+          name=(concat  'subtraits.' subtrait.id '.allowMultipleDice')
+        }}
+        {{
+          fieldCheckbox
+          subtrait.allowNoDice
+          class="ItemSettings-subtrait-field-allow-no-dice my-2"
+          disabled=(not subtrait.hasDice)
+          label=(localize 'CP.AllowNoDice')
+          name=(concat  'subtraits.' subtrait.id '.allowNoDice')
+        }}
+        {{
+          diceSelect
+          subtrait.minDieRating
+          class="shrink-1 ItemSettings-subtrait-field-min-die-rating my-2"
+          disabled=(not subtrait.hasDice)
+          label=(localize 'CP.MinimumDieRating')
+          name=(concat  'subtraits.' subtrait.id '.minDieRating')
+        }}
+        {{
+          diceSelect
+          subtrait.maxDieRating
+          class="shrink-1 ItemSettings-subtrait-field-max-die-rating mt-2"
+          disabled=(not subtrait.hasDice)
+          label=(localize 'CP.MaximumDieRating')
+          name=(concat  'subtraits.' subtrait.id '.maxDieRating')
+        }}
+      </div>
+    </div>
   </div>
 </div>

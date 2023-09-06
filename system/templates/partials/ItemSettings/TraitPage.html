@@ -17,123 +17,130 @@
       <h3 class="heading-1 trait-page-name">{{trait.name}}</h3>
     </header>
     <div class="my-2 separator"></div>
-    {{
-      fieldText
-      trait.name
-      class="my-3 ItemSettings-trait-field-name"
-      inputClass="ItemSettings-trait-field-name-input"
-      label=(localize 'CP.Name')
-      name=(concat 'traits.' trait.id '.name')
-    }}
-    {{
-      fieldCheckbox
-      trait.hasDescription
-      class="ItemSettings-trait-field-has-description"
-      label=(localize 'CP.HasDescription')
-      name=(concat 'traits.' trait.id '.hasDescription')
-    }}
-    {{
-      fieldCheckbox
-      trait.hasLabel
-      class="ItemSettings-trait-field-has-label"
-      label=(localize 'CP.HasLabel')
-      name=(concat 'traits.' trait.id '.hasLabel')
-    }}
-    {{
-      fieldCheckbox
-      trait.hasTags
-      class="ItemSettings-trait-field-has-tags"
-      label=(localize 'CP.HasTags')
-      name=(concat 'traits.' trait.id '.hasTags')
-    }}
-    {{
-      fieldCheckbox
-      trait.hasDescriptors
-      class="ItemSettings-trait-field-has-descriptors"
-      label=(localize 'CP.HasDescriptors')
-      name=(concat 'traits.' trait.id '.hasDescriptors')
-    }}
-    {{
-      fieldCheckbox
-      trait.isUnlockable
-      class="ItemSettings-trait-field-is-unlockable"
-      label=(localize 'CP.Unlockable')
-      name=(concat 'traits.' trait.id '.isUnlockable')
-    }}
-    {{
-      fieldCheckbox
-      trait.hasDice
-      class="ItemSettings-trait-field-has-dice"
-      label=(localize 'CP.HasDice')
-      name=(concat 'traits.' trait.id '.hasDice')
-    }}
-    {{
-      fieldCheckbox
-      trait.hasConsumableDice
-      class="ItemSettings-trait-field-has-consumable-dice"
-      disabled=(not trait.hasDice)
-      label=(localize 'CP.HasConsumableDice')
-      name=(concat 'traits.' trait.id '.hasConsumableDice')
-    }}
-    {{
-      fieldCheckbox
-      trait.isRolledSeparately
-      class="ItemSettings-trait-field-is-rolled-separately"
-      disabled=(not trait.hasDice)
-      label=(localize 'CP.RollsSeparately')
-      name=(concat 'traits.' trait.id '.isRolledSeparately')
-    }}
-    {{
-      fieldCheckbox
-      (or trait.hasHitches (not trait.isRolledSeparately))
-      class="ItemSettings-trait-field-has-hitches"
-      disabled=(or (not trait.hasDice) (not trait.isRolledSeparately))
-      label=(localize 'CP.HasHitches')
-      name=(concat 'traits.' trait.id '.hasHitches')
-    }}
-    {{
-      fieldCheckbox
-      trait.allowMultipleDice
-      class="ItemSettings-trait-field-allow-multiple-dice"
-      disabled=(not trait.hasDice)
-      label=(localize 'CP.AllowMultipleDice')
-      name=(concat 'traits.' trait.id '.allowMultipleDice')
-    }}
-    {{
-      fieldCheckbox
-      trait.allowNoDice
-      class="ItemSettings-trait-field-allow-no-dice"
-      disabled=(not trait.hasDice)
-      label=(localize 'CP.AllowNoDice')
-      name=(concat  'traits.' trait.id '.allowNoDice')
-    }}
-    {{
-      diceSelect
-      trait.minDieRating
-      class="shrink-1 ItemSettings-trait-field-min-die-rating min-die-rating"
-      disabled=(not trait.hasDice)
-      label=(localize 'CP.MinimumDieRating')
-      name=(concat  'traits.' trait.id '.minDieRating')
-    }}
-    {{
-      diceSelect
-      trait.maxDieRating
-      class="shrink-1 ItemSettings-trait-field-max-die-rating max-die-rating"
-      disabled=(not trait.hasDice)
-      label=(localize 'CP.MaximumDieRating')
-      name=(concat  'traits.' trait.id '.maxDieRating')
-    }}
-    <h4 class="heading-2">{{localize 'CP.AssociatedSubtraits'}}</h4>
-    <div class="ItemSettings-subtrait-types">
-      {{#each subtraits as |subtrait subtraitIndex|}}
-        {{>
-          "systems/cortexprime/system/templates/partials/ItemSettings/SubtraitType.html"
-          checked=(includes ../trait.subtraitTypes subtrait.id)
-          subtraitId=subtrait.id
-          traitId=../trait.id
-          label=subtrait.name
+    <div class="flex items-start">
+      <div class="grow-1">
+        {{
+          fieldText
+          trait.name
+          class="ItemSettings-trait-field-name mb-2"
+          inputClass="ItemSettings-trait-field-name-input"
+          label=(localize 'CP.Name')
+          name=(concat 'traits.' trait.id '.name')
         }}
-      {{/each}}
+        {{
+          fieldCheckbox
+          trait.hasDescription
+          class="ItemSettings-trait-field-has-description my-2"
+          label=(localize 'CP.HasDescription')
+          name=(concat 'traits.' trait.id '.hasDescription')
+        }}
+        {{
+          fieldCheckbox
+          trait.hasLabel
+          class="ItemSettings-trait-field-has-label my-2"
+          label=(localize 'CP.HasLabel')
+          name=(concat 'traits.' trait.id '.hasLabel')
+        }}
+        {{
+          fieldCheckbox
+          trait.hasTags
+          class="ItemSettings-trait-field-has-tags my-2"
+          label=(localize 'CP.HasTags')
+          name=(concat 'traits.' trait.id '.hasTags')
+        }}
+        {{
+          fieldCheckbox
+          trait.hasDescriptors
+          class="ItemSettings-trait-field-has-descriptors my-2"
+          label=(localize 'CP.HasDescriptors')
+          name=(concat 'traits.' trait.id '.hasDescriptors')
+        }}
+        {{
+          fieldCheckbox
+          trait.isUnlockable
+          class="ItemSettings-trait-field-is-unlockable mt-2"
+          label=(localize 'CP.Unlockable')
+          name=(concat 'traits.' trait.id '.isUnlockable')
+        }}
+        <h4 class="heading-2 mt-3">{{localize 'CP.AssociatedSubtraits'}}</h4>
+        <div class="ItemSettings-subtrait-types">
+          {{#each subtraits as |subtrait subtraitIndex|}}
+            {{>
+              "systems/cortexprime/system/templates/partials/ItemSettings/SubtraitType.html"
+              checked=(includes ../trait.subtraitTypes subtrait.id)
+              subtraitId=subtrait.id
+              traitId=../trait.id
+              label=subtrait.name
+            }}
+          {{/each}}
+        </div>
+      </div>
+      <div class="grow-1">
+        <h4 class="heading-2 mb-2">{{localize 'CP.Dice'}}</h4>
+        {{
+          fieldCheckbox
+          trait.hasDice
+          class="ItemSettings-trait-field-has-dice my-2"
+          label=(localize 'CP.HasDice')
+          name=(concat 'traits.' trait.id '.hasDice')
+        }}
+        {{
+          fieldCheckbox
+          trait.hasConsumableDice
+          class="ItemSettings-trait-field-has-consumable-dice my-2"
+          disabled=(not trait.hasDice)
+          label=(localize 'CP.HasConsumableDice')
+          name=(concat 'traits.' trait.id '.hasConsumableDice')
+        }}
+        {{
+          fieldCheckbox
+          trait.isRolledSeparately
+          class="ItemSettings-trait-field-is-rolled-separately my-2"
+          disabled=(not trait.hasDice)
+          label=(localize 'CP.RollsSeparately')
+          name=(concat 'traits.' trait.id '.isRolledSeparately')
+        }}
+        {{
+          fieldCheckbox
+          (or trait.hasHitches (not trait.isRolledSeparately))
+          class="ItemSettings-trait-field-has-hitches my-2"
+          disabled=(or (not trait.hasDice) (not trait.isRolledSeparately))
+          label=(localize 'CP.HasHitches')
+          name=(concat 'traits.' trait.id '.hasHitches')
+        }}
+        {{
+          fieldCheckbox
+          trait.allowMultipleDice
+          class="ItemSettings-trait-field-allow-multiple-dice my-2"
+          disabled=(not trait.hasDice)
+          label=(localize 'CP.AllowMultipleDice')
+          name=(concat 'traits.' trait.id '.allowMultipleDice')
+        }}
+        {{
+          fieldCheckbox
+          trait.allowNoDice
+          class="ItemSettings-trait-field-allow-no-dice my-2"
+          disabled=(not trait.hasDice)
+          label=(localize 'CP.AllowNoDice')
+          name=(concat  'traits.' trait.id '.allowNoDice')
+        }}
+        {{
+          diceSelect
+          trait.minDieRating
+          class="shrink-1 ItemSettings-trait-field-min-die-rating min-die-rating my-2"
+          disabled=(not trait.hasDice)
+          label=(localize 'CP.MinimumDieRating')
+          name=(concat  'traits.' trait.id '.minDieRating')
+        }}
+        {{
+          diceSelect
+          trait.maxDieRating
+          class="shrink-1 ItemSettings-trait-field-max-die-rating max-die-rating mt-2"
+          disabled=(not trait.hasDice)
+          label=(localize 'CP.MaximumDieRating')
+          name=(concat  'traits.' trait.id '.maxDieRating')
+        }}
+      </div>
     </div>
   </div>
 </section>

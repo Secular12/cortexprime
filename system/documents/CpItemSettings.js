@@ -751,9 +751,9 @@ export default class CpItemSettings extends FormApplication {
   }
 }
 
-// tweak: change general settings to be Item Settings; remove collapse
-// tweak: style Edit form for traits and subtraits
+// fix: rolled separately & has hitches IN SETTINGS
 // feat: "Are you sure?"" on closing, or reset and save; warning that any unsaved progress will be lost
+
 // feat: [numbers?] Think about how to add number fields (life points, quantity, weight, distance, etc.)
 // feat: [booleans or just tags?] Think about how to add boolean/checkbox fields (shaken & stricken)
 // feat: Growth Tracking
