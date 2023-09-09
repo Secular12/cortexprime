@@ -161,16 +161,24 @@ export default class CpThemeSettings extends FormApplication {
       ?.addEventListener('click', this.preview.bind(this, html))
 
     $html
-      .querySelector('#ThemeSettings-revert')
-      ?.addEventListener('click', this.revert.bind(this))
+      .querySelector('#ThemeSettings-reset')
+      ?.addEventListener('click', this.reset.bind(this))
   }
 
-  close () {
-    super.close()
+  async close () {
+    const confirmed = await Dialog.confirm({
+      title: localizer('CP.CloseConfirmTitle'),
+      content: localizer('CP.CloseConfirmContent'),
+      defaultYes: false,
+    })
 
-    this.expandedSections = []
+    if (confirmed) {
+      this.expandedSections = []
 
-    setThemeProperties()
+      setThemeProperties()
+
+      return super.close()
+    }
   }
 
   async createCustomTheme ($html) {
@@ -392,7 +400,7 @@ export default class CpThemeSettings extends FormApplication {
       .textContent = localizer('CP.NoImage')
   }
 
-  async revert () {
+  async reset () {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.ResetConfirmTitle'),
       content: localizer('CP.ResetConfirmContent'),
@@ -410,33 +418,41 @@ export default class CpThemeSettings extends FormApplication {
   }
 
   async save (expandedData) {
-    const themeSettings = game.settings.get('cortexprime', 'themes')
+    const confirmed = await Dialog.confirm({
+      title: localizer('CP.SaveConfirmTitle'),
+      content: localizer('CP.SaveConfirmContent'),
+      defaultYes: false,
+    })
 
-    const newThemeSettings = mergeObject(themeSettings, expandedData)
-
-    this.selectedTheme = expandedData.selectedTheme
-
-    if (!presetThemes[expandedData.selectedTheme]) {
-      const customThemeSettings = mergeObject(newThemeSettings.customList[this.selectedTheme], expandedData.currentSettings)
-      this.customThemes[this.selectedTheme] = customThemeSettings
-      newThemeSettings.customList[this.selectedTheme] = customThemeSettings
+    if (confirmed) {
+      const themeSettings = game.settings.get('cortexprime', 'themes')
+  
+      const newThemeSettings = mergeObject(themeSettings, expandedData)
+  
+      this.selectedTheme = expandedData.selectedTheme
+  
+      if (!presetThemes[expandedData.selectedTheme]) {
+        const customThemeSettings = mergeObject(newThemeSettings.customList[this.selectedTheme], expandedData.currentSettings)
+        this.customThemes[this.selectedTheme] = customThemeSettings
+        newThemeSettings.customList[this.selectedTheme] = customThemeSettings
+      }
+  
+      Log('CpThemeSettings.save newThemeSettings', newThemeSettings)
+  
+      await game.settings.set('cortexprime', 'themes', newThemeSettings)
+  
+      await this.render(true)
+  
+      setThemeProperties(this.currentSettings)
+  
+      game.socket.emit('system.cortexprime', {
+        type: 'setThemeProperties'
+      })
+  
+      Dialog.prompt({
+        title: localizer('CP.PromptSettingsSaveTitle'),
+        content: localizer('CP.PromptSettingsSaveContent'),
+      })
     }
-
-    Log('CpThemeSettings.save newThemeSettings', newThemeSettings)
-
-    await game.settings.set('cortexprime', 'themes', newThemeSettings)
-
-    await this.render(true)
-
-    setThemeProperties(this.currentSettings)
-
-    game.socket.emit('system.cortexprime', {
-      type: 'setThemeProperties'
-    })
-
-    Dialog.prompt({
-      title: localizer('CP.PromptThemeSaveTitle'),
-      content: localizer('CP.PromptThemeSaveContent'),
-    })
   }
 }

@@ -191,8 +191,8 @@ export default class CpItemSettings extends FormApplication {
     )
 
     $html
-      .querySelector('.settings-refresh')
-      .addEventListener('click', this.render.bind(this))
+      .querySelector('.settings-reset')
+      .addEventListener('click', this.reset.bind(this))
   }
 
   async addSubtrait ($html, $addSubtrait) {
@@ -280,6 +280,18 @@ export default class CpItemSettings extends FormApplication {
     )
 
     this._switchPage($html, { targetId: id })
+  }
+
+  async close () {
+    const confirmed = await Dialog.confirm({
+      title: localizer('CP.CloseConfirmTitle'),
+      content: localizer('CP.CloseConfirmContent'),
+      defaultYes: false,
+    })
+
+    if (confirmed) {
+      return super.close()
+    }
   }
 
   async deletePageItem ($html, $deletePage, parentSelector) {
@@ -573,40 +585,67 @@ export default class CpItemSettings extends FormApplication {
       .toggle('field-disabled', !isChecked)
   }
 
+  async reset () {
+    const confirmed = await Dialog.confirm({
+      title: localizer('CP.ResetConfirmTitle'),
+      content: localizer('CP.ResetConfirmContent'),
+      defaultYes: false,
+    })
+
+    if (confirmed) {
+      this.render(true)
+    }
+  }
+
   async save (expandedData) {
-    const sequenceSort = ([_, aValue], [__, bValue]) => {
-      const aSortValue = parseInt(aValue.sequence, 10)
-      const bSortValue = parseInt(bValue.sequence, 10)
+    const confirmed = await Dialog.confirm({
+      title: localizer('CP.SaveConfirmTitle'),
+      content: localizer('CP.SaveConfirmContent'),
+      defaultYes: false,
+    })
 
-      return bSortValue > aSortValue.sequence
-        ? -1 
-        : aSortValue > bSortValue
-          ? 1 
-          : 0
-    }
+    if (confirmed) {
+      const sequenceSort = ([_, aValue], [__, bValue]) => {
+        const aSortValue = parseInt(aValue.sequence, 10)
+        const bSortValue = parseInt(bValue.sequence, 10)
+  
+        return bSortValue > aSortValue.sequence
+          ? -1 
+          : aSortValue > bSortValue
+            ? 1 
+            : 0
+      }
+  
+      const subtraits = objectSortToArray(expandedData.subtraits, sequenceSort)
+        .map(subtrait => {
+          delete subtrait.sequence
+  
+          return subtrait
+        })
+  
+      const traits = objectSortToArray(expandedData.traits, sequenceSort)
+        .map(trait => {
+          delete trait.sequence
+  
+          trait.subtraitTypes = trait.subtraitTypes.filter(x => x)
+  
+          return trait
+        })
+  
+      const serializedData = {
+        subtraits,
+        traits
+      }
+  
+      Log('CpItemSettings.save serializedData', serializedData)
 
-    const subtraits = objectSortToArray(expandedData.subtraits, sequenceSort)
-      .map(subtrait => {
-        delete subtrait.sequence
+      // game.settings.set('cortexprime', 'itemTypes', serializedData)
 
-        return subtrait
+      Dialog.prompt({
+        title: localizer('CP.PromptSettingsSaveTitle'),
+        content: localizer('CP.PromptSettingsSaveContent'),
       })
-
-    const traits = objectSortToArray(expandedData.traits, sequenceSort)
-      .map(trait => {
-        delete trait.sequence
-
-        trait.subtraitTypes = trait.subtraitTypes.filter(x => x)
-
-        return trait
-      })
-
-    const serializedData = {
-      subtraits,
-      traits
     }
-
-    Log('CpItemSettings.save serializedData', serializedData)
   }
 
   updateSubtraitName ($html, $subtraitName) {
@@ -780,14 +819,25 @@ export default class CpItemSettings extends FormApplication {
   }
 }
 
-// feat: "Are you sure?"" on closing, or reset and save; warning that any unsaved progress will be lost
+/*** Dice Pool ***/
+// feat: preview button in DicePool to preview pool prior to rolling
 
+/*** Item Settings ***/
 // feat: [numbers?] Think about how to add number fields (life points, quantity, weight, distance, etc.)
 // feat: [booleans or just tags?] Think about how to add boolean/checkbox fields (shaken & stricken)
-// feat: Growth Tracking
 // feat: save trait settings; wait until editing is working properly
 // tweak: (FUTURE) when deleting trait or subtrait other sheets will be properly updated
-// feat: expandable roll result traits setting (default not)
+
+/*** Item Sheets ***/
+
+/*** Actor Settings ***/
+// feat: Growth Tracking
+
+/*** Actor Sheets ***/
 // feat: temporary dice ratings
-// feat: preview button in DicePool to preview pool prior to rolling
+
+/*** Misc Settings ***/
+// feat: expandable roll result traits setting (default not)
+
+/*** Misc ***/
 // feat: textarea icon interpolation
