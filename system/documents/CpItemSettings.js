@@ -95,6 +95,19 @@ export default class CpItemSettings extends FormApplication {
 
     addListeners(
       $html,
+      '#ItemSettings-pages-container',
+      'change',
+      (event) => {
+        const $rollsSeparatelyField = event.target.closest('.input-rolls-separately')
+
+        if ($rollsSeparatelyField) {
+          this.onChangeRollsSeparately(event, $rollsSeparatelyField)
+        }
+      }
+    )
+
+    addListeners(
+      $html,
       '.subtraits-list-section',
       'click',
       (event) => {
@@ -544,6 +557,22 @@ export default class CpItemSettings extends FormApplication {
     }
   }
 
+  async onChangeRollsSeparately(event, $rollsSeparatelyField) {
+    const isChecked = $rollsSeparatelyField.checked
+
+    const $hasHitchesField = $rollsSeparatelyField
+      .closest('.ItemSettings-page')
+      .querySelector('.input-has-hitches')
+
+    $hasHitchesField.checked = !isChecked
+    $hasHitchesField.disabled = !isChecked
+
+    $hasHitchesField
+      .closest('.field')
+      .classList
+      .toggle('field-disabled', !isChecked)
+  }
+
   async save (expandedData) {
     const sequenceSort = ([_, aValue], [__, bValue]) => {
       const aSortValue = parseInt(aValue.sequence, 10)
@@ -751,7 +780,6 @@ export default class CpItemSettings extends FormApplication {
   }
 }
 
-// fix: rolled separately & has hitches IN SETTINGS
 // feat: "Are you sure?"" on closing, or reset and save; warning that any unsaved progress will be lost
 
 // feat: [numbers?] Think about how to add number fields (life points, quantity, weight, distance, etc.)

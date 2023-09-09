@@ -51,22 +51,24 @@
           </div>
         </div>
       </div>
-      <div class="ItemSettings-pages trait-pages">
-        {{#each traits as |trait traitIndex|}}
-          {{>
-            "systems/cortexprime/system/templates/partials/ItemSettings/TraitPage.html"
-            trait=trait
-            subtraits=../subtraits
-          }}
-        {{/each}}
-      </div>
-      <div class="ItemSettings-pages subtrait-pages">
-        {{#each subtraits as |subtrait subtraitIndex|}}
-          {{>
-            "systems/cortexprime/system/templates/partials/ItemSettings/SubtraitPage.html"
-            subtrait=subtrait
-          }}
-        {{/each}}
+      <div id="ItemSettings-pages-container">
+        <div class="ItemSettings-pages trait-pages">
+          {{#each traits as |trait traitIndex|}}
+            {{>
+              "systems/cortexprime/system/templates/partials/ItemSettings/TraitPage.html"
+              trait=trait
+              subtraits=../subtraits
+            }}
+          {{/each}}
+        </div>
+        <div class="ItemSettings-pages subtrait-pages">
+          {{#each subtraits as |subtrait subtraitIndex|}}
+            {{>
+              "systems/cortexprime/system/templates/partials/ItemSettings/SubtraitPage.html"
+              subtrait=subtrait
+            }}
+          {{/each}}
+        </div>
       </div>
     </div>
     <div class="theme-section">

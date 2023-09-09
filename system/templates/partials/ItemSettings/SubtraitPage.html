@@ -85,14 +85,16 @@
           subtrait.isRolledSeparately
           class="ItemSettings-subtrait-field-is-rolled-separately my-2"
           disabled=(not subtrait.hasDice)
+          inputClass="input-rolls-separately"
           label=(localize 'CP.RollsSeparately')
           name=(concat  'subtraits.' subtrait.id '.isRolledSeparately')
         }}
         {{
           fieldCheckbox
           (or subtrait.hasHitches (not subtrait.isRolledSeparately))
-          class="ItemSettings-subtrait-field-has-hitches my-2"
+          class="ItemSettings-subtrait-input-has-hitches my-2"
           disabled=(or (not subtrait.hasDice) (not subtrait.isRolledSeparately))
+          inputClass="input-has-hitches"
           label=(localize 'CP.HasHitches')
           name=(concat  'subtraits.' subtrait.id '.hasHitches')
         }}

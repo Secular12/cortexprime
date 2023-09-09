@@ -95,7 +95,7 @@
         {{
           fieldCheckbox
           trait.isRolledSeparately
-          class="ItemSettings-trait-field-is-rolled-separately my-2"
+          class="input-rolls-separately ItemSettings-trait-field-is-rolled-separately my-2"
           disabled=(not trait.hasDice)
           label=(localize 'CP.RollsSeparately')
           name=(concat 'traits.' trait.id '.isRolledSeparately')
@@ -103,7 +103,7 @@
         {{
           fieldCheckbox
           (or trait.hasHitches (not trait.isRolledSeparately))
-          class="ItemSettings-trait-field-has-hitches my-2"
+          class="input-has-hitches ItemSettings-trait-input-has-hitches my-2"
           disabled=(or (not trait.hasDice) (not trait.isRolledSeparately))
           label=(localize 'CP.HasHitches')
           name=(concat 'traits.' trait.id '.hasHitches')
