@@ -1,0 +1,19 @@
+<li
+  class="drag-sort-item flex gap-1 py-1 descriptors-list-item"
+  data-sort-sequence="{{sequence}}"
+>
+  <span class="drag-sort-handle mr-1"><i class="fa fa-bars"></i></span>
+  <button
+    class="btn btn-icon btn-secondary btn-small delete-descriptor"
+    type="button"
+  >
+    <i class="fa fa-trash"></i>
+  </button>
+  {{
+    fieldText
+    descriptor.label
+    class="ItemSettings-descriptor-field-name mb-2"
+    inputClass="ItemSettings-descriptor-field-name-input"
+    label=(localize 'CP.Label')
+  }}
+</li>

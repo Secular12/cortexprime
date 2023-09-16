@@ -8,10 +8,10 @@ import {
 import {
   addListeners,
   displayToggle,
-  displayOpenIfClosed,
   localizer,
   objectSortToArray,
-  uuid
+  uuid,
+  checkboxDisplayToggle
 } from '../lib/helpers.js'
 
 import Logger from '../lib/Logger.js'
@@ -61,7 +61,7 @@ export default class CpItemSettings extends FormApplication {
 
     Log('CPItemSettings._updateSettings expandedData:', expandedData)
     
-    await this.save(expandedData)
+    await this.save(event.target, expandedData)
   }
 
   activateListeners(html) {
@@ -76,6 +76,8 @@ export default class CpItemSettings extends FormApplication {
         changeDie: this.onChangeDie.bind(this),
       }
     )
+
+    checkboxDisplayToggle($html)
 
     displayToggle($html)
 
@@ -102,6 +104,28 @@ export default class CpItemSettings extends FormApplication {
 
         if ($rollsSeparatelyField) {
           this.onChangeRollsSeparately(event, $rollsSeparatelyField)
+          return
+        }
+      }
+    )
+
+    addListeners(
+      $html,
+      '#ItemSettings-pages-container',
+      'click',
+      (event) => {
+        const $addDescriptor = event.target.closest('.add-descriptor')
+
+        if ($addDescriptor) {
+          this.addDescriptor($html, event, $addDescriptor)
+          return
+        }
+
+        const $deleteDescriptor = event.target.closest('.delete-descriptor')
+
+        if ($deleteDescriptor) {
+          this.deleteDescriptor($deleteDescriptor)
+          return
         }
       }
     )
@@ -129,6 +153,7 @@ export default class CpItemSettings extends FormApplication {
 
         if ($deleteSubtrait) {
           this.deleteSubtrait($html, $deleteSubtrait)
+          return
         }
       }
     )
@@ -144,6 +169,7 @@ export default class CpItemSettings extends FormApplication {
 
         if ($subtraitName) {
           this.updateSubtraitName($html, $subtraitName)
+          return
         }
       }
     )
@@ -171,6 +197,7 @@ export default class CpItemSettings extends FormApplication {
 
         if ($deleteTrait) {
           this.deletePageItem($html, $deleteTrait, '.traits-list-item')
+          return
         }
       }
     )
@@ -186,6 +213,7 @@ export default class CpItemSettings extends FormApplication {
 
         if ($traitName) {
           this.updateTraitName($html, $traitName)
+          return
         }
       }
     )
@@ -193,6 +221,36 @@ export default class CpItemSettings extends FormApplication {
     $html
       .querySelector('.settings-reset')
       .addEventListener('click', this.reset.bind(this))
+  }
+
+  async addDescriptor ($html, event, $addDescriptor) {
+    const descriptor = { label: 'New Descriptor' }
+    const { path } = $addDescriptor.dataset
+    const sequence = $addDescriptor
+      .closest('.item-list')
+      .querySelectorAll('.descriptors-list-item')
+      .length
+
+    const content = await renderTemplate(
+      'systems/cortexprime/system/templates/partials/ItemSettings/Descriptor.html',
+      {
+        descriptor,
+        path,
+        sequence,
+      }
+    )
+
+    const $list = $addDescriptor
+      .closest('.item-list')
+      .querySelector('.descriptors-list')
+
+    $list
+      .insertAdjacentHTML('beforeend', content)
+
+    const $dragSortHandler = $list
+      .querySelector(`.descriptors-list-item[data-sort-sequence="${sequence}"] .drag-sort-handle`)
+
+    addDragSort($dragSortHandler, () => this._onDragSortDrop($html, $list))
   }
 
   async addSubtrait ($html, $addSubtrait) {
@@ -292,6 +350,21 @@ export default class CpItemSettings extends FormApplication {
     if (confirmed) {
       return super.close()
     }
+  }
+
+  async deleteDescriptor ($deleteDescriptor) {
+    const $descriptorsList = $deleteDescriptor
+      .closest('.descriptors-list')
+
+    $deleteDescriptor
+      .closest('.descriptors-list-item')
+      .remove()
+
+    $descriptorsList
+      .querySelectorAll('.descriptors-list-item')
+      .forEach(($item, index) => {
+        $item.dataset.sortSequence = index
+      })
   }
 
   async deletePageItem ($html, $deletePage, parentSelector) {
@@ -597,7 +670,7 @@ export default class CpItemSettings extends FormApplication {
     }
   }
 
-  async save (expandedData) {
+  async save ($html, expandedData) {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.SaveConfirmTitle'),
       content: localizer('CP.SaveConfirmContent'),
@@ -619,6 +692,18 @@ export default class CpItemSettings extends FormApplication {
       const subtraits = objectSortToArray(expandedData.subtraits, sequenceSort)
         .map(subtrait => {
           delete subtrait.sequence
+
+          subtrait.descriptors = Array.from(
+            $html
+              .querySelectorAll(`.subtrait-page[data-id="${subtrait.id}"] .descriptors-list-item`)
+          )
+            .map($listItem => {
+              return {
+                label: $listItem
+                  .querySelector('.ItemSettings-descriptor-field-name-input')
+                  .value
+              }
+            })
   
           return subtrait
         })
@@ -626,6 +711,18 @@ export default class CpItemSettings extends FormApplication {
       const traits = objectSortToArray(expandedData.traits, sequenceSort)
         .map(trait => {
           delete trait.sequence
+
+          trait.descriptors = Array.from(
+            $html
+              .querySelectorAll(`.trait-page[data-id="${trait.id}"] .descriptors-list-item`)
+          )
+            .map($listItem => {
+              return {
+                label: $listItem
+                  .querySelector('.ItemSettings-descriptor-field-name-input')
+                  .value
+              }
+            })
   
           trait.subtraitTypes = trait.subtraitTypes.filter(x => x)
   
@@ -732,7 +829,7 @@ export default class CpItemSettings extends FormApplication {
     const $dragSortHandler = $newListItem
       .querySelector('.drag-sort-handle')
 
-    addDragSort($dragSortHandler, () => this._onDragSortDrop($html))
+    addDragSort($dragSortHandler, () => this._onDragSortDrop($html, $list))
 
     const pageHtml = await renderTemplate(
       `systems/cortexprime/system/templates/partials/${templatePath}`,
@@ -742,12 +839,6 @@ export default class CpItemSettings extends FormApplication {
     $html
       .querySelector(`.${listTypeSingular}-pages`)
       .insertAdjacentHTML('beforeend', pageHtml)
-
-    const $displayToggle = $addListButton
-      .closest(`.${listTypePlural}-list-section`)
-      .querySelector('.display-toggle')
-
-    displayOpenIfClosed(null, $displayToggle)
 
     this._switchPage($html, { targetId: id })
   }
@@ -788,9 +879,12 @@ export default class CpItemSettings extends FormApplication {
     Array.from($dragSortList.children)
       .forEach(($item, index) => {
         $item.dataset.sortSequence = index
-        $item
+        const $dragSortItemSequence = $item
           .querySelector('.drag-sort-item-sequence')
-          .value = index
+
+        if ($dragSortItemSequence) {
+          $dragSortItemSequence.value = index
+        }
 
         if (sortList === 'subtraits') {
           $html
@@ -819,25 +913,38 @@ export default class CpItemSettings extends FormApplication {
   }
 }
 
+/** Theme Settings ***/
+// feat(0.3.0): Add temporary die
+// feat(0.3.0): Add a heading 3 and apply to "Preset Descriptors" in Item Settings
+
 /*** Dice Pool ***/
-// feat: preview button in DicePool to preview pool prior to rolling
+// feat(1.0.0): preview button in DicePool to preview pool prior to rolling
+// // Use sockets to update and have a dropdown to choose which dice pool to view
 
 /*** Item Settings ***/
-// feat: [numbers?] Think about how to add number fields (life points, quantity, weight, distance, etc.)
 // feat: [booleans or just tags?] Think about how to add boolean/checkbox fields (shaken & stricken)
-// feat: save trait settings; wait until editing is working properly
-// tweak: (FUTURE) when deleting trait or subtrait other sheets will be properly updated
+// feat(0.3.0): save trait settings; wait until editing is working properly
+// tweak(0.3.0): (FUTURE) when deleting trait or subtrait other sheets will be properly updated
 
 /*** Item Sheets ***/
+// feat(0.3.0): Create sheets
+// feat(0.3.0): Drag & Drop subtrait items onto item sheets
 
 /*** Actor Settings ***/
-// feat: Growth Tracking
+// feat(0.3.0): Create settings page
+// feat(0.3.0): Layout options
+// feat(1.0.0): Growth Tracking
 
 /*** Actor Sheets ***/
+// feat(0.3.0): Create sheets
 // feat: temporary dice ratings
+// feat(0.3.0): Drag and Drop trait and subtrait items onto sheets
 
 /*** Misc Settings ***/
-// feat: expandable roll result traits setting (default not)
+// feat(0.3.0): expandable roll result traits setting (default not)
 
 /*** Misc ***/
-// feat: textarea icon interpolation
+// feat(0.3.0): textarea icon interpolation
+// feat: Turn Order
+// feat(1.0.0): Quick access sheet
+// feat(0.3.0): Help Document/page

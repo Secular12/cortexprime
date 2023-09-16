@@ -76,6 +76,28 @@ export const displayToggle = ($html) => {
   )
 }
 
+export const checkboxDisplayToggle = ($html) => {
+  addListeners(
+    $html,
+    '.checkbox-display-toggle',
+    'change',
+    (event) => {
+      const $toggler = event.currentTarget
+
+      const {
+        parent,
+        target
+      } = $toggler.dataset
+
+      $toggler
+        .closest(parent)
+        ?.querySelector(target)
+        ?.classList
+        ?.toggle('hide')
+    }
+  )
+}
+
 export const isObject = value => (
   typeof value === 'object' &&
   value !== null &&

@@ -1,0 +1,35 @@
+<div class="descriptor-settings{{ifThen hasDescriptors '' ' hide'}}">
+  <section class="item-list">
+    <h5
+      class="flex"
+    >
+      <div class="grow-1 flex">
+        <div class="heading-2">
+          {{localize 'CP.PresetDescriptors'}}
+        </div>
+        <div>
+          <button
+            class="add-descriptor btn btn-icon"
+            data-path="{{path}}"
+            type="button"
+          >
+            <i class="fa fa-plus"></i>
+          </button>
+        </div>
+      </div>
+    </h5>
+    <ul
+      class="drag-sort-list mt-2 descriptors-list"
+      data-sort-list="descriptors"
+    >
+      {{#each descriptors as |descriptor descriptorIndex|}}
+        {{>
+          "systems/cortexprime/system/templates/partials/ItemSettings/Descriptor.html"
+          descriptor=descriptor
+          path=../path
+          sequence=descriptorIndex
+        }}
+      {{/each}}
+    </ul>
+  </section>
+</div>
