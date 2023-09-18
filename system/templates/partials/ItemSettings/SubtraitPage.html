@@ -74,7 +74,6 @@
               fieldCheckbox
               subtrait.hasConsumableDice
               class="ItemSettings-subtrait-field-has-consumable-dice my-2"
-              disabled=(not subtrait.hasDice)
               label=(localize 'CP.HasConsumableDice')
               name=(concat  'subtraits.' subtrait.id '.hasConsumableDice')
             }}
@@ -82,7 +81,6 @@
               fieldCheckbox
               subtrait.isRolledSeparately
               class="ItemSettings-subtrait-field-is-rolled-separately my-2"
-              disabled=(not subtrait.hasDice)
               inputClass="input-rolls-separately"
               label=(localize 'CP.RollsSeparately')
               name=(concat  'subtraits.' subtrait.id '.isRolledSeparately')
@@ -91,7 +89,7 @@
               fieldCheckbox
               (or subtrait.hasHitches (not subtrait.isRolledSeparately))
               class="ItemSettings-subtrait-input-has-hitches my-2"
-              disabled=(or (not subtrait.hasDice) (not subtrait.isRolledSeparately))
+              disabled=(not subtrait.isRolledSeparately)
               inputClass="input-has-hitches"
               label=(localize 'CP.HasHitches')
               name=(concat  'subtraits.' subtrait.id '.hasHitches')
@@ -100,7 +98,6 @@
               fieldCheckbox
               subtrait.allowMultipleDice
               class="ItemSettings-subtrait-field-allow-multiple-dice my-2"
-              disabled=(not subtrait.hasDice)
               label=(localize 'CP.AllowMultipleDice')
               name=(concat  'subtraits.' subtrait.id '.allowMultipleDice')
             }}
@@ -108,7 +105,6 @@
               fieldCheckbox
               subtrait.allowNoDice
               class="ItemSettings-subtrait-field-allow-no-dice my-2"
-              disabled=(not subtrait.hasDice)
               label=(localize 'CP.AllowNoDice')
               name=(concat  'subtraits.' subtrait.id '.allowNoDice')
             }}
@@ -116,7 +112,6 @@
               diceSelect
               subtrait.minDieRating
               class="shrink-1 ItemSettings-subtrait-field-min-die-rating my-2"
-              disabled=(not subtrait.hasDice)
               label=(localize 'CP.MinimumDieRating')
               name=(concat  'subtraits.' subtrait.id '.minDieRating')
             }}
@@ -124,7 +119,6 @@
               diceSelect
               subtrait.maxDieRating
               class="shrink-1 ItemSettings-subtrait-field-max-die-rating mt-2"
-              disabled=(not subtrait.hasDice)
               label=(localize 'CP.MaximumDieRating')
               name=(concat  'subtraits.' subtrait.id '.maxDieRating')
             }}

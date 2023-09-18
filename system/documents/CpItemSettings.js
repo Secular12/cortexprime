@@ -100,7 +100,10 @@ export default class CpItemSettings extends FormApplication {
       '#ItemSettings-pages-container',
       'change',
       (event) => {
-        const $rollsSeparatelyField = event.target.closest('.input-rolls-separately')
+        const $rollsSeparatelyField = event
+          .target
+          .closest('.input-rolls-separately')
+          ?.querySelector('.field-checkbox-input')
 
         if ($rollsSeparatelyField) {
           this.onChangeRollsSeparately(event, $rollsSeparatelyField)
@@ -647,7 +650,7 @@ export default class CpItemSettings extends FormApplication {
 
     const $hasHitchesField = $rollsSeparatelyField
       .closest('.ItemSettings-page')
-      .querySelector('.input-has-hitches')
+      .querySelector('.input-has-hitches .field-checkbox-input')
 
     $hasHitchesField.checked = !isChecked
     $hasHitchesField.disabled = !isChecked
@@ -705,6 +708,9 @@ export default class CpItemSettings extends FormApplication {
               }
             })
   
+          subtrait.maxDieRating = parseInt(subtrait.maxDieRating, 10)
+          subtrait.minDieRating = parseInt(subtrait.minDieRating, 10)
+
           return subtrait
         })
   
@@ -724,6 +730,8 @@ export default class CpItemSettings extends FormApplication {
               }
             })
   
+          trait.maxDieRating = parseInt(trait.maxDieRating, 10)
+          trait.minDieRating = parseInt(trait.minDieRating, 10)
           trait.subtraitTypes = trait.subtraitTypes.filter(x => x)
   
           return trait
@@ -736,7 +744,7 @@ export default class CpItemSettings extends FormApplication {
   
       Log('CpItemSettings.save serializedData', serializedData)
 
-      // game.settings.set('cortexprime', 'itemTypes', serializedData)
+      game.settings.set('cortexprime', 'itemTypes', serializedData)
 
       Dialog.prompt({
         title: localizer('CP.PromptSettingsSaveTitle'),
@@ -922,17 +930,17 @@ export default class CpItemSettings extends FormApplication {
 // // Use sockets to update and have a dropdown to choose which dice pool to view
 
 /*** Item Settings ***/
-// feat: [booleans or just tags?] Think about how to add boolean/checkbox fields (shaken & stricken)
-// feat(0.3.0): save trait settings; wait until editing is working properly
 // tweak(0.3.0): (FUTURE) when deleting trait or subtrait other sheets will be properly updated
 
 /*** Item Sheets ***/
 // feat(0.3.0): Create sheets
-// feat(0.3.0): Drag & Drop subtrait items onto item sheets
+// feat(0.3.0): Drag & Drop subtrait items onto trait item sheets
+// feat(0.3.0): Editing subtrait on a trait sheet will open a subtrait sheet
 
 /*** Actor Settings ***/
 // feat(0.3.0): Create settings page
 // feat(0.3.0): Layout options
+// feat(0.3.0): "Simple Traits" for dice, booleans and/or tags?, numbers, text, etc.
 // feat(1.0.0): Growth Tracking
 
 /*** Actor Sheets ***/

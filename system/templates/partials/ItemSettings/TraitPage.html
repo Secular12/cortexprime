@@ -86,7 +86,6 @@
               fieldCheckbox
               trait.hasConsumableDice
               class="ItemSettings-trait-field-has-consumable-dice my-2"
-              disabled=(not trait.hasDice)
               label=(localize 'CP.HasConsumableDice')
               name=(concat 'traits.' trait.id '.hasConsumableDice')
             }}
@@ -94,7 +93,6 @@
               fieldCheckbox
               trait.isRolledSeparately
               class="input-rolls-separately ItemSettings-trait-field-is-rolled-separately my-2"
-              disabled=(not trait.hasDice)
               label=(localize 'CP.RollsSeparately')
               name=(concat 'traits.' trait.id '.isRolledSeparately')
             }}
@@ -102,7 +100,7 @@
               fieldCheckbox
               (or trait.hasHitches (not trait.isRolledSeparately))
               class="input-has-hitches ItemSettings-trait-input-has-hitches my-2"
-              disabled=(or (not trait.hasDice) (not trait.isRolledSeparately))
+              disabled=(not trait.isRolledSeparately)
               label=(localize 'CP.HasHitches')
               name=(concat 'traits.' trait.id '.hasHitches')
             }}
@@ -110,7 +108,6 @@
               fieldCheckbox
               trait.allowMultipleDice
               class="ItemSettings-trait-field-allow-multiple-dice my-2"
-              disabled=(not trait.hasDice)
               label=(localize 'CP.AllowMultipleDice')
               name=(concat 'traits.' trait.id '.allowMultipleDice')
             }}
@@ -118,7 +115,6 @@
               fieldCheckbox
               trait.allowNoDice
               class="ItemSettings-trait-field-allow-no-dice my-2"
-              disabled=(not trait.hasDice)
               label=(localize 'CP.AllowNoDice')
               name=(concat  'traits.' trait.id '.allowNoDice')
             }}
@@ -126,7 +122,6 @@
               diceSelect
               trait.minDieRating
               class="shrink-1 ItemSettings-trait-field-min-die-rating min-die-rating my-2"
-              disabled=(not trait.hasDice)
               label=(localize 'CP.MinimumDieRating')
               name=(concat  'traits.' trait.id '.minDieRating')
             }}
@@ -134,7 +129,6 @@
               diceSelect
               trait.maxDieRating
               class="shrink-1 ItemSettings-trait-field-max-die-rating max-die-rating mt-2"
-              disabled=(not trait.hasDice)
               label=(localize 'CP.MaximumDieRating')
               name=(concat  'traits.' trait.id '.maxDieRating')
             }}
