@@ -32,7 +32,7 @@ export default class CpItemSettings extends FormApplication {
 
   static get defaultOptions () {
     return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'settings'],
+      classes: ['cortexprime', 'settings', 'item-settings'],
       closeOnSubmit: false,
       height: 900,
       id: 'ItemSettings',

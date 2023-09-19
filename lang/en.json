@@ -1,4 +1,5 @@
 {
+  "CP.ActorSheetLabel": "Actor Sheet",
   "CP.AddsToTotal": "Adds to Total",
   "CP.AddToPool": "Add to Pool",
   "CP.All": "All",
@@ -65,6 +66,7 @@
   "CP.ImageRepeat": "Image Repeat",
   "CP.ImageSize": "Image Size",
   "CP.Inputs": "Inputs",
+  "CP.ItemSheetLabel": "Item Sheet",
   "CP.ItemTypes": "Item Types",
   "CP.Label": "Label",
   "CP.Left": "Left",

@@ -5,6 +5,7 @@ import { preloadHandlebarsTemplates } from './system/lib/handlebarHelpers/preloa
 import Logger from './system/lib/Logger.js'
 import sockets from './system/lib/sockets.js'
 import { registerSettings } from './system/settings.js'
+import { registerSheets } from './system/sheets.js'
 
 const Log = Logger()
 
@@ -22,5 +23,6 @@ Hooks.once('init', () => {
   registerHandlebarHelpers()
   preloadHandlebarsTemplates()
   registerSettings()
+  registerSheets()
   hooks()
 })

@@ -25,7 +25,7 @@ export default class CpThemeSettings extends FormApplication {
 
   static get defaultOptions () {
     return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'settings'],
+      classes: ['cortexprime', 'settings', 'theme-settings'],
       closeOnSubmit: false,
       height: 900,
       id: 'ThemeSettings',
