@@ -11,14 +11,20 @@ export default (value, items, name, val, options) => {
   const getOptions = (items, value, name, val) => {
     return items
       .map(item => {
-        return item.label 
+        return item.label
           ? item.options?.length > 0
             ? `<optgroup label="${item.label}">` +
               getOptions(item.options, value, name, val) +
               `</optgroup>`
             : null
           : `<option value="${item[val]}"` +
-            (item[val] === value ? ' selected>' : '>') +
+            (
+              item.placeholder
+                ? ` disabled ${!value ? 'selected' : 'hidden'}>`
+                : item[val] === value 
+                  ? ' selected>'
+                  : '>'
+            ) +
             `${item[name]}</option>`
       })
       .filter(itemString => itemString)

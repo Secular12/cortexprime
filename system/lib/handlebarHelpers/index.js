@@ -25,4 +25,5 @@ export const registerHandlebarHelpers = () => {
   Handlebars.registerHelper('fieldCheckbox', fieldCheckbox)
   Handlebars.registerHelper('fieldSelect', fieldSelect)
   Handlebars.registerHelper('fieldText', fieldInput('text'))
+  Handlebars.registerHelper('fieldTextarea', fieldInput('text'))
 }

@@ -931,9 +931,10 @@ export default class CpItemSettings extends FormApplication {
 
 /*** Item Settings ***/
 // tweak(0.3.0): (FUTURE) when deleting trait or subtrait other sheets will be properly updated
+// tweak(0.3.0): Type image & update in item list
 
 /*** Item Sheets ***/
-// feat(0.3.0): Create sheets
+// feat(0.3.0): getter for item type and selector (different message if missing item type rather than unchosen)
 // feat(0.3.0): Drag & Drop subtrait items onto trait item sheets
 // feat(0.3.0): Editing subtrait on a trait sheet will open a subtrait sheet
 
@@ -944,7 +945,6 @@ export default class CpItemSettings extends FormApplication {
 // feat(1.0.0): Growth Tracking
 
 /*** Actor Sheets ***/
-// feat(0.3.0): Create sheets
 // feat: temporary dice ratings
 // feat(0.3.0): Drag and Drop trait and subtrait items onto sheets
 

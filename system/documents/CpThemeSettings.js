@@ -98,7 +98,7 @@ export default class CpThemeSettings extends FormApplication {
   async _updateObject(event, formData) {
     const expandedData = expandObject(formData)
 
-    Log('CPThemeSettings._updateSettings expandedData:', expandedData)
+    Log('CPThemeSettings._updateObject expandedData:', expandedData)
 
     const {
       selectedTheme,
