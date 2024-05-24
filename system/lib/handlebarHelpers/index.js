@@ -3,6 +3,7 @@ import dieResult from './dieResult.js';
 import fieldCheckbox from './fieldCheckbox.js';
 import fieldInput from './fieldInput.js';
 import fieldSelect from './fieldSelect.js';
+import fieldTextarea from './fieldTextarea.js';
 
 export const registerHandlebarHelpers = () => {
   Handlebars.registerHelper({
@@ -25,5 +26,5 @@ export const registerHandlebarHelpers = () => {
   Handlebars.registerHelper('fieldCheckbox', fieldCheckbox)
   Handlebars.registerHelper('fieldSelect', fieldSelect)
   Handlebars.registerHelper('fieldText', fieldInput('text'))
-  Handlebars.registerHelper('fieldTextarea', fieldInput('text'))
+  Handlebars.registerHelper('fieldTextarea', fieldTextarea)
 }

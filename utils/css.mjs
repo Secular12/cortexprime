@@ -5,14 +5,14 @@ import sass from 'sass'
 
 const SCSS_DEST = './css'
 const SCSS_SRC = 'scss/cortexprime.scss'
-const SCSS_WATCH = ['scss/**/*.scss']
+const SCSS_WATCH = ['scss/**/*.scss',]
 
 const prefixOptions = {
-  cascade: false
+  cascade: false,
 }
 
 const scssOptions = {
-  outputStyle: 'expanded'
+  outputStyle: 'expanded',
 }
 
 const scss = gulpSass(sass)
@@ -27,7 +27,7 @@ export const compile = () => {
     .pipe(gulp.dest(SCSS_DEST))
 }
 
-function handleError (err) {
+function handleError(err) {
   console.log(error.toString())
   this.emit('end')
 }

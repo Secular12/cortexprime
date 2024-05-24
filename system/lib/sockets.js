@@ -1,6 +1,6 @@
-import { setThemeProperties } from './setThemeProperties.js'
+import { setThemeProperties, } from './setThemeProperties.js'
 
-export default ({ payload, type }) => {
+export default ({ payload, type, }) => {
   switch (type) {
     case 'setThemeProperties':
       setThemeProperties()

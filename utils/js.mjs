@@ -3,23 +3,23 @@ import gulp from 'gulp'
 import gulpIf from 'gulp-if'
 import mergeStream from 'merge-stream'
 import nodeResolve from '@rollup/plugin-node-resolve'
-import { rollup } from 'rollup'
+import { rollup, } from 'rollup'
 import yargs from 'yargs'
 
-const LINTING_PATHS = ['./index.mjs', 'system/']
+const LINTING_PATHS = ['./index.mjs', 'system/',]
 
 const bundleWriteOptions = {
   file: 'cortexprime.mjs',
   format: 'es',
   sourcemap: 'true',
-  sourcemapFile: 'index.mjs'
+  sourcemapFile: 'index.mjs',
 }
 
 const parsedArgs = yargs(process.argv).argv
 
 const rollupOptions = {
   input: './index.mjs',
-  plugins: [nodeResolve()]
+  plugins: [nodeResolve(),],
 }
 
 export const compile = async () => {
@@ -29,14 +29,14 @@ export const compile = async () => {
 }
 
 const getEslintOptions = () => ({
-  fix: !!parsedArgs.fix
+  fix: !!parsedArgs.fix,
 })
 
 export const lint = () => {
-  
+
   const tasks = LINTING_PATHS.map(path => {
     const src = path.endsWith('/') ? `${path}**/*.mjs` : path
-    const dest = path.endsWith('/') ? path : `${path.split("/").slice(0, -1).join("/")}/`
+    const dest = path.endsWith('/') ? path : `${path.split('/').slice(0, -1).join('/')}/`
 
     return gulp
       .src(src)

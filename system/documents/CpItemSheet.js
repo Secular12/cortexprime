@@ -1,3 +1,4 @@
+import { diceSelectListener } from '../lib/formHelpers.js'
 import {
   localizer,
 } from '../lib/helpers.js'
@@ -26,7 +27,7 @@ export class CpItemSheet extends ItemSheet {
     const itemTypeId = this.item.system?.itemTypeId
 
     if (!itemTypeId) return null
-    
+
     return this.itemTypeOptions
       ?.find(({ id }) => id === itemTypeId) ?? null
   }
@@ -72,19 +73,110 @@ export class CpItemSheet extends ItemSheet {
   }
 
   async _updateObject(event, formData) {
-    const expandedData = expandObject(formData)
+    let expandedData = expandObject(formData)
 
     Log('CPItemSheet._updateObject expandedData:', expandedData)
+
+    const hasItemTypeChanged = expandedData.data.system.itemTypeId && expandedData.data.system.itemTypeId !== this.item.system.itemTypeId
+
+    expandedData.data.system.dice = typeof expandedData.data.system.dice === 'string'
+      ? [parseInt(expandedData.data.system.dice, 10)]
+      : !!expandedData.data.system.dice
+        ? expandedData.data.system.dice.map(die => parseInt(die, 10))
+        : []
+
+    if (hasItemTypeChanged) {
+      expandedData = this.onItemTypeChange(expandedData)
+    }
     
-    const system = mergeObject(this.item.system, expandedData.system)
-    
+    const system = mergeObject(this.item.system, expandedData.data.system)
+
     Log('CPItemSheet._updateObject system:', system)
-    this.item.update({ system })
+
+    await this.item.update({
+      name: expandedData.data.name || this.item.name,
+      system
+    })
 
     await this.render()
   }
 
   activateListeners (html) {
     super.activateListeners(html)
+    const [$html] = html
+
+    diceSelectListener(
+      $html,
+      {
+        addDie: this.onAddDie.bind(this),
+        removeDie: this.onRemoveDie.bind(this),
+      }
+    )
   }
+
+  async onAddDie () {
+    const dice = [
+      ...this.item.system.dice ?? [],
+      this.item.system.dice?.[this.item.system.dice.length - 1 ] ?? this.itemSettings.minDieRating
+    ]
+
+    await this.item.update({
+      system: {
+        ...this.item.system,
+        dice: [
+          ...this.item.system.dice ?? [],
+          this.item.system.dice?.[this.item.system.dice.length -1 ] ?? this.itemSettings.minDieRating
+        ]
+      }
+    })
+
+    this.render(true)
+  }
+
+  onItemTypeChange (expandedData) {
+    const newItemSettings = this.itemTypeOptions
+      ?.find(({ id }) => id === expandedData.data.system.itemTypeId) ?? null
+    
+    const dice = expandedData.data.system.dice
+
+    if (newItemSettings.hasDice) {
+      expandedData.data.system.dice = dice.length > 0
+          ? newItemSettings.allowMultipleDice
+            ? dice.map(die => {
+                return (
+                  die > newItemSettings.maxDieRating ||
+                  die < newItemSettings.minDieRating
+                )
+                  ? newItemSettings.minDieRating
+                  : die
+              })
+            : (
+                dice[0] > newItemSettings.maxDieRating ||
+                dice[0] < newItemSettings.minDieRating
+              )
+                ? [newItemSettings.minDieRating]
+                : [dice[0]]
+          : newItemSettings.allowNoDice
+            ? dice
+            : [newItemSettings.minDieRating]
+    }
+
+    return expandedData
+  }
+
+  async onRemoveDie (event, { index }) {
+    await this.item.update({
+      system: {
+        ...this.item.system,
+        dice: this.item.system.dice?.filter((_, i) => i !== index)
+      }
+    })
+
+    this.render(true)
+  }
+
+  // TODO: Create a conformToSettings method
+  // // Does checks and if not matching it conforms
+  // TODO: Create a serializeDice method
+  // // Used for submission
 }

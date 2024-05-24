@@ -11,7 +11,6 @@
         <div class="theme-section-background-color"></div>
         <div class="p-2 theme-section-content">
           <h2 class="heading-1 mb-1">{{ data.name }}</h2>
-          <div class="flex items-end">
             {{
               fieldSelect
               null
@@ -20,9 +19,8 @@
               "id"
               class="grow-1"
               label=(ifThen (eq data.type 'Trait') (localize 'CP.TraitType') (localize 'CP.SubtraitType'))
-              name="system.itemTypeId"
+              name="data.system.itemTypeId"
             }}
-          </div>
         </div>
       </div>
     {{else}}
@@ -30,19 +28,74 @@
         <div class="theme-section-background-image"></div>
         <div class="theme-section-background-color"></div>
         <div class="p-2 theme-section-content">
-          <h2 class="heading-1 mb-1">{{ data.name }}</h2>
-          <div class="flex items-end">
+          <div class="flex">
+            {{
+              fieldText
+              data.name
+              class="w-1-2"
+              label=(localize 'CP.Name')
+              name="data.name"
+            }}
             {{
               fieldSelect
               data.system.itemTypeId
               itemTypeOptions
               "name"
               "id"
-              class="grow-1"
+              class="w-1-2"
               label=(ifThen (eq data.type 'Trait') (localize 'CP.TraitType') (localize 'CP.SubtraitType'))
-              name="system.itemTypeId"
+              name="data.system.itemTypeId"
             }}
           </div>
+          {{#if itemSettings.hasLabel}}
+            {{
+              fieldText
+              data.system.label
+              label=(localize 'CP.Label')
+              name="data.system.label"
+            }}
+          {{/if}}
+          {{#if itemSettings.isUnlockable}}
+            {{
+              fieldCheckbox
+              data.system.unlocked
+              label=(localize 'CP.Unlocked')
+              name="data.system.unlocked"
+            }}
+          {{/if}}
+          {{#if itemSettings.hasDice}}
+            {{
+              diceSelect
+              data.system.dice
+              allowMultipleDice=itemSettings.allowMultipleDice
+              allowNoDice=itemSettings.allowNoDice
+              label=(localize 'CP.DieRating')
+              max=itemSettings.maxDieRating
+              min=itemSettings.minDieRating
+              name="data.system.dice"
+            }}
+            <!-- Add in temporary dice -->
+          {{/if}}
+          {{#if itemSettings.hasTags}}
+            <p>Has Tags</p>
+            <div class="tags-section">
+              {{#each data.system.tags as |tag|}}
+                <!-- Allow reordering, sort alphabetically, or keep as added? -->
+              {{/each}}
+            </div>
+          {{/if}}
+          {{#if itemSettings.hasDescription}}
+            {{
+              fieldTextarea
+              data.system.description
+              label=(localize 'CP.Description')
+              name="data.system.description"
+            }}
+          {{/if}}
+          {{#if itemSettings.hasDescriptors}}
+            <p>Has Descriptors</p>
+          {{/if}}
+          <!-- Hidden, Shutdown, Subtraits -->
         </div>
       </div>
     {{/unless}}

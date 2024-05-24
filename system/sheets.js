@@ -1,6 +1,6 @@
-import { CpItemSheet } from './documents/CpItemSheet.js'
-import { CpActorSheet } from './documents/CpActorSheet.js'
-import { localizer } from './lib/helpers.js'
+import { CpItemSheet, } from './documents/CpItemSheet.js'
+import { CpActorSheet, } from './documents/CpActorSheet.js'
+import { localizer, } from './lib/helpers.js'
 
 export const registerSheets = () => {
   Actors.unregisterSheet('core', ActorSheet)

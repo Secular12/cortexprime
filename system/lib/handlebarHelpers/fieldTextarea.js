@@ -1,4 +1,4 @@
-export default (value, items, name, val, options) => {
+export default (value, options) => {
   const inputHashIgnore = [
     'class',
     'hint',
@@ -8,36 +8,8 @@ export default (value, items, name, val, options) => {
     'wrapperClass',
   ]
 
-  const getOptions = (items, value, name, val) => {
-    return items
-      .map(item => {
-        return item.label
-          ? item.options?.length > 0
-            ? `<optgroup label="${item.label}">${
-              getOptions(item.options, value, name, val)
-            }</optgroup>`
-            : null
-          : `<option value="${item[val]}"${
-
-            item.placeholder
-              ? ` disabled ${!value ? 'selected' : 'hidden'}>`
-              : item[val] === value
-                ? ' selected>'
-                : '>'
-          }${item[name]}</option>`
-      })
-      .filter(itemString => itemString)
-      .join('')
-  }
-
-  const getViewValue = value => {
-    const matchingValue = items.find(item => item[val] === value)
-
-    return matchingValue?.[name]
-  }
-
   return new Handlebars.SafeString(
-    `<div class="field field-select${
+    `<div class="field field-textarea${
       options.hash.noEdit ? ' field-view' : ''
     }${options.hash.disabled === true ? ' field-disabled' : ''
     }${options.hash.class ? ` ${options.hash.class}` : ''
@@ -51,8 +23,8 @@ export default (value, items, name, val, options) => {
     }${options.hash.label ? `">${options.hash.label}</span>` : ''
 
     }${options.hash.noEdit
-      ? `<p class="field-view-value">${getViewValue(value)}</p>`
-      : `<select ${
+      ? `<p class="field-view-value">${value}</p>`
+      : `<textarea ${
         Object.entries(options.hash)
           .reduce((attributes, [key, value,]) => {
             if (inputHashIgnore.includes(key)) return attributes
@@ -72,8 +44,9 @@ export default (value, items, name, val, options) => {
           }, ['class="field-input"',])
           .join(' ')
       }>${
-        getOptions(items, value, name, val)
-      }</select>`
+        value ?? ''
+      }</textarea>${
+        options.hash.append ? `${options.hash.append}</div>` : ''}`
     }${options.hash.label && !options.hash.noEdit ? '</label>' : '</div>'
     }${options.hash.hint && !options.hash.noEdit ? `<p class="field-hint">${options.hash.hint}</p>` : ''
     }</div>`

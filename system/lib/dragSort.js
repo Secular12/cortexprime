@@ -1,7 +1,7 @@
 export const addDragSort = ($dragSortHandle, callback) => {
   $dragSortHandle.setAttribute('draggable', true)
   $dragSortHandle.ondrag = handleItemDrag
-  $dragSortHandle.ondragend = (event) => handleItemDrop(event, callback)
+  $dragSortHandle.ondragend = event => handleItemDrop(event, callback)
 }
 
 export const dragSort = ($html, callback) => {
@@ -10,7 +10,7 @@ export const dragSort = ($html, callback) => {
     .forEach($dragSortHandle => addDragSort($dragSortHandle, callback))
 }
 
-export const handleItemDrag = (event) => {
+export const handleItemDrag = event => {
   const $dragSortItem = event.currentTarget.closest('.drag-sort-item')
   const $dragSortList = $dragSortItem.parentNode
 
@@ -25,7 +25,7 @@ export const handleItemDrag = (event) => {
     const $dragSortSwapItem = $swapItem !== $dragSortItem.nextSibling
       ? $swapItem
       : $swapItem.nextSibling
-    
+
     $dragSortList.insertBefore($dragSortItem, $dragSortSwapItem)
   }
 }
