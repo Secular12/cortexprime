@@ -5,12 +5,10 @@
   <div class="flex-col">
     <div class="flex-row">
       <select class="input-cpt" name="{{name}}">
-        {{#select value}}
-          <option value="1">1px</option>
-          <option value="2">2px</option>
-          <option value="3">3px</option>
-          <option value="4">4px</option>
-        {{/select}}
+          <option value="1"{{ternary (eq value '1') ' selected' ''}}>1px</option>
+          <option value="2"{{ternary (eq value '2') ' selected' ''}}>2px</option>
+          <option value="3"{{ternary (eq value '3') ' selected' ''}}>3px</option>
+          <option value="4"{{ternary (eq value '4') ' selected' ''}}>4px</option>
       </select>
     </div>
   </div>

@@ -5,12 +5,10 @@
   <div class="flex-col">
     <div class="flex-row">
       <select class="input-cpt" name="{{name}}">
-        {{#select value}}
-          <option value="no-repeat">{{localize 'NoRepeat'}}</option>
-          <option value="repeat">{{localize 'Repeat'}}</option>
-          <option value="repeat-x">{{localize 'RepeatX'}}</option>
-          <option value="repeat-y">{{localize 'RepeatY'}}</option>
-        {{/select}}
+        <option value="no-repeat"{{ternary (eq value 'no-repeat') ' selected' ''}}>{{localize 'NoRepeat'}}</option>
+        <option value="repeat"{{ternary (eq value 'repeat') ' selected' ''}}>{{localize 'Repeat'}}</option>
+        <option value="repeat-x"{{ternary (eq value 'repeat-x') ' selected' ''}}>{{localize 'RepeatX'}}</option>
+        <option value="repeat-y"{{ternary (eq value 'repeat-y') ' selected' ''}}>{{localize 'RepeatY'}}</option>
       </select>
     </div>
   </div>

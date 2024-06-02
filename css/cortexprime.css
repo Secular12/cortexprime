@@ -1355,8 +1355,8 @@ input[type=color][data-edit][data-edit] {
 }
 
 .dice-pool-control {
-  background-color: var(--button-primary-color, #2d5931);
-  color: var(--button-primary-font-color, #ffffff);
+  background-color: var(--cp-button-primary-color, #2d5931);
+  color: var(--cp-button-primary-font-color, #ffffff);
   cursor: pointer;
   display: inline-block;
   margin-bottom: 0.5rem;
@@ -1445,14 +1445,14 @@ input[type=color][data-edit][data-edit] {
 }
 
 .cortexprime .sheet-cpt {
-  color: var(--body-font-color, #000000);
+  color: var(--cp-body-font-color, #000000);
   font-family: "Roboto", sans-serif;
-  font-size: var(--body-font-size, 15px);
-  font-weight: var(--body-font-weight, 400);
+  font-size: var(--cp-body-font-size, 15px);
+  font-weight: var(--cp-body-font-weight, 400);
   height: 100%;
 }
 .cortexprime .sheet-cpt .sheet-background {
-  background-color: var(--sheet-background-color, #dedede);
+  background-color: var(--cp-sheet-background-color, #dedede);
   height: 100%;
   left: 0;
   position: absolute;
@@ -1461,13 +1461,13 @@ input[type=color][data-edit][data-edit] {
   z-index: 1;
 }
 .cortexprime .sheet-cpt .sheet-image {
-  background-image: var(--sheet-background-image, none);
-  background-position: var(--sheet-background-position, center);
-  background-repeat: var(--sheet-background-repeat, no-repeat);
-  background-size: var(--sheet-background-size, cover);
+  background-image: var(--cp-sheet-background-image, none);
+  background-position: var(--cp-sheet-background-position, center);
+  background-repeat: var(--cp-sheet-background-repeat, no-repeat);
+  background-size: var(--cp-sheet-background-size, cover);
   height: 100%;
   left: 0;
-  opacity: var(--sheet-background-image-opacity, 0.5);
+  opacity: var(--cp-sheet-background-image-opacity, 0.5);
   position: absolute;
   top: 0;
   width: 100%;
@@ -1480,9 +1480,9 @@ input[type=color][data-edit][data-edit] {
 .cortexprime .section-cpt {
   background: transparent;
   border: 0;
-  border-color: var(--section-border-color, #2d5931);
-  border-style: var(--section-border-style, solid);
-  border-width: var(--section-border-position, 2px 2px 2px 2px);
+  border-color: var(--cp-section-border-color, #2d5931);
+  border-style: var(--cp-section-border-style, solid);
+  border-width: var(--cp-section-border-position, 2px 2px 2px 2px);
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   position: relative;
@@ -1496,21 +1496,21 @@ input[type=color][data-edit][data-edit] {
   width: 100%;
 }
 .cortexprime .section-cpt .section-background {
-  background-color: var(--section-background-color, #f5f8fa);
-  opacity: var(--section-background-color-opacity, 1);
+  background-color: var(--cp-section-background-color, #f5f8fa);
+  opacity: var(--cp-section-background-color-opacity, 1);
   z-index: 3;
 }
 .cortexprime .section-cpt .section-background-alternate {
-  background-color: var(--section-alternate-background-color, #ccd7df);
-  opacity: var(--section-background-color-opacity, 1);
+  background-color: var(--cp-section-alternate-background-color, #ccd7df);
+  opacity: var(--cp-section-background-color-opacity, 1);
   z-index: 3;
 }
 .cortexprime .section-cpt .section-image {
-  background-image: var(--section-background-image, none);
-  background-position: var(--section-background-position, center);
-  background-repeat: var(--section-background-repeat, no-repeat);
-  background-size: var(--section-background-size, cover);
-  opacity: var(--section-background-image-opacity, 0);
+  background-image: var(--cp-section-background-image, none);
+  background-position: var(--cp-section-background-position, center);
+  background-repeat: var(--cp-section-background-repeat, no-repeat);
+  background-size: var(--cp-section-background-size, cover);
+  opacity: var(--cp-section-background-image-opacity, 0);
   z-index: 4;
 }
 .cortexprime .section-cpt .section-content {
@@ -1525,12 +1525,12 @@ input[type=color][data-edit][data-edit] {
   z-index: -1;
 }
 .cortexprime .btn-primary-cpt {
-  background-color: var(--button-primary-color, #2d5931);
-  color: var(--button-primary-font-color, #ffffff);
+  background-color: var(--cp-button-primary-color, #2d5931);
+  color: var(--cp-button-primary-font-color, #ffffff);
 }
 .cortexprime .btn:hover, .cortexprime .btn:focus {
-  -webkit-box-shadow: 0 0 5px var(--input-focus-color, #b30044);
-  box-shadow: 0 0 5px var(--input-focus-color, #b30044);
+  -webkit-box-shadow: 0 0 5px var(--cp-input-focus-color, #b30044);
+  box-shadow: 0 0 5px var(--cp-input-focus-color, #b30044);
 }
 .cortexprime .btn.btn-square-cpt {
   border-radius: 0;
@@ -1544,24 +1544,24 @@ input[type=color][data-edit][data-edit] {
   border-radius: 50%;
 }
 .cortexprime .btn-secondary-cpt {
-  background-color: var(--button-secondary-color, #b30044);
-  color: var(--button-secondary-font-color, #ffffff);
+  background-color: var(--cp-button-secondary-color, #b30044);
+  color: var(--cp-button-secondary-font-color, #ffffff);
 }
 .cortexprime .btn-icon-plain-cpt {
   background-color: transparent;
-  color: var(--body-font-color, #000000);
+  color: var(--cp-body-font-color, #000000);
 }
 .cortexprime .dialog-buttons .dialog-button.cancel, .cortexprime .dialog-buttons .dialog-button.confirm, .cortexprime .dialog-buttons .dialog-button.done {
   border: 0;
   cursor: pointer;
 }
 .cortexprime .dialog-buttons .dialog-button.confirm, .cortexprime .dialog-buttons .dialog-button.done {
-  background-color: var(--button-primary-color, #2d5931);
-  color: var(--button-primary-font-color, #ffffff);
+  background-color: var(--cp-button-primary-color, #2d5931);
+  color: var(--cp-button-primary-font-color, #ffffff);
 }
 .cortexprime .dialog-buttons .dialog-button.cancel {
-  background-color: var(--button-secondary-color, #2d5931);
-  color: var(--button-secondary-font-color, #ffffff);
+  background-color: var(--cp-button-secondary-color, #2d5931);
+  color: var(--cp-button-secondary-font-color, #ffffff);
 }
 .cortexprime .die-cpt {
   height: 2rem;
@@ -1586,46 +1586,46 @@ input[type=color][data-edit][data-edit] {
   transform: translate(-50%, -60%);
 }
 .cortexprime .chosen-cpt .fill {
-  fill: var(--chosen-fill, #ffffff);
+  fill: var(--cp-chosen-fill, #ffffff);
 }
 .cortexprime .chosen-cpt .stroke {
-  fill: var(--chosen-stroke, #b30044);
+  fill: var(--cp-chosen-stroke, #b30044);
 }
 .cortexprime .chosen-cpt .number {
-  color: var(--chosen-number, #1f2834);
+  color: var(--cp-chosen-number, #1f2834);
 }
 .cortexprime .die-rating-cpt .fill {
-  fill: var(--die-rating-fill, #b30044);
+  fill: var(--cp-die-rating-fill, #b30044);
 }
 .cortexprime .die-rating-cpt .stroke {
-  fill: var(--die-rating-stroke, #b30044);
+  fill: var(--cp-die-rating-stroke, #b30044);
 }
 .cortexprime .die-rating-cpt .number {
-  color: var(--die-rating-number, #ffffff);
+  color: var(--cp-die-rating-number, #ffffff);
 }
 .cortexprime .effect-cpt .fill {
-  fill: var(--effect-fill, #2d5931);
+  fill: var(--cp-effect-fill, #2d5931);
 }
 .cortexprime .effect-cpt .stroke {
-  fill: var(--effect-stroke, #2d5931);
+  fill: var(--cp-effect-stroke, #2d5931);
 }
 .cortexprime .effect-cpt .number {
-  color: var(--effect-number, #ffffff);
+  color: var(--cp-effect-number, #ffffff);
 }
 .cortexprime .hitch-cpt .fill {
-  fill: var(--hitch-fill, #141c27);
+  fill: var(--cp-hitch-fill, #141c27);
 }
 .cortexprime .hitch-cpt .stroke {
-  fill: var(--hitch-stroke, #b30044);
+  fill: var(--cp-hitch-stroke, #b30044);
 }
 .cortexprime .hitch-cpt .number {
-  color: var(--hitch-number, #ffffff);
+  color: var(--cp-hitch-number, #ffffff);
 }
 .cortexprime .pp-cpt {
-  background-color: var(--plot-point-fill, #c9e2d1);
+  background-color: var(--cp-plot-point-fill, #c9e2d1);
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  border: 0.125rem solid var(--plot-point-stroke, #c9e2d1);
+  border: 0.125rem solid var(--cp-plot-point-stroke, #c9e2d1);
   border-radius: 50%;
   position: relative;
   height: 2rem;
@@ -1633,7 +1633,7 @@ input[type=color][data-edit][data-edit] {
 }
 .cortexprime .pp-cpt .pp-text-cpt {
   position: absolute;
-  color: var(--plot-point-text, #141c27);
+  color: var(--cp-plot-point-text, #141c27);
   font-weight: 700;
   font-size: 1.125rem;
   left: 50%;
@@ -1652,66 +1652,66 @@ input[type=color][data-edit][data-edit] {
   font-size: 2.25rem;
 }
 .cortexprime .selected-cpt .fill {
-  fill: var(--selected-fill, #c9e2d1);
+  fill: var(--cp-selected-fill, #c9e2d1);
 }
 .cortexprime .selected-cpt .stroke {
-  fill: var(--selected-stroke, #b30044);
+  fill: var(--cp-selected-stroke, #b30044);
 }
 .cortexprime .selected-cpt .number {
-  color: var(--selected-number, #141c27);
+  color: var(--cp-selected-number, #141c27);
 }
 .cortexprime .unchosen-cpt .fill {
-  fill: var(--unchosen-fill, #dedede);
+  fill: var(--cp-unchosen-fill, #dedede);
 }
 .cortexprime .unchosen-cpt .stroke {
-  fill: var(--unchosen-stroke, #424c59);
+  fill: var(--cp-unchosen-stroke, #424c59);
 }
 .cortexprime .unchosen-cpt .number {
-  color: var(--unchosen-number, #424c59);
+  color: var(--cp-unchosen-number, #424c59);
 }
 .cortexprime .descriptor-label-cpt {
-  color: var(--descriptor-label-font-color, #000000);
-  font-size: var(--descriptor-label-font-size, 14px);
-  font-style: var(--descriptor-label-font-style, italic);
-  font-weight: var(--descriptor-label-font-weight, 700);
-  text-transform: var(--descriptor-label-text-transform, none);
+  color: var(--cp-descriptor-label-font-color, #000000);
+  font-size: var(--cp-descriptor-label-font-size, 14px);
+  font-style: var(--cp-descriptor-label-font-style, italic);
+  font-weight: var(--cp-descriptor-label-font-weight, 700);
+  text-transform: var(--cp-descriptor-label-text-transform, none);
 }
 .cortexprime .section-primary-title-cpt {
   border: 0;
-  color: var(--section-primary-title-font-color, #b30044);
-  font-size: var(--section-primary-title-font-size, 19px);
-  font-style: var(--section-primary-title-font-style, normal);
-  font-weight: var(--section-primary-title-font-weight, 700);
-  text-transform: var(--section-primary-title-text-transform, uppercase);
+  color: var(--cp-section-primary-title-font-color, #b30044);
+  font-size: var(--cp-section-primary-title-font-size, 19px);
+  font-style: var(--cp-section-primary-title-font-style, normal);
+  font-weight: var(--cp-section-primary-title-font-weight, 700);
+  text-transform: var(--cp-section-primary-title-text-transform, uppercase);
 }
 .cortexprime .sfx-bullet-cpt {
-  color: var(--sfx-bullet-color, #b30044);
+  color: var(--cp-sfx-bullet-color, #b30044);
 }
 .cortexprime .sfx-label-cpt {
-  color: var(--sfx-label-font-color, #2d5931);
-  font-size: var(--sfx-label-font-size, 15px);
-  font-style: var(--sfx-label-font-style, italic);
-  font-weight: var(--sfx-label-font-weight, 700);
-  text-transform: var(--sfx-label-text-transform, capitalize);
+  color: var(--cp-sfx-label-font-color, #2d5931);
+  font-size: var(--cp-sfx-label-font-size, 15px);
+  font-style: var(--cp-sfx-label-font-style, italic);
+  font-weight: var(--cp-sfx-label-font-weight, 700);
+  text-transform: var(--cp-sfx-label-text-transform, capitalize);
 }
 .cortexprime .section-secondary-title-cpt {
   border: 0;
-  color: var(--section-secondary-title-font-color, #2d5931);
-  font-size: var(--section-secondary-title-font-size, 17px);
-  font-style: var(--section-secondary-title-font-style, normal);
-  font-weight: var(--section-secondary-title-font-weight, 700);
-  text-transform: var(--section-secondary-title-text-transform, uppercase);
+  color: var(--cp-section-secondary-title-font-color, #2d5931);
+  font-size: var(--cp-section-secondary-title-font-size, 17px);
+  font-style: var(--cp-section-secondary-title-font-style, normal);
+  font-weight: var(--cp-section-secondary-title-font-weight, 700);
+  text-transform: var(--cp-section-secondary-title-text-transform, uppercase);
 }
 .cortexprime .sub-trait-label-cpt {
-  color: var(--sub-trait-label-font-color, #2d5931);
-  font-size: var(--sub-trait-label-font-size, 14px);
-  font-style: var(--sub-trait-label-font-style, normal);
-  font-weight: var(--sub-trait-label-font-weight, 700);
-  text-transform: var(--sub-trait-label-text-transform, uppercase);
+  color: var(--cp-sub-trait-label-font-color, #2d5931);
+  font-size: var(--cp-sub-trait-label-font-size, 14px);
+  font-style: var(--cp-sub-trait-label-font-style, normal);
+  font-weight: var(--cp-sub-trait-label-font-weight, 700);
+  text-transform: var(--cp-sub-trait-label-text-transform, uppercase);
 }
 .cortexprime .tab-cpt {
-  background-color: var(--button-secondary-color, #b30044);
-  color: var(--button-secondary-font-color, #ffffff);
+  background-color: var(--cp-button-secondary-color, #b30044);
+  color: var(--cp-button-secondary-font-color, #ffffff);
   line-height: 1;
   margin: 0 0.125rem 0.125rem;
   padding: 0.25rem 0.5rem;
@@ -1719,53 +1719,59 @@ input[type=color][data-edit][data-edit] {
 }
 .cortexprime .tab-cpt:hover, .cortexprime .tab-cpt:focus {
   text-shadow: none;
-  -webkit-box-shadow: 0 0 5px var(--input-focus-color, #b30044);
-  box-shadow: 0 0 5px var(--input-focus-color, #b30044);
+  -webkit-box-shadow: 0 0 5px var(--cp-input-focus-color, #b30044);
+  box-shadow: 0 0 5px var(--cp-input-focus-color, #b30044);
 }
 .cortexprime .tab-cpt.active {
-  background-color: var(--button-primary-color, #2d5931);
-  color: var(--button-primary-font-color, #ffffff);
+  background-color: var(--cp-button-primary-color, #2d5931);
+  color: var(--cp-button-primary-font-color, #ffffff);
   text-shadow: none;
 }
 .cortexprime .tab-cpt.tab-rounded-cpt {
   border-radius: 0.75rem 0.75rem 0 0;
 }
 .cortexprime .trait-sub-title-cpt {
-  color: var(--trait-sub-title-font-color, #b30044);
-  font-size: var(--trait-sub-title-font-size, 15px);
-  font-style: var(--trait-sub-title-font-style, italic);
-  font-weight: var(--trait-sub-title-font-weight, 700);
-  text-transform: var(--trait-sub-title-text-transform, none);
+  color: var(--cp-trait-sub-title-font-color, #b30044);
+  font-size: var(--cp-trait-sub-title-font-size, 15px);
+  font-style: var(--cp-trait-sub-title-font-style, italic);
+  font-weight: var(--cp-trait-sub-title-font-weight, 700);
+  text-transform: var(--cp-trait-sub-title-text-transform, none);
 }
 .cortexprime .trait-title-cpt {
-  color: var(--trait-title-font-color, #424c59);
-  font-size: var(--trait-title-font-size, 16px);
-  font-style: var(--trait-title-font-style, normal);
-  font-weight: var(--trait-title-font-weight, 700);
-  text-transform: var(--trait-title-text-transform, uppercase);
+  color: var(--cp-trait-title-font-color, #424c59);
+  font-size: var(--cp-trait-title-font-size, 16px);
+  font-style: var(--cp-trait-title-font-style, normal);
+  font-weight: var(--cp-trait-title-font-weight, 700);
+  text-transform: var(--cp-trait-title-text-transform, uppercase);
 }
 .cortexprime .input-image-select-cpt {
-  border: var(--input-border-width, 2px) var(--input-border-style, solid) var(--input-border-color, #2d5931);
+  border: var(--cp-input-border-width, 2px) var(--cp-input-border-style, solid) var(--cp-input-border-color, #2d5931);
 }
-.cortexprime .input-cpt, .cortexprime .color-picker input.color {
-  background-color: var(--input-background-color, #c9e2d1);
+.cortexprime .input-cpt, .cortexprime color-picker > input[type=text] {
+  background-color: var(--cp-input-background-color, #c9e2d1);
   border: 0;
-  border-width: var(--input-border-position, 0 0 2px 0);
-  border-color: var(--input-border-color, #2d5931);
-  border-style: var(--input-border-style, solid);
-  color: var(--input-color, #000000);
+  border-width: var(--cp-input-border-position, 0 0 2px 0);
+  border-color: var(--cp-input-border-color, #2d5931);
+  border-style: var(--cp-input-border-style, solid);
+  color: var(--cp-input-color, #000000);
   font-family: "Roboto", serif;
-  font-size: var(--body-font-size, 15px);
-  font-weight: var(--body-font-weight, 400);
+  font-size: var(--cp-body-font-size, 15px);
+  font-weight: var(--cp-body-font-weight, 400);
   height: auto;
   padding: 0.1875rem 0.375rem;
 }
-.cortexprime .input-cpt:focus, .cortexprime .color-picker input.color:focus {
-  -webkit-box-shadow: 0 0 5px var(--input-focus-color, #b30044);
-  box-shadow: 0 0 5px var(--input-focus-color, #b30044);
+.cortexprime .input-cpt:focus, .cortexprime color-picker > input[type=text]:focus {
+  -webkit-box-shadow: 0 0 5px var(--cp-input-focus-color, #b30044);
+  box-shadow: 0 0 5px var(--cp-input-focus-color, #b30044);
 }
-.cortexprime .input-cpt option, .cortexprime .color-picker input.color option {
+.cortexprime .input-cpt option, .cortexprime color-picker > input[type=text] option {
   color: black;
+}
+.cortexprime color-picker > input[type=color] {
+  height: 26px;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 26px;
+  flex: 0 0 26px;
 }
 .cortexprime .checkmark-cpt {
   position: absolute;
@@ -1773,7 +1779,7 @@ input[type=color][data-edit][data-edit] {
   left: 0;
   height: 0.9375rem;
   width: 0.9375rem;
-  background-color: var(--input-checkbox-color, #2d5931);
+  background-color: var(--cp-input-checkbox-color, #2d5931);
 }
 .cortexprime .checkmark-cpt:after {
   content: "";
@@ -1794,7 +1800,7 @@ input[type=color][data-edit][data-edit] {
   user-select: none;
 }
 .cortexprime .checkmark-container:hover .input-checkbox-cpt ~ .checkmark-cpt {
-  background-color: var(--input-focus-color, #b30044);
+  background-color: var(--cp-input-focus-color, #b30044);
 }
 .cortexprime .checkmark-container .input-checkbox-cpt {
   cursor: pointer;
@@ -1839,15 +1845,15 @@ input[type=color][data-edit][data-edit] {
   width: 1.875rem;
 }
 .cortexprime .input-label-cpt {
-  color: var(--input-label-color, #424C59);
-  font-size: var(--input-label-font-size, 14px);
-  font-style: var(--input-label-font-style, normal);
-  font-weight: var(--input-label-font-weight, 700);
-  text-transform: var(--input-label-text-transform, capitalize);
+  color: var(--cp-input-label-color, #424C59);
+  font-size: var(--cp-input-label-font-size, 14px);
+  font-style: var(--cp-input-label-font-style, normal);
+  font-weight: var(--cp-input-label-font-weight, 700);
+  text-transform: var(--cp-input-label-text-transform, capitalize);
   margin-bottom: 0.25rem;
 }
 .cortexprime .separator-cpt {
-  border-bottom: var(--separator-weight, 2px) var(--separator-style, solid) var(--separator-color, #b30044);
+  border-bottom: var(--cp-separator-weight, 2px) var(--cp-separator-style, solid) var(--cp-separator-color, #b30044);
   width: 100%;
 }
 .cortexprime .editor {
@@ -1855,12 +1861,12 @@ input[type=color][data-edit][data-edit] {
   width: 100%;
 }
 .cortexprime .editor .editor-content {
-  border: var(--input-border-width, 2px) var(--input-border-style, solid) var(--input-border-color, #2d5931);
+  border: var(--cp-input-border-width, 2px) var(--cp-input-border-style, solid) var(--cp-input-border-color, #2d5931);
   padding: 0.5rem;
 }
 .cortexprime .editor .tox-edit-area {
   background-color: #ffffff;
-  border: var(--input-border-width, 2px) var(--input-border-style, solid) var(--input-border-color, #2d5931);
+  border: var(--cp-input-border-width, 2px) var(--cp-input-border-style, solid) var(--cp-input-border-color, #2d5931);
 }
 .cortexprime.window-app .window-header {
   position: relative;
@@ -1872,20 +1878,20 @@ input[type=color][data-edit][data-edit] {
   z-index: 3;
 }
 .cortexprime .dice-tag {
-  border: var(--separator-weight, 2px) var(--separator-style, solid) var(--separator-color, #b30044);
+  border: var(--cp-separator-weight, 2px) var(--cp-separator-style, solid) var(--cp-separator-color, #b30044);
 }
 
 .chat-message.roll-message {
-  border: var(--separator-weight, 2px) var(--separator-style, solid) var(--separator-color, #b30044);
+  border: var(--cp-separator-weight, 2px) var(--cp-separator-style, solid) var(--cp-separator-color, #b30044);
   border-radius: 0;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
-  font-weight: var(--body-font-weight, 400);
+  font-weight: var(--cp-body-font-weight, 400);
   padding: 0;
   position: relative;
 }
 .chat-message.roll-message .message-header, .chat-message.roll-message .message-content {
-  color: var(--body-font-color, #000000);
+  color: var(--cp-body-font-color, #000000);
   padding: 0.5rem;
   position: relative;
   z-index: 3;
@@ -1893,9 +1899,9 @@ input[type=color][data-edit][data-edit] {
 .chat-message.roll-message .message-header {
   background: transparent;
   border: 0;
-  border-color: var(--separator-color, #b30044);
-  border-style: var(--separator-style, solid);
-  border-width: 0 0 var(--separator-weight, 2px) 0;
+  border-color: var(--cp-separator-color, #b30044);
+  border-style: var(--cp-separator-style, solid);
+  border-width: 0 0 var(--cp-separator-weight, 2px) 0;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0.5rem;
@@ -1908,16 +1914,16 @@ input[type=color][data-edit][data-edit] {
   width: 100%;
 }
 .chat-message.roll-message .message-header .message-header-image {
-  background-image: var(--section-background-image, none);
-  background-position: var(--section-background-position, center);
-  background-repeat: var(--section-background-repeat, no-repeat);
-  background-size: var(--section-background-size, cover);
-  opacity: var(--section-background-image-opacity, 0);
+  background-image: var(--cp-section-background-image, none);
+  background-position: var(--cp-section-background-position, center);
+  background-repeat: var(--cp-section-background-repeat, no-repeat);
+  background-size: var(--cp-section-background-size, cover);
+  opacity: var(--cp-section-background-image-opacity, 0);
   z-index: 5;
 }
 .chat-message.roll-message .message-header .message-header-background {
-  background-color: var(--section-background-color, #f5f8fa);
-  opacity: var(--section-background-color-opacity, 1);
+  background-color: var(--cp-section-background-color, #f5f8fa);
+  opacity: var(--cp-section-background-color-opacity, 1);
   z-index: 4;
 }
 .chat-message.roll-message .message-header .message-header-content {
@@ -1930,7 +1936,7 @@ input[type=color][data-edit][data-edit] {
   height: 100%;
 }
 .chat-message .message-background {
-  background-color: var(--sheet-background-color, #dedede);
+  background-color: var(--cp-sheet-background-color, #dedede);
   height: 100%;
   left: 0;
   position: absolute;
@@ -1939,13 +1945,13 @@ input[type=color][data-edit][data-edit] {
   z-index: 1;
 }
 .chat-message .message-image {
-  background-image: var(--sheet-background-image, none);
-  background-position: var(--sheet-background-position, center);
-  background-repeat: var(--sheet-background-repeat, no-repeat);
-  background-size: var(--sheet-background-size, cover);
+  background-image: var(--cp-sheet-background-image, none);
+  background-position: var(--cp-sheet-background-position, center);
+  background-repeat: var(--cp-sheet-background-repeat, no-repeat);
+  background-size: var(--cp-sheet-background-size, cover);
   height: 100%;
   left: 0;
-  opacity: var(--sheet-background-image-opacity, 0.5);
+  opacity: var(--cp-sheet-background-image-opacity, 0.5);
   position: absolute;
   top: 0;
   width: 100%;

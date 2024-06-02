@@ -5,12 +5,10 @@
   <div class="flex-col">
     <div class="flex-row">
       <select class="input-cpt" name="{{name}}">
-        {{#select value}}
-          <option value="300">300</option>
-          <option value="400">400</option>
-          <option value="700">700</option>
-          <option value="900">900</option>
-        {{/select}}
+        <option value="300"{{ternary (eq value '300') ' selected' ''}}>300</option>
+        <option value="400"{{ternary (eq value '400') ' selected' ''}}>400</option>
+        <option value="700"{{ternary (eq value '700') ' selected' ''}}>700</option>
+        <option value="900"{{ternary (eq value '900') ' selected' ''}}>900</option>
       </select>
     </div>
   </div>

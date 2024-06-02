@@ -193,6 +193,7 @@
   "TraitSettingsDescription": "These settings may be updated from the actor sheet and would be applied to the preset traits as well as the custom traits.",
   "TraitTitles": "Trait Titles",
   "TraitSubTitles": "Trait Sub-Titles",
+  "TYPES.Actor.character" : "Character",
   "Unchosen": "Unchosen",
   "Unlocked": "Unlocked",
   "UnlockedDescription": "Unlocked is used to indicate if the character has access to the SFX. If it is not unlocked the \"bullet\" will be an unfilled circle and the text of the SFX will be faded.",

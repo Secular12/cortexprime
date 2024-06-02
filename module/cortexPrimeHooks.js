@@ -135,22 +135,6 @@ export default () => {
     }
   })
 
-  // Hooks.on('getSceneControlButtons', controls => {
-  //   game.cortexprime.UserDicePool = new UserDicePool()
-  //   game.cortexprime.UserDicePool.initPool()
-
-  //   controls
-  //     .find(c => c.name == 'token')
-  //     .tools.push({
-  //       activeTool: 'tokens',
-  //       layer: 'tokens',
-  //       name: 'cortex-dice-pool',
-  //       title: 'cortexprime.dicepool',
-  //       toggle: false,
-  //       icon: "fas fa-dice",
-  //     })
-  // })
-
   Hooks.on('renderSceneControls', (controls, html) => {
     const $dicePoolButton = $(
       `<li class="dice-pool-control" data-control="dice-pool" title="${game.i18n.localize("DicePool")}">

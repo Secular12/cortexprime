@@ -17,7 +17,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['cortexprime', 'sheet', 'actor', 'actor-sheet'],
       template: "systems/cortexprime/templates/actor/actor-sheet.html",
       width: 960,
@@ -89,15 +89,17 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
     await this.actor.update({
       'img': actorType.defaultImage,
-      'data.actorType': actorType,
-      'data.pp.value': actorType.hasPlotPoints ? 1 : 0
+      'system.actorType': actorType,
+      'system.pp.value': actorType.hasPlotPoints ? 1 : 0
     })
   }
 
   async _addAsset (event) {
     event.preventDefault()
     const { path } = event.currentTarget.dataset
-    const currentAssets = getProperty(this.actor.data, `${path}.assets`) ?? {}
+    const currentAssets = foundry.utils.getProperty(this.actor, `${path}.assets`) ?? {}
+
+    console.log(path, currentAssets)
 
     await this._resetDataPoint(path, 'assets', {
       ...currentAssets,
@@ -115,7 +117,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
   async _addComplication(event) {
     event.preventDefault()
     const { path } = event.currentTarget.dataset
-    const currentComplications = getProperty(this.actor.data, `${path}.complications`) ?? {}
+    const currentComplications = foundry.utils.getProperty(this.actor, `${path}.complications`) ?? {}
 
     await this._resetDataPoint(path, 'complications', {
       ...currentComplications,
@@ -133,7 +135,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
   async _addDescriptor(event) {
     event.preventDefault()
     const { path } = event.currentTarget.dataset
-    const currentDescriptors = getProperty(this.actor.data, `${path}.descriptors`) ?? {}
+    const currentDescriptors = foundry.utils.getProperty(this.actor, `${path}.descriptors`) ?? {}
 
     await this._resetDataPoint(path, 'descriptors', {
       ...currentDescriptors,
@@ -146,9 +148,9 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
   async _addNote(event) {
     event.preventDefault()
-    const currentNotes = this.actor.data.data.actorType.notes ?? {}
+    const currentNotes = this.actor.system.actorType.notes ?? {}
 
-    await this._resetDataPoint('data.actorType', 'notes', {
+    await this._resetDataPoint('system.actorType', 'notes', {
       ...currentNotes,
       [getLength(currentNotes)]: {
         label: localizer('Notes'),
@@ -160,7 +162,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
   async _addSfx (event) {
     event.preventDefault()
     const { path } = event.currentTarget.dataset
-    const currentSfx = getProperty(this.actor.data, `${path}.sfx`) ?? {}
+    const currentSfx = foundry.utils.getProperty(this.actor, `${path}.sfx`) ?? {}
 
     await this._resetDataPoint(path, 'sfx', {
       ...currentSfx,
@@ -175,7 +177,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
   async _addSubTrait(event) {
     event.preventDefault()
     const { path } = event.currentTarget.dataset
-    const currentSubTraits = getProperty(this.actor.data, `${path}.subTraits`) ?? {}
+    const currentSubTraits = foundry.utils.getProperty(this.actor, `${path}.subTraits`) ?? {}
 
     await this._resetDataPoint(path, 'subTraits', {
       ...currentSubTraits,
@@ -192,7 +194,8 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
   async _addToPool (event) {
     const { consumable, path, label } = event.currentTarget.dataset
-    let value = getProperty(this.actor.data, `${path}.value`)
+    let value = foundry.utils.getProperty(this.actor, `${path}.value`)
+
     if (consumable) {
       const selectedDice = await this._getConsumableDiceSelection(value, label)
 
@@ -212,7 +215,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
   async _addTrait (event) {
     const { path } = event.currentTarget.dataset
-    const currentCustomTraits = getProperty(this.actor.data, `${path}.customTraits`) ?? {}
+    const currentCustomTraits = foundry.utils.getProperty(this.actor, `${path}.customTraits`) ?? {}
 
     await this._resetDataPoint(path, 'customTraits', {
       ...currentCustomTraits,
@@ -230,7 +233,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
 
   async _closeTraitSetEdit(event) {
     await this.actor.update({
-      ['data.actorType.traitSetEdit']: null
+      ['system.actorType.traitSetEdit']: null
     })
   }
 
@@ -297,7 +300,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     event.preventDefault()
     const $targetNewDie = $(event.currentTarget)
     const target = $targetNewDie.data('target')
-    const currentDiceData = getProperty(this.actor.data, target)
+    const currentDiceData = foundry.utils.getProperty(this.actor, target)
     const currentDice = currentDiceData?.value ?? {}
     const newIndex = getLength(currentDice)
     const newValue = currentDice[newIndex - 1] ?? '8'
@@ -318,7 +321,9 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const target = $targetNewDie.data('target')
     const targetKey = $targetNewDie.data('key')
     const targetValue = $targetNewDie.val()
-    const currentDiceData = getProperty(this.actor.data, target)
+    const currentDiceData = foundry.utils.getProperty(this.actor, target)
+
+    console.log(target)
 
     const newValue = objectMapValues(currentDiceData.value ?? {}, (value, index) => parseInt(index, 10) === targetKey ? targetValue : value)
 
@@ -332,7 +337,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
       const $target = $(event.currentTarget)
       const target = $target.data('target')
       const targetKey = $target.data('key')
-      const currentDiceData = getProperty(this.actor.data, target)
+      const currentDiceData = foundry.utils.getProperty(this.actor, target)
 
       const newValue = objectReindexFilter(currentDiceData.value ?? {}, (_, key) => parseInt(key, 10) !== parseInt(targetKey))
 
@@ -344,7 +349,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
     event.preventDefault()
     const $field = $(event.currentTarget)
     const parsedValue = parseInt($field.val(), 10)
-    const currentValue = parseInt(this.actor.data.data.pp.value, 10)
+    const currentValue = parseInt(this.actor.pp.value, 10)
     const newValue = parsedValue < 0 ? 0 : parsedValue
     const changeAmount = newValue - currentValue
 
@@ -365,14 +370,14 @@ export class CortexPrimeActorSheet extends ActorSheet {
     const { traitSet } = event.currentTarget.dataset
 
     await this.actor.update({
-      ['data.actorType.traitSetEdit']: traitSet
+      ['system.actorType.traitSetEdit']: traitSet
     })
   }
 
   async _updateActorSettings(event) {
     event.preventDefault()
 
-    const actorData = this.actor.data.data.actorType
+    const actorData = this.actor.system.actorType
     const actorTypeSettings = objectFindValue(game.settings.get('cortexprime', 'actorTypes'), actorType => actorType.id === actorData.id)
 
     if (!actorTypeSettings) {
@@ -429,7 +434,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
       })
     }
 
-    this._resetDataPoint('data', 'actorType', newData)
+    this._resetDataPoint('system', 'actorType', newData)
     this.actor.update()
   }
 }

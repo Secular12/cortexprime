@@ -5,16 +5,14 @@
   <div class="flex-col">
     <div class="flex-row">
       <select class="input-cpt" name="{{name}}">
-        {{#select value}}
-          <option value="none">{{localize 'None'}}</option>
-          <option value="solid">{{localize 'Solid'}}</option>
-          <option value="dotted">{{localize 'Dotted'}}</option>
-          <option value="dashed">{{localize 'Dashed'}}</option>
-          <option value="groove">{{localize 'Groove'}}</option>
-          <option value="ridge">{{localize 'Ridge'}}</option>
-          <option value="inset">{{localize 'Inset'}}</option>
-          <option value="outset">{{localize 'Outset'}}</option>
-        {{/select}}
+          <option value="none"{{ternary (eq value 'none') ' selected' ''}}>{{localize 'None'}}</option>
+          <option value="solid"{{ternary (eq value 'solid') ' selected' ''}}>{{localize 'Solid'}}</option>
+          <option value="dotted"{{ternary (eq value 'dotted') ' selected' ''}}>{{localize 'Dotted'}}</option>
+          <option value="dashed"{{ternary (eq value 'dashed') ' selected' ''}}>{{localize 'Dashed'}}</option>
+          <option value="groove"{{ternary (eq value 'groove') ' selected' ''}}>{{localize 'Groove'}}</option>
+          <option value="ridge"{{ternary (eq value 'ridge') ' selected' ''}}>{{localize 'Ridge'}}</option>
+          <option value="inset"{{ternary (eq value 'inset') ' selected' ''}}>{{localize 'Inset'}}</option>
+          <option value="outset"{{ternary (eq value 'outset') ' selected' ''}}>{{localize 'Outset'}}</option>
       </select>
     </div>
   </div>

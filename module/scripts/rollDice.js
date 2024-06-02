@@ -17,7 +17,7 @@ const getRollResults = async pool => {
 
   const r = new Roll(rollFormula)
 
-  const roll = await r.evaluate({ async: true })
+  const roll = await r.evaluate()
 
   if (game.dice3d) {
     game.dice3d.showForRoll(r, game.user, true)

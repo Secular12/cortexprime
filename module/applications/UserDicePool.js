@@ -23,7 +23,7 @@ export class UserDicePool extends FormApplication {
   }
 
   static get defaultOptions () {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       id: 'user-dice-pool',
       template: 'systems/cortexprime/templates/dice-pool.html',
       title: localizer('DicePool'),
@@ -48,7 +48,7 @@ export class UserDicePool extends FormApplication {
 
   async _updateObject (event, formData) {
     const currentDice = game.user.getFlag('cortexprime', 'dicePool')
-    const newDice = mergeObject(currentDice, expandObject(formData))
+    const newDice = foundry.utils.mergeObject(currentDice, foundry.utils.expandObject(formData))
 
     await game.user.setFlag('cortexprime', 'dicePool', newDice)
   }
@@ -77,9 +77,9 @@ export class UserDicePool extends FormApplication {
     const currentDice = game.user.getFlag('cortexprime', 'dicePool')
     const currentCustomLength = getLength(currentDice.pool.custom ?? {})
 
-    setProperty(currentDice, `pool.custom.${currentCustomLength}`, currentDice.customAdd)
+    foundry.utils.setProperty(currentDice, `pool.custom.${currentCustomLength}`, currentDice.customAdd)
 
-    setProperty(currentDice, `customAdd`, {
+    foundry.utils.setProperty(currentDice, `customAdd`, {
       label: '',
       value: { 0: '8' }
     })
@@ -94,7 +94,7 @@ export class UserDicePool extends FormApplication {
   async _addTraitToPool (source, label, value) {
     const currentDice = game.user.getFlag('cortexprime', 'dicePool')
     const currentDiceLength = getLength(currentDice.pool[source] || {})
-    setProperty(currentDice, `pool.${source}.${currentDiceLength}`, { label, value })
+    foundry.utils.setProperty(currentDice, `pool.${source}.${currentDiceLength}`, { label, value })
 
     await game.user.setFlag('cortexprime', 'dicePool', null)
 
@@ -134,13 +134,13 @@ export class UserDicePool extends FormApplication {
     const target = $targetDieSelect.data('target')
     const targetKey = $targetDieSelect.data('key')
     const targetValue = $targetDieSelect.val()
-    const dataTargetValue = getProperty(currentDice, `${target}.value`) || {}
+    const dataTargetValue = foundry.utils.getProperty(currentDice, `${target}.value`) || {}
 
     await this.submit()
 
     await game.user.setFlag('cortexprime', 'dicePool', null)
 
-    setProperty(currentDice, `${target}.value`, objectMapValues(dataTargetValue, (value, index) => parseInt(index, 10) === parseInt(targetKey, 10) ? targetValue : value))
+    foundry.utils.setProperty(currentDice, `${target}.value`, objectMapValues(dataTargetValue, (value, index) => parseInt(index, 10) === parseInt(targetKey, 10) ? targetValue : value))
 
     await game.user.setFlag('cortexprime', 'dicePool', currentDice)
 
@@ -155,13 +155,13 @@ export class UserDicePool extends FormApplication {
       const $targetDieSelect = $(event.currentTarget)
       const target = $targetDieSelect.data('target')
       const targetKey = $targetDieSelect.data('key')
-      const dataTargetValue = getProperty(currentDice, `${target}.value`) || {}
+      const dataTargetValue = foundry.utils.getProperty(currentDice, `${target}.value`) || {}
 
       await this.submit()
 
       await game.user.setFlag('cortexprime', 'dicePool', null)
 
-      setProperty(currentDice, `${target}.value`, objectReindexFilter(dataTargetValue, (_, index) => parseInt(index, 10) !== parseInt(targetKey, 10)))
+      foundry.utils.setProperty(currentDice, `${target}.value`, objectReindexFilter(dataTargetValue, (_, index) => parseInt(index, 10) !== parseInt(targetKey, 10)))
 
       await game.user.setFlag('cortexprime', 'dicePool', currentDice)
 
@@ -174,11 +174,11 @@ export class UserDicePool extends FormApplication {
     const currentDice = game.user.getFlag('cortexprime', 'dicePool')
     const $targetNewDie = $(event.currentTarget)
     const target = $targetNewDie.data('target')
-    const dataTargetValue = getProperty(currentDice, `${target}.value`) || {}
+    const dataTargetValue = foundry.utils.getProperty(currentDice, `${target}.value`) || {}
     const currentLength = getLength(dataTargetValue)
     const lastValue = dataTargetValue[currentLength - 1] || '8'
 
-    setProperty(currentDice, `${target}.value`, { ...dataTargetValue, [currentLength]: lastValue })
+    foundry.utils.setProperty(currentDice, `${target}.value`, { ...dataTargetValue, [currentLength]: lastValue })
 
     await game.user.setFlag('cortexprime', 'dicePool', null)
 
@@ -211,7 +211,7 @@ export class UserDicePool extends FormApplication {
 
     const currentDice = game.user.getFlag('cortexprime', 'dicePool')
 
-    setProperty(currentDice, 'customAdd', {
+    foundry.utils.setProperty(currentDice, 'customAdd', {
       label: '',
       value: { 0: '8' }
     })
@@ -226,7 +226,7 @@ export class UserDicePool extends FormApplication {
   async _setPool (pool) {
     const currentDice = game.user.getFlag('cortexprime', 'dicePool')
 
-    setProperty(currentDice, 'pool', pool)
+    foundry.utils.setProperty(currentDice, 'pool', pool)
 
     await game.user.setFlag('cortexprime', 'dicePool', null)
 

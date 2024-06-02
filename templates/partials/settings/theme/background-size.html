@@ -5,12 +5,10 @@
   <div class="flex-col">
     <div class="flex-row">
       <select class="input-cpt" name="{{name}}">
-        {{#select value}}
-          <option value="cover">{{localize 'Cover'}}</option>
-          <option value="contain">{{localize 'Contain'}}</option>
-          <option value="100%">{{localize 'FullWidth'}}</option>
-          <option value="auto">{{localize 'Auto'}}</option>
-        {{/select}}
+        <option value="cover"{{ternary (eq value 'cover') ' selected' ''}}>{{localize 'Cover'}}</option>
+        <option value="contain"{{ternary (eq value 'contain') ' selected' ''}}>{{localize 'Contain'}}</option>
+        <option value="100%"{{ternary (eq value '100%') ' selected' ''}}>{{localize 'FullWidth'}}</option>
+        <option value="auto"{{ternary (eq value 'auto') ' selected' ''}}>{{localize 'Auto'}}</option>
       </select>
     </div>
   </div>

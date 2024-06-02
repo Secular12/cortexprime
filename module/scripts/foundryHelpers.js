@@ -54,7 +54,7 @@ export const setCssVars = (theme) => {
         : 'none'
     }
 
-    const property = `--${key.replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? "-" : "") + $.toLowerCase())}`
+    const property = `--cp-${key.replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? "-" : "") + $.toLowerCase())}`
 
     document.body.style.setProperty(property, value)
   })

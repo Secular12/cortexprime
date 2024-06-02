@@ -7,7 +7,7 @@ export default class ThemeSettings extends FormApplication {
   }
 
   static get defaultOptions () {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       id: 'theme-settings',
       template: 'systems/cortexprime/templates/theme/settings.html',
       title: localizer('ThemeSettings'),
@@ -33,7 +33,7 @@ export default class ThemeSettings extends FormApplication {
   }
 
   async _updateObject(event, formData) {
-    const expandedFormData = expandObject(formData)
+    const expandedFormData = foundry.utils.expandObject(formData)
     const currentThemes = game.settings.get('cortexprime', 'themes') ?? {}
 
     expandedFormData.themes.currentSettings = currentThemes.current !== expandedFormData.themes.current
@@ -42,7 +42,7 @@ export default class ThemeSettings extends FormApplication {
         : currentThemes.list[expandedFormData.themes.current]
       : expandedFormData.themes.currentSettings
 
-    await game.settings.set('cortexprime', 'themes', mergeObject(currentThemes, expandedFormData.themes))
+    await game.settings.set('cortexprime', 'themes', foundry.utils.mergeObject(currentThemes, expandedFormData.themes))
 
     const themes = game.settings.get('cortexprime', 'themes')
     const theme = themes.current === 'custom' ? themes.custom : themes.list[themes.current]
@@ -145,7 +145,6 @@ export default class ThemeSettings extends FormApplication {
     const themes = game.settings.get('cortexprime', 'themes')
     const theme = themes.current === 'custom' ? themes.custom : themes.list[themes.current]
 
-    console.log(theme, themes.current)
     setCssVars(theme)
 
     this.render()

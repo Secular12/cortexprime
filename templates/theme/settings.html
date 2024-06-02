@@ -3,7 +3,7 @@
   <div class="sheet-image"></div>
   {{> "systems/cortexprime/templates/partials/settings/theme/style.html"
     settings=themes.list.Default
-    target='.theme-settings'
+    target='#theme-settings.cortexprime'
   }}
   <section class="pt-2 px-2 sheet-content">
     <div class="section-cpt">
@@ -41,16 +41,14 @@
             </div>
             <div class="flex-col my-2">
               <select class="preset-select input-cpt" name="themes.current">
-                {{#select themes.current}}
                 <optgroup label="{{localize 'Preset'}}">
                   {{#each themes.list as |themeSettings themeName|}}
-                    <option value="{{themeName}}">{{themeName}}</option>
+                    <option value="{{themeName}}"{{ternary (eq ../themes.current themeName) ' selected' ''}}>{{themeName}}</option>
                   {{/each}}
                 </optgroup>
                 {{#if themes.custom}}
-                  <option value="custom">{{localize 'Custom'}}</option>
+                  <option value="custom"{{ternary (eq themes.current 'custom') ' selected' ''}}>{{localize 'Custom'}}</option>
                 {{/if}}
-                {{/select}}
               </select>
             </div>
             <div class="flex-col my-2">

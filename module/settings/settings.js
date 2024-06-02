@@ -21,7 +21,7 @@ export const registerSettings = () => {
     default: defaultActorTypes,
     scope: 'world',
     type: Object,
-    config: false,
+    config: false,  
   })
 
   game.settings.register('cortexprime', 'actorBreadcrumbs', {

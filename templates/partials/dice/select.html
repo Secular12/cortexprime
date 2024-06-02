@@ -13,9 +13,7 @@
           data-key="{{index}}"
           data-target="{{or ../selectName ../path}}"
         >
-          {{#select dieRating}}
-            {{> "systems/cortexprime/templates/partials/dice/select-options.html" max=(?? ../max 12) min=(?? ../min 0)}}
-          {{/select}}
+          {{> "systems/cortexprime/templates/partials/dice/select-options.html" max=(?? ../max 12) min=(?? ../min 0) selected=dieRating}}
         </select>
       </div>
     {{/each}}

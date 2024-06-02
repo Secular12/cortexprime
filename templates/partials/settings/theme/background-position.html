@@ -5,13 +5,11 @@
     <div class="flex-col">
       <div class="flex-row">
         <select class="input-cpt" name="{{name}}">
-          {{#select value}}
-            <option value="center">{{localize 'Center'}}</option>
-            <option value="top">{{localize 'Top'}}</option>
-            <option value="bottom">{{localize 'Bottom'}}</option>
-            <option value="left">{{localize 'Left'}}</option>
-            <option value="right">{{localize 'Right'}}</option>
-          {{/select}}
+          <option value="center"{{ternary (eq value 'center') ' selected' ''}}>{{localize 'Center'}}</option>
+          <option value="top"{{ternary (eq value 'top') ' selected' ''}}>{{localize 'Top'}}</option>
+          <option value="bottom"{{ternary (eq value 'bottom') ' selected' ''}}>{{localize 'Bottom'}}</option>
+          <option value="left"{{ternary (eq value 'left') ' selected' ''}}>{{localize 'Left'}}</option>
+          <option value="right"{{ternary (eq value 'right') ' selected' ''}}>{{localize 'Right'}}</option>
         </select>
       </div>
     </div>
