@@ -4,7 +4,7 @@ export class CortexPrimeActor extends Actor {
   // add or subtract plot point value assigned to the actor by specified amount
   async changePpBy (value, directChange = false) {
     // ensure current value is an integer
-    const currentValue = +(this.data.data.pp.value ?? 0)
+    const currentValue = +(this.system.pp.value ?? 0)
 
     const newValue = currentValue + value
 
@@ -40,7 +40,7 @@ export class CortexPrimeActor extends Actor {
   // Update plot point value of the actor
   async updatePpValue (value) {
     await this.update({
-      'data.pp.value': value
+      'system.pp.value': value
     })
   }
 }

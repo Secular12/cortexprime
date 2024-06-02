@@ -7,7 +7,7 @@ export default class ImportExportSettings extends FormApplication {
   }
 
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       id: 'import-export-settings',
       template: 'systems/cortexprime/templates/import-export-settings.html',
       title: localizer('ImportExportSettings'),
@@ -91,7 +91,7 @@ export default class ImportExportSettings extends FormApplication {
 
         if (confirmed) {
           await game.settings.set('cortexprime', 'importedSettings', { currentSetting: file.name })
-          await game.settings.set('cortexprime', 'actorTypes', data.actorTypes)
+          await game.settings.set('cortexprime', 'actorTypes', system.actorTypes)
 
           const themeSettings = await game.settings.get('cortexprime', 'themes')
 

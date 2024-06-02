@@ -58,11 +58,11 @@ export const removeItem = async function (html) {
       if (setting) {
         let settings = game.settings.get('cortexprime', setting)
 
-        const currentGroupSettings = group ? await getProperty(settings, group) : settings
+        const currentGroupSettings = group ? await foundry.utils.getProperty(settings, group) : settings
         const groupSettingValue = objectReindexFilter(currentGroupSettings, (_, key) => +key !== +itemKey)
 
         if (group) {
-          setProperty(settings, group, groupSettingValue)
+          foundry.utils.setProperty(settings, group, groupSettingValue)
         } else {
           settings = groupSettingValue
         }
@@ -102,7 +102,7 @@ export const reorderItem = async function (html) {
     } = event.currentTarget.dataset
 
     let settings = game.settings.get('cortexprime', setting)
-    const targetObject = (path || parseInt(path, 10) === 0) ? getProperty(settings, path) ?? {} : settings
+    const targetObject = (path || parseInt(path, 10) === 0) ? foundry.utils.getProperty(settings, path) ?? {} : settings
     const maxKey = getLength(targetObject ?? {}) - 1
 
     const key = +newIndex < 0
@@ -124,7 +124,7 @@ export const reorderItem = async function (html) {
     })
 
     if (path || parseInt(path, 10) === 0) {
-      setProperty(settings, path, value)
+      foundry.utils.setProperty(settings, path, value)
     } else {
       settings = value
     }

@@ -53,8 +53,8 @@ input[type="color"][data-edit][data-edit] {
 }
 
 .dice-pool-control {
-  background-color: var(--button-primary-color, #2d5931);
-  color: var(--button-primary-font-color, #ffffff);
+  background-color: var(--cp-button-primary-color, #2d5931);
+  color: var(--cp-button-primary-font-color, #ffffff);
   cursor: pointer;
   display: inline-block;
   margin-bottom: toRem(8px);

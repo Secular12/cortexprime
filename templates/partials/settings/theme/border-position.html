@@ -5,15 +5,13 @@
   <div class="flex-col">
     <div class="flex-row">
       <select class="input-cpt" name="{{name}}">
-        {{#select value}}
-          <option value="a">{{localize 'All'}}</option>
-          <option value="b">{{localize 'Bottom'}}</option>
-          <option value="t">{{localize 'Top'}}</option>
-          <option value="l">{{localize 'Left'}}</option>
-          <option value="r">{{localize 'Right'}}</option>
-          <option value="y">{{localize 'TopAndBottom'}}</option>
-          <option value="x">{{localize 'LeftAndRight'}}</option>
-        {{/select}}
+        <option value="a"{{ternary (eq value 'a') ' selected' ''}}>{{localize 'All'}}</option>
+        <option value="b"{{ternary (eq value 'b') ' selected' ''}}>{{localize 'Bottom'}}</option>
+        <option value="t"{{ternary (eq value 't') ' selected' ''}}>{{localize 'Top'}}</option>
+        <option value="l"{{ternary (eq value 'l') ' selected' ''}}>{{localize 'Left'}}</option>
+        <option value="r"{{ternary (eq value 'r') ' selected' ''}}>{{localize 'Right'}}</option>
+        <option value="y"{{ternary (eq value 'y') ' selected' ''}}>{{localize 'TopAndBottom'}}</option>
+        <option value="x"{{ternary (eq value 'x') ' selected' ''}}>{{localize 'LeftAndRight'}}</option>
       </select>
     </div>
   </div>

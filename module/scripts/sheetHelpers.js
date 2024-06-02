@@ -27,7 +27,7 @@ export const toggleItems = async function (html) {
     event.preventDefault()
     const $target = $(event.currentTarget)
     const path = $target.data('path')
-    const value = !getProperty(this.actor.data, path)
+    const value = !foundry.utils.getProperty(this.actor, path)
 
     await this.actor.update({
       [path]: value
@@ -64,7 +64,7 @@ export const removeItems = async function (html) {
     })
 
     if (confirmed) {
-      const data = getProperty(this.actor.data, `${path}.${target}`)
+      const data = foundry.utils.getProperty(this.actor, `${path}.${target}`)
 
       await removeDataPoint.call(this, data, path, target, itemKey)
     }

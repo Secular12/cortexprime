@@ -35,11 +35,9 @@
           class="input-cpt"
           name="{{concat 'actorTypes.' path '.' simpleTraitIndex '.settings.valueType'}}"
         >
-          {{#select (?? simpleTrait.settings.valueType 'text')}}
-            <option value="text">{{localize 'Text'}}</option>
-            <option value="number">{{localize 'Number'}}</option>
-            <option value="dice">{{localize 'Dice'}}</option>
-          {{/select}}
+          <option value="text"{{ternary (eq simpleTrait.settings.valueType 'text') ' selected' ''}}>{{localize 'Text'}}</option>
+          <option value="number"{{ternary (eq simpleTrait.settings.valueType 'number') ' selected' ''}}>{{localize 'Number'}}</option>
+          <option value="dice"{{ternary (eq simpleTrait.settings.valueType 'dice') ' selected' ''}}>{{localize 'Dice'}}</option>
         </select>
       </label>
     </div>

@@ -5,10 +5,8 @@
   <div class="flex-col">
     <div class="flex-row">
       <select class="input-cpt" name="{{name}}">
-        {{#select value}}
-          <option value="normal">{{localize 'None'}}</option>
-          <option value="italic">{{localize 'Italic'}}</option>
-        {{/select}}
+        <option value="normal"{{ternary (eq value 'normal') ' selected' ''}}>{{localize 'None'}}</option>
+        <option value="italic"{{ternary (eq value 'italic') ' selected' ''}}>{{localize 'Italic'}}</option>
       </select>
     </div>
   </div>

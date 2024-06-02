@@ -5,12 +5,10 @@
   <div class="flex-col">
     <div class="flex-row">
       <select class="input-cpt" name="{{name}}">
-        {{#select value}}
-          <option value="none">{{localize 'None'}}</option>
-          <option value="capitalize">{{localize 'Capitalize'}}</option>
-          <option value="lowercase">{{localize 'Lowercase'}}</option>
-          <option value="uppercase">{{localize 'Uppercase'}}</option>
-        {{/select}}
+          <option value="none"{{ternary (eq value 'none') ' selected' ''}}>{{localize 'None'}}</option>
+          <option value="capitalize"{{ternary (eq value 'capitalize') ' selected' ''}}>{{localize 'Capitalize'}}</option>
+          <option value="lowercase"{{ternary (eq value 'lowercase') ' selected' ''}}>{{localize 'Lowercase'}}</option>
+          <option value="uppercase"{{ternary (eq value 'uppercase') ' selected' ''}}>{{localize 'Uppercase'}}</option>
       </select>
     </div>
   </div>

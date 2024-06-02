@@ -8,7 +8,7 @@ export default class ActorSettings extends FormApplication {
   }
 
   static get defaultOptions () {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       id: 'actor-settings',
       template: 'systems/cortexprime/templates/actor/settings.html',
       title: localizer('ActorSettings'),
@@ -36,10 +36,10 @@ export default class ActorSettings extends FormApplication {
 
   async _updateObject(event, formData) {
     if (!$(event.currentTarget).hasClass('die-select')) {
-      const expandedFormData = expandObject(formData)
+      const expandedFormData = foundry.utils.expandObject(formData)
       const currentActorTypes = game.settings.get('cortexprime', 'actorTypes') ?? {}
 
-      await game.settings.set('cortexprime', 'actorTypes', mergeObject(currentActorTypes, expandedFormData.actorTypes))
+      await game.settings.set('cortexprime', 'actorTypes', foundry.utils.mergeObject(currentActorTypes, expandedFormData.actorTypes))
 
       this.render(true)
     }
@@ -80,7 +80,7 @@ export default class ActorSettings extends FormApplication {
       }
     }
 
-    await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, newActorType))
+    await game.settings.set('cortexprime', 'actorTypes', foundry.utils.mergeObject(source, newActorType))
     await this.changeView(localizer('NewActorType'), `actorType-${newKey}`)
     this.render(true)
   }
@@ -90,9 +90,9 @@ export default class ActorSettings extends FormApplication {
     const $addButton = $(event.currentTarget)
     const path = $addButton.data('path')
     const source = game.settings.get('cortexprime', 'actorTypes')
-    const currentDescriptors = getProperty(source, path) || {}
+    const currentDescriptors = foundry.utils.getProperty(source, path) || {}
 
-    setProperty(source, path,
+    foundry.utils.setProperty(source, path,
       {
         ...currentDescriptors,
         [getLength(currentDescriptors ?? {})]: {
@@ -110,9 +110,9 @@ export default class ActorSettings extends FormApplication {
     const $addButton = $(event.currentTarget)
     const path = $addButton.data('path')
     const source = game.settings.get('cortexprime', 'actorTypes')
-    const currentSfx = getProperty(source, path) || {}
+    const currentSfx = foundry.utils.getProperty(source, path) || {}
 
-    setProperty(source, path,
+    foundry.utils.setProperty(source, path,
       {
         ...currentSfx,
         [getLength(currentSfx ?? {})]: {
@@ -131,10 +131,10 @@ export default class ActorSettings extends FormApplication {
     const $addButton = $(event.currentTarget)
     const path = $addButton.data('path')
     const source = game.settings.get('cortexprime', 'actorTypes')
-    const currentSubTraits = getProperty(source, path) || {}
+    const currentSubTraits = foundry.utils.getProperty(source, path) || {}
 
 
-    setProperty(source, path,
+    foundry.utils.setProperty(source, path,
       {
         ...currentSubTraits,
         [getLength(currentSubTraits ?? {})]: {
@@ -173,7 +173,7 @@ export default class ActorSettings extends FormApplication {
       }
     }
 
-    await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, newSimpleTrait))
+    await game.settings.set('cortexprime', 'actorTypes', foundry.utils.mergeObject(source, newSimpleTrait))
     await this.changeView(localizer('NewSimpleTrait'), `simpleTrait-${actorTypeKey}-${newKey}`)
     this.render(true)
   }
@@ -182,7 +182,7 @@ export default class ActorSettings extends FormApplication {
     event.preventDefault()
     const source = game.settings.get('cortexprime', 'actorTypes')
     const { actorType, path, traitSet } = event.currentTarget.dataset
-    const currentTraits = getProperty(source, `${path}.${traitSet}.traits`)
+    const currentTraits = foundry.utils.getProperty(source, `${path}.${traitSet}.traits`)
     const newKey = getLength(currentTraits || {})
 
     const newTraits = {
@@ -198,7 +198,7 @@ export default class ActorSettings extends FormApplication {
       }
     }
 
-    setProperty(source, `${path}.${traitSet}.traits`, newTraits)
+    foundry.utils.setProperty(source, `${path}.${traitSet}.traits`, newTraits)
 
     await game.settings.set('cortexprime', 'actorTypes', source)
     await this.changeView(localizer('NewTrait'), `trait-${actorType}-${traitSet}-${newKey}`)
@@ -222,7 +222,7 @@ export default class ActorSettings extends FormApplication {
       }
     }
 
-    await game.settings.set('cortexprime', 'actorTypes', mergeObject(source, newTraitSet))
+    await game.settings.set('cortexprime', 'actorTypes', foundry.utils.mergeObject(source, newTraitSet))
     await this.changeView(localizer('NewTraitSet'), `traitSet-${actorTypeKey}-${newKey}`)
     this.render(true)
   }
@@ -312,7 +312,7 @@ export default class ActorSettings extends FormApplication {
     event.preventDefault()
     const { id, path } = event.currentTarget.dataset
     let source = game.settings.get('cortexprime', 'actorTypes')
-    const targetGroup = path ? getProperty(source, path) : source
+    const targetGroup = path ? foundry.utils.getProperty(source, path) : source
     const newKey = getLength(targetGroup ?? {})
     const target = objectFindValue(targetGroup, item => item.id === id)
 
@@ -325,9 +325,9 @@ export default class ActorSettings extends FormApplication {
     }
 
     if (path) {
-      setProperty(source, path, { ...targetGroup, ...newTarget })
+      foundry.utils.setProperty(source, path, { ...targetGroup, ...newTarget })
     } else {
-      source = mergeObject(source, newTarget)
+      source = foundry.utils.mergeObject(source, newTarget)
     }
 
     await game.settings.set('cortexprime', 'actorTypes', source)
@@ -338,12 +338,12 @@ export default class ActorSettings extends FormApplication {
     event.preventDefault()
     const source = game.settings.get('cortexprime', 'actorTypes')
     const { target: path } = event.currentTarget.dataset
-    const currentDice = getProperty(source, path) || {}
+    const currentDice = foundry.utils.getProperty(source, path) || {}
     const values = currentDice.value ?? {}
     const newKey = getLength(values)
     const newValue = newKey > 0 ? values[newKey - 1] : '8'
 
-    setProperty(source, `${path}.value`, { ...values, [newKey]: newValue })
+    foundry.utils.setProperty(source, `${path}.value`, { ...values, [newKey]: newValue })
     await game.settings.set('cortexprime', 'actorTypes', source)
     this.render(true)
   }
@@ -355,12 +355,12 @@ export default class ActorSettings extends FormApplication {
     const target = $dieSelect.data('target')
     const targetKey = $dieSelect.data('key')
     const targetValue = $dieSelect.val()
-    const currentDiceValues = getProperty(source, `${target}.value`) ?? {}
+    const currentDiceValues = foundry.utils.getProperty(source, `${target}.value`) ?? {}
 
     if (parseInt(targetValue, 10) === 0) {
-      setProperty(source, `${target}.value`, objectReindexFilter(currentDiceValues, (_, index) => parseInt(index, 10) !== parseInt(targetKey, 10)))
+      foundry.utils.setProperty(source, `${target}.value`, objectReindexFilter(currentDiceValues, (_, index) => parseInt(index, 10) !== parseInt(targetKey, 10)))
     } else {
-      setProperty(source, `${target}.value`, objectMapValues(currentDiceValues, (value, index) => parseInt(index, 10) === parseInt(targetKey, 10) ? targetValue : value))
+      foundry.utils.setProperty(source, `${target}.value`, objectMapValues(currentDiceValues, (value, index) => parseInt(index, 10) === parseInt(targetKey, 10) ? targetValue : value))
     }
 
     await game.settings.set('cortexprime', 'actorTypes', source)
@@ -376,9 +376,9 @@ export default class ActorSettings extends FormApplication {
       const $dieSelect = $(event.currentTarget)
       const target = $dieSelect.data('target')
       const targetKey = $dieSelect.data('key')
-      const currentDiceValues = getProperty(source, `${target}.value`) ?? {}
+      const currentDiceValues = foundry.utils.getProperty(source, `${target}.value`) ?? {}
 
-      setProperty(source, `${target}.value`, objectReindexFilter(currentDiceValues, (_, index) => parseInt(index, 10) !== parseInt(targetKey, 10)))
+      foundry.utils.setProperty(source, `${target}.value`, objectReindexFilter(currentDiceValues, (_, index) => parseInt(index, 10) !== parseInt(targetKey, 10)))
 
       await game.settings.set('cortexprime', 'actorTypes', source)
 
