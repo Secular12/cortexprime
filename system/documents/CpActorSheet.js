@@ -3,28 +3,28 @@ import Logger from '../lib/Logger.js'
 const Log = Logger()
 
 export class CpActorSheet extends ActorSheet {
-  get actor () {
+  get actor() {
     return super.actor
   }
 
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'sheet', 'actor-sheet'],
+      classes: ['cortexprime', 'sheet', 'actor-sheet',],
       height: 900,
-      template: "systems/cortexprime/system/templates/CpActorSheet.html",
+      template: 'systems/cortexprime/system/templates/CpActorSheet.html',
       width: 960,
     })
   }
- 
-  async getData (options) {
+
+  async getData(options) {
     const superData = super.getData(options)
-    
-    Log(`CpActorSheet.getData superData:`, superData)
+
+    Log('CpActorSheet.getData superData:', superData)
 
     return superData
   }
 
-  activateListeners (html) {
+  activateListeners(html) {
     super.activateListeners(html)
   }
 }

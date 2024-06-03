@@ -852,7 +852,7 @@ async function rollDice(pool, rollType, rollMode) {
 const Log$5 = Logger();
 
 const getBlankCustomAdd = () => ({
-  dice: [8],
+  dice: [8,],
   hasHitches: true,
   parentName: null,
   name: '',
@@ -860,7 +860,7 @@ const getBlankCustomAdd = () => ({
 });
 
 class DicePool extends FormApplication {
-  constructor () {
+  constructor() {
     super();
 
     this.customAdd = getBlankCustomAdd();
@@ -870,8 +870,8 @@ class DicePool extends FormApplication {
   }
 
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'DicePool'],
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      classes: ['cortexprime', 'DicePool',],
       closeOnSubmit: false,
       height: 'auto',
       id: 'DicePool',
@@ -882,21 +882,21 @@ class DicePool extends FormApplication {
       template: 'systems/cortexprime/system/templates/DicePool.html',
       title: localizer('CP.DicePool'),
       top: 500,
-      width: 480
+      width: 480,
     })
   }
 
-  getData () {
+  getData() {
     const data = {
       customAdd: this.customAdd,
       pool: this.pool,
       poolIsEmpty: this.poolIsEmpty,
       rollMode: this.rollMode,
       rollModes: [
-          { name: localizer('CP.PublicRoll'), value: 'publicroll' },
-          { name: localizer('CP.PrivateGmRoll'), value: 'gmroll' },
-          { name: localizer('CP.BlindGmRoll'), value: 'blindroll' },
-          { name: localizer('CP.SelfRoll'), value: 'selfroll' },
+        { name: localizer('CP.PublicRoll'), value: 'publicroll', },
+        { name: localizer('CP.PrivateGmRoll'), value: 'gmroll', },
+        { name: localizer('CP.BlindGmRoll'), value: 'blindroll', },
+        { name: localizer('CP.SelfRoll'), value: 'selfroll', },
       ],
     };
 
@@ -905,7 +905,7 @@ class DicePool extends FormApplication {
     return data
   }
 
-  _updateObject (event, formData) {
+  _updateObject(event, formData) {
     const expandedData = expandObject(formData);
 
     this.customAdd = {
@@ -919,14 +919,14 @@ class DicePool extends FormApplication {
       'DicePool._updateObject event, expandedData, this.rollMode:',
       event,
       expandedData,
-      this.rollMode,
+      this.rollMode
     );
   }
 
-  activateListeners (html) {
+  activateListeners(html) {
     super.activateListeners(html);
 
-    const [$html] = html;
+    const [$html,] = html;
 
     fieldListeners($html);
 
@@ -942,33 +942,33 @@ class DicePool extends FormApplication {
     $html
       .querySelector('#DicePool-add-custom-trait')
       .addEventListener('click', this.addCustomTrait.bind(this));
-    
+
     $html
       .querySelector('#DicePool-clear')
       ?.addEventListener('click', () => {
         this.clear();
         this.render(true);
       });
-    
-      addListeners(
-        $html,
-        '.DicePool-remove-trait',
-        'click',
-        this.removeTrait.bind(this)
-      );
-    
+
+    addListeners(
+      $html,
+      '.DicePool-remove-trait',
+      'click',
+      this.removeTrait.bind(this)
+    );
+
     $html
       .querySelector('#DicePool-reset-custom-trait')
       .addEventListener('click', this.resetCustomTrait.bind(this));
-    
+
     $html
       .querySelector('#DicePool-roll-effect')
       ?.addEventListener('click', () => this._rollDice.call(this, 'effect'));
-    
+
     $html
       .querySelector('#DicePool-roll-select')
       ?.addEventListener('click', () => this._rollDice.call(this, 'select'));
-    
+
     $html
       .querySelector('#DicePool-roll-total')
       ?.addEventListener('click', () => this._rollDice.call(this, 'total'));
@@ -991,7 +991,7 @@ class DicePool extends FormApplication {
 
     const {
       sourceIndex,
-      traitIndex
+      traitIndex,
     } = trait.dataset;
 
     return this.pool[sourceIndex].traits[traitIndex]
@@ -1005,18 +1005,18 @@ class DicePool extends FormApplication {
         : null
   }
 
-  async _rollDice (rollType) {
+  async _rollDice(rollType) {
     Log$5('DicePool._rollDice this.pool, rollType:', this.pool, rollType);
 
     await rollDice.call(this, this.pool, rollType, this.rollMode);
   }
 
-  _onChangeRollsSeparately (event, [$html]) {
+  _onChangeRollsSeparately(event, [$html,]) {
     const $target = event.currentTarget;
     const isRolledSeparately = $target.checked;
 
     const $hasHitchesCheckbox = $html
-    .querySelector('#DicePool-has-hitches');
+      .querySelector('#DicePool-has-hitches');
 
     $hasHitchesCheckbox.disabled = !isRolledSeparately;
     $hasHitchesCheckbox.checked = !isRolledSeparately;
@@ -1027,7 +1027,7 @@ class DicePool extends FormApplication {
       .toggle('field-disabled');
   }
 
-  async addCustomTrait (event) {
+  async addCustomTrait(event) {
     event.preventDefault();
 
     const matchingSourceIndex = this.pool
@@ -1036,8 +1036,8 @@ class DicePool extends FormApplication {
     if (matchingSourceIndex < 0) {
       this.pool = [...this.pool, {
         source: 'Custom',
-        traits: [this.customAdd]
-      }];
+        traits: [this.customAdd,],
+      },];
     } else {
       this.pool[matchingSourceIndex].traits = [
         ...this.pool[matchingSourceIndex].traits,
@@ -1048,7 +1048,7 @@ class DicePool extends FormApplication {
     this.resetCustomTrait();
   }
 
-  addToPool (event, $addToPoolButton) {
+  addToPool(event, $addToPoolButton) {
     const $rollResult = $addToPoolButton.closest('.RollResult');
 
     this.pool = Array
@@ -1064,29 +1064,29 @@ class DicePool extends FormApplication {
             hasHitches: $trait.dataset.hasHitches !== 'false',
             name: $trait.dataset.name ?? null,
             parentName: $trait.dataset.parentName ?? null,
-            rollsSeparately: $trait.dataset.rollsSeparately !== 'false'
-          }))
+            rollsSeparately: $trait.dataset.rollsSeparately !== 'false',
+          })),
       }));
   }
 
-  clear () {
+  clear() {
     this.customAdd = getBlankCustomAdd();
 
     this.pool = [];
   }
 
-  async onAddDie (event, { target }) {
+  async onAddDie(event, { target, }) {
     const targetTrait = this._getTraitByTarget(event, target);
 
     targetTrait.dice = [
       ...targetTrait.dice,
-      targetTrait.dice[targetTrait.dice.length - 1] ?? 8
+      targetTrait.dice[targetTrait.dice.length - 1] ?? 8,
     ];
 
     await this.render(true);
   }
 
-  async onChangeDie (event, { index, target, value }) {
+  async onChangeDie(event, { index, target, value, }) {
     const targetTrait = this._getTraitByTarget(event, target);
 
     targetTrait.dice = targetTrait.dice.map((die, dieIndex) => {
@@ -1096,7 +1096,7 @@ class DicePool extends FormApplication {
     await this.render(true);
   }
 
-  async onRemoveDie (event, { index, target }) {
+  async onRemoveDie(event, { index, target, }) {
     const targetTrait = this._getTraitByTarget(event, target);
 
     targetTrait.dice = targetTrait.dice
@@ -1105,12 +1105,12 @@ class DicePool extends FormApplication {
     await this.render(true);
   }
 
-  async removeTrait (event) {
+  async removeTrait(event) {
     const trait = event.currentTarget.closest('.DicePool-trait');
 
     const {
       sourceIndex,
-      traitIndex
+      traitIndex,
     } = trait.dataset;
 
     this.pool[sourceIndex].traits = this.pool[sourceIndex].traits
@@ -1127,7 +1127,7 @@ class DicePool extends FormApplication {
     await this.render(true);
   }
 
-  async toggle () {
+  async toggle() {
     if (!this.rendered) {
       await this.render(true);
     } else {
@@ -2118,15 +2118,15 @@ class CpThemeSettings extends FormApplication {
     this.themeSelection = themeSettings.selectedTheme;
   }
 
-  static get defaultOptions () {
-    return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'settings', 'theme-settings'],
+  static get defaultOptions() {
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      classes: ['cortexprime', 'settings', 'theme-settings',],
       closeOnSubmit: false,
       height: 900,
       id: 'ThemeSettings',
       left: 400,
       resizable: false,
-      scrollY: ['#ThemeSettings-form-body'],
+      scrollY: ['#ThemeSettings-form-body',],
       submitOnChange: false,
       submitOnClose: false,
       template: 'systems/cortexprime/system/templates/CpThemeSettings.html',
@@ -2136,36 +2136,36 @@ class CpThemeSettings extends FormApplication {
     })
   }
 
-  get allThemes () {
+  get allThemes() {
     return {
       ...presetThemes,
       ...this.customThemes,
     }
   }
 
-  get allThemeNames () {
+  get allThemeNames() {
     return Object.keys(this.allThemes)
   }
 
-  get currentSettings () {
+  get currentSettings() {
     return this.allThemes[this.selectedTheme]
   }
 
-  get isPresetTheme () {
+  get isPresetTheme() {
     return !!presetThemes[this.selectedTheme]
   }
 
   getData() {
     const data = {
       borderPositions: [
-        { name: localizer('CP.None'), value: 'none' },
-        { name: localizer('CP.All'), value: 'all' },
-        { name: localizer('CP.Bottom'), value: 'bottom' },
-        { name: localizer('CP.Top'), value: 'top' },
-        { name: localizer('CP.Left'), value: 'left' },
-        { name: localizer('CP.Right'), value: 'right' },
-        { name: localizer('CP.TopAndBottom'), value: 'top-and-bottom' },
-        { name: localizer('CP.LeftAndRight'), value: 'left-and-right' },
+        { name: localizer('CP.None'), value: 'none', },
+        { name: localizer('CP.All'), value: 'all', },
+        { name: localizer('CP.Bottom'), value: 'bottom', },
+        { name: localizer('CP.Top'), value: 'top', },
+        { name: localizer('CP.Left'), value: 'left', },
+        { name: localizer('CP.Right'), value: 'right', },
+        { name: localizer('CP.TopAndBottom'), value: 'top-and-bottom', },
+        { name: localizer('CP.LeftAndRight'), value: 'left-and-right', },
       ],
       currentSettings: this.currentSettings,
       expandedSections: this.expandedSections,
@@ -2175,12 +2175,12 @@ class CpThemeSettings extends FormApplication {
         {
           label: localizer('CP.PresetThemes'),
           options: Object.keys(presetThemes)
-          .map(themeName => ({ name: themeName, value: themeName }))
+            .map(themeName => ({ name: themeName, value: themeName, })),
         },
         {
           label: 'Custom Themes',
           options: Object.keys(this.customThemes)
-          .map(themeName => ({ name: themeName, value: themeName }))
+            .map(themeName => ({ name: themeName, value: themeName, })),
         },
       ],
     };
@@ -2200,15 +2200,15 @@ class CpThemeSettings extends FormApplication {
     } = expandedData;
 
     this.selectedTheme = selectedTheme;
-    
+
     await this.save(expandedData);
   }
 
   activateListeners(html) {
     super.activateListeners(html);
-    
-    const [$html] = html;
-    
+
+    const [$html,] = html;
+
     fieldListeners($html);
 
     addListeners(
@@ -2242,7 +2242,7 @@ class CpThemeSettings extends FormApplication {
     $html
       .querySelector('#ThemeSettings-theme-select')
       ?.addEventListener('change', this.onChangeTheme.bind(this));
-    
+
     $html
       .querySelector('#ThemeSettings-custom-theme-create')
       ?.addEventListener('click', () => this.createCustomTheme.call(this, $html));
@@ -2260,7 +2260,7 @@ class CpThemeSettings extends FormApplication {
       ?.addEventListener('click', this.reset.bind(this));
   }
 
-  async close () {
+  async close() {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.CloseConfirmTitle'),
       content: localizer('CP.CloseConfirmContent'),
@@ -2276,12 +2276,12 @@ class CpThemeSettings extends FormApplication {
     }
   }
 
-  async createCustomTheme ($html) {
+  async createCustomTheme($html) {
     const customThemeName = (
       $html
         .querySelector('#ThemeSettings-custom-theme-name')
         .value ?? ''
-      ).trim();
+    ).trim();
 
     const errorMessage = !customThemeName
       ? localizer('CP.CustomThemeNameErrorRequired')
@@ -2299,7 +2299,7 @@ class CpThemeSettings extends FormApplication {
 
       const newCustomThemes = {
         ...themeSettings.customList,
-        [customThemeName]: { ...this.currentSettings }
+        [customThemeName]: { ...this.currentSettings, },
       };
 
       themeSettings.customList = newCustomThemes;
@@ -2315,12 +2315,12 @@ class CpThemeSettings extends FormApplication {
       setThemeProperties(this.currentSettings);
 
       game.socket.emit('system.cortexprime', {
-        type: 'setThemeProperties'
+        type: 'setThemeProperties',
       });
     }
   }
 
-  async deleteTheme () {
+  async deleteTheme() {
     if (this.isPresetTheme) {
       Dialog.prompt({
         title: localizer('CP.ValidationError'),
@@ -2338,45 +2338,45 @@ class CpThemeSettings extends FormApplication {
 
     if (confirmed) {
       const themeSettings = game.settings.get('cortexprime', 'themes');
-  
+
       delete themeSettings.customList[this.selectedTheme];
-      
+
       delete this.customThemes[this.selectedTheme];
-  
+
       themeSettings.selectedTheme = 'Cortex Prime';
-  
+
       this.selectedTheme = 'Cortex Prime';
-  
+
       await game.settings.set('cortexprime', 'themes', themeSettings);
-  
+
       await this.render(true);
-  
+
       setThemeProperties(this.currentSettings);
-  
+
       game.socket.emit('system.cortexprime', {
-        type: 'setThemeProperties'
+        type: 'setThemeProperties',
       });
     }
   }
 
-  async onChangeTheme (event) {
+  async onChangeTheme(event) {
     const $currentTarget = event.currentTarget;
     const confirmed = !this.isPresetTheme
       ? await Dialog.confirm({
-          title: localizer('CP.ChangeThemeConfirmTitle'),
-          content: localizer('CP.ChangeThemeConfirmContent'),
-          defaultYes: false,
-        })
+        title: localizer('CP.ChangeThemeConfirmTitle'),
+        content: localizer('CP.ChangeThemeConfirmContent'),
+        defaultYes: false,
+      })
       : true;
 
     if (confirmed) {
       this.selectedTheme = $currentTarget.value;
-  
+
       await this.render(true);
     }
   }
 
-  onColorChange (event) {
+  onColorChange(event) {
     const $input = event.target;
     const $fieldColor = $input.closest('.field-color');
 
@@ -2395,25 +2395,25 @@ class CpThemeSettings extends FormApplication {
     const hasTransparentClass = $swatch.classList.contains('transparent');
 
     if (
-      (value && hasTransparentClass) ||
-      (!value && !hasTransparentClass)
+      (value && hasTransparentClass)
+      || (!value && !hasTransparentClass)
     ) {
       $swatch.classList.toggle('transparent');
     }
   }
 
-  async onDisplayToggle (event) {
-    const { section } = event.currentTarget.dataset;
+  async onDisplayToggle(event) {
+    const { section, } = event.currentTarget.dataset;
 
     this.expandedSections = this.expandedSections.includes(section)
       ? this.expandedSections
         .filter(expandedSection => expandedSection !== section)
-      : [...this.expandedSections, section];
+      : [...this.expandedSections, section,];
 
     displayToggleMethod(event);
   }
 
-  onImageChange (event) {
+  onImageChange(event) {
     const value = event.target.value;
 
     const $fieldWrapper = event
@@ -2437,7 +2437,7 @@ class CpThemeSettings extends FormApplication {
 
     if (value) {
       $imageRemove.classList.remove('hide');
-  
+
       $noImageMsg.classList.add('hide');
     } else {
       $imageRemove.classList.add('hide');
@@ -2450,7 +2450,7 @@ class CpThemeSettings extends FormApplication {
       .textContent = value || localizer('CP.NoImage');
   }
 
-  preview (html) {
+  preview(html) {
     const formData = Object.fromEntries(new FormData(html[0]).entries());
 
     const expandedData = expandObject(formData);
@@ -2462,12 +2462,12 @@ class CpThemeSettings extends FormApplication {
       currentSettings,
     } = expandedData;
 
-    setThemeProperties (
+    setThemeProperties(
       presetThemes[selectedTheme] ?? currentSettings
     );
   }
 
-  removeImage (event) {
+  removeImage(event) {
     const $fieldWrapper = event
       .target
       .closest('.field-wrapper');
@@ -2495,7 +2495,7 @@ class CpThemeSettings extends FormApplication {
       .textContent = localizer('CP.NoImage');
   }
 
-  async reset () {
+  async reset() {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.ResetConfirmTitle'),
       content: localizer('CP.ResetConfirmContent'),
@@ -2512,7 +2512,7 @@ class CpThemeSettings extends FormApplication {
     }
   }
 
-  async save (expandedData) {
+  async save(expandedData) {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.SaveConfirmTitle'),
       content: localizer('CP.SaveConfirmContent'),
@@ -2521,29 +2521,29 @@ class CpThemeSettings extends FormApplication {
 
     if (confirmed) {
       const themeSettings = game.settings.get('cortexprime', 'themes');
-  
-      const newThemeSettings = mergeObject(themeSettings, expandedData);
-  
+
+      const newThemeSettings = foundry.utils.mergeObject(themeSettings, expandedData);
+
       this.selectedTheme = expandedData.selectedTheme;
-  
+
       if (!presetThemes[expandedData.selectedTheme]) {
-        const customThemeSettings = mergeObject(newThemeSettings.customList[this.selectedTheme], expandedData.currentSettings);
+        const customThemeSettings = foundry.utils.mergeObject(newThemeSettings.customList[this.selectedTheme], expandedData.currentSettings);
         this.customThemes[this.selectedTheme] = customThemeSettings;
         newThemeSettings.customList[this.selectedTheme] = customThemeSettings;
       }
-  
+
       Log$4('CpThemeSettings.save newThemeSettings', newThemeSettings);
-  
+
       await game.settings.set('cortexprime', 'themes', newThemeSettings);
-  
+
       await this.render(true);
-  
+
       setThemeProperties(this.currentSettings);
-  
+
       game.socket.emit('system.cortexprime', {
-        type: 'setThemeProperties'
+        type: 'setThemeProperties',
       });
-  
+
       Dialog.prompt({
         title: localizer('CP.PromptSettingsSaveTitle'),
         content: localizer('CP.PromptSettingsSaveContent'),
@@ -2607,15 +2607,15 @@ class CpItemSettings extends FormApplication {
     Log$3('CpItemSettings.constructor traitSettings', traitSettings);
   }
 
-  static get defaultOptions () {
-    return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'settings', 'item-settings'],
+  static get defaultOptions() {
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      classes: ['cortexprime', 'settings', 'item-settings',],
       closeOnSubmit: false,
       height: 900,
       id: 'ItemSettings',
       left: 400,
       resizable: false,
-      scrollY: ['#ItemSettings-form-body'],
+      scrollY: ['#ItemSettings-form-body',],
       submitOnChange: false,
       submitOnClose: false,
       template: 'systems/cortexprime/system/templates/CpItemSettings.html',
@@ -2637,13 +2637,13 @@ class CpItemSettings extends FormApplication {
     const expandedData = expandObject(formData);
 
     Log$3('CPItemSettings._updateSettings expandedData:', expandedData);
-    
+
     await this.save(event.target, expandedData);
   }
 
   activateListeners(html) {
     super.activateListeners(html);
-    const [$html] = html;
+    const [$html,] = html;
 
     dragSort($html, this._onDragSortDrop.bind(this, $html));
 
@@ -2662,12 +2662,12 @@ class CpItemSettings extends FormApplication {
       $html,
       '#ItemSettings-main',
       'click',
-      (event) => {
+      event => {
         const $goToPage = event.target.closest('.go-to-page');
 
         if ($goToPage) {
           this.goToPage(event, $html, $goToPage);
-          return
+
         }
       }
     );
@@ -2676,7 +2676,7 @@ class CpItemSettings extends FormApplication {
       $html,
       '#ItemSettings-pages-container',
       'change',
-      (event) => {
+      event => {
         const $rollsSeparatelyField = event
           .target
           .closest('.input-rolls-separately')
@@ -2684,7 +2684,7 @@ class CpItemSettings extends FormApplication {
 
         if ($rollsSeparatelyField) {
           this.onChangeRollsSeparately(event, $rollsSeparatelyField);
-          return
+
         }
       }
     );
@@ -2693,7 +2693,7 @@ class CpItemSettings extends FormApplication {
       $html,
       '#ItemSettings-pages-container',
       'click',
-      (event) => {
+      event => {
         const $addDescriptor = event.target.closest('.add-descriptor');
 
         if ($addDescriptor) {
@@ -2705,7 +2705,7 @@ class CpItemSettings extends FormApplication {
 
         if ($deleteDescriptor) {
           this.deleteDescriptor($deleteDescriptor);
-          return
+
         }
       }
     );
@@ -2714,7 +2714,7 @@ class CpItemSettings extends FormApplication {
       $html,
       '.subtraits-list-section',
       'click',
-      (event) => {
+      event => {
         const $addSubtrait = event.target.closest('.add-subtrait');
 
         if ($addSubtrait) {
@@ -2733,7 +2733,7 @@ class CpItemSettings extends FormApplication {
 
         if ($deleteSubtrait) {
           this.deleteSubtrait($html, $deleteSubtrait);
-          return
+
         }
       }
     );
@@ -2742,14 +2742,14 @@ class CpItemSettings extends FormApplication {
       $html,
       '.subtrait-pages',
       'change',
-      (event) => {
+      event => {
         const $subtraitName = event
           .target
           .closest('.ItemSettings-subtrait-field-name-input');
 
         if ($subtraitName) {
           this.updateSubtraitName($html, $subtraitName);
-          return
+
         }
       }
     );
@@ -2758,7 +2758,7 @@ class CpItemSettings extends FormApplication {
       $html,
       '.traits-list-section',
       'click',
-      (event) => {
+      event => {
         const $addTrait = event.target.closest('.add-trait');
 
         if ($addTrait) {
@@ -2777,7 +2777,7 @@ class CpItemSettings extends FormApplication {
 
         if ($deleteTrait) {
           this.deletePageItem($html, $deleteTrait, '.traits-list-item');
-          return
+
         }
       }
     );
@@ -2786,14 +2786,14 @@ class CpItemSettings extends FormApplication {
       $html,
       '.trait-pages',
       'change',
-      (event) => {
+      event => {
         const $traitName = event
           .target
           .closest('.ItemSettings-trait-field-name-input');
 
         if ($traitName) {
           this.updateTraitName($html, $traitName);
-          return
+
         }
       }
     );
@@ -2803,9 +2803,9 @@ class CpItemSettings extends FormApplication {
       .addEventListener('click', this.reset.bind(this));
   }
 
-  async addDescriptor ($html, event, $addDescriptor) {
-    const descriptor = { label: 'New Descriptor' };
-    const { path } = $addDescriptor.dataset;
+  async addDescriptor($html, event, $addDescriptor) {
+    const descriptor = { label: 'New Descriptor', };
+    const { path, } = $addDescriptor.dataset;
     const sequence = $addDescriptor
       .closest('.item-list')
       .querySelectorAll('.descriptors-list-item')
@@ -2833,7 +2833,7 @@ class CpItemSettings extends FormApplication {
     addDragSort($dragSortHandler, () => this._onDragSortDrop($html, $list));
   }
 
-  async addSubtrait ($html, $addSubtrait) {
+  async addSubtrait($html, $addSubtrait) {
     const id = uuid();
 
     await this._addPageItem(
@@ -2869,11 +2869,11 @@ class CpItemSettings extends FormApplication {
 
     await this._appendSubtraitType($html, {
       subtraitId: id,
-      label: 'New Subtrait'
+      label: 'New Subtrait',
     });
   }
 
-  async addTrait ($html, $addTrait) {
+  async addTrait($html, $addTrait) {
     const id = uuid();
 
     const subtraits = Array.from(
@@ -2912,15 +2912,15 @@ class CpItemSettings extends FormApplication {
             minDieRating: 4,
             name: 'New Trait',
             subtraitTypes: [],
-          }
+          },
         },
       }
     );
 
-    this._switchPage($html, { targetId: id });
+    this._switchPage($html, { targetId: id, });
   }
 
-  async close () {
+  async close() {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.CloseConfirmTitle'),
       content: localizer('CP.CloseConfirmContent'),
@@ -2932,7 +2932,7 @@ class CpItemSettings extends FormApplication {
     }
   }
 
-  async deleteDescriptor ($deleteDescriptor) {
+  async deleteDescriptor($deleteDescriptor) {
     const $descriptorsList = $deleteDescriptor
       .closest('.descriptors-list');
 
@@ -2947,12 +2947,12 @@ class CpItemSettings extends FormApplication {
       });
   }
 
-  async deletePageItem ($html, $deletePage, parentSelector) {
+  async deletePageItem($html, $deletePage, parentSelector) {
     const $parentListItem = $deletePage.closest(parentSelector);
 
-    const { id } = $parentListItem.dataset;
+    const { id, } = $parentListItem.dataset;
     const $dragSortList = $parentListItem.closest('.drag-sort-list');
-    
+
     const listItemName = $parentListItem
       .querySelector('.list-item-name')
       .textContent;
@@ -2976,8 +2976,8 @@ class CpItemSettings extends FormApplication {
     return confirmed
   }
 
-  async deleteSubtrait ($html, $deleteSubtrait) {
-    const { id } = $deleteSubtrait
+  async deleteSubtrait($html, $deleteSubtrait) {
+    const { id, } = $deleteSubtrait
       .closest('.subtraits-list-item')
       .dataset;
 
@@ -2994,21 +2994,20 @@ class CpItemSettings extends FormApplication {
     }
   }
 
-  async duplicateSubtrait ($html, $duplicateSubtrait) {
+  async duplicateSubtrait($html, $duplicateSubtrait) {
     const id = uuid();
-    
-    const { id: currentId } = $duplicateSubtrait
+
+    const { id: currentId, } = $duplicateSubtrait
       .closest('.subtraits-list-item')
       .dataset;
 
     const $currentSubtraitPage = $html
       .querySelector(`.ItemSettings-page[data-id="${currentId}"]`);
 
-    const name = (
-      $currentSubtraitPage
-        ?.querySelector(`[name="subtraits.${currentId}.name"]`)
-        ?.value ?? 'New Subtrait'
-    ) + ' (duplicate)';
+    const name = `${$currentSubtraitPage
+      ?.querySelector(`[name="subtraits.${currentId}.name"]`)
+      ?.value ?? 'New Subtrait'
+    } (duplicate)`;
 
     await this._addPageItem(
       $html,
@@ -3057,14 +3056,14 @@ class CpItemSettings extends FormApplication {
               $currentSubtraitPage
                 ?.querySelector(`[name="subtraits.${currentId}.maxDieRating"]`)
                 ?.value ?? null
-            , 10) || null,
+              , 10) || null,
             minDieRating: parseInt(
               $currentSubtraitPage
-              ?.querySelector(`[name="subtraits.${currentId}.minDieRating"]`)
-              ?.value ?? null
-            , 10) || null,
+                ?.querySelector(`[name="subtraits.${currentId}.minDieRating"]`)
+                ?.value ?? null
+              , 10) || null,
             name,
-          }
+          },
         },
       }
     );
@@ -3074,24 +3073,23 @@ class CpItemSettings extends FormApplication {
       subtraitId: id,
     });
 
-    this._switchPage($html, { targetId: id });
+    this._switchPage($html, { targetId: id, });
   }
 
-  async duplicateTrait ($html, $duplicateTrait) {
+  async duplicateTrait($html, $duplicateTrait) {
     const id = uuid();
-    
-    const { id: currentId } = $duplicateTrait
+
+    const { id: currentId, } = $duplicateTrait
       .closest('.traits-list-item')
       .dataset;
 
     const $currentTraitPage = $html
       .querySelector(`.ItemSettings-page[data-id="${currentId}"]`);
 
-    const name = (
-      $currentTraitPage
-        ?.querySelector(`[name="traits.${currentId}.name"]`)
-        ?.value ?? 'New Trait'
-    ) + ' (duplicate)';
+    const name = `${$currentTraitPage
+      ?.querySelector(`[name="traits.${currentId}.name"]`)
+      ?.value ?? 'New Trait'
+    } (duplicate)`;
 
     const subtraits = Array.from(
       $html.querySelectorAll('.subtraits-list-item')
@@ -3149,36 +3147,36 @@ class CpItemSettings extends FormApplication {
               $currentTraitPage
                 ?.querySelector(`[name="traits.${currentId}.maxDieRating"]`)
                 ?.value ?? null
-            , 10) || null,
+              , 10) || null,
             minDieRating: parseInt(
               $currentTraitPage
                 ?.querySelector(`[name="traits.${currentId}.minDieRating"]`)
                 ?.value ?? null
-            , 10) || null,
+              , 10) || null,
             name,
             subtraitTypes: Array.from(
               $currentTraitPage
                 ?.querySelectorAll(`[name="traits.${currentId}.subtraitTypes"]:checked`)
             )
-              .map($subtraitType => $subtraitType.value)
-          }
+              .map($subtraitType => $subtraitType.value),
+          },
         },
       }
     );
 
-    this._switchPage($html, { targetId: id });
+    this._switchPage($html, { targetId: id, });
   }
 
-  async goToPage (event, $html, $goToPage) {
+  async goToPage(event, $html, $goToPage) {
     const {
       currentId,
-      targetId
+      targetId,
     } = $goToPage?.dataset ?? event.currentTarget.dataset;
 
-    this._switchPage($html, { currentId, targetId });
+    this._switchPage($html, { currentId, targetId, });
   }
 
-  async onChangeDie (event, { index, value }) {
+  async onChangeDie(event, { index, value, }) {
     const $diceSelect = event.target.closest('.dice-select');
     const $dieWrapper = event.target.closest('.die-wrapper');
     const $dieSelect = $dieWrapper.querySelector('.die-select');
@@ -3194,8 +3192,8 @@ class CpItemSettings extends FormApplication {
     const $minDieRating = $listItemPage.querySelector('.min-die-rating');
 
     if (
-      $diceSelect.classList.contains('min-die-rating') &&
-      parseInt(value, 10) > parseInt($maxDieRating.querySelector('.die-select').value, 10) 
+      $diceSelect.classList.contains('min-die-rating')
+      && parseInt(value, 10) > parseInt($maxDieRating.querySelector('.die-select').value, 10)
     ) {
       $maxDieRating.value = value;
 
@@ -3207,8 +3205,8 @@ class CpItemSettings extends FormApplication {
         .querySelector('.die-select')
         .value = value;
     } else if (
-      $diceSelect.classList.contains('max-die-rating') &&
-      parseInt(value, 10) < parseInt($minDieRating.querySelector('.die-select').value, 10) 
+      $diceSelect.classList.contains('max-die-rating')
+      && parseInt(value, 10) < parseInt($minDieRating.querySelector('.die-select').value, 10)
     ) {
       $minDieRating.value = value;
 
@@ -3238,7 +3236,7 @@ class CpItemSettings extends FormApplication {
       .toggle('field-disabled', !isChecked);
   }
 
-  async reset () {
+  async reset() {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.ResetConfirmTitle'),
       content: localizer('CP.ResetConfirmContent'),
@@ -3250,7 +3248,7 @@ class CpItemSettings extends FormApplication {
     }
   }
 
-  async save ($html, expandedData) {
+  async save($html, expandedData) {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.SaveConfirmTitle'),
       content: localizer('CP.SaveConfirmContent'),
@@ -3258,17 +3256,17 @@ class CpItemSettings extends FormApplication {
     });
 
     if (confirmed) {
-      const sequenceSort = ([_, aValue], [__, bValue]) => {
+      const sequenceSort = ([_, aValue,], [__, bValue,]) => {
         const aSortValue = parseInt(aValue.sequence, 10);
         const bSortValue = parseInt(bValue.sequence, 10);
-  
+
         return bSortValue > aSortValue.sequence
-          ? -1 
+          ? -1
           : aSortValue > bSortValue
-            ? 1 
+            ? 1
             : 0
       };
-  
+
       const subtraits = objectSortToArray(expandedData.subtraits, sequenceSort)
         .map(subtrait => {
           delete subtrait.sequence;
@@ -3281,16 +3279,16 @@ class CpItemSettings extends FormApplication {
               return {
                 label: $listItem
                   .querySelector('.ItemSettings-descriptor-field-name-input')
-                  .value
+                  .value,
               }
             });
-  
+
           subtrait.maxDieRating = parseInt(subtrait.maxDieRating, 10);
           subtrait.minDieRating = parseInt(subtrait.minDieRating, 10);
 
           return subtrait
         });
-  
+
       const traits = objectSortToArray(expandedData.traits, sequenceSort)
         .map(trait => {
           delete trait.sequence;
@@ -3303,22 +3301,22 @@ class CpItemSettings extends FormApplication {
               return {
                 label: $listItem
                   .querySelector('.ItemSettings-descriptor-field-name-input')
-                  .value
+                  .value,
               }
             });
-  
+
           trait.maxDieRating = parseInt(trait.maxDieRating, 10);
           trait.minDieRating = parseInt(trait.minDieRating, 10);
           trait.subtraitTypes = trait.subtraitTypes.filter(x => x);
-  
+
           return trait
         });
-  
+
       const serializedData = {
         subtraits,
-        traits
+        traits,
       };
-  
+
       Log$3('CpItemSettings.save serializedData', serializedData);
 
       game.settings.set('cortexprime', 'itemTypes', serializedData);
@@ -3330,17 +3328,17 @@ class CpItemSettings extends FormApplication {
     }
   }
 
-  updateSubtraitName ($html, $subtraitName) {
+  updateSubtraitName($html, $subtraitName) {
     const $subtraitPage = $subtraitName.closest('.subtrait-page');
 
-    const { id } = $subtraitPage.dataset;
+    const { id, } = $subtraitPage.dataset;
 
     const subtraitName = $subtraitName.value;
 
     $subtraitPage
       .querySelector('.subtrait-page-name')
       .textContent = subtraitName;
-    
+
     $html
       .querySelector(`.subtraits-list-item[data-id="${id}"] .subtraits-list-item-name`)
       .textContent = subtraitName;
@@ -3355,23 +3353,23 @@ class CpItemSettings extends FormApplication {
       });
   }
 
-  updateTraitName ($html, $traitName) {
+  updateTraitName($html, $traitName) {
     const $traitPage = $traitName.closest('.trait-page');
 
-    const { id } = $traitPage.dataset;
+    const { id, } = $traitPage.dataset;
 
     const traitName = $traitName.value;
 
     $traitPage
       .querySelector('.trait-page-name')
       .textContent = traitName;
-    
+
     $html
       .querySelector(`.traits-list-item[data-id="${id}"] .traits-list-item-name`)
       .textContent = traitName;
   }
 
-  async _addPageItem ($html, $addListButton, payload) {
+  async _addPageItem($html, $addListButton, payload) {
     const {
       id,
       itemName,
@@ -3402,7 +3400,7 @@ class CpItemSettings extends FormApplication {
           id,
           name: itemName,
           sequence: sequence,
-        }
+        },
       }
     );
 
@@ -3418,25 +3416,25 @@ class CpItemSettings extends FormApplication {
 
     const pageHtml = await renderTemplate(
       `systems/cortexprime/system/templates/partials/${templatePath}`,
-      templateData,
+      templateData
     );
 
     $html
       .querySelector(`.${listTypeSingular}-pages`)
       .insertAdjacentHTML('beforeend', pageHtml);
 
-    this._switchPage($html, { targetId: id });
+    this._switchPage($html, { targetId: id, });
   }
 
-  async _appendSubtraitType ($html, data) {
+  async _appendSubtraitType($html, data) {
     const $traitPages = $html
       .querySelectorAll('.trait-page');
 
     await Promise.all(
       Array.from($traitPages)
-        .map(async ($traitPage) => {
-          const { id: traitId } = $traitPage.dataset;
-          
+        .map(async $traitPage => {
+          const { id: traitId, } = $traitPage.dataset;
+
           const subtraitTypeHtml = await renderTemplate(
             'systems/cortexprime/system/templates/partials/ItemSettings/SubtraitType.html',
             {
@@ -3454,12 +3452,12 @@ class CpItemSettings extends FormApplication {
     );
   }
 
-  _onDragSortDrop ($html, $dragSortList) {
+  _onDragSortDrop($html, $dragSortList) {
     this._reapplySortSequence($html, $dragSortList);
   }
 
-  _reapplySortSequence ($html, $dragSortList) {
-    const { sortList } = $dragSortList.dataset;
+  _reapplySortSequence($html, $dragSortList) {
+    const { sortList, } = $dragSortList.dataset;
 
     Array.from($dragSortList.children)
       .forEach(($item, index) => {
@@ -3479,13 +3477,13 @@ class CpItemSettings extends FormApplication {
                 .querySelector(`[data-subtrait-id="${$item.dataset.id}"]`)
                 .closest('.ItemSettings-trait-field-subtrait-types');
 
-                $subtraitSection.append($subtraitType);
+              $subtraitSection.append($subtraitType);
             });
         }
       });
   }
 
-  _switchPage ($html, { currentId, targetId }) {
+  _switchPage($html, { currentId, targetId, }) {
     $html
       .querySelector(currentId ? `.ItemSettings-page[data-id="${currentId}"]` : '.list-page')
       .classList
@@ -3502,33 +3500,33 @@ class CpItemSettings extends FormApplication {
 // feat(0.3.0): Add temporary die
 // feat(0.3.0): Add a heading 3 and apply to "Preset Descriptors" in Item Settings
 
-/*** Dice Pool ***/
+/** * Dice Pool ***/
 // feat(1.0.0): preview button in DicePool to preview pool prior to rolling
 // // Use sockets to update and have a dropdown to choose which dice pool to view
 
-/*** Item Settings ***/
+/** * Item Settings ***/
 // tweak(0.3.0): (FUTURE) when deleting trait or subtrait other sheets will be properly updated
 // tweak(0.3.0): Type image & update in item list
 
-/*** Item Sheets ***/
+/** * Item Sheets ***/
 // feat(0.3.0): getter for item type and selector (different message if missing item type rather than unchosen)
 // feat(0.3.0): Drag & Drop subtrait items onto trait item sheets
 // feat(0.3.0): Editing subtrait on a trait sheet will open a subtrait sheet
 
-/*** Actor Settings ***/
+/** * Actor Settings ***/
 // feat(0.3.0): Create settings page
 // feat(0.3.0): Layout options
 // feat(0.3.0): "Simple Traits" for dice, booleans and/or tags?, numbers, text, etc.
 // feat(1.0.0): Growth Tracking
 
-/*** Actor Sheets ***/
+/** * Actor Sheets ***/
 // feat: temporary dice ratings
 // feat(0.3.0): Drag and Drop trait and subtrait items onto sheets
 
-/*** Misc Settings ***/
+/** * Misc Settings ***/
 // feat(0.3.0): expandable roll result traits setting (default not)
 
-/*** Misc ***/
+/** * Misc ***/
 // feat(0.3.0): textarea icon interpolation
 // feat: Turn Order
 // feat(1.0.0): Quick access sheet
@@ -4155,45 +4153,45 @@ const Log$2 = Logger();
 class CpItemSheet extends ItemSheet {
   itemTypeSettings = game.settings.get('cortexprime', 'itemTypes')
 
-  get item () {
+  get item() {
     return super.item
   }
 
-  get itemTypeProperty () {
+  get itemTypeProperty() {
     return this.item.type === 'Trait'
       ? 'traits'
       : 'subtraits'
   }
 
-  get itemTypeOptions () {
+  get itemTypeOptions() {
     return this.itemTypeSettings[this.itemTypeProperty]
   }
 
-  get itemSettings () {
+  get itemSettings() {
     const itemTypeId = this.item.system?.itemTypeId;
 
     if (!itemTypeId) return null
 
     return this.itemTypeOptions
-      ?.find(({ id }) => id === itemTypeId) ?? null
+      ?.find(({ id, }) => id === itemTypeId) ?? null
   }
 
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'sheet', 'item-sheet'],
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      classes: ['cortexprime', 'sheet', 'item-sheet',],
       height: 450,
-      template: "systems/cortexprime/system/templates/CpItemSheet.html",
+      template: 'systems/cortexprime/system/templates/CpItemSheet.html',
       width: 480,
     })
   }
- 
-  async getData (options) {
+
+  async getData(options) {
     const superData = super.getData(options);
-    
-    Log$2(`CpItemSheet.getData superData:`, superData);
+
+    Log$2('CpItemSheet.getData superData:', superData);
 
     Log$2('CpItemSheet.getData item', this.item);
-    
+
     Log$2('CpItemSheet.getData itemTypeSettings', this.itemTypeSettings);
 
     Log$2('CpItemSheet.getData itemSettings', this.itemSettings);
@@ -4206,9 +4204,9 @@ class CpItemSheet extends ItemSheet {
       ...superData,
       itemSettings: this.itemSettings,
       itemTypeOptions: [
-        { placeholder: true, id: '', name: localizer('CP.ChooseTypeMessage') },
+        { placeholder: true, id: '', name: localizer('CP.ChooseTypeMessage'), },
         ...this.itemTypeOptions,
-      ]
+      ],
     };
 
     Log$2('CpItemSheet.getData data', data);
@@ -4224,30 +4222,30 @@ class CpItemSheet extends ItemSheet {
     const hasItemTypeChanged = expandedData.data.system.itemTypeId && expandedData.data.system.itemTypeId !== this.item.system.itemTypeId;
 
     expandedData.data.system.dice = typeof expandedData.data.system.dice === 'string'
-      ? [parseInt(expandedData.data.system.dice, 10)]
-      : !!expandedData.data.system.dice
+      ? [parseInt(expandedData.data.system.dice, 10),]
+      : expandedData.data.system.dice
         ? expandedData.data.system.dice.map(die => parseInt(die, 10))
         : [];
 
     if (hasItemTypeChanged) {
       expandedData = this.onItemTypeChange(expandedData);
     }
-    
-    const system = mergeObject(this.item.system, expandedData.data.system);
+
+    const system = foundry.utils.mergeObject(this.item.system, expandedData.data.system);
 
     Log$2('CPItemSheet._updateObject system:', system);
 
     await this.item.update({
       name: expandedData.data.name || this.item.name,
-      system
+      system,
     });
 
     await this.render();
   }
 
-  activateListeners (html) {
+  activateListeners(html) {
     super.activateListeners(html);
-    const [$html] = html;
+    const [$html,] = html;
 
     diceSelectListener(
       $html,
@@ -4258,10 +4256,10 @@ class CpItemSheet extends ItemSheet {
     );
   }
 
-  async onAddDie () {
+  async onAddDie() {
     [
       ...this.item.system.dice ?? [],
-      this.item.system.dice?.[this.item.system.dice.length - 1 ] ?? this.itemSettings.minDieRating
+      this.item.system.dice?.[this.item.system.dice.length - 1] ?? this.itemSettings.minDieRating,
     ];
 
     await this.item.update({
@@ -4269,51 +4267,51 @@ class CpItemSheet extends ItemSheet {
         ...this.item.system,
         dice: [
           ...this.item.system.dice ?? [],
-          this.item.system.dice?.[this.item.system.dice.length -1 ] ?? this.itemSettings.minDieRating
-        ]
-      }
+          this.item.system.dice?.[this.item.system.dice.length -1] ?? this.itemSettings.minDieRating,
+        ],
+      },
     });
 
     this.render(true);
   }
 
-  onItemTypeChange (expandedData) {
+  onItemTypeChange(expandedData) {
     const newItemSettings = this.itemTypeOptions
-      ?.find(({ id }) => id === expandedData.data.system.itemTypeId) ?? null;
-    
+      ?.find(({ id, }) => id === expandedData.data.system.itemTypeId) ?? null;
+
     const dice = expandedData.data.system.dice;
 
     if (newItemSettings.hasDice) {
       expandedData.data.system.dice = dice.length > 0
-          ? newItemSettings.allowMultipleDice
-            ? dice.map(die => {
-                return (
-                  die > newItemSettings.maxDieRating ||
-                  die < newItemSettings.minDieRating
-                )
-                  ? newItemSettings.minDieRating
-                  : die
-              })
-            : (
-                dice[0] > newItemSettings.maxDieRating ||
-                dice[0] < newItemSettings.minDieRating
-              )
-                ? [newItemSettings.minDieRating]
-                : [dice[0]]
-          : newItemSettings.allowNoDice
-            ? dice
-            : [newItemSettings.minDieRating];
+        ? newItemSettings.allowMultipleDice
+          ? dice.map(die => {
+            return (
+              die > newItemSettings.maxDieRating
+                  || die < newItemSettings.minDieRating
+            )
+              ? newItemSettings.minDieRating
+              : die
+          })
+          : (
+            dice[0] > newItemSettings.maxDieRating
+                || dice[0] < newItemSettings.minDieRating
+          )
+            ? [newItemSettings.minDieRating,]
+            : [dice[0],]
+        : newItemSettings.allowNoDice
+          ? dice
+          : [newItemSettings.minDieRating,];
     }
 
     return expandedData
   }
 
-  async onRemoveDie (event, { index }) {
+  async onRemoveDie(event, { index, }) {
     await this.item.update({
       system: {
         ...this.item.system,
-        dice: this.item.system.dice?.filter((_, i) => i !== index)
-      }
+        dice: this.item.system.dice?.filter((_, i) => i !== index),
+      },
     });
 
     this.render(true);
@@ -4333,7 +4331,7 @@ class CpActorSheet extends ActorSheet {
   }
 
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['cortexprime', 'sheet', 'actor-sheet'],
       height: 900,
       template: "systems/cortexprime/system/templates/CpActorSheet.html",

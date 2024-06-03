@@ -150,7 +150,7 @@ export default class CpThemeSettings extends FormApplication {
 
     $html
       .querySelector('#ThemeSettings-custom-theme-create')
-      ?.addEventListener('click', () => this.createCustomTheme.call(this, $html))
+      ?.addEventListener('click', () => this.createCustomTheme($html))
 
     $html
       .querySelector('#ThemeSettings-delete')
@@ -432,7 +432,8 @@ export default class CpThemeSettings extends FormApplication {
       this.selectedTheme = expandedData.selectedTheme
 
       if (!presetThemes[expandedData.selectedTheme]) {
-        const customThemeSettings = foundry.utils.mergeObject(newThemeSettings.customList[this.selectedTheme], expandedData.currentSettings)
+        const customThemeSettings = foundry.utils
+          .mergeObject(newThemeSettings.customList[this.selectedTheme], expandedData.currentSettings)
         this.customThemes[this.selectedTheme] = customThemeSettings
         newThemeSettings.customList[this.selectedTheme] = customThemeSettings
       }

@@ -117,19 +117,19 @@ export class DicePool extends FormApplication {
 
     $html
       .querySelector('#DicePool-roll-effect')
-      ?.addEventListener('click', () => this._rollDice.call(this, 'effect'))
+      ?.addEventListener('click', () => this._rollDice('effect'))
 
     $html
       .querySelector('#DicePool-roll-select')
-      ?.addEventListener('click', () => this._rollDice.call(this, 'select'))
+      ?.addEventListener('click', () => this._rollDice('select'))
 
     $html
       .querySelector('#DicePool-roll-total')
-      ?.addEventListener('click', () => this._rollDice.call(this, 'total'))
+      ?.addEventListener('click', () => this._rollDice('total'))
 
     $html
       .querySelector('#DicePool-rolls-separately')
-      .addEventListener('change', event => this._onChangeRollsSeparately.call(this, event, html))
+      .addEventListener('change', event => this._onChangeRollsSeparately(event, html))
   }
 
   get poolIsEmpty() {

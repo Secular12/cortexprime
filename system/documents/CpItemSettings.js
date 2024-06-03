@@ -141,14 +141,14 @@ export default class CpItemSettings extends FormApplication {
         const $addSubtrait = event.target.closest('.add-subtrait')
 
         if ($addSubtrait) {
-          this.addSubtrait.call(this, $html, $addSubtrait)
+          this.addSubtrait($html, $addSubtrait)
           return
         }
 
         const $duplicateSubtrait = event.target.closest('.duplicate-subtrait')
 
         if ($duplicateSubtrait) {
-          this.duplicateSubtrait.call(this, $html, $duplicateSubtrait)
+          this.duplicateSubtrait($html, $duplicateSubtrait)
           return
         }
 
@@ -185,14 +185,14 @@ export default class CpItemSettings extends FormApplication {
         const $addTrait = event.target.closest('.add-trait')
 
         if ($addTrait) {
-          this.addTrait.call(this, $html, $addTrait)
+          this.addTrait($html, $addTrait)
           return
         }
 
         const $duplicateTrait = event.target.closest('.duplicate-trait')
 
         if ($duplicateTrait) {
-          this.duplicateTrait.call(this, $html, $duplicateTrait)
+          this.duplicateTrait($html, $duplicateTrait)
           return
         }
 

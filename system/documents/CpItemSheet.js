@@ -77,7 +77,8 @@ export class CpItemSheet extends ItemSheet {
 
     Log('CPItemSheet._updateObject expandedData:', expandedData)
 
-    const hasItemTypeChanged = expandedData.data.system.itemTypeId && expandedData.data.system.itemTypeId !== this.item.system.itemTypeId
+    const hasItemTypeChanged = expandedData.data.system.itemTypeId
+      && expandedData.data.system.itemTypeId !== this.item.system.itemTypeId
 
     expandedData.data.system.dice = typeof expandedData.data.system.dice === 'string'
       ? [parseInt(expandedData.data.system.dice, 10),]
@@ -115,11 +116,6 @@ export class CpItemSheet extends ItemSheet {
   }
 
   async onAddDie() {
-    const dice = [
-      ...this.item.system.dice ?? [],
-      this.item.system.dice?.[this.item.system.dice.length - 1] ?? this.itemSettings.minDieRating,
-    ]
-
     await this.item.update({
       system: {
         ...this.item.system,
