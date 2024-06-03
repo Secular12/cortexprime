@@ -60,7 +60,7 @@ export class DicePool extends FormApplication {
   }
 
   _updateObject(event, formData) {
-    const expandedData = expandObject(formData)
+    const expandedData = foundry.utils.expandObject(formData)
 
     this.customAdd = {
       ...this.customAdd,

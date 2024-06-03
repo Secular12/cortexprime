@@ -73,7 +73,7 @@ export class CpItemSheet extends ItemSheet {
   }
 
   async _updateObject(event, formData) {
-    let expandedData = expandObject(formData)
+    let expandedData = foundry.utils.expandObject(formData)
 
     Log('CPItemSheet._updateObject expandedData:', expandedData)
 

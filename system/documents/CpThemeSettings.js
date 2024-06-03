@@ -96,7 +96,7 @@ export default class CpThemeSettings extends FormApplication {
   }
 
   async _updateObject(event, formData) {
-    const expandedData = expandObject(formData)
+    const expandedData = foundry.utils.expandObject(formData)
 
     Log('CPThemeSettings._updateObject expandedData:', expandedData)
 
@@ -358,7 +358,7 @@ export default class CpThemeSettings extends FormApplication {
   preview(html) {
     const formData = Object.fromEntries(new FormData(html[0]).entries())
 
-    const expandedData = expandObject(formData)
+    const expandedData = foundry.utils.expandObject(formData)
 
     Log('CpThemeSettings.preview expandedData:', expandedData)
 

@@ -963,19 +963,19 @@ class DicePool extends FormApplication {
 
     $html
       .querySelector('#DicePool-roll-effect')
-      ?.addEventListener('click', () => this._rollDice.call(this, 'effect'));
+      ?.addEventListener('click', () => this._rollDice('effect'));
 
     $html
       .querySelector('#DicePool-roll-select')
-      ?.addEventListener('click', () => this._rollDice.call(this, 'select'));
+      ?.addEventListener('click', () => this._rollDice('select'));
 
     $html
       .querySelector('#DicePool-roll-total')
-      ?.addEventListener('click', () => this._rollDice.call(this, 'total'));
+      ?.addEventListener('click', () => this._rollDice('total'));
 
     $html
       .querySelector('#DicePool-rolls-separately')
-      .addEventListener('change', event => this._onChangeRollsSeparately.call(this, event, html));
+      .addEventListener('change', event => this._onChangeRollsSeparately(event, html));
   }
 
   get poolIsEmpty() {
@@ -2245,7 +2245,7 @@ class CpThemeSettings extends FormApplication {
 
     $html
       .querySelector('#ThemeSettings-custom-theme-create')
-      ?.addEventListener('click', () => this.createCustomTheme.call(this, $html));
+      ?.addEventListener('click', () => this.createCustomTheme($html));
 
     $html
       .querySelector('#ThemeSettings-delete')
@@ -2527,7 +2527,8 @@ class CpThemeSettings extends FormApplication {
       this.selectedTheme = expandedData.selectedTheme;
 
       if (!presetThemes[expandedData.selectedTheme]) {
-        const customThemeSettings = foundry.utils.mergeObject(newThemeSettings.customList[this.selectedTheme], expandedData.currentSettings);
+        const customThemeSettings = foundry.utils
+          .mergeObject(newThemeSettings.customList[this.selectedTheme], expandedData.currentSettings);
         this.customThemes[this.selectedTheme] = customThemeSettings;
         newThemeSettings.customList[this.selectedTheme] = customThemeSettings;
       }
@@ -2718,14 +2719,14 @@ class CpItemSettings extends FormApplication {
         const $addSubtrait = event.target.closest('.add-subtrait');
 
         if ($addSubtrait) {
-          this.addSubtrait.call(this, $html, $addSubtrait);
+          this.addSubtrait($html, $addSubtrait);
           return
         }
 
         const $duplicateSubtrait = event.target.closest('.duplicate-subtrait');
 
         if ($duplicateSubtrait) {
-          this.duplicateSubtrait.call(this, $html, $duplicateSubtrait);
+          this.duplicateSubtrait($html, $duplicateSubtrait);
           return
         }
 
@@ -2762,14 +2763,14 @@ class CpItemSettings extends FormApplication {
         const $addTrait = event.target.closest('.add-trait');
 
         if ($addTrait) {
-          this.addTrait.call(this, $html, $addTrait);
+          this.addTrait($html, $addTrait);
           return
         }
 
         const $duplicateTrait = event.target.closest('.duplicate-trait');
 
         if ($duplicateTrait) {
-          this.duplicateTrait.call(this, $html, $duplicateTrait);
+          this.duplicateTrait($html, $duplicateTrait);
           return
         }
 
@@ -4219,7 +4220,8 @@ class CpItemSheet extends ItemSheet {
 
     Log$2('CPItemSheet._updateObject expandedData:', expandedData);
 
-    const hasItemTypeChanged = expandedData.data.system.itemTypeId && expandedData.data.system.itemTypeId !== this.item.system.itemTypeId;
+    const hasItemTypeChanged = expandedData.data.system.itemTypeId
+      && expandedData.data.system.itemTypeId !== this.item.system.itemTypeId;
 
     expandedData.data.system.dice = typeof expandedData.data.system.dice === 'string'
       ? [parseInt(expandedData.data.system.dice, 10),]
@@ -4257,11 +4259,6 @@ class CpItemSheet extends ItemSheet {
   }
 
   async onAddDie() {
-    [
-      ...this.item.system.dice ?? [],
-      this.item.system.dice?.[this.item.system.dice.length - 1] ?? this.itemSettings.minDieRating,
-    ];
-
     await this.item.update({
       system: {
         ...this.item.system,
@@ -4326,28 +4323,28 @@ class CpItemSheet extends ItemSheet {
 const Log$1 = Logger();
 
 class CpActorSheet extends ActorSheet {
-  get actor () {
+  get actor() {
     return super.actor
   }
 
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'sheet', 'actor-sheet'],
+      classes: ['cortexprime', 'sheet', 'actor-sheet',],
       height: 900,
-      template: "systems/cortexprime/system/templates/CpActorSheet.html",
+      template: 'systems/cortexprime/system/templates/CpActorSheet.html',
       width: 960,
     })
   }
- 
-  async getData (options) {
+
+  async getData(options) {
     const superData = super.getData(options);
-    
-    Log$1(`CpActorSheet.getData superData:`, superData);
+
+    Log$1('CpActorSheet.getData superData:', superData);
 
     return superData
   }
 
-  activateListeners (html) {
+  activateListeners(html) {
     super.activateListeners(html);
   }
 }
