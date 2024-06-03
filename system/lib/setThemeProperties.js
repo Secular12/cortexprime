@@ -104,14 +104,14 @@ export const setThemeProperties = properties => {
     $root
       .style
       .setProperty(
-        `--${camelCasetoKebabCase(namespace)}-border`,
+        `--cp-${camelCasetoKebabCase(namespace)}-border`,
         `${values.style ?? 'solid'} ${values.color ?? 'black'}`
       )
 
     $root
       .style
       .setProperty(
-        `--${camelCasetoKebabCase(namespace)}-border-width`,
+        `--cp-${camelCasetoKebabCase(namespace)}-border-width`,
         widthValue
       )
   })
@@ -119,6 +119,6 @@ export const setThemeProperties = properties => {
   mainProperties.forEach(([property, value,]) => {
     $root
       .style
-      .setProperty(`--${camelCasetoKebabCase(property)}`, value)
+      .setProperty(`--cp-${camelCasetoKebabCase(property)}`, value)
   })
 }

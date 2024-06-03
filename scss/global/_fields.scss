@@ -53,11 +53,11 @@
 }
 
 .field-input, .color {
-  background-color: var(--input-background-color, color('input-background'));
-  border: var(--input-border, solid color('input-border'));
-  border-width: var(--input-border-width, 0 0 2px);
-  border-radius: var(--input-border-radius, 0);
-  color: var(--input-font-color, color('input-font'));
+  background-color: var(--cp-input-background-color, color('input-background'));
+  border: var(--cp-input-border, solid color('input-border'));
+  border-width: var(--cp-input-border-width, 0 0 2px);
+  border-radius: var(--cp-input-border-radius, 0);
+  color: var(--cp-input-font-color, color('input-font'));
   height: toRem(26px);
   padding: 0 toRem(4px);
   width: 100%;
@@ -73,13 +73,13 @@
 }
 
 .field-label {
-  color: var(--input-label-color, color('input-label'));
+  color: var(--cp-input-label-color, color('input-label'));
   display: block;
-  font-size: var(--input-label-size, toRem(12px));
-  font-style: var(--input-label-style, normal);
-  font-weight: var(--input-label-weight, 700);
+  font-size: var(--cp-input-label-size, toRem(12px));
+  font-style: var(--cp-input-label-style, normal);
+  font-weight: var(--cp-input-label-weight, 700);
   margin-bottom: toRem(4px);
-  text-transform: var(--input-label-casing, capitalize);
+  text-transform: var(--cp-input-label-casing, capitalize);
 }
 
 .field-wrapper {

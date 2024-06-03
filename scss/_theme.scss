@@ -28,16 +28,16 @@
 }
 
 .theme-body, &.theme-body {
-  color: var(--body-font-color, color('body-font'));
-  font-size: var(--body-font-size, toRem(14px));
-  font-weight: var(--body-font-weight, 400);
+  color: var(--cp-body-font-color, color('body-font'));
+  font-size: var(--cp-body-font-size, toRem(14px));
+  font-weight: var(--cp-body-font-weight, 400);
   height: 100%;
 
   .theme-body-background-color {
-    background-color: var(--body-background-color, color('body-background'));
+    background-color: var(--cp-body-background-color, color('body-background'));
     height: 100%;
     left: 0;
-    opacity: var(--body-background-color-opacity, 1);
+    opacity: var(--cp-body-background-color-opacity, 1);
     position: absolute;
     top: 0;
     width: 100%;
@@ -45,13 +45,13 @@
   }
 
   .theme-body-background-image {
-    background-image: var(--body-background-image, none);
-    background-position: var(--body-background-image-position, center);
-    background-repeat: var(--body-background-image-repeat, no-repeat);
-    background-size: var(--body-background-image-size, cover);
+    background-image: var(--cp-body-background-image, none);
+    background-position: var(--cp-body-background-image-position, center);
+    background-repeat: var(--cp-body-background-image-repeat, no-repeat);
+    background-size: var(--cp-body-background-image-size, cover);
     height: 100%;
     left: 0;
-    opacity: var(--body-background-image-opacity, 0.5);
+    opacity: var(--cp-body-background-image-opacity, 0.5);
     position: absolute;
     top: 0;
     width: 100%;
@@ -65,9 +65,9 @@
 
   .theme-section {
     background: transparent;
-    border: var(--section-border, solid color('section-border'));
-    border-radius: var(--section-border-radius, 0);
-    border-width: var(--section-border-width, 2px);
+    border: var(--cp-section-border, solid color('section-border'));
+    border-radius: var(--cp-section-border-radius, 0);
+    border-width: var(--cp-section-border-width, 2px);
     box-sizing: border-box;
     overflow: hidden;
     position: relative;
@@ -88,29 +88,29 @@
   .theme-section-background-color,
   .theme-section-background-alt-color,
   .theme-section-background-alt-2-color {
-    opacity: var(--section-background-color-opacity, 1);
+    opacity: var(--cp-section-background-color-opacity, 1);
     z-index: 4;
   }
 
   .theme-section-background-color {
-    background-color: var(--section-background-color, color('section-background'));
+    background-color: var(--cp-section-background-color, color('section-background'));
     
   }
 
   .theme-section-background-alt-color {
-    background-color: var(--section-background-alt-color, color('section-background-alt'));
+    background-color: var(--cp-section-background-alt-color, color('section-background-alt'));
   }
 
   .theme-section-background-alt-2-color {
-    background-color: var(--section-background-alt-2-color, color('section-background-alt-2'));
+    background-color: var(--cp-section-background-alt-2-color, color('section-background-alt-2'));
   }
 
   .theme-section-background-image {
-    background-image: var(--section-background-image, none);
-    background-position: var(--section-background-image-position, center);
-    background-repeat: var(--section-background-image-repeat, no-repeat);
-    background-size: var(--section-background-image-size, cover);
-    opacity: var(--section-background-image-opacity, 0);
+    background-image: var(--cp-section-background-image, none);
+    background-position: var(--cp-section-background-image-position, center);
+    background-repeat: var(--cp-section-background-image-repeat, no-repeat);
+    background-size: var(--cp-section-background-image-size, cover);
+    opacity: var(--cp-section-background-image-opacity, 0);
     z-index: 3;
   }
 

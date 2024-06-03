@@ -906,7 +906,7 @@ class DicePool extends FormApplication {
   }
 
   _updateObject(event, formData) {
-    const expandedData = expandObject(formData);
+    const expandedData = foundry.utils.expandObject(formData);
 
     this.customAdd = {
       ...this.customAdd,
@@ -1556,14 +1556,14 @@ const setThemeProperties = properties => {
     $root
       .style
       .setProperty(
-        `--${camelCasetoKebabCase(namespace)}-border`,
+        `--cp-${camelCasetoKebabCase(namespace)}-border`,
         `${values.style ?? 'solid'} ${values.color ?? 'black'}`
       );
 
     $root
       .style
       .setProperty(
-        `--${camelCasetoKebabCase(namespace)}-border-width`,
+        `--cp-${camelCasetoKebabCase(namespace)}-border-width`,
         widthValue
       );
   });
@@ -1571,7 +1571,7 @@ const setThemeProperties = properties => {
   mainProperties.forEach(([property, value,]) => {
     $root
       .style
-      .setProperty(`--${camelCasetoKebabCase(property)}`, value);
+      .setProperty(`--cp-${camelCasetoKebabCase(property)}`, value);
   });
 };
 
@@ -2191,7 +2191,7 @@ class CpThemeSettings extends FormApplication {
   }
 
   async _updateObject(event, formData) {
-    const expandedData = expandObject(formData);
+    const expandedData = foundry.utils.expandObject(formData);
 
     Log$4('CPThemeSettings._updateObject expandedData:', expandedData);
 
@@ -2453,7 +2453,7 @@ class CpThemeSettings extends FormApplication {
   preview(html) {
     const formData = Object.fromEntries(new FormData(html[0]).entries());
 
-    const expandedData = expandObject(formData);
+    const expandedData = foundry.utils.expandObject(formData);
 
     Log$4('CpThemeSettings.preview expandedData:', expandedData);
 
@@ -4216,7 +4216,7 @@ class CpItemSheet extends ItemSheet {
   }
 
   async _updateObject(event, formData) {
-    let expandedData = expandObject(formData);
+    let expandedData = foundry.utils.expandObject(formData);
 
     Log$2('CPItemSheet._updateObject expandedData:', expandedData);
 

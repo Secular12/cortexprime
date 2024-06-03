@@ -24,85 +24,85 @@
 
 .cp-chosen {
   .fill {
-    fill: var(--chosen-fill-color, color('chosen-fill'));
+    fill: var(--cp-chosen-fill-color, color('chosen-fill'));
   }
 
   .stroke {
-    fill: var(--chosen-stroke-color, color('chosen-stroke'));
+    fill: var(--cp-chosen-stroke-color, color('chosen-stroke'));
   }
 
   .number {
-    color: var(--chosen-number-color, color('chosen-number'));
+    color: var(--cp-chosen-number-color, color('chosen-number'));
   }
 }
 
 .cp-die-rating {
   .fill {
-    fill: var(--die-rating-fill-color, color('die-rating-fill'));
+    fill: var(--cp-die-rating-fill-color, color('die-rating-fill'));
   }
 
   .stroke {
-    fill: var(--die-rating-stroke-color, color('die-rating-stroke'));
+    fill: var(--cp-die-rating-stroke-color, color('die-rating-stroke'));
   }
 
   .number {
-    color: var(--die-rating-number-color, color('die-rating-number'));
+    color: var(--cp-die-rating-number-color, color('die-rating-number'));
   }
 }
 
 .cp-effect {
   .fill {
-    fill: var(--effect-fill-color, color('effect-fill'));
+    fill: var(--cp-effect-fill-color, color('effect-fill'));
   }
 
   .stroke {
-    fill: var(--effect-stroke-color, color('effect-stroke'));
+    fill: var(--cp-effect-stroke-color, color('effect-stroke'));
   }
 
   .number {
-    color: var(--effect-number-color, color('effect-number'));
+    color: var(--cp-effect-number-color, color('effect-number'));
   }
 }
 
 .cp-hitch {
   .fill {
-    fill: var(--hitch-fill-color, color('hitch-fill'));
+    fill: var(--cp-hitch-fill-color, color('hitch-fill'));
   }
 
   .stroke {
-    fill: var(--hitch-stroke-color, color('hitch-stroke'));
+    fill: var(--cp-hitch-stroke-color, color('hitch-stroke'));
   }
 
   .number {
-    color: var(--hitch-number-color, color('hitch-number'));
+    color: var(--cp-hitch-number-color, color('hitch-number'));
   }
 }
 
 .cp-selected {
   .fill {
-    fill: var(--selected-fill-color, color('selected-fill'));
+    fill: var(--cp-selected-fill-color, color('selected-fill'));
   }
 
   .stroke {
-    fill: var(--selected-stroke-color, color('selected-stroke'));
+    fill: var(--cp-selected-stroke-color, color('selected-stroke'));
   }
 
   .number {
-    color: var(--selected-number-color, color('selected-number'));
+    color: var(--cp-selected-number-color, color('selected-number'));
   }
 }
 
 .cp-unchosen {
   .fill {
-    fill: var(--unchosen-fill-color, color('unchosen-fill'));
+    fill: var(--cp-unchosen-fill-color, color('unchosen-fill'));
   }
 
   .stroke {
-    fill: var(--unchosen-stroke-color, color('unchosen-stroke'));
+    fill: var(--cp-unchosen-stroke-color, color('unchosen-stroke'));
   }
 
   .number {
-    color: var(--unchosen-number-color, color('unchosen-number'));
+    color: var(--cp-unchosen-number-color, color('unchosen-number'));
   }
 }
 

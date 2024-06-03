@@ -1,9 +1,9 @@
 @mixin btn {
-  background-color: var(--button-background-primary-color, color('button-background-primary'));
-  border: var(--button-primary-border, solid color('button-border-primary'));
-  border-radius: var(--button-primary-border-radius, 0);
-  border-width: var(--button-primary-border-width, 0);
-  color: var(--button-font-primary-color, color('button-font-primary'));
+  background-color: var(--cp-button-background-primary-color, color('button-background-primary'));
+  border: var(--cp-button-primary-border, solid color('button-border-primary'));
+  border-radius: var(--cp-button-primary-border-radius, 0);
+  border-width: var(--cp-button-primary-border-width, 0);
+  color: var(--cp-button-font-primary-color, color('button-font-primary'));
   font-weight: bold;
   height: toRem(26px);
   line-height: 1;
@@ -30,9 +30,9 @@
 }
 
 @mixin btn-secondary {
-  background-color: var(--button-background-secondary-color, color('button-background-secondary'));
-  border: var(--button-secondary-border, solid color('button-border-secondary'));
-  border-radius: var(--button-secondary-border-radius, 0);
-  border-width: var(--button-secondary-border-width, 0);
-  color: var(--button-font-secondary-color, color('button-font-secondary'));
+  background-color: var(--cp-button-background-secondary-color, color('button-background-secondary'));
+  border: var(--cp-button-secondary-border, solid color('button-border-secondary'));
+  border-radius: var(--cp-button-secondary-border-radius, 0);
+  border-width: var(--cp-button-secondary-border-width, 0);
+  color: var(--cp-button-font-secondary-color, color('button-font-secondary'));
 }

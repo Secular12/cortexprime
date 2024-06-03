@@ -9,5 +9,5 @@
 .separator {
   width: 100%;
   height: 0;
-  border-bottom: var(--separator-width, 2px) var(--separator-style, solid) var(--separator-color, color('separator'));
+  border-bottom: var(--cp-separator-width, 2px) var(--cp-separator-style, solid) var(--cp-separator-color, color('separator'));
 }

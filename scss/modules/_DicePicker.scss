@@ -1,10 +1,10 @@
 &.DicePicker {
   .dialog-buttons {
     .dialog-button {
-      background-color: var(--button-background-primary-color, color('button-background-primary'));
+      background-color: var(--cp-button-background-primary-color, color('button-background-primary'));
       border: none;
       border-radius: 0;
-      color: var(--button-font-primary-color, color('button-font-primary'));
+      color: var(--cp-button-font-primary-color, color('button-font-primary'));
       font-weight: bold;
       height: toRem(26px);
       line-height: 1;
