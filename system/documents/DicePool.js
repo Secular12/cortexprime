@@ -1,12 +1,12 @@
-import { diceSelectListener, fieldListeners } from '../lib/formHelpers.js'
-import { addListeners, localizer } from '../lib/helpers.js'
+import { diceSelectListener, fieldListeners, } from '../lib/formHelpers.js'
+import { addListeners, localizer, } from '../lib/helpers.js'
 import Logger from '../lib/Logger'
 import rollDice from '../lib/rollDice.js'
 
 const Log = Logger()
 
 const getBlankCustomAdd = () => ({
-  dice: [8],
+  dice: [8,],
   hasHitches: true,
   parentName: null,
   name: '',
@@ -14,7 +14,7 @@ const getBlankCustomAdd = () => ({
 })
 
 export class DicePool extends FormApplication {
-  constructor () {
+  constructor() {
     super()
 
     this.customAdd = getBlankCustomAdd()
@@ -24,8 +24,8 @@ export class DicePool extends FormApplication {
   }
 
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'DicePool'],
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      classes: ['cortexprime', 'DicePool',],
       closeOnSubmit: false,
       height: 'auto',
       id: 'DicePool',
@@ -36,21 +36,21 @@ export class DicePool extends FormApplication {
       template: 'systems/cortexprime/system/templates/DicePool.html',
       title: localizer('CP.DicePool'),
       top: 500,
-      width: 480
+      width: 480,
     })
   }
 
-  getData () {
+  getData() {
     const data = {
       customAdd: this.customAdd,
       pool: this.pool,
       poolIsEmpty: this.poolIsEmpty,
       rollMode: this.rollMode,
       rollModes: [
-          { name: localizer('CP.PublicRoll'), value: 'publicroll' },
-          { name: localizer('CP.PrivateGmRoll'), value: 'gmroll' },
-          { name: localizer('CP.BlindGmRoll'), value: 'blindroll' },
-          { name: localizer('CP.SelfRoll'), value: 'selfroll' },
+        { name: localizer('CP.PublicRoll'), value: 'publicroll', },
+        { name: localizer('CP.PrivateGmRoll'), value: 'gmroll', },
+        { name: localizer('CP.BlindGmRoll'), value: 'blindroll', },
+        { name: localizer('CP.SelfRoll'), value: 'selfroll', },
       ],
     }
 
@@ -59,7 +59,7 @@ export class DicePool extends FormApplication {
     return data
   }
 
-  _updateObject (event, formData) {
+  _updateObject(event, formData) {
     const expandedData = expandObject(formData)
 
     this.customAdd = {
@@ -73,14 +73,14 @@ export class DicePool extends FormApplication {
       'DicePool._updateObject event, expandedData, this.rollMode:',
       event,
       expandedData,
-      this.rollMode,
+      this.rollMode
     )
   }
 
-  activateListeners (html) {
+  activateListeners(html) {
     super.activateListeners(html)
 
-    const [$html] = html
+    const [$html,] = html
 
     fieldListeners($html)
 
@@ -96,33 +96,33 @@ export class DicePool extends FormApplication {
     $html
       .querySelector('#DicePool-add-custom-trait')
       .addEventListener('click', this.addCustomTrait.bind(this))
-    
+
     $html
       .querySelector('#DicePool-clear')
       ?.addEventListener('click', () => {
         this.clear()
         this.render(true)
       })
-    
-      addListeners(
-        $html,
-        '.DicePool-remove-trait',
-        'click',
-        this.removeTrait.bind(this)
-      )
-    
+
+    addListeners(
+      $html,
+      '.DicePool-remove-trait',
+      'click',
+      this.removeTrait.bind(this)
+    )
+
     $html
       .querySelector('#DicePool-reset-custom-trait')
       .addEventListener('click', this.resetCustomTrait.bind(this))
-    
+
     $html
       .querySelector('#DicePool-roll-effect')
       ?.addEventListener('click', () => this._rollDice.call(this, 'effect'))
-    
+
     $html
       .querySelector('#DicePool-roll-select')
       ?.addEventListener('click', () => this._rollDice.call(this, 'select'))
-    
+
     $html
       .querySelector('#DicePool-roll-total')
       ?.addEventListener('click', () => this._rollDice.call(this, 'total'))
@@ -145,7 +145,7 @@ export class DicePool extends FormApplication {
 
     const {
       sourceIndex,
-      traitIndex
+      traitIndex,
     } = trait.dataset
 
     return this.pool[sourceIndex].traits[traitIndex]
@@ -159,18 +159,18 @@ export class DicePool extends FormApplication {
         : null
   }
 
-  async _rollDice (rollType) {
+  async _rollDice(rollType) {
     Log('DicePool._rollDice this.pool, rollType:', this.pool, rollType)
 
     await rollDice.call(this, this.pool, rollType, this.rollMode)
   }
 
-  _onChangeRollsSeparately (event, [$html]) {
+  _onChangeRollsSeparately(event, [$html,]) {
     const $target = event.currentTarget
     const isRolledSeparately = $target.checked
 
     const $hasHitchesCheckbox = $html
-    .querySelector('#DicePool-has-hitches')
+      .querySelector('#DicePool-has-hitches')
 
     $hasHitchesCheckbox.disabled = !isRolledSeparately
     $hasHitchesCheckbox.checked = !isRolledSeparately
@@ -181,7 +181,7 @@ export class DicePool extends FormApplication {
       .toggle('field-disabled')
   }
 
-  async addCustomTrait (event) {
+  async addCustomTrait(event) {
     event.preventDefault()
 
     const matchingSourceIndex = this.pool
@@ -190,8 +190,8 @@ export class DicePool extends FormApplication {
     if (matchingSourceIndex < 0) {
       this.pool = [...this.pool, {
         source: 'Custom',
-        traits: [this.customAdd]
-      }]
+        traits: [this.customAdd,],
+      },]
     } else {
       this.pool[matchingSourceIndex].traits = [
         ...this.pool[matchingSourceIndex].traits,
@@ -202,7 +202,7 @@ export class DicePool extends FormApplication {
     this.resetCustomTrait()
   }
 
-  addToPool (event, $addToPoolButton) {
+  addToPool(event, $addToPoolButton) {
     const $rollResult = $addToPoolButton.closest('.RollResult')
 
     this.pool = Array
@@ -218,29 +218,29 @@ export class DicePool extends FormApplication {
             hasHitches: $trait.dataset.hasHitches !== 'false',
             name: $trait.dataset.name ?? null,
             parentName: $trait.dataset.parentName ?? null,
-            rollsSeparately: $trait.dataset.rollsSeparately !== 'false'
-          }))
+            rollsSeparately: $trait.dataset.rollsSeparately !== 'false',
+          })),
       }))
   }
 
-  clear () {
+  clear() {
     this.customAdd = getBlankCustomAdd()
 
     this.pool = []
   }
 
-  async onAddDie (event, { target }) {
+  async onAddDie(event, { target, }) {
     const targetTrait = this._getTraitByTarget(event, target)
 
     targetTrait.dice = [
       ...targetTrait.dice,
-      targetTrait.dice[targetTrait.dice.length - 1] ?? 8
+      targetTrait.dice[targetTrait.dice.length - 1] ?? 8,
     ]
 
     await this.render(true)
   }
 
-  async onChangeDie (event, { index, target, value }) {
+  async onChangeDie(event, { index, target, value, }) {
     const targetTrait = this._getTraitByTarget(event, target)
 
     targetTrait.dice = targetTrait.dice.map((die, dieIndex) => {
@@ -250,7 +250,7 @@ export class DicePool extends FormApplication {
     await this.render(true)
   }
 
-  async onRemoveDie (event, { index, target }) {
+  async onRemoveDie(event, { index, target, }) {
     const targetTrait = this._getTraitByTarget(event, target)
 
     targetTrait.dice = targetTrait.dice
@@ -259,12 +259,12 @@ export class DicePool extends FormApplication {
     await this.render(true)
   }
 
-  async removeTrait (event) {
+  async removeTrait(event) {
     const trait = event.currentTarget.closest('.DicePool-trait')
 
     const {
       sourceIndex,
-      traitIndex
+      traitIndex,
     } = trait.dataset
 
     this.pool[sourceIndex].traits = this.pool[sourceIndex].traits
@@ -281,7 +281,7 @@ export class DicePool extends FormApplication {
     await this.render(true)
   }
 
-  async toggle () {
+  async toggle() {
     if (!this.rendered) {
       await this.render(true)
     } else {

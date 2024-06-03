@@ -1,54 +1,54 @@
-const Logger = method => (...args) => {
+var Logger = method => (...args) => {
   if (CONFIG.debug?.logs) {
-    if (!method || typeof method === 'string') console[method || 'log'](...args)
+    if (!method || typeof method === 'string') console[method || 'log'](...args);
     else args.forEach((arg, index) => {
-      console[method?.[index] ?? 'log'](arg)
-    })
+      console[method?.[index] ?? 'log'](arg);
+    });
   }
-}
+};
 
-const Assert = Logger('assert')
-const Log$7 = Logger()
+const Assert = Logger('assert');
+const Log$7 = Logger();
 
 class CpItem extends Item {
-  async _preCreate(data, options, user) {
-    Log$7('CpItem._preCreate data, options, user', data, options, user)
+  async _preCreate (data, options, user) {
+    Log$7('CpItem._preCreate data, options, user', data, options, user);
 
-    const itemTypeSettings = game.settings.get('cortexprime', 'itemTypes')
+    const itemTypeSettings = game.settings.get('cortexprime', 'itemTypes');
 
-    Log$7('CpItem._preCreate itemTypeSettings', itemTypeSettings)
+    Log$7('CpItem._preCreate itemTypeSettings', itemTypeSettings);
 
     const traitTypes = itemTypeSettings.traits
-      .map(({ id, name, }) => ({ id, name, }))
+      .map(({ id, name }) => ({ id, name }));
 
     const subtraitTypes = itemTypeSettings.subtraits
-      .map(({ id, name, }) => ({ id, name, }))
+      .map(({ id, name }) => ({ id, name }));
 
     if (data.type === 'Trait') {
       Assert(
         traitTypes?.length > 0,
         'CpItem._preCreate: There are no trait type options'
-      )
+      );
     }
 
     if (data.type === 'Subtrait') {
       Assert(
         subtraitTypes?.length > 0,
         'CpItem._preCreate: There are no subtrait type options'
-      )
+      );
     }
 
     const itemTypes = data.type === 'Trait'
       ? traitTypes
       : data.type === 'Subtrait'
         ? subtraitTypes
-        : []
+        : [];
 
     if (itemTypes.length !== 1) return
-
+    
     await this.updateSource({
-      'system.itemType': itemTypes[0],
-    })
+      'system.itemType': itemTypes[0]
+    });
   }
 }
 
@@ -56,9 +56,9 @@ const addListeners = ($html, selector, event, callback) => {
   $html
     .querySelectorAll(selector)
     .forEach($item => {
-      $item.addEventListener(event, callback)
-    })
-}
+      $item.addEventListener(event, callback);
+    });
+};
 
 const camelCasetoKebabCase = str => {
   return str.split('').map((letter, idx) => {
@@ -66,29 +66,29 @@ const camelCasetoKebabCase = str => {
       ? `${idx !== 0 ? '-' : ''}${letter.toLowerCase()}`
       : letter
   }).join('')
-}
+};
 
 const displayToggleMethod = function(event, $target) {
-  const $toggler = $target ?? event.currentTarget
+  const $toggler = $target ?? event.currentTarget;
 
-  const $chevronIcon = $toggler.querySelector('.toggler-icon')
+  const $chevronIcon = $toggler.querySelector('.toggler-icon');
 
-  const { parent, target, } = $toggler.dataset
-
-  $chevronIcon
-    .classList
-    .toggle('fa-chevron-down')
+  const { parent, target, } = $toggler.dataset;
 
   $chevronIcon
     .classList
-    .toggle('fa-chevron-up')
+    .toggle('fa-chevron-down');
+
+  $chevronIcon
+    .classList
+    .toggle('fa-chevron-up');
 
   $toggler
     .closest(parent)
     ?.querySelector(target)
     ?.classList
-    ?.toggle('hide')
-}
+    ?.toggle('hide');
+};
 
 const displayToggle = $html => {
   addListeners(
@@ -96,8 +96,8 @@ const displayToggle = $html => {
     '.display-toggle',
     'click',
     displayToggleMethod
-  )
-}
+  );
+};
 
 const checkboxDisplayToggle = $html => {
   addListeners(
@@ -105,56 +105,56 @@ const checkboxDisplayToggle = $html => {
     '.checkbox-display-toggle',
     'change',
     event => {
-      const $toggler = event.currentTarget
+      const $toggler = event.currentTarget;
 
       const {
         parent,
         target,
-      } = $toggler.dataset
+      } = $toggler.dataset;
 
       $toggler
         .closest(parent)
         ?.querySelector(target)
         ?.classList
-        ?.toggle('hide')
+        ?.toggle('hide');
     }
-  )
-}
+  );
+};
 
-const localizer = target => game.i18n.localize(target)
+const localizer = target => game.i18n.localize(target);
 
 const objectSortToArray = (obj, cb) => {
-  const entries = Object.entries(obj)
+  const entries = Object.entries(obj);
 
   const callback = cb
     ? cb
-    : ([a,], [b,]) => b > a ? -1 : a > b ? 1 : 0
+    : ([a,], [b,]) => b > a ? -1 : a > b ? 1 : 0;
 
-  entries.sort((a, b) => callback(a, b, entries.length))
+  entries.sort((a, b) => callback(a, b, entries.length));
 
   return entries
     .map(([_, value,]) => value)
-}
+};
 
 const rounding = (dir = null) => (number, increment, offset) => {
-  const roundingDir = dir ?? 'round'
+  const roundingDir = dir ?? 'round';
   if (!increment) return number
 
-  const incSplit = increment.toString().split('.')
+  const incSplit = increment.toString().split('.');
 
-  const precision = incSplit.length > 1 ? incSplit[1].length : null
-  const value = (Math[roundingDir]((number - offset) / increment ) * increment) + offset
+  const precision = incSplit.length > 1 ? incSplit[1].length : null;
+  const value = (Math[roundingDir]((number - offset) / increment ) * increment) + offset;
 
   return precision ? parseFloat(value.toPrecision(precision)) : value
-}
+};
 
-const round = rounding()
+const round = rounding();
 
 const uuid = () => {
   return ([1e7,]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c => {
     return (((c ^ crypto.getRandomValues(new Uint8Array(1))[0]) & 15) >> c / 4).toString(16)
   })
-}
+};
 
 const diceSelectListener = ($html, { addDie, changeDie, removeDie, }) => {
 
@@ -164,10 +164,10 @@ const diceSelectListener = ($html, { addDie, changeDie, removeDie, }) => {
       '.new-die',
       'click',
       event => {
-        const { target, } = event.currentTarget.dataset ?? {}
-        addDie(event, { target, })
+        const { target, } = event.currentTarget.dataset ?? {};
+        addDie(event, { target, });
       }
-    )
+    );
   }
 
   if (changeDie) {
@@ -179,15 +179,15 @@ const diceSelectListener = ($html, { addDie, changeDie, removeDie, }) => {
         const {
           index,
           target,
-        } = event.currentTarget.dataset ?? {}
+        } = event.currentTarget.dataset ?? {};
 
         changeDie(event, {
           index: parseInt(index, 10),
           target,
           value: parseInt(event.currentTarget.value, 10),
-        })
+        });
       }
-    )
+    );
   }
 
   if (removeDie) {
@@ -196,21 +196,21 @@ const diceSelectListener = ($html, { addDie, changeDie, removeDie, }) => {
       '.die-select.removable',
       'mouseup',
       event => {
-        event.preventDefault()
+        event.preventDefault();
 
         const {
           index,
           target,
-        } = event.currentTarget.dataset ?? {}
+        } = event.currentTarget.dataset ?? {};
 
         if (event.button === 2) removeDie(event, {
           index: parseInt(index, 10),
           target,
-        })
+        });
       }
-    )
+    );
   }
-}
+};
 
 const numberFieldListener = $html => {
   $html
@@ -218,35 +218,35 @@ const numberFieldListener = $html => {
     .forEach($numberInput => {
       $numberInput
         .addEventListener('change', event => {
-          const el = event.target
+          const el = event.target;
 
           if (!el.required && !el.value && el.value !== 0) return
 
-          const max = el.max || el.max === 0 ? Number(el.max) : null
-          const min = el.min || el.min === 0 ? Number(el.min) : null
-          const step = Number(el.step)
-          const value = Number(el.value)
+          const max = el.max || el.max === 0 ? Number(el.max) : null;
+          const min = el.min || el.min === 0 ? Number(el.min) : null;
+          const step = Number(el.step);
+          const value = Number(el.value);
 
           if ((min || min === 0) && value < min) {
-            el.value = min
+            el.value = min;
             return
           }
 
           if ((max || max === 0) && value > max) {
-            el.value = max
+            el.value = max;
             return
           }
 
           if (step) {
-            el.value = round(value, step, min ?? 0)
+            el.value = round(value, step, min ?? 0);
           }
-        })
-    })
-}
+        });
+    });
+};
 
 const fieldListeners = html => {
-  numberFieldListener(html)
-}
+  numberFieldListener(html);
+};
 
 const diceIcons = {
   d4: (type = 'die-rating', number = 4) => (
@@ -293,11 +293,11 @@ const diceIcons = {
     + `<div class="number">${number}</div>`
     + '</div>'
   ),
-}
+};
 
 const getDieIcon = (rating, type, number) => {
   return diceIcons[`d${rating}`](type, number)
-}
+};
 
 const getAppendDiceContent = ({ isDefault, dieRating, key, }) => {
   return `<div class="die-wrapper${
@@ -309,119 +309,119 @@ const getAppendDiceContent = ({ isDefault, dieRating, key, }) => {
       getDieIcon(dieRating, 'effect')
     }</div>`
     + '</div>'
-}
+};
 
-const dicePickerRender = resolve => ([$html,]) => {
-  const $addToTotal = $html.querySelector('.DicePicker-add-to-total')
-  const $addToEffect = $html.querySelector('.DicePicker-add-to-effect')
-  const $effectDiceContainer = $html.querySelector('.DicePicker-effect-value .dice-container')
-  const $resetSelection = $html.querySelector('.DicePicker-reset')
+var dicePickerRender = resolve => ([$html,]) => {
+  const $addToTotal = $html.querySelector('.DicePicker-add-to-total');
+  const $addToEffect = $html.querySelector('.DicePicker-add-to-effect');
+  const $effectDiceContainer = $html.querySelector('.DicePicker-effect-value .dice-container');
+  const $resetSelection = $html.querySelector('.DicePicker-reset');
 
   const setSelectionOptionsDisableTo = value => {
-    $addToTotal.disabled = value ?? !$addToTotal.disabled
-    $addToEffect.disabled = value ?? !$addToEffect.disabled
-  }
+    $addToTotal.disabled = value ?? !$addToTotal.disabled;
+    $addToEffect.disabled = value ?? !$addToEffect.disabled;
+  };
 
   const setSelectionDisable = () => {
-    const $selectedDice = $html.querySelectorAll('.DicePicker-die-result.selected')
-    const $usedDice = $html.querySelectorAll('.DicePicker-die-result[data-type="effect"], .DicePicker-die-result[data-type="chosen"]')
+    const $selectedDice = $html.querySelectorAll('.DicePicker-die-result.selected');
+    const $usedDice = $html.querySelectorAll('.DicePicker-die-result[data-type="effect"], .DicePicker-die-result[data-type="chosen"]');
 
-    setSelectionOptionsDisableTo(!($selectedDice.length > 0))
+    setSelectionOptionsDisableTo(!($selectedDice.length > 0));
 
-    $resetSelection.disabled = !($selectedDice.length > 0 || $usedDice.length > 0)
-  }
+    $resetSelection.disabled = !($selectedDice.length > 0 || $usedDice.length > 0);
+  };
 
   const deselectEffectDie = ($effectDie, $selectedDie) => {
-    $selectedDie.dataset.type = 'unchosen'
+    $selectedDie.dataset.type = 'unchosen';
 
-    const $selectedCpDie = $selectedDie.querySelector('.cp-die')
+    const $selectedCpDie = $selectedDie.querySelector('.cp-die');
 
-    $selectedCpDie.classList.toggle('cp-unchosen')
-    $selectedCpDie.classList.toggle('cp-effect')
+    $selectedCpDie.classList.toggle('cp-unchosen');
+    $selectedCpDie.classList.toggle('cp-effect');
 
-    $effectDie.remove()
+    $effectDie.remove();
 
-    const $effectDice = $effectDiceContainer.querySelectorAll('.die-wrapper')
+    const $effectDice = $effectDiceContainer.querySelectorAll('.die-wrapper');
 
     if ($effectDice.length === 0) {
-      const dieContent = getAppendDiceContent({ isDefault: true, dieRating: '4', })
+      const dieContent = getAppendDiceContent({ isDefault: true, dieRating: '4', });
 
       $effectDiceContainer
-        .insertAdjacentHTML('beforeend', dieContent)
+        .insertAdjacentHTML('beforeend', dieContent);
     }
 
-    setSelectionDisable()
-  }
+    setSelectionDisable();
+  };
 
   $addToEffect
     .addEventListener('click', () => {
-      const $diceForEffect = $html.querySelectorAll('.DicePicker-die-result.selected')
+      const $diceForEffect = $html.querySelectorAll('.DicePicker-die-result.selected');
 
       if ($diceForEffect.length > 0) {
-        $effectDiceContainer.querySelector('.default')?.remove()
+        $effectDiceContainer.querySelector('.default')?.remove();
 
         $diceForEffect.forEach($die => {
-          const $cpDie = $die.querySelector('.cp-die')
-          const dieRating = $die.dataset.dieRating
-          const key = $die.dataset.key
+          const $cpDie = $die.querySelector('.cp-die');
+          const dieRating = $die.dataset.dieRating;
+          const key = $die.dataset.key;
 
-          $die.dataset.type = 'effect'
-          $die.classList.remove('selected')
+          $die.dataset.type = 'effect';
+          $die.classList.remove('selected');
 
-          $cpDie.classList.toggle('cp-selected')
-          $cpDie.classList.toggle('cp-effect')
+          $cpDie.classList.toggle('cp-selected');
+          $cpDie.classList.toggle('cp-effect');
 
-          const dieContent = getAppendDiceContent({ dieRating, key, })
+          const dieContent = getAppendDiceContent({ dieRating, key, });
 
           $effectDiceContainer
-            .insertAdjacentHTML('beforeend', dieContent)
-        })
+            .insertAdjacentHTML('beforeend', dieContent);
+        });
 
-        setSelectionDisable()
+        setSelectionDisable();
       }
-    })
+    });
 
   $addToTotal
     .addEventListener('click', () => {
-      const $diceForTotal = $html.querySelectorAll('.DicePicker-die-result.selected')
+      const $diceForTotal = $html.querySelectorAll('.DicePicker-die-result.selected');
 
       $diceForTotal.forEach($die => {
-        const $cpDie = $die.querySelector('.cp-die')
-        const value = parseInt($die.dataset.value, 10)
+        const $cpDie = $die.querySelector('.cp-die');
+        const value = parseInt($die.dataset.value, 10);
 
-        $die.dataset.type = 'chosen'
-        $die.classList.remove('selected')
+        $die.dataset.type = 'chosen';
+        $die.classList.remove('selected');
 
-        $cpDie.classList.toggle('cp-chosen')
-        $cpDie.classList.toggle('cp-selected')
+        $cpDie.classList.toggle('cp-chosen');
+        $cpDie.classList.toggle('cp-selected');
 
-        const $totalValue = $html.querySelector('.DicePicker-total-value')
+        const $totalValue = $html.querySelector('.DicePicker-total-value');
 
-        const currentValue = parseInt($totalValue.textContent, 10)
+        const currentValue = parseInt($totalValue.textContent, 10);
 
-        $totalValue.textContent = value + currentValue
-      })
+        $totalValue.textContent = value + currentValue;
+      });
 
-      setSelectionDisable()
-    })
+      setSelectionDisable();
+    });
 
   $html
     .closest('.window-app.dialog')
     .querySelector('.header-button.close')
     .addEventListener('click', event => {
-      event.preventDefault()
+      event.preventDefault();
 
-      const values = { dice: [], total: 0, effectDice: [], }
+      const values = { dice: [], total: 0, effectDice: [], };
 
       $html
         .querySelectorAll('.DicePicker-die-result')
         .forEach($die => {
-          const dieRating = $die.dataset.dieRating
-          const resultGroupIndex = parseInt($die.dataset.resultGroupIndex, 10)
-          const type = $die.dataset.type
-          const value = parseInt($die.dataset.value, 10)
+          const dieRating = $die.dataset.dieRating;
+          const resultGroupIndex = parseInt($die.dataset.resultGroupIndex, 10);
+          const type = $die.dataset.type;
+          const value = parseInt($die.dataset.value, 10);
 
-          const groupValues = values.dice[resultGroupIndex] ?? []
+          const groupValues = values.dice[resultGroupIndex] ?? [];
 
           values.dice[resultGroupIndex] = [
             ...groupValues,
@@ -430,110 +430,110 @@ const dicePickerRender = resolve => ([$html,]) => {
               type: type === 'hitch' ? 'hitch' : 'unchosen',
               value,
             },
-          ]
-        })
+          ];
+        });
 
-      resolve(values)
-    })
+      resolve(values);
+    });
 
   $resetSelection
     .addEventListener('click', $selection => {
       $html
         .querySelectorAll('.DicePicker-die-result:not([data-type="hitch"])')
         .forEach($target => {
-          $target.classList.remove('selected')
-          $target.dataset.type = 'unchosen'
+          $target.classList.remove('selected');
+          $target.dataset.type = 'unchosen';
 
-          const $cpDie = $target.querySelector('.cp-die')
+          const $cpDie = $target.querySelector('.cp-die');
 
-          $cpDie.classList.remove('cp-chosen', 'cp-effect', 'cp-selected')
-          $cpDie.classList.add('cp-unchosen')
-        })
+          $cpDie.classList.remove('cp-chosen', 'cp-effect', 'cp-selected');
+          $cpDie.classList.add('cp-unchosen');
+        });
 
       $html
         .querySelector('.DicePicker-total-value')
-        .textContent = '0'
+        .textContent = '0';
 
-      const dieContent = getAppendDiceContent({ isDefault: true, dieRating: '4', })
+      const dieContent = getAppendDiceContent({ isDefault: true, dieRating: '4', });
 
-      $effectDiceContainer.innerHtml = dieContent
+      $effectDiceContainer.innerHtml = dieContent;
 
-      setSelectionOptionsDisableTo(true)
-      $selection.disabled = true
-    })
+      setSelectionOptionsDisableTo(true);
+      $selection.disabled = true;
+    });
 
   $effectDiceContainer
     .addEventListener('mouseup', event => {
-      const $effectDie = event.target.closest('.die-wrapper')
+      const $effectDie = event.target.closest('.die-wrapper');
 
       if ($effectDie && event.button === 2) {
-        const key = $effectDie.dataset.key
+        const key = $effectDie.dataset.key;
 
         const $selectedDie = $html
-          .querySelector(`.DicePicker-result-groups [data-key="${key}"]`)
+          .querySelector(`.DicePicker-result-groups [data-key="${key}"]`);
 
-        deselectEffectDie($effectDie, $selectedDie)
+        deselectEffectDie($effectDie, $selectedDie);
       }
-    })
+    });
 
   addListeners(
     $html,
     '.DicePicker-result-groups',
     'click',
     event => {
-      const $chosenDie = event.target.closest('[data-type="chosen"]')
-      const $effectDie = event.target.closest('[data-type="effect"]')
-      const $unchosenDie = event.target.closest('[data-type="unchosen"]')
+      const $chosenDie = event.target.closest('[data-type="chosen"]');
+      const $effectDie = event.target.closest('[data-type="effect"]');
+      const $unchosenDie = event.target.closest('[data-type="unchosen"]');
 
       if ($chosenDie) {
-        const value = parseInt($chosenDie.dataset.value, 10)
+        const value = parseInt($chosenDie.dataset.value, 10);
 
-        $chosenDie.dataset.type = 'unchosen'
+        $chosenDie.dataset.type = 'unchosen';
 
-        const $cpDie = $chosenDie.querySelector('.cp-die')
+        const $cpDie = $chosenDie.querySelector('.cp-die');
 
-        $cpDie.classList.toggle('cp-chosen')
-        $cpDie.classList.toggle('cp-unchosen')
+        $cpDie.classList.toggle('cp-chosen');
+        $cpDie.classList.toggle('cp-unchosen');
 
-        const $totalValue = $html.querySelector('.DicePicker-total-value')
+        const $totalValue = $html.querySelector('.DicePicker-total-value');
 
-        const currentValue = parseInt($totalValue.textContent, 10)
+        const currentValue = parseInt($totalValue.textContent, 10);
 
-        $totalValue.textContent = currentValue - value
+        $totalValue.textContent = currentValue - value;
 
-        setSelectionDisable()
+        setSelectionDisable();
       }
 
       if ($effectDie) {
-        const key = $effectDie.dataset.key
+        const key = $effectDie.dataset.key;
 
-        const $currentEffectDie = $effectDiceContainer.querySelector(`[data-key="${key}"]`)
+        const $currentEffectDie = $effectDiceContainer.querySelector(`[data-key="${key}"]`);
 
-        deselectEffectDie($currentEffectDie, $effectDie)
+        deselectEffectDie($currentEffectDie, $effectDie);
       }
 
       if ($unchosenDie) {
-        $unchosenDie.classList.toggle('selected')
+        $unchosenDie.classList.toggle('selected');
 
-        const $cpDie = $unchosenDie.querySelector('.cp-die')
+        const $cpDie = $unchosenDie.querySelector('.cp-die');
 
-        $cpDie.classList.toggle('cp-selected')
-        $cpDie.classList.toggle('cp-unchosen')
+        $cpDie.classList.toggle('cp-selected');
+        $cpDie.classList.toggle('cp-unchosen');
 
-        setSelectionDisable()
+        setSelectionDisable();
       }
     }
-  )
-}
+  );
+};
 
-const Log$6 = Logger()
+const Log$6 = Logger();
 
 const dicePicker = async rollResults => {
-  Log$6('rollDice.dicePicker rollResults:', rollResults)
+  Log$6('rollDice.dicePicker rollResults:', rollResults);
 
   const content = await renderTemplate('systems/cortexprime/system/templates/DicePicker.html', {
     rollResults,
-  })
+  });
 
   return new Promise((resolve, reject) => {
     new Dialog({
@@ -545,24 +545,24 @@ const dicePicker = async rollResults => {
           label: localizer('CP.Confirm'),
           callback([$html,]) {
             const $dieResults = $html
-              .querySelectorAll('.DicePicker-die-result')
+              .querySelectorAll('.DicePicker-die-result');
 
-            const values = { dice: [], total: null, effectDice: [], }
+            const values = { dice: [], total: null, effectDice: [], };
 
             $dieResults
               .forEach($die => {
-                const dieRating = $die.dataset.dieRating
-                const resultGroupIndex = parseInt($die.dataset.resultGroupIndex, 10)
-                const type = $die.dataset.type
-                const value = parseInt($die.dataset.value, 10)
+                const dieRating = $die.dataset.dieRating;
+                const resultGroupIndex = parseInt($die.dataset.resultGroupIndex, 10);
+                const type = $die.dataset.type;
+                const value = parseInt($die.dataset.value, 10);
 
                 if (type === 'chosen') {
-                  values.total = values.total ? values.total + value : value
+                  values.total = values.total ? values.total + value : value;
                 } else if (type === 'effect') {
-                  values.effectDice.push(dieRating)
+                  values.effectDice.push(dieRating);
                 }
 
-                const groupValues = values.dice[resultGroupIndex] ?? []
+                const groupValues = values.dice[resultGroupIndex] ?? [];
 
                 values.dice[resultGroupIndex] = [
                   ...groupValues,
@@ -571,30 +571,30 @@ const dicePicker = async rollResults => {
                     type,
                     value,
                   },
-                ]
-              })
+                ];
+              });
 
-            resolve(values)
+            resolve(values);
           },
         },
       },
       default: 'confirm',
       render: dicePickerRender(resolve),
-    }, { jQuery: true, classes: ['dialog', 'DicePicker', 'cortexprime',], }).render(true)
+    }, { jQuery: true, classes: ['dialog', 'DicePicker', 'cortexprime',], }).render(true);
   })
-}
+};
 
 const display3dDice = ({ rollMode, throws, }) => {
   if (game.dice3d) {
-    const synchronize = rollMode !== 'selfroll'
+    const synchronize = rollMode !== 'selfroll';
     const whisper = ['gmroll', 'blindroll',].includes(rollMode)
       ? game.users.filter(u => u.isGM).map(u => u.id)
-      : null
-    const blind = rollMode === 'blindroll'
+      : null;
+    const blind = rollMode === 'blindroll';
 
-    game.dice3d.show({ throws, }, game.user, synchronize, whisper, blind)
+    game.dice3d.show({ throws, }, game.user, synchronize, whisper, blind);
   }
-}
+};
 
 const getRollFormulas = pool => {
   return pool
@@ -613,41 +613,41 @@ const getRollFormulas = pool => {
         }
 
         acc[0].formula = `${acc[0].formula ? (`${acc[0].formula}+`) : ''}d${
-          trait.dice.join('+d')}`
+          trait.dice.join('+d')}`;
 
         return acc
       }, formulas)
     }, [{ name: null, formula: '', hasHitches: true, rollsSeparately: false, },])
     .filter(({ formula, }) => !!formula)
-}
+};
 
 const getRollResults = async pool => {
-  const rollFormulas = getRollFormulas(pool)
+  const rollFormulas = getRollFormulas(pool);
 
-  Log$6('rollDice.getRollResults rollFormulas', rollFormulas)
+  Log$6('rollDice.getRollResults rollFormulas', rollFormulas);
 
-  const results = await rollByFormulas(rollFormulas)
+  const results = await rollByFormulas(rollFormulas);
 
-  const throws = getThrows(results)
+  const throws = getThrows(results);
 
   return {
     results,
     throws,
   }
-}
+};
 
 const getSelectedDice = results => {
   return results
     .reduce(({ effectDice, total, }, resultGroup) => {
       const targetEffectDie = resultGroup.rollsSeparately
         ? null
-        : resultGroup.results.find(result => result.type === 'effect')
+        : resultGroup.results.find(result => result.type === 'effect');
       return {
         effectDice: targetEffectDie?.dieRating ? [...effectDice, targetEffectDie.dieRating,] : effectDice,
         total: total + resultGroup.results.reduce((totalValue, result) => result.type === 'chosen' ? totalValue + result.value : totalValue, 0),
       }
     }, { effectDice: [], total: 0, })
-}
+};
 
 const getThrows = results => {
   return results.reduce((acc, result) => {
@@ -664,7 +664,7 @@ const getThrows = results => {
       },
     ]
   }, [])
-}
+};
 
 const initDiceValues = ({ roll, rollFormula, }) => {
   return roll.dice.map(die => ({
@@ -672,27 +672,27 @@ const initDiceValues = ({ roll, rollFormula, }) => {
     type: die.total > 1 || !rollFormula.hasHitches ? 'unchosen' : 'hitch',
     value: die.total,
   }))
-}
+};
 
 const markResultEffect = results => {
   if (results.rollsSeparately) return results
 
-  results.results = sortResultsByDieRating(results.results)
+  results.results = sortResultsByDieRating(results.results);
 
   results.results = results.results.reduce((acc, result) => {
-    const hasEffectDie = acc.some(item => item.type === 'effect')
+    const hasEffectDie = acc.some(item => item.type === 'effect');
     if (!['chosen', 'hitch',].includes(result.type) && !hasEffectDie) return [...acc, { ...result, type: 'effect', },]
 
     return [...acc, result,]
-  }, [])
+  }, []);
 
   return results
-}
+};
 
 const markResultTotals = results => {
-  const selectedTotalCount = results.rollsSeparately ? 1 : 2
+  const selectedTotalCount = results.rollsSeparately ? 1 : 2;
 
-  results.results = sortResultsByValue(results.results)
+  results.results = sortResultsByValue(results.results);
 
   results.results = results.results.reduce((acc, result) => {
     if (!['effect', 'hitch',].includes(result.type) && acc.count < selectedTotalCount) {
@@ -700,41 +700,41 @@ const markResultTotals = results => {
     }
 
     return { dice: [...acc.dice, result,], count: acc.count, }
-  }, { dice: [], count: 0, }).dice
+  }, { dice: [], count: 0, }).dice;
 
   return results
-}
+};
 
 const renderRollResult = async ({ diceSelections, effectDice, pool, results, rollMode, total, }) => {
   const contentData = {
     effectDice,
     pool,
     resultGroups: results.map((resultGroup, resultGroupIndex) => {
-      resultGroup.diceSelection = diceSelections[resultGroupIndex]
+      resultGroup.diceSelection = diceSelections[resultGroupIndex];
       return resultGroup
     }),
     speaker: game.user,
     total: total ?? 0,
-  }
+  };
 
-  Log$6('rollDice.renderRollResult contentData:', contentData)
+  Log$6('rollDice.renderRollResult contentData:', contentData);
 
-  const content = await renderTemplate('systems/cortexprime/system/templates/RollResult.html', contentData)
+  const content = await renderTemplate('systems/cortexprime/system/templates/RollResult.html', contentData);
 
-  const chatData = ChatMessage.applyRollMode({ content, }, rollMode)
+  const chatData = ChatMessage.applyRollMode({ content, }, rollMode);
 
-  ChatMessage.create(chatData)
-}
+  ChatMessage.create(chatData);
+};
 
 const rollByFormulas = async rollFormulas => {
   return Promise.all(rollFormulas.map(async rollFormula => {
-    const r = new Roll(rollFormula.formula)
+    const r = new Roll(rollFormula.formula);
 
-    const roll = await r.evaluate({ async: true, })
+    const roll = await r.evaluate({ async: true, });
 
-    const results = initDiceValues({ roll, rollFormula, })
+    const results = initDiceValues({ roll, rollFormula, });
 
-    const sortedResults = sortResultsByValue(results)
+    const sortedResults = sortResultsByValue(results);
 
     return {
       ...rollFormula,
@@ -742,48 +742,48 @@ const rollByFormulas = async rollFormulas => {
       roll,
     }
   }))
-}
+};
 
 const rollForEffect = results => {
-  const effectMarkedResults = results.map(x => markResultEffect(x))
-  const finalResults = effectMarkedResults.map(x => markResultTotals(x))
+  const effectMarkedResults = results.map(x => markResultEffect(x));
+  const finalResults = effectMarkedResults.map(x => markResultTotals(x));
 
   const {
     effectDice,
     total,
-  } = getSelectedDice(finalResults)
+  } = getSelectedDice(finalResults);
 
-  Log$6('rollDice.rollForEffect finalResults, effectDice, total:', finalResults, effectDice, total)
+  Log$6('rollDice.rollForEffect finalResults, effectDice, total:', finalResults, effectDice, total);
 
   return {
     dice: finalResults.map(x => x.results),
     effectDice,
     total,
   }
-}
+};
 
 const rollForTotal = results => {
-  const totalMarkedResults = results.map(x => markResultTotals(x))
+  const totalMarkedResults = results.map(x => markResultTotals(x));
   const finalResults = totalMarkedResults.map(x => {
-    const markedResults = markResultEffect(x)
-    markedResults.results = sortResultsByValue(markedResults.results)
+    const markedResults = markResultEffect(x);
+    markedResults.results = sortResultsByValue(markedResults.results);
 
     return markedResults
-  })
+  });
 
   const {
     effectDice,
     total,
-  } = getSelectedDice(finalResults)
+  } = getSelectedDice(finalResults);
 
-  Log$6('rollDice.rollForTotal finalResults, effectDice, total:', finalResults, effectDice, total)
+  Log$6('rollDice.rollForTotal finalResults, effectDice, total:', finalResults, effectDice, total);
 
   return {
     dice: finalResults.map(x => x.results),
     effectDice,
     total,
   }
-}
+};
 
 const selectByType = async ({ results, rollType, }) => {
   return rollType === 'select'
@@ -791,10 +791,10 @@ const selectByType = async ({ results, rollType, }) => {
     : rollType === 'total'
       ? rollForTotal(results)
       : rollForEffect(results)
-}
+};
 
 const sortResultsByDieRating = results => {
-  const r = [...results,]
+  const r = [...results,];
 
   r.sort((a, b) => {
     if (a.dieRating !== b.dieRating) {
@@ -802,13 +802,13 @@ const sortResultsByDieRating = results => {
     }
 
     return b.value - a.value
-  })
+  });
 
   return r
-}
+};
 
 const sortResultsByValue = results => {
-  const r = [...results,]
+  const r = [...results,];
 
   r.sort((a, b) => {
     if (a.value !== b.value) {
@@ -816,28 +816,28 @@ const sortResultsByValue = results => {
     }
 
     return b.dieRating - a.dieRating
-  })
+  });
 
   return r
-}
+};
 
 async function rollDice(pool, rollType, rollMode) {
-  const { results, throws, } = await getRollResults(pool)
+  const { results, throws, } = await getRollResults(pool);
 
-  Log$6('rollDice.default rollMode, rollType, results, throws', rollMode, rollType, results, throws)
+  Log$6('rollDice.default rollMode, rollType, results, throws', rollMode, rollType, results, throws);
 
-  await this?.clear()
-  this?.close()
+  await this?.clear();
+  this?.close();
 
   const {
     dice: diceSelections,
     effectDice,
     total,
-  } = await selectByType({ results, rollType, })
+  } = await selectByType({ results, rollType, });
 
-  Log$6('rollDice.default diceSelections:', diceSelections)
+  Log$6('rollDice.default diceSelections:', diceSelections);
 
-  display3dDice({ rollMode, throws, })
+  display3dDice({ rollMode, throws, });
 
   await renderRollResult({
     diceSelections,
@@ -846,32 +846,32 @@ async function rollDice(pool, rollType, rollMode) {
     results,
     rollMode,
     total,
-  })
+  });
 }
 
-const Log$5 = Logger()
+const Log$5 = Logger();
 
 const getBlankCustomAdd = () => ({
-  dice: [8,],
+  dice: [8],
   hasHitches: true,
   parentName: null,
   name: '',
   rollsSeparately: false,
-})
+});
 
 class DicePool extends FormApplication {
-  constructor() {
-    super()
+  constructor () {
+    super();
 
-    this.customAdd = getBlankCustomAdd()
+    this.customAdd = getBlankCustomAdd();
 
-    this.pool = []
-    this.rollMode = game.settings.get('core', 'rollMode')
+    this.pool = [];
+    this.rollMode = game.settings.get('core', 'rollMode');
   }
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'DicePool',],
+      classes: ['cortexprime', 'DicePool'],
       closeOnSubmit: false,
       height: 'auto',
       id: 'DicePool',
@@ -882,53 +882,53 @@ class DicePool extends FormApplication {
       template: 'systems/cortexprime/system/templates/DicePool.html',
       title: localizer('CP.DicePool'),
       top: 500,
-      width: 480,
+      width: 480
     })
   }
 
-  getData() {
+  getData () {
     const data = {
       customAdd: this.customAdd,
       pool: this.pool,
       poolIsEmpty: this.poolIsEmpty,
       rollMode: this.rollMode,
       rollModes: [
-        { name: localizer('CP.PublicRoll'), value: 'publicroll', },
-        { name: localizer('CP.PrivateGmRoll'), value: 'gmroll', },
-        { name: localizer('CP.BlindGmRoll'), value: 'blindroll', },
-        { name: localizer('CP.SelfRoll'), value: 'selfroll', },
+          { name: localizer('CP.PublicRoll'), value: 'publicroll' },
+          { name: localizer('CP.PrivateGmRoll'), value: 'gmroll' },
+          { name: localizer('CP.BlindGmRoll'), value: 'blindroll' },
+          { name: localizer('CP.SelfRoll'), value: 'selfroll' },
       ],
-    }
+    };
 
-    Log$5('DicePool.getData data:', data)
+    Log$5('DicePool.getData data:', data);
 
     return data
   }
 
-  _updateObject(event, formData) {
-    const expandedData = expandObject(formData)
+  _updateObject (event, formData) {
+    const expandedData = expandObject(formData);
 
     this.customAdd = {
       ...this.customAdd,
       ...expandedData.customAdd,
-    }
+    };
 
-    this.rollMode = expandedData.rollMode
+    this.rollMode = expandedData.rollMode;
 
     Log$5(
       'DicePool._updateObject event, expandedData, this.rollMode:',
       event,
       expandedData,
-      this.rollMode
-    )
+      this.rollMode,
+    );
   }
 
-  activateListeners(html) {
-    super.activateListeners(html)
+  activateListeners (html) {
+    super.activateListeners(html);
 
-    const [$html,] = html
+    const [$html] = html;
 
-    fieldListeners($html)
+    fieldListeners($html);
 
     diceSelectListener(
       $html,
@@ -937,45 +937,45 @@ class DicePool extends FormApplication {
         changeDie: this.onChangeDie.bind(this),
         removeDie: this.onRemoveDie.bind(this),
       }
-    )
+    );
 
     $html
       .querySelector('#DicePool-add-custom-trait')
-      .addEventListener('click', this.addCustomTrait.bind(this))
-
+      .addEventListener('click', this.addCustomTrait.bind(this));
+    
     $html
       .querySelector('#DicePool-clear')
       ?.addEventListener('click', () => {
-        this.clear()
-        this.render(true)
-      })
-
-    addListeners(
-      $html,
-      '.DicePool-remove-trait',
-      'click',
-      this.removeTrait.bind(this)
-    )
-
+        this.clear();
+        this.render(true);
+      });
+    
+      addListeners(
+        $html,
+        '.DicePool-remove-trait',
+        'click',
+        this.removeTrait.bind(this)
+      );
+    
     $html
       .querySelector('#DicePool-reset-custom-trait')
-      .addEventListener('click', this.resetCustomTrait.bind(this))
-
+      .addEventListener('click', this.resetCustomTrait.bind(this));
+    
     $html
       .querySelector('#DicePool-roll-effect')
-      ?.addEventListener('click', () => this._rollDice.call(this, 'effect'))
-
+      ?.addEventListener('click', () => this._rollDice.call(this, 'effect'));
+    
     $html
       .querySelector('#DicePool-roll-select')
-      ?.addEventListener('click', () => this._rollDice.call(this, 'select'))
-
+      ?.addEventListener('click', () => this._rollDice.call(this, 'select'));
+    
     $html
       .querySelector('#DicePool-roll-total')
-      ?.addEventListener('click', () => this._rollDice.call(this, 'total'))
+      ?.addEventListener('click', () => this._rollDice.call(this, 'total'));
 
     $html
       .querySelector('#DicePool-rolls-separately')
-      .addEventListener('change', event => this._onChangeRollsSeparately.call(this, event, html))
+      .addEventListener('change', event => this._onChangeRollsSeparately.call(this, event, html));
   }
 
   get poolIsEmpty() {
@@ -987,12 +987,12 @@ class DicePool extends FormApplication {
   }
 
   _getTargetTrait(event) {
-    const trait = event.currentTarget.closest('.DicePool-trait')
+    const trait = event.currentTarget.closest('.DicePool-trait');
 
     const {
       sourceIndex,
-      traitIndex,
-    } = trait.dataset
+      traitIndex
+    } = trait.dataset;
 
     return this.pool[sourceIndex].traits[traitIndex]
   }
@@ -1005,51 +1005,51 @@ class DicePool extends FormApplication {
         : null
   }
 
-  async _rollDice(rollType) {
-    Log$5('DicePool._rollDice this.pool, rollType:', this.pool, rollType)
+  async _rollDice (rollType) {
+    Log$5('DicePool._rollDice this.pool, rollType:', this.pool, rollType);
 
-    await rollDice.call(this, this.pool, rollType, this.rollMode)
+    await rollDice.call(this, this.pool, rollType, this.rollMode);
   }
 
-  _onChangeRollsSeparately(event, [$html,]) {
-    const $target = event.currentTarget
-    const isRolledSeparately = $target.checked
+  _onChangeRollsSeparately (event, [$html]) {
+    const $target = event.currentTarget;
+    const isRolledSeparately = $target.checked;
 
     const $hasHitchesCheckbox = $html
-      .querySelector('#DicePool-has-hitches')
+    .querySelector('#DicePool-has-hitches');
 
-    $hasHitchesCheckbox.disabled = !isRolledSeparately
-    $hasHitchesCheckbox.checked = !isRolledSeparately
+    $hasHitchesCheckbox.disabled = !isRolledSeparately;
+    $hasHitchesCheckbox.checked = !isRolledSeparately;
 
     $hasHitchesCheckbox
       .closest('.field-checkbox')
       .classList
-      .toggle('field-disabled')
+      .toggle('field-disabled');
   }
 
-  async addCustomTrait(event) {
-    event.preventDefault()
+  async addCustomTrait (event) {
+    event.preventDefault();
 
     const matchingSourceIndex = this.pool
-      .findIndex(sourceGroup => sourceGroup.source === 'Custom')
+      .findIndex(sourceGroup => sourceGroup.source === 'Custom');
 
     if (matchingSourceIndex < 0) {
       this.pool = [...this.pool, {
         source: 'Custom',
-        traits: [this.customAdd,],
-      },]
+        traits: [this.customAdd]
+      }];
     } else {
       this.pool[matchingSourceIndex].traits = [
         ...this.pool[matchingSourceIndex].traits,
         this.customAdd,
-      ]
+      ];
     }
 
-    this.resetCustomTrait()
+    this.resetCustomTrait();
   }
 
-  addToPool(event, $addToPoolButton) {
-    const $rollResult = $addToPoolButton.closest('.RollResult')
+  addToPool (event, $addToPoolButton) {
+    const $rollResult = $addToPoolButton.closest('.RollResult');
 
     this.pool = Array
       .from($rollResult.querySelectorAll('.RollResult-source'))
@@ -1064,74 +1064,74 @@ class DicePool extends FormApplication {
             hasHitches: $trait.dataset.hasHitches !== 'false',
             name: $trait.dataset.name ?? null,
             parentName: $trait.dataset.parentName ?? null,
-            rollsSeparately: $trait.dataset.rollsSeparately !== 'false',
-          })),
-      }))
+            rollsSeparately: $trait.dataset.rollsSeparately !== 'false'
+          }))
+      }));
   }
 
-  clear() {
-    this.customAdd = getBlankCustomAdd()
+  clear () {
+    this.customAdd = getBlankCustomAdd();
 
-    this.pool = []
+    this.pool = [];
   }
 
-  async onAddDie(event, { target, }) {
-    const targetTrait = this._getTraitByTarget(event, target)
+  async onAddDie (event, { target }) {
+    const targetTrait = this._getTraitByTarget(event, target);
 
     targetTrait.dice = [
       ...targetTrait.dice,
-      targetTrait.dice[targetTrait.dice.length - 1] ?? 8,
-    ]
+      targetTrait.dice[targetTrait.dice.length - 1] ?? 8
+    ];
 
-    await this.render(true)
+    await this.render(true);
   }
 
-  async onChangeDie(event, { index, target, value, }) {
-    const targetTrait = this._getTraitByTarget(event, target)
+  async onChangeDie (event, { index, target, value }) {
+    const targetTrait = this._getTraitByTarget(event, target);
 
     targetTrait.dice = targetTrait.dice.map((die, dieIndex) => {
       return dieIndex === index ? value : die
-    })
+    });
 
-    await this.render(true)
+    await this.render(true);
   }
 
-  async onRemoveDie(event, { index, target, }) {
-    const targetTrait = this._getTraitByTarget(event, target)
+  async onRemoveDie (event, { index, target }) {
+    const targetTrait = this._getTraitByTarget(event, target);
 
     targetTrait.dice = targetTrait.dice
-      .filter((die, dieIndex) => dieIndex !== index)
+      .filter((die, dieIndex) => dieIndex !== index);
 
-    await this.render(true)
+    await this.render(true);
   }
 
-  async removeTrait(event) {
-    const trait = event.currentTarget.closest('.DicePool-trait')
+  async removeTrait (event) {
+    const trait = event.currentTarget.closest('.DicePool-trait');
 
     const {
       sourceIndex,
-      traitIndex,
-    } = trait.dataset
+      traitIndex
+    } = trait.dataset;
 
     this.pool[sourceIndex].traits = this.pool[sourceIndex].traits
-      .filter((trait, index) => index !== parseInt(traitIndex, 10))
+      .filter((trait, index) => index !== parseInt(traitIndex, 10));
 
-    await this.render(true)
+    await this.render(true);
   }
 
   async resetCustomTrait(event) {
-    if (event) event.preventDefault()
+    if (event) event.preventDefault();
 
-    this.customAdd = getBlankCustomAdd()
+    this.customAdd = getBlankCustomAdd();
 
-    await this.render(true)
+    await this.render(true);
   }
 
-  async toggle() {
+  async toggle () {
     if (!this.rendered) {
-      await this.render(true)
+      await this.render(true);
     } else {
-      this.close()
+      this.close();
     }
   }
 }
@@ -1146,9 +1146,9 @@ const COLORS$2 = {
   lightGrey: '#f2f3f4',
   red: '#c50852',
   white: '#ffffff',
-}
+};
 
-const cortexPrime = {
+var cortexPrime = {
   bodyBackground_color: COLORS$2.white,
   bodyBackgroundColorOpacity: 1,
   bodyBackground_image: null,
@@ -1235,7 +1235,7 @@ const cortexPrime = {
   unchosenFill_color: COLORS$2.white,
   unchosenNumber_color: COLORS$2.grey,
   unchosenStroke_color: COLORS$2.grey,
-}
+};
 
 const COLORS$1 = {
   black: '#141c27',
@@ -1250,9 +1250,9 @@ const COLORS$1 = {
   red: '#c3255a',
   transparent: '',
   white: '#f5f8fa',
-}
+};
 
-const cortexPrimeDark = {
+var cortexPrimeDark = {
   bodyBackground_color: COLORS$1.black,
   bodyBackgroundColorOpacity: 1,
   bodyBackground_image: null,
@@ -1339,7 +1339,7 @@ const cortexPrimeDark = {
   unchosenFill_color: COLORS$1.darkGrey,
   unchosenNumber_color: COLORS$1.grey,
   unchosenStroke_color: COLORS$1.grey,
-}
+};
 
 const COLORS = {
   black: '#161312',
@@ -1356,9 +1356,9 @@ const COLORS = {
   lightGreen: '#afeaae',
   transparent: '',
   white: '#fff8ef',
-}
+};
 
-const talesOfXadia = {
+var talesOfXadia = {
   bodyBackground_color: COLORS.black,
   bodyBackgroundColorOpacity: 1,
   bodyBackground_image: null,
@@ -1445,34 +1445,34 @@ const talesOfXadia = {
   unchosenFill_color: COLORS.white,
   unchosenNumber_color: COLORS.black,
   unchosenStroke_color: COLORS.black,
-}
+};
 
-const presetThemes = {
+var presetThemes = {
   'Cortex Prime': cortexPrime,
   'Cortex Prime - Dark': cortexPrimeDark,
   'Tales of Xadia': talesOfXadia,
-}
+};
 
 const setThemeProperties = properties => {
   const $root = document
-    .querySelector(':root')
+    .querySelector(':root');
 
   if (!properties) {
-    const { selectedTheme, customList: customThemeList, } = game.settings.get('cortexprime', 'themes')
+    const { selectedTheme, customList: customThemeList, } = game.settings.get('cortexprime', 'themes');
 
-    properties = presetThemes[selectedTheme] ?? customThemeList[selectedTheme] ?? {}
+    properties = presetThemes[selectedTheme] ?? customThemeList[selectedTheme] ?? {};
   }
 
   const { borderProperties, mainProperties, } = Object.entries(properties)
     .reduce((acc, [property, value,]) => {
-      const isColor = property?.endsWith('_color')
+      const isColor = property?.endsWith('_color');
 
       if (property?.startsWith('border_')) {
-        const splitProperty = property.split('_')
+        const splitProperty = property.split('_');
 
-        const namespace = splitProperty[1]
-        const prop = splitProperty[2]
-        value = isColor ? (value || 'transparent') : value
+        const namespace = splitProperty[1];
+        const prop = splitProperty[2];
+        value = isColor ? (value || 'transparent') : value;
 
         acc.borderProperties = {
           ...acc.borderProperties,
@@ -1480,77 +1480,77 @@ const setThemeProperties = properties => {
             ...(acc.borderProperties[namespace] ?? {}),
             [prop]: value,
           },
-        }
+        };
       } else {
         if (property?.endsWith('_rem')) {
-          const splitProperty = property.split('_rem')
+          const splitProperty = property.split('_rem');
 
-          property = splitProperty[0]
+          property = splitProperty[0];
 
-          const numValue = parseInt(value, 10) || 0
+          const numValue = parseInt(value, 10) || 0;
 
           value = numValue === 0
             ? 0
-            : `${numValue / 16}rem`
+            : `${numValue / 16}rem`;
         } else if (property?.endsWith('_image')) {
-          const splitProperty = property.split('_image')
+          const splitProperty = property.split('_image');
 
-          property = `${splitProperty[0]}Image`
+          property = `${splitProperty[0]}Image`;
 
           value = value
             ? value.startsWith('http')
               ? `url('${value}')`
               : `url('/${value}')`
-            : 'none'
+            : 'none';
         } else if (isColor) {
-          const splitProperty = property.split('_color')
+          const splitProperty = property.split('_color');
 
-          property = `${splitProperty[0]}Color`
+          property = `${splitProperty[0]}Color`;
 
-          value = value || 'transparent'
+          value = value || 'transparent';
         } else if (property?.endsWith('_px')) {
-          const splitProperty = property.split('_px')
+          const splitProperty = property.split('_px');
 
-          property = splitProperty[0]
-          value = `${value}px`
+          property = splitProperty[0];
+          value = `${value}px`;
         }
 
-        acc.mainProperties.push([property, value,])
+        acc.mainProperties.push([property, value,]);
       }
 
       return acc
-    }, { borderProperties: {}, mainProperties: [], })
+    }, { borderProperties: {}, mainProperties: [], });
 
   Object.entries(borderProperties).forEach(([namespace, values,]) => {
-    const position = values.position ?? 'all'
-    const width = values.width ?? 1
+    const position = values.position ?? 'all';
+    const width = values.width ?? 1;
 
-    let widthValue
+    let widthValue;
 
     switch (position) {
       case 'none':
-        widthValue = '0'
+        widthValue = '0';
         break
       case 'bottom':
-        widthValue = `0 0 ${width}px`
+        widthValue = `0 0 ${width}px`;
         break
       case 'top':
-        widthValue = `${width}px 0 0`
+        widthValue = `${width}px 0 0`;
         break
       case 'left':
-        widthValue = `0 0 0 ${width}px`
+        widthValue = `0 0 0 ${width}px`;
         break
       case 'right':
-        widthValue = `0 ${width}px 0 0`
+        widthValue = `0 ${width}px 0 0`;
         break
       case 'top-and-bottom':
-        widthValue = `${width}px 0 ${width}px`
+        widthValue = `${width}px 0 ${width}px`;
         break
       case 'left-and-right':
-        widthValue = `0 ${width}px 0`
+        widthValue = `0 ${width}px 0`;
         break
       default:
-        widthValue = `${width}px`
+        widthValue = `${width}px`;
     }
 
     $root
@@ -1558,63 +1558,63 @@ const setThemeProperties = properties => {
       .setProperty(
         `--${camelCasetoKebabCase(namespace)}-border`,
         `${values.style ?? 'solid'} ${values.color ?? 'black'}`
-      )
+      );
 
     $root
       .style
       .setProperty(
         `--${camelCasetoKebabCase(namespace)}-border-width`,
         widthValue
-      )
-  })
+      );
+  });
 
   mainProperties.forEach(([property, value,]) => {
     $root
       .style
-      .setProperty(`--${camelCasetoKebabCase(property)}`, value)
-  })
-}
+      .setProperty(`--${camelCasetoKebabCase(property)}`, value);
+  });
+};
 
-const ready = async () => {
-  game.cortexprime.DicePool = new DicePool()
-
-  const themes = game.settings.get('cortexprime', 'themes')
+var ready = async () => {
+  game.cortexprime.DicePool = new DicePool();
+  
+  const themes = game.settings.get('cortexprime', 'themes');
 
   const themeOptions = {
     ...presetThemes,
     ...themes.customList,
-  }
+  };
 
-  setThemeProperties(themeOptions[themes.selectedTheme])
-}
+  setThemeProperties(themeOptions[themes.selectedTheme]);
+};
 
-const renderChatLog = (log, [$html,], data) => {
+var renderChatLog = (log, [$html], data) => {
   $html
     .querySelector('#chat-log')
-    .addEventListener('click', event => {
-      const $displayToggle = event.target.closest('.display-toggle')
-      const $rollResultAddToPool = event.target.closest('.RollResult-add-to-pool')
-      const $rollResultReRoll = event.target.closest('.RollResult-re-roll')
+    .addEventListener('click', (event) => {
+      const $displayToggle = event.target.closest('.display-toggle');
+      const $rollResultAddToPool = event.target.closest('.RollResult-add-to-pool');
+      const $rollResultReRoll = event.target.closest('.RollResult-re-roll');
 
       if ($displayToggle) {
-        displayToggleMethod(event, $displayToggle)
+        displayToggleMethod(event, $displayToggle);
         return
       }
 
       if ($rollResultAddToPool) {
-        game.cortexprime.DicePool.addToPool(event, $rollResultAddToPool)
-        game.cortexprime.DicePool.render(true)
+        game.cortexprime.DicePool.addToPool(event, $rollResultAddToPool);
+        game.cortexprime.DicePool.render(true);
         return
       }
 
       if ($rollResultReRoll) {
-        game.cortexprime.DicePool.addToPool(event, $rollResultReRoll)
-        game.cortexprime.DicePool._rollDice('select')
-        game.cortexprime.DicePool.clear()
-
+        game.cortexprime.DicePool.addToPool(event, $rollResultReRoll);
+        game.cortexprime.DicePool._rollDice('select');
+        game.cortexprime.DicePool.clear();
+        return
       }
-    })
-}
+    });
+};
 
 const getHtml = (value, options) => {
   return `<div class="die-result${
@@ -1633,28 +1633,28 @@ const getHtml = (value, options) => {
     + `</div>${
       options.hash.hideLabel ? '' : `<span class="die-result-label">d${options.hash.dieRating}</span>`
     }</div>`
-}
+};
 
-const dieResult = (value, options) => {
+var dieResult = (value, options) => {
   return new Handlebars.SafeString(getHtml(value, options))
-}
+};
 
-const renderChatMessage = (message, [$html,], data) => {
-  const $rollResult = $html.querySelector('.RollResult-main')
+var renderChatMessage = (message, [$html], data) => {
+  const $rollResult = $html.querySelector('.RollResult-main');
 
   if ($rollResult) {
-    $html.classList.add('cortexprime', 'RollResult', 'theme-body')
+    $html.classList.add('cortexprime', 'RollResult', 'theme-body');
 
     $rollResult
       .querySelectorAll('.chat-die')
-      .forEach($die => {
+      .forEach(($die) => {
         const {
           dieRating,
           hideLabel,
           resultGroupIndex,
           type,
-          value,
-        } = $die.dataset
+          value
+        } = $die.dataset;
 
         const html = getHtml(value, {
           hash: {
@@ -1663,44 +1663,44 @@ const renderChatMessage = (message, [$html,], data) => {
             hideLabel: !!hideLabel,
             resultGroupIndex,
             type,
-          },
-        })
+          }
+        });
 
-        $die.outerHTML = html
-      })
+        $die.outerHTML = html;
+      });
   }
-}
+};
 
-const renderSceneControls = (controls, [$html,]) => {
-  const dicePoolButton =
-    `<li class="dice-pool-control" data-control="dice-pool" title="${game.i18n.localize('DicePool')}">`
-    + '<i class="fas fa-dice"></i>'
-    + '<ol class="control-tools"></ol>'
-    + '</li>'
+var renderSceneControls = (controls, [$html]) => {
+  const dicePoolButton =  
+    `<li class="dice-pool-control" data-control="dice-pool" title="${game.i18n.localize("DicePool")}">` +
+    '<i class="fas fa-dice"></i>' +
+    '<ol class="control-tools"></ol>' +
+    '</li>';
 
   $html
     .querySelector('.main-controls')
-    .innerHTML += dicePoolButton
+    .innerHTML += dicePoolButton;
 
   const $dicePoolControl = $html
-    .querySelector('.dice-pool-control')
-
+    .querySelector('.dice-pool-control');
+  
   $dicePoolControl
     .classList
-    .remove('control-tool')
+    .remove('control-tool');
 
   $dicePoolControl
     .addEventListener('click', async () => {
-      await game.cortexprime.DicePool.toggle()
-    })
-}
+      await game.cortexprime.DicePool.toggle(); 
+    });
+};
 
-const hooks = () => {
-  Hooks.on('ready', ready)
-  Hooks.on('renderChatLog', renderChatLog)
-  Hooks.on('renderChatMessage', renderChatMessage)
-  Hooks.on('renderSceneControls', renderSceneControls)
-}
+var hooks = () => {
+  Hooks.on('ready', ready);
+  Hooks.on('renderChatLog', renderChatLog);
+  Hooks.on('renderChatMessage', renderChatMessage);
+  Hooks.on('renderSceneControls', renderSceneControls);
+};
 
 const getAddButton = options => {
   return `<button class="btn btn-icon btn-icon-text btn-small ml-1 new-die${
@@ -1717,7 +1717,7 @@ const getAddButton = options => {
   }type="button">`
     + '<i class="fa fa-plus"></i>'
     + '</button>'
-}
+};
 
 const getSelect = (options, { dieIndex, dieRating, removable, }) => {
   const diceOptions = [4, 6, 8, 10, 12,]
@@ -1729,7 +1729,7 @@ const getSelect = (options, { dieIndex, dieRating, removable, }) => {
         !options.hash.maxDieRating
         || rating <= options.hash.maxDieRating
       )
-    })
+    });
   return '<select '
     + `class="die-select${
       removable ? ' removable' : ''
@@ -1755,17 +1755,17 @@ const getSelect = (options, { dieIndex, dieRating, removable, }) => {
         return selectOptions
       }, '')
     }</select>`
-}
+};
 
-const diceSelect = (val, options) => {
-  const type = options.hash.type ?? 'die-rating'
+var diceSelect = (val, options) => {
+  const type = options.hash.type ?? 'die-rating';
   const value = val
     ? typeof val === 'number'
       ? [val,]
       : val
     : options.hash.defaultDie
       ? [options.hash.defaultDie,]
-      : []
+      : [];
   return new Handlebars.SafeString(
     `<div class="dice-${
       options.hash.displayOnly ? 'display' : 'select'
@@ -1802,16 +1802,16 @@ const diceSelect = (val, options) => {
     }</div>`
     + '</div>'
   )
-}
+};
 
-const fieldCheckbox = (value, options) => {
+var fieldCheckbox = (value, options) => {
   const inputHashIgnore = [
     'class',
     'hint',
     'label',
     'labelClass',
     'wrapperClass',
-  ]
+  ];
 
   return new Handlebars.SafeString(
     `<div class="field field-checkbox${
@@ -1833,11 +1833,11 @@ const fieldCheckbox = (value, options) => {
         }
 
         if (key === 'inputClass') {
-          attributes[0] = `class="field-checkbox-input ${value}"`
+          attributes[0] = `class="field-checkbox-input ${value}"`;
           return attributes
         }
 
-        const val = value ?? null
+        const val = value ?? null;
 
         return [...attributes, val || val === 0 ? `${key}="${value}"` : '',]
       }, ['class="field-checkbox-input"',])
@@ -1850,9 +1850,9 @@ const fieldCheckbox = (value, options) => {
     }${options.hash.hint ? `<p class="field-hint">${options.hash.hint}</p>` : ''
     }</div>`
   )
-}
+};
 
-const fieldInput = type => (value, options) => {
+var fieldInput = type => (value, options) => {
   const inputHashIgnore = [
     'append',
     'class',
@@ -1861,7 +1861,7 @@ const fieldInput = type => (value, options) => {
     'labelClass',
     'noEdit',
     'wrapperClass',
-  ]
+  ];
 
   return new Handlebars.SafeString(
     `<div class="field field-${type}${
@@ -1889,11 +1889,11 @@ const fieldInput = type => (value, options) => {
             }
 
             if (key === 'inputClass') {
-              attributes[0] = `class="field-input ${value}"`
+              attributes[0] = `class="field-input ${value}"`;
               return attributes
             }
 
-            const val = value ?? null
+            const val = value ?? null;
 
             return [...attributes, val || val === 0 ? `${key}="${value}"` : '',]
           }, ['class="field-input"',])
@@ -1905,9 +1905,9 @@ const fieldInput = type => (value, options) => {
     }${options.hash.hint && !options.hash.noEdit ? `<p class="field-hint">${options.hash.hint}</p>` : ''
     }</div>`
   )
-}
+};
 
-const fieldSelect = (value, items, name, val, options) => {
+var fieldSelect = (value, items, name, val, options) => {
   const inputHashIgnore = [
     'class',
     'hint',
@@ -1915,7 +1915,7 @@ const fieldSelect = (value, items, name, val, options) => {
     'labelClass',
     'noEdit',
     'wrapperClass',
-  ]
+  ];
 
   const getOptions = (items, value, name, val) => {
     return items
@@ -1937,13 +1937,13 @@ const fieldSelect = (value, items, name, val, options) => {
       })
       .filter(itemString => itemString)
       .join('')
-  }
+  };
 
   const getViewValue = value => {
-    const matchingValue = items.find(item => item[val] === value)
+    const matchingValue = items.find(item => item[val] === value);
 
     return matchingValue?.[name]
-  }
+  };
 
   return new Handlebars.SafeString(
     `<div class="field field-select${
@@ -1971,11 +1971,11 @@ const fieldSelect = (value, items, name, val, options) => {
             }
 
             if (key === 'inputClass') {
-              attributes[0] = `class="field-input ${value}"`
+              attributes[0] = `class="field-input ${value}"`;
               return attributes
             }
 
-            const val = value ?? null
+            const val = value ?? null;
 
             return [...attributes, val || val === 0 ? `${key}="${value}"` : '',]
           }, ['class="field-input"',])
@@ -1987,9 +1987,9 @@ const fieldSelect = (value, items, name, val, options) => {
     }${options.hash.hint && !options.hash.noEdit ? `<p class="field-hint">${options.hash.hint}</p>` : ''
     }</div>`
   )
-}
+};
 
-const fieldTextarea = (value, options) => {
+var fieldTextarea = (value, options) => {
   const inputHashIgnore = [
     'class',
     'hint',
@@ -1997,7 +1997,7 @@ const fieldTextarea = (value, options) => {
     'labelClass',
     'noEdit',
     'wrapperClass',
-  ]
+  ];
 
   return new Handlebars.SafeString(
     `<div class="field field-textarea${
@@ -2025,11 +2025,11 @@ const fieldTextarea = (value, options) => {
             }
 
             if (key === 'inputClass') {
-              attributes[0] = `class="field-input ${value}"`
+              attributes[0] = `class="field-input ${value}"`;
               return attributes
             }
 
-            const val = value ?? null
+            const val = value ?? null;
 
             return [...attributes, val || val === 0 ? `${key}="${value}"` : '',]
           }, ['class="field-input"',])
@@ -2042,30 +2042,31 @@ const fieldTextarea = (value, options) => {
     }${options.hash.hint && !options.hash.noEdit ? `<p class="field-hint">${options.hash.hint}</p>` : ''
     }</div>`
   )
-}
+};
 
 const registerHandlebarHelpers = () => {
   Handlebars.registerHelper({
-    add: (a, b) => Number(a) + Number(b),
+    add: (a, b) => +a + +b,
     get: (list, key) => list[key] ?? false,
     includes: (arr, item) => arr.includes(item),
-    length: value => value?.length ?? null,
-    sub: (a, b) => Number(a) - Number(b),
+    length: (value) => value?.length ?? null,
+    sub: (a, b) => +a - +b,
     '??': (a, b) => a ?? b,
   }),
   Handlebars.registerHelper('times', (n, block) => {
-    let accum = ''
-    for (let i = 0; i < n; ++i) accum += block.fn(i)
+    let accum = '';
+    for(let i = 0; i < n; ++i)
+      accum += block.fn(i);
     return accum
-  })
-  Handlebars.registerHelper('diceSelect', diceSelect)
-  Handlebars.registerHelper('dieResult', dieResult)
-  Handlebars.registerHelper('fieldNumber', fieldInput('number'))
-  Handlebars.registerHelper('fieldCheckbox', fieldCheckbox)
-  Handlebars.registerHelper('fieldSelect', fieldSelect)
-  Handlebars.registerHelper('fieldText', fieldInput('text'))
-  Handlebars.registerHelper('fieldTextarea', fieldTextarea)
-}
+  });
+  Handlebars.registerHelper('diceSelect', diceSelect);
+  Handlebars.registerHelper('dieResult', dieResult);
+  Handlebars.registerHelper('fieldNumber', fieldInput('number'));
+  Handlebars.registerHelper('fieldCheckbox', fieldCheckbox);
+  Handlebars.registerHelper('fieldSelect', fieldSelect);
+  Handlebars.registerHelper('fieldText', fieldInput('text'));
+  Handlebars.registerHelper('fieldTextarea', fieldTextarea);
+};
 
 const preloadHandlebarsTemplates = async () => {
   const templatePaths = [
@@ -2086,46 +2087,46 @@ const preloadHandlebarsTemplates = async () => {
     'themes/misc',
     'themes/sections',
   ]
-    .map(template => `systems/cortexprime/system/templates/partials/${template}.html`)
+    .map(template => `systems/cortexprime/system/templates/partials/${template}.html`);
 
   return loadTemplates(templatePaths)
-}
+};
 
-const sockets = ({ payload, type, }) => {
+var sockets = ({ payload, type, }) => {
   switch (type) {
     case 'setThemeProperties':
-      setThemeProperties()
+      setThemeProperties();
   }
-}
+};
 
-const Log$4 = Logger()
+const Log$4 = Logger();
 
 class CpThemeSettings extends FormApplication {
   constructor() {
-    super()
+    super();
 
-    const themeSettings = game.settings.get('cortexprime', 'themes')
+    const themeSettings = game.settings.get('cortexprime', 'themes');
 
-    Log$4('CpThemeSettings.constructor themeSettings', themeSettings)
+    Log$4('CpThemeSettings.constructor themeSettings', themeSettings);
 
-    this.customThemes = themeSettings.customList
+    this.customThemes = themeSettings.customList;
 
-    this.expandedSections = []
+    this.expandedSections = [];
 
-    this.selectedTheme = themeSettings.selectedTheme
+    this.selectedTheme = themeSettings.selectedTheme;
 
-    this.themeSelection = themeSettings.selectedTheme
+    this.themeSelection = themeSettings.selectedTheme;
   }
 
-  static get defaultOptions() {
+  static get defaultOptions () {
     return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'settings', 'theme-settings',],
+      classes: ['cortexprime', 'settings', 'theme-settings'],
       closeOnSubmit: false,
       height: 900,
       id: 'ThemeSettings',
       left: 400,
       resizable: false,
-      scrollY: ['#ThemeSettings-form-body',],
+      scrollY: ['#ThemeSettings-form-body'],
       submitOnChange: false,
       submitOnClose: false,
       template: 'systems/cortexprime/system/templates/CpThemeSettings.html',
@@ -2135,36 +2136,36 @@ class CpThemeSettings extends FormApplication {
     })
   }
 
-  get allThemes() {
+  get allThemes () {
     return {
       ...presetThemes,
       ...this.customThemes,
     }
   }
 
-  get allThemeNames() {
+  get allThemeNames () {
     return Object.keys(this.allThemes)
   }
 
-  get currentSettings() {
+  get currentSettings () {
     return this.allThemes[this.selectedTheme]
   }
 
-  get isPresetTheme() {
+  get isPresetTheme () {
     return !!presetThemes[this.selectedTheme]
   }
 
   getData() {
     const data = {
       borderPositions: [
-        { name: localizer('CP.None'), value: 'none', },
-        { name: localizer('CP.All'), value: 'all', },
-        { name: localizer('CP.Bottom'), value: 'bottom', },
-        { name: localizer('CP.Top'), value: 'top', },
-        { name: localizer('CP.Left'), value: 'left', },
-        { name: localizer('CP.Right'), value: 'right', },
-        { name: localizer('CP.TopAndBottom'), value: 'top-and-bottom', },
-        { name: localizer('CP.LeftAndRight'), value: 'left-and-right', },
+        { name: localizer('CP.None'), value: 'none' },
+        { name: localizer('CP.All'), value: 'all' },
+        { name: localizer('CP.Bottom'), value: 'bottom' },
+        { name: localizer('CP.Top'), value: 'top' },
+        { name: localizer('CP.Left'), value: 'left' },
+        { name: localizer('CP.Right'), value: 'right' },
+        { name: localizer('CP.TopAndBottom'), value: 'top-and-bottom' },
+        { name: localizer('CP.LeftAndRight'), value: 'left-and-right' },
       ],
       currentSettings: this.currentSettings,
       expandedSections: this.expandedSections,
@@ -2174,157 +2175,157 @@ class CpThemeSettings extends FormApplication {
         {
           label: localizer('CP.PresetThemes'),
           options: Object.keys(presetThemes)
-            .map(themeName => ({ name: themeName, value: themeName, })),
+          .map(themeName => ({ name: themeName, value: themeName }))
         },
         {
           label: 'Custom Themes',
           options: Object.keys(this.customThemes)
-            .map(themeName => ({ name: themeName, value: themeName, })),
+          .map(themeName => ({ name: themeName, value: themeName }))
         },
       ],
-    }
+    };
 
-    Log$4('CPThemeSettings.getData data:', data)
+    Log$4('CPThemeSettings.getData data:', data);
 
     return data
   }
 
   async _updateObject(event, formData) {
-    const expandedData = expandObject(formData)
+    const expandedData = expandObject(formData);
 
-    Log$4('CPThemeSettings._updateObject expandedData:', expandedData)
+    Log$4('CPThemeSettings._updateObject expandedData:', expandedData);
 
     const {
       selectedTheme,
-    } = expandedData
+    } = expandedData;
 
-    this.selectedTheme = selectedTheme
-
-    await this.save(expandedData)
+    this.selectedTheme = selectedTheme;
+    
+    await this.save(expandedData);
   }
 
   activateListeners(html) {
-    super.activateListeners(html)
-
-    const [$html,] = html
-
-    fieldListeners($html)
+    super.activateListeners(html);
+    
+    const [$html] = html;
+    
+    fieldListeners($html);
 
     addListeners(
       $html,
       '.field-hidden-image-picker',
       'change',
       this.onImageChange
-    )
+    );
 
     addListeners(
       $html,
       '.image-remove',
       'click',
       this.removeImage
-    )
+    );
 
     addListeners(
       $html,
       'input.color,input[type="color"]',
       'change',
       this.onColorChange
-    )
+    );
 
     addListeners(
       $html,
       '.display-toggle',
       'click',
       this.onDisplayToggle.bind(this)
-    )
+    );
 
     $html
       .querySelector('#ThemeSettings-theme-select')
-      ?.addEventListener('change', this.onChangeTheme.bind(this))
-
+      ?.addEventListener('change', this.onChangeTheme.bind(this));
+    
     $html
       .querySelector('#ThemeSettings-custom-theme-create')
-      ?.addEventListener('click', () => this.createCustomTheme.call(this, $html))
+      ?.addEventListener('click', () => this.createCustomTheme.call(this, $html));
 
     $html
       .querySelector('#ThemeSettings-delete')
-      ?.addEventListener('click', this.deleteTheme.bind(this))
+      ?.addEventListener('click', this.deleteTheme.bind(this));
 
     $html
       .querySelector('#ThemeSettings-preview')
-      ?.addEventListener('click', this.preview.bind(this, html))
+      ?.addEventListener('click', this.preview.bind(this, html));
 
     $html
       .querySelector('#ThemeSettings-reset')
-      ?.addEventListener('click', this.reset.bind(this))
+      ?.addEventListener('click', this.reset.bind(this));
   }
 
-  async close() {
+  async close () {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.CloseConfirmTitle'),
       content: localizer('CP.CloseConfirmContent'),
       defaultYes: false,
-    })
+    });
 
     if (confirmed) {
-      this.expandedSections = []
+      this.expandedSections = [];
 
-      setThemeProperties()
+      setThemeProperties();
 
       return super.close()
     }
   }
 
-  async createCustomTheme($html) {
+  async createCustomTheme ($html) {
     const customThemeName = (
       $html
         .querySelector('#ThemeSettings-custom-theme-name')
         .value ?? ''
-    ).trim()
+      ).trim();
 
     const errorMessage = !customThemeName
       ? localizer('CP.CustomThemeNameErrorRequired')
       : this.allThemeNames.includes(customThemeName)
         ? localizer('CP.CustomThemeNameErrorDuplicate')
-        : null
+        : null;
 
     if (errorMessage) {
       Dialog.prompt({
         title: localizer('CP.ValidationError'),
         content: errorMessage,
-      })
+      });
     } else {
-      const themeSettings = game.settings.get('cortexprime', 'themes')
+      const themeSettings = game.settings.get('cortexprime', 'themes');
 
       const newCustomThemes = {
         ...themeSettings.customList,
-        [customThemeName]: { ...this.currentSettings, },
-      }
+        [customThemeName]: { ...this.currentSettings }
+      };
 
-      themeSettings.customList = newCustomThemes
-      this.customThemes = newCustomThemes
+      themeSettings.customList = newCustomThemes;
+      this.customThemes = newCustomThemes;
 
-      themeSettings.selectedTheme = customThemeName
-      this.selectedTheme = customThemeName
+      themeSettings.selectedTheme = customThemeName;
+      this.selectedTheme = customThemeName;
 
-      await game.settings.set('cortexprime', 'themes', themeSettings)
+      await game.settings.set('cortexprime', 'themes', themeSettings);
 
-      await this.render(true)
+      await this.render(true);
 
-      setThemeProperties(this.currentSettings)
+      setThemeProperties(this.currentSettings);
 
       game.socket.emit('system.cortexprime', {
-        type: 'setThemeProperties',
-      })
+        type: 'setThemeProperties'
+      });
     }
   }
 
-  async deleteTheme() {
+  async deleteTheme () {
     if (this.isPresetTheme) {
       Dialog.prompt({
         title: localizer('CP.ValidationError'),
         content: localizer('CP.ThemeDeleteErrorPreset'),
-      })
+      });
 
       return
     }
@@ -2333,288 +2334,288 @@ class CpThemeSettings extends FormApplication {
       title: localizer('CP.DeleteThemeConfirmTitle'),
       content: localizer('CP.DeleteThemeConfirmContent'),
       defaultYes: false,
-    })
+    });
 
     if (confirmed) {
-      const themeSettings = game.settings.get('cortexprime', 'themes')
-
-      delete themeSettings.customList[this.selectedTheme]
-
-      delete this.customThemes[this.selectedTheme]
-
-      themeSettings.selectedTheme = 'Cortex Prime'
-
-      this.selectedTheme = 'Cortex Prime'
-
-      await game.settings.set('cortexprime', 'themes', themeSettings)
-
-      await this.render(true)
-
-      setThemeProperties(this.currentSettings)
-
+      const themeSettings = game.settings.get('cortexprime', 'themes');
+  
+      delete themeSettings.customList[this.selectedTheme];
+      
+      delete this.customThemes[this.selectedTheme];
+  
+      themeSettings.selectedTheme = 'Cortex Prime';
+  
+      this.selectedTheme = 'Cortex Prime';
+  
+      await game.settings.set('cortexprime', 'themes', themeSettings);
+  
+      await this.render(true);
+  
+      setThemeProperties(this.currentSettings);
+  
       game.socket.emit('system.cortexprime', {
-        type: 'setThemeProperties',
-      })
+        type: 'setThemeProperties'
+      });
     }
   }
 
-  async onChangeTheme(event) {
-    const $currentTarget = event.currentTarget
+  async onChangeTheme (event) {
+    const $currentTarget = event.currentTarget;
     const confirmed = !this.isPresetTheme
       ? await Dialog.confirm({
-        title: localizer('CP.ChangeThemeConfirmTitle'),
-        content: localizer('CP.ChangeThemeConfirmContent'),
-        defaultYes: false,
-      })
-      : true
+          title: localizer('CP.ChangeThemeConfirmTitle'),
+          content: localizer('CP.ChangeThemeConfirmContent'),
+          defaultYes: false,
+        })
+      : true;
 
     if (confirmed) {
-      this.selectedTheme = $currentTarget.value
-
-      await this.render(true)
+      this.selectedTheme = $currentTarget.value;
+  
+      await this.render(true);
     }
   }
 
-  onColorChange(event) {
-    const $input = event.target
-    const $fieldColor = $input.closest('.field-color')
+  onColorChange (event) {
+    const $input = event.target;
+    const $fieldColor = $input.closest('.field-color');
 
     const $swatch = $fieldColor
-      .querySelector('.swatch')
+      .querySelector('.swatch');
 
-    const value = $input.value
+    const value = $input.value;
 
     const $pickerField = $fieldColor
-      .querySelector('input[type="color"]')
+      .querySelector('input[type="color"]');
 
-    $pickerField.value = value
+    $pickerField.value = value;
 
-    $swatch.style.backgroundColor = value || '#ffffff'
+    $swatch.style.backgroundColor = value || '#ffffff';
 
-    const hasTransparentClass = $swatch.classList.contains('transparent')
+    const hasTransparentClass = $swatch.classList.contains('transparent');
 
     if (
-      (value && hasTransparentClass)
-      || (!value && !hasTransparentClass)
+      (value && hasTransparentClass) ||
+      (!value && !hasTransparentClass)
     ) {
-      $swatch.classList.toggle('transparent')
+      $swatch.classList.toggle('transparent');
     }
   }
 
-  async onDisplayToggle(event) {
-    const { section, } = event.currentTarget.dataset
+  async onDisplayToggle (event) {
+    const { section } = event.currentTarget.dataset;
 
     this.expandedSections = this.expandedSections.includes(section)
       ? this.expandedSections
         .filter(expandedSection => expandedSection !== section)
-      : [...this.expandedSections, section,]
+      : [...this.expandedSections, section];
 
-    displayToggleMethod(event)
+    displayToggleMethod(event);
   }
 
-  onImageChange(event) {
-    const value = event.target.value
+  onImageChange (event) {
+    const value = event.target.value;
 
     const $fieldWrapper = event
       .target
-      .closest('.field-wrapper')
+      .closest('.field-wrapper');
 
     const $imageRemove = $fieldWrapper
-      .querySelector('.image-remove')
+      .querySelector('.image-remove');
 
     const $noImageMsg = $fieldWrapper
-      .querySelector('.no-image-msg')
+      .querySelector('.no-image-msg');
 
     $fieldWrapper
       .querySelector('.field-hidden-image-picker')
-      .value = value
+      .value = value;
 
     $fieldWrapper
       .querySelector('.field-img')
       .style
-      .backgroundImage = value ? `url('${value}')` : ''
+      .backgroundImage = value ? `url('${value}')` : '';
 
     if (value) {
-      $imageRemove.classList.remove('hide')
-
-      $noImageMsg.classList.add('hide')
+      $imageRemove.classList.remove('hide');
+  
+      $noImageMsg.classList.add('hide');
     } else {
-      $imageRemove.classList.add('hide')
+      $imageRemove.classList.add('hide');
 
-      $noImageMsg.classList.remove('hide')
+      $noImageMsg.classList.remove('hide');
     }
 
     $fieldWrapper
       .querySelector('.field-img-value')
-      .textContent = value || localizer('CP.NoImage')
+      .textContent = value || localizer('CP.NoImage');
   }
 
-  preview(html) {
-    const formData = Object.fromEntries(new FormData(html[0]).entries())
+  preview (html) {
+    const formData = Object.fromEntries(new FormData(html[0]).entries());
 
-    const expandedData = expandObject(formData)
+    const expandedData = expandObject(formData);
 
-    Log$4('CpThemeSettings.preview expandedData:', expandedData)
+    Log$4('CpThemeSettings.preview expandedData:', expandedData);
 
     const {
       selectedTheme,
       currentSettings,
-    } = expandedData
+    } = expandedData;
 
-    setThemeProperties(
+    setThemeProperties (
       presetThemes[selectedTheme] ?? currentSettings
-    )
+    );
   }
 
-  removeImage(event) {
+  removeImage (event) {
     const $fieldWrapper = event
       .target
-      .closest('.field-wrapper')
+      .closest('.field-wrapper');
 
     $fieldWrapper
       .querySelector('.field-img')
-      .style.backgroundImage = null
+      .style.backgroundImage = null;
 
     $fieldWrapper
       .querySelector('.field-hidden-image-picker')
-      .value = ''
+      .value = '';
 
     $fieldWrapper
       .querySelector('.image-remove')
       .classList
-      .add('hide')
+      .add('hide');
 
     $fieldWrapper
       .querySelector('.no-image-msg')
       .classList
-      .remove('hide')
+      .remove('hide');
 
     $fieldWrapper
       .querySelector('.field-img-value')
-      .textContent = localizer('CP.NoImage')
+      .textContent = localizer('CP.NoImage');
   }
 
-  async reset() {
+  async reset () {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.ResetConfirmTitle'),
       content: localizer('CP.ResetConfirmContent'),
       defaultYes: false,
-    })
+    });
 
     if (confirmed) {
-      const themeSettings = game.settings.get('cortexprime', 'themes')
+      const themeSettings = game.settings.get('cortexprime', 'themes');
 
-      this.selectedTheme = themeSettings.selectedTheme
+      this.selectedTheme = themeSettings.selectedTheme;
 
-      setThemeProperties()
-      this.render(true)
+      setThemeProperties();
+      this.render(true);
     }
   }
 
-  async save(expandedData) {
+  async save (expandedData) {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.SaveConfirmTitle'),
       content: localizer('CP.SaveConfirmContent'),
       defaultYes: false,
-    })
+    });
 
     if (confirmed) {
-      const themeSettings = game.settings.get('cortexprime', 'themes')
-
-      const newThemeSettings = mergeObject(themeSettings, expandedData)
-
-      this.selectedTheme = expandedData.selectedTheme
-
+      const themeSettings = game.settings.get('cortexprime', 'themes');
+  
+      const newThemeSettings = mergeObject(themeSettings, expandedData);
+  
+      this.selectedTheme = expandedData.selectedTheme;
+  
       if (!presetThemes[expandedData.selectedTheme]) {
-        const customThemeSettings = mergeObject(newThemeSettings.customList[this.selectedTheme], expandedData.currentSettings)
-        this.customThemes[this.selectedTheme] = customThemeSettings
-        newThemeSettings.customList[this.selectedTheme] = customThemeSettings
+        const customThemeSettings = mergeObject(newThemeSettings.customList[this.selectedTheme], expandedData.currentSettings);
+        this.customThemes[this.selectedTheme] = customThemeSettings;
+        newThemeSettings.customList[this.selectedTheme] = customThemeSettings;
       }
-
-      Log$4('CpThemeSettings.save newThemeSettings', newThemeSettings)
-
-      await game.settings.set('cortexprime', 'themes', newThemeSettings)
-
-      await this.render(true)
-
-      setThemeProperties(this.currentSettings)
-
+  
+      Log$4('CpThemeSettings.save newThemeSettings', newThemeSettings);
+  
+      await game.settings.set('cortexprime', 'themes', newThemeSettings);
+  
+      await this.render(true);
+  
+      setThemeProperties(this.currentSettings);
+  
       game.socket.emit('system.cortexprime', {
-        type: 'setThemeProperties',
-      })
-
+        type: 'setThemeProperties'
+      });
+  
       Dialog.prompt({
         title: localizer('CP.PromptSettingsSaveTitle'),
         content: localizer('CP.PromptSettingsSaveContent'),
-      })
+      });
     }
   }
 }
 
 const addDragSort = ($dragSortHandle, callback) => {
-  $dragSortHandle.setAttribute('draggable', true)
-  $dragSortHandle.ondrag = handleItemDrag
-  $dragSortHandle.ondragend = event => handleItemDrop(event, callback)
-}
+  $dragSortHandle.setAttribute('draggable', true);
+  $dragSortHandle.ondrag = handleItemDrag;
+  $dragSortHandle.ondragend = event => handleItemDrop(event, callback);
+};
 
 const dragSort = ($html, callback) => {
   $html
     .querySelectorAll('.drag-sort-handle')
-    .forEach($dragSortHandle => addDragSort($dragSortHandle, callback))
-}
+    .forEach($dragSortHandle => addDragSort($dragSortHandle, callback));
+};
 
 const handleItemDrag = event => {
-  const $dragSortItem = event.currentTarget.closest('.drag-sort-item')
-  const $dragSortList = $dragSortItem.parentNode
+  const $dragSortItem = event.currentTarget.closest('.drag-sort-item');
+  const $dragSortList = $dragSortItem.parentNode;
 
-  const xPos = event.clientX
-  const yPos = event.clientY
+  const xPos = event.clientX;
+  const yPos = event.clientY;
 
-  $dragSortItem.classList.add('drag-sort-item--active')
+  $dragSortItem.classList.add('drag-sort-item--active');
 
-  const $swapItem = document.elementFromPoint(xPos, yPos) ?? $selectedItem
+  const $swapItem = document.elementFromPoint(xPos, yPos) ?? $selectedItem;
 
   if ($dragSortList === $swapItem.parentNode) {
     const $dragSortSwapItem = $swapItem !== $dragSortItem.nextSibling
       ? $swapItem
-      : $swapItem.nextSibling
+      : $swapItem.nextSibling;
 
-    $dragSortList.insertBefore($dragSortItem, $dragSortSwapItem)
+    $dragSortList.insertBefore($dragSortItem, $dragSortSwapItem);
   }
-}
+};
 
 const handleItemDrop = (event, callback) => {
-  const $dragSortItem = event.target.closest('.drag-sort-item')
+  const $dragSortItem = event.target.closest('.drag-sort-item');
 
   $dragSortItem
     .classList
-    .remove('drag-sort-item--active')
+    .remove('drag-sort-item--active');
 
-  callback($dragSortItem.parentNode)
-}
+  callback($dragSortItem.parentNode);
+};
 
-const Log$3 = Logger()
+const Log$3 = Logger();
 
 class CpItemSettings extends FormApplication {
   constructor() {
-    super()
+    super();
 
-    const traitSettings = game.settings.get('cortexprime', 'itemTypes')
+    const traitSettings = game.settings.get('cortexprime', 'itemTypes');
 
-    this.traitSettings = traitSettings
+    this.traitSettings = traitSettings;
 
-    Log$3('CpItemSettings.constructor traitSettings', traitSettings)
+    Log$3('CpItemSettings.constructor traitSettings', traitSettings);
   }
 
-  static get defaultOptions() {
+  static get defaultOptions () {
     return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'settings', 'item-settings',],
+      classes: ['cortexprime', 'settings', 'item-settings'],
       closeOnSubmit: false,
       height: 900,
       id: 'ItemSettings',
       left: 400,
       resizable: false,
-      scrollY: ['#ItemSettings-form-body',],
+      scrollY: ['#ItemSettings-form-body'],
       submitOnChange: false,
       submitOnClose: false,
       template: 'systems/cortexprime/system/templates/CpItemSettings.html',
@@ -2625,190 +2626,190 @@ class CpItemSettings extends FormApplication {
   }
 
   getData() {
-    const data = this.traitSettings
+    const data = this.traitSettings;
 
-    Log$3('CPItemSettings.getData data:', data)
+    Log$3('CPItemSettings.getData data:', data);
 
     return data
   }
 
   async _updateObject(event, formData) {
-    const expandedData = expandObject(formData)
+    const expandedData = expandObject(formData);
 
-    Log$3('CPItemSettings._updateSettings expandedData:', expandedData)
-
-    await this.save(event.target, expandedData)
+    Log$3('CPItemSettings._updateSettings expandedData:', expandedData);
+    
+    await this.save(event.target, expandedData);
   }
 
   activateListeners(html) {
-    super.activateListeners(html)
-    const [$html,] = html
+    super.activateListeners(html);
+    const [$html] = html;
 
-    dragSort($html, this._onDragSortDrop.bind(this, $html))
+    dragSort($html, this._onDragSortDrop.bind(this, $html));
 
     diceSelectListener(
       $html,
       {
         changeDie: this.onChangeDie.bind(this),
       }
-    )
+    );
 
-    checkboxDisplayToggle($html)
+    checkboxDisplayToggle($html);
 
-    displayToggle($html)
+    displayToggle($html);
 
     addListeners(
       $html,
       '#ItemSettings-main',
       'click',
-      event => {
-        const $goToPage = event.target.closest('.go-to-page')
+      (event) => {
+        const $goToPage = event.target.closest('.go-to-page');
 
         if ($goToPage) {
-          this.goToPage(event, $html, $goToPage)
-
+          this.goToPage(event, $html, $goToPage);
+          return
         }
       }
-    )
+    );
 
     addListeners(
       $html,
       '#ItemSettings-pages-container',
       'change',
-      event => {
+      (event) => {
         const $rollsSeparatelyField = event
           .target
           .closest('.input-rolls-separately')
-          ?.querySelector('.field-checkbox-input')
+          ?.querySelector('.field-checkbox-input');
 
         if ($rollsSeparatelyField) {
-          this.onChangeRollsSeparately(event, $rollsSeparatelyField)
-
+          this.onChangeRollsSeparately(event, $rollsSeparatelyField);
+          return
         }
       }
-    )
+    );
 
     addListeners(
       $html,
       '#ItemSettings-pages-container',
       'click',
-      event => {
-        const $addDescriptor = event.target.closest('.add-descriptor')
+      (event) => {
+        const $addDescriptor = event.target.closest('.add-descriptor');
 
         if ($addDescriptor) {
-          this.addDescriptor($html, event, $addDescriptor)
+          this.addDescriptor($html, event, $addDescriptor);
           return
         }
 
-        const $deleteDescriptor = event.target.closest('.delete-descriptor')
+        const $deleteDescriptor = event.target.closest('.delete-descriptor');
 
         if ($deleteDescriptor) {
-          this.deleteDescriptor($deleteDescriptor)
-
+          this.deleteDescriptor($deleteDescriptor);
+          return
         }
       }
-    )
+    );
 
     addListeners(
       $html,
       '.subtraits-list-section',
       'click',
-      event => {
-        const $addSubtrait = event.target.closest('.add-subtrait')
+      (event) => {
+        const $addSubtrait = event.target.closest('.add-subtrait');
 
         if ($addSubtrait) {
-          this.addSubtrait.call(this, $html, $addSubtrait)
+          this.addSubtrait.call(this, $html, $addSubtrait);
           return
         }
 
-        const $duplicateSubtrait = event.target.closest('.duplicate-subtrait')
+        const $duplicateSubtrait = event.target.closest('.duplicate-subtrait');
 
         if ($duplicateSubtrait) {
-          this.duplicateSubtrait.call(this, $html, $duplicateSubtrait)
+          this.duplicateSubtrait.call(this, $html, $duplicateSubtrait);
           return
         }
 
-        const $deleteSubtrait = event.target.closest('.delete-subtrait')
+        const $deleteSubtrait = event.target.closest('.delete-subtrait');
 
         if ($deleteSubtrait) {
-          this.deleteSubtrait($html, $deleteSubtrait)
-
+          this.deleteSubtrait($html, $deleteSubtrait);
+          return
         }
       }
-    )
+    );
 
     addListeners(
       $html,
       '.subtrait-pages',
       'change',
-      event => {
+      (event) => {
         const $subtraitName = event
           .target
-          .closest('.ItemSettings-subtrait-field-name-input')
+          .closest('.ItemSettings-subtrait-field-name-input');
 
         if ($subtraitName) {
-          this.updateSubtraitName($html, $subtraitName)
-
+          this.updateSubtraitName($html, $subtraitName);
+          return
         }
       }
-    )
+    );
 
     addListeners(
       $html,
       '.traits-list-section',
       'click',
-      event => {
-        const $addTrait = event.target.closest('.add-trait')
+      (event) => {
+        const $addTrait = event.target.closest('.add-trait');
 
         if ($addTrait) {
-          this.addTrait.call(this, $html, $addTrait)
+          this.addTrait.call(this, $html, $addTrait);
           return
         }
 
-        const $duplicateTrait = event.target.closest('.duplicate-trait')
+        const $duplicateTrait = event.target.closest('.duplicate-trait');
 
         if ($duplicateTrait) {
-          this.duplicateTrait.call(this, $html, $duplicateTrait)
+          this.duplicateTrait.call(this, $html, $duplicateTrait);
           return
         }
 
-        const $deleteTrait = event.target.closest('.delete-trait')
+        const $deleteTrait = event.target.closest('.delete-trait');
 
         if ($deleteTrait) {
-          this.deletePageItem($html, $deleteTrait, '.traits-list-item')
-
+          this.deletePageItem($html, $deleteTrait, '.traits-list-item');
+          return
         }
       }
-    )
+    );
 
     addListeners(
       $html,
       '.trait-pages',
       'change',
-      event => {
+      (event) => {
         const $traitName = event
           .target
-          .closest('.ItemSettings-trait-field-name-input')
+          .closest('.ItemSettings-trait-field-name-input');
 
         if ($traitName) {
-          this.updateTraitName($html, $traitName)
-
+          this.updateTraitName($html, $traitName);
+          return
         }
       }
-    )
+    );
 
     $html
       .querySelector('.settings-reset')
-      .addEventListener('click', this.reset.bind(this))
+      .addEventListener('click', this.reset.bind(this));
   }
 
-  async addDescriptor($html, event, $addDescriptor) {
-    const descriptor = { label: 'New Descriptor', }
-    const { path, } = $addDescriptor.dataset
+  async addDescriptor ($html, event, $addDescriptor) {
+    const descriptor = { label: 'New Descriptor' };
+    const { path } = $addDescriptor.dataset;
     const sequence = $addDescriptor
       .closest('.item-list')
       .querySelectorAll('.descriptors-list-item')
-      .length
+      .length;
 
     const content = await renderTemplate(
       'systems/cortexprime/system/templates/partials/ItemSettings/Descriptor.html',
@@ -2817,23 +2818,23 @@ class CpItemSettings extends FormApplication {
         path,
         sequence,
       }
-    )
+    );
 
     const $list = $addDescriptor
       .closest('.item-list')
-      .querySelector('.descriptors-list')
+      .querySelector('.descriptors-list');
 
     $list
-      .insertAdjacentHTML('beforeend', content)
+      .insertAdjacentHTML('beforeend', content);
 
     const $dragSortHandler = $list
-      .querySelector(`.descriptors-list-item[data-sort-sequence="${sequence}"] .drag-sort-handle`)
+      .querySelector(`.descriptors-list-item[data-sort-sequence="${sequence}"] .drag-sort-handle`);
 
-    addDragSort($dragSortHandler, () => this._onDragSortDrop($html, $list))
+    addDragSort($dragSortHandler, () => this._onDragSortDrop($html, $list));
   }
 
-  async addSubtrait($html, $addSubtrait) {
-    const id = uuid()
+  async addSubtrait ($html, $addSubtrait) {
+    const id = uuid();
 
     await this._addPageItem(
       $html,
@@ -2864,16 +2865,16 @@ class CpItemSettings extends FormApplication {
           },
         },
       }
-    )
+    );
 
     await this._appendSubtraitType($html, {
       subtraitId: id,
-      label: 'New Subtrait',
-    })
+      label: 'New Subtrait'
+    });
   }
 
-  async addTrait($html, $addTrait) {
-    const id = uuid()
+  async addTrait ($html, $addTrait) {
+    const id = uuid();
 
     const subtraits = Array.from(
       $html.querySelectorAll('.subtraits-list-item')
@@ -2881,7 +2882,7 @@ class CpItemSettings extends FormApplication {
       .map($subTrait => ({
         id: $subTrait.dataset.id,
         name: $subTrait.dataset.name,
-      }))
+      }));
 
     await this._addPageItem(
       $html,
@@ -2911,76 +2912,76 @@ class CpItemSettings extends FormApplication {
             minDieRating: 4,
             name: 'New Trait',
             subtraitTypes: [],
-          },
+          }
         },
       }
-    )
+    );
 
-    this._switchPage($html, { targetId: id, })
+    this._switchPage($html, { targetId: id });
   }
 
-  async close() {
+  async close () {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.CloseConfirmTitle'),
       content: localizer('CP.CloseConfirmContent'),
       defaultYes: false,
-    })
+    });
 
     if (confirmed) {
       return super.close()
     }
   }
 
-  async deleteDescriptor($deleteDescriptor) {
+  async deleteDescriptor ($deleteDescriptor) {
     const $descriptorsList = $deleteDescriptor
-      .closest('.descriptors-list')
+      .closest('.descriptors-list');
 
     $deleteDescriptor
       .closest('.descriptors-list-item')
-      .remove()
+      .remove();
 
     $descriptorsList
       .querySelectorAll('.descriptors-list-item')
       .forEach(($item, index) => {
-        $item.dataset.sortSequence = index
-      })
+        $item.dataset.sortSequence = index;
+      });
   }
 
-  async deletePageItem($html, $deletePage, parentSelector) {
-    const $parentListItem = $deletePage.closest(parentSelector)
+  async deletePageItem ($html, $deletePage, parentSelector) {
+    const $parentListItem = $deletePage.closest(parentSelector);
 
-    const { id, } = $parentListItem.dataset
-    const $dragSortList = $parentListItem.closest('.drag-sort-list')
-
+    const { id } = $parentListItem.dataset;
+    const $dragSortList = $parentListItem.closest('.drag-sort-list');
+    
     const listItemName = $parentListItem
       .querySelector('.list-item-name')
-      .textContent
+      .textContent;
 
     const confirmed = await Dialog.confirm({
       title: localizer('CP.DeleteConfirmTitle'),
       content: `${localizer('CP.DeleteConfirmContentStart')} ${listItemName}?`,
       defaultYes: false,
-    })
+    });
 
     if (confirmed) {
-      $parentListItem.remove()
+      $parentListItem.remove();
 
       $html
         .querySelector(`.ItemSettings-page[data-id="${id}"]`)
-        .remove()
+        .remove();
 
-      this._reapplySortSequence($html, $dragSortList)
+      this._reapplySortSequence($html, $dragSortList);
     }
 
     return confirmed
   }
 
-  async deleteSubtrait($html, $deleteSubtrait) {
-    const { id, } = $deleteSubtrait
+  async deleteSubtrait ($html, $deleteSubtrait) {
+    const { id } = $deleteSubtrait
       .closest('.subtraits-list-item')
-      .dataset
+      .dataset;
 
-    const deleted = await this.deletePageItem($html, $deleteSubtrait, '.subtraits-list-item')
+    const deleted = await this.deletePageItem($html, $deleteSubtrait, '.subtraits-list-item');
 
     if (deleted) {
       $html
@@ -2988,25 +2989,26 @@ class CpItemSettings extends FormApplication {
         .forEach($subtraitTypeCheckbox => {
           $subtraitTypeCheckbox
             .closest('.ItemSettings-trait-field-subtrait-types')
-            .remove()
-        })
+            .remove();
+        });
     }
   }
 
-  async duplicateSubtrait($html, $duplicateSubtrait) {
-    const id = uuid()
-
-    const { id: currentId, } = $duplicateSubtrait
+  async duplicateSubtrait ($html, $duplicateSubtrait) {
+    const id = uuid();
+    
+    const { id: currentId } = $duplicateSubtrait
       .closest('.subtraits-list-item')
-      .dataset
+      .dataset;
 
     const $currentSubtraitPage = $html
-      .querySelector(`.ItemSettings-page[data-id="${currentId}"]`)
+      .querySelector(`.ItemSettings-page[data-id="${currentId}"]`);
 
-    const name = `${$currentSubtraitPage
-      ?.querySelector(`[name="subtraits.${currentId}.name"]`)
-      ?.value ?? 'New Subtrait'
-    } (duplicate)`
+    const name = (
+      $currentSubtraitPage
+        ?.querySelector(`[name="subtraits.${currentId}.name"]`)
+        ?.value ?? 'New Subtrait'
+    ) + ' (duplicate)';
 
     await this._addPageItem(
       $html,
@@ -3055,40 +3057,41 @@ class CpItemSettings extends FormApplication {
               $currentSubtraitPage
                 ?.querySelector(`[name="subtraits.${currentId}.maxDieRating"]`)
                 ?.value ?? null
-              , 10) || null,
+            , 10) || null,
             minDieRating: parseInt(
               $currentSubtraitPage
-                ?.querySelector(`[name="subtraits.${currentId}.minDieRating"]`)
-                ?.value ?? null
-              , 10) || null,
+              ?.querySelector(`[name="subtraits.${currentId}.minDieRating"]`)
+              ?.value ?? null
+            , 10) || null,
             name,
-          },
+          }
         },
       }
-    )
+    );
 
     await this._appendSubtraitType($html, {
       label: name,
       subtraitId: id,
-    })
+    });
 
-    this._switchPage($html, { targetId: id, })
+    this._switchPage($html, { targetId: id });
   }
 
-  async duplicateTrait($html, $duplicateTrait) {
-    const id = uuid()
-
-    const { id: currentId, } = $duplicateTrait
+  async duplicateTrait ($html, $duplicateTrait) {
+    const id = uuid();
+    
+    const { id: currentId } = $duplicateTrait
       .closest('.traits-list-item')
-      .dataset
+      .dataset;
 
     const $currentTraitPage = $html
-      .querySelector(`.ItemSettings-page[data-id="${currentId}"]`)
+      .querySelector(`.ItemSettings-page[data-id="${currentId}"]`);
 
-    const name = `${$currentTraitPage
-      ?.querySelector(`[name="traits.${currentId}.name"]`)
-      ?.value ?? 'New Trait'
-    } (duplicate)`
+    const name = (
+      $currentTraitPage
+        ?.querySelector(`[name="traits.${currentId}.name"]`)
+        ?.value ?? 'New Trait'
+    ) + ' (duplicate)';
 
     const subtraits = Array.from(
       $html.querySelectorAll('.subtraits-list-item')
@@ -3096,7 +3099,7 @@ class CpItemSettings extends FormApplication {
       .map($subTrait => ({
         id: $subTrait.dataset.id,
         name: $subTrait.dataset.name,
-      }))
+      }));
 
     await this._addPageItem(
       $html,
@@ -3146,129 +3149,129 @@ class CpItemSettings extends FormApplication {
               $currentTraitPage
                 ?.querySelector(`[name="traits.${currentId}.maxDieRating"]`)
                 ?.value ?? null
-              , 10) || null,
+            , 10) || null,
             minDieRating: parseInt(
               $currentTraitPage
                 ?.querySelector(`[name="traits.${currentId}.minDieRating"]`)
                 ?.value ?? null
-              , 10) || null,
+            , 10) || null,
             name,
             subtraitTypes: Array.from(
               $currentTraitPage
                 ?.querySelectorAll(`[name="traits.${currentId}.subtraitTypes"]:checked`)
             )
-              .map($subtraitType => $subtraitType.value),
-          },
+              .map($subtraitType => $subtraitType.value)
+          }
         },
       }
-    )
+    );
 
-    this._switchPage($html, { targetId: id, })
+    this._switchPage($html, { targetId: id });
   }
 
-  async goToPage(event, $html, $goToPage) {
+  async goToPage (event, $html, $goToPage) {
     const {
       currentId,
-      targetId,
-    } = $goToPage?.dataset ?? event.currentTarget.dataset
+      targetId
+    } = $goToPage?.dataset ?? event.currentTarget.dataset;
 
-    this._switchPage($html, { currentId, targetId, })
+    this._switchPage($html, { currentId, targetId });
   }
 
-  async onChangeDie(event, { index, value, }) {
-    const $diceSelect = event.target.closest('.dice-select')
-    const $dieWrapper = event.target.closest('.die-wrapper')
-    const $dieSelect = $dieWrapper.querySelector('.die-select')
+  async onChangeDie (event, { index, value }) {
+    const $diceSelect = event.target.closest('.dice-select');
+    const $dieWrapper = event.target.closest('.die-wrapper');
+    const $dieSelect = $dieWrapper.querySelector('.die-select');
 
     $diceSelect
       .querySelector('.cp-die')
-      .outerHTML = getDieIcon(value)
+      .outerHTML = getDieIcon(value);
 
-    $dieSelect.value = value
+    $dieSelect.value = value;
 
-    const $listItemPage = $diceSelect.closest('.list-item-page')
-    const $maxDieRating = $listItemPage.querySelector('.max-die-rating')
-    const $minDieRating = $listItemPage.querySelector('.min-die-rating')
+    const $listItemPage = $diceSelect.closest('.list-item-page');
+    const $maxDieRating = $listItemPage.querySelector('.max-die-rating');
+    const $minDieRating = $listItemPage.querySelector('.min-die-rating');
 
     if (
-      $diceSelect.classList.contains('min-die-rating')
-      && parseInt(value, 10) > parseInt($maxDieRating.querySelector('.die-select').value, 10)
+      $diceSelect.classList.contains('min-die-rating') &&
+      parseInt(value, 10) > parseInt($maxDieRating.querySelector('.die-select').value, 10) 
     ) {
-      $maxDieRating.value = value
+      $maxDieRating.value = value;
 
       $maxDieRating
         .querySelector('.cp-die')
-        .outerHTML = getDieIcon(value)
+        .outerHTML = getDieIcon(value);
 
       $maxDieRating
         .querySelector('.die-select')
-        .value = value
+        .value = value;
     } else if (
-      $diceSelect.classList.contains('max-die-rating')
-      && parseInt(value, 10) < parseInt($minDieRating.querySelector('.die-select').value, 10)
+      $diceSelect.classList.contains('max-die-rating') &&
+      parseInt(value, 10) < parseInt($minDieRating.querySelector('.die-select').value, 10) 
     ) {
-      $minDieRating.value = value
+      $minDieRating.value = value;
 
       $minDieRating
         .querySelector('.cp-die')
-        .outerHTML = getDieIcon(value)
+        .outerHTML = getDieIcon(value);
 
       $minDieRating
         .querySelector('.die-select')
-        .value = value
+        .value = value;
     }
   }
 
   async onChangeRollsSeparately(event, $rollsSeparatelyField) {
-    const isChecked = $rollsSeparatelyField.checked
+    const isChecked = $rollsSeparatelyField.checked;
 
     const $hasHitchesField = $rollsSeparatelyField
       .closest('.ItemSettings-page')
-      .querySelector('.input-has-hitches .field-checkbox-input')
+      .querySelector('.input-has-hitches .field-checkbox-input');
 
-    $hasHitchesField.checked = !isChecked
-    $hasHitchesField.disabled = !isChecked
+    $hasHitchesField.checked = !isChecked;
+    $hasHitchesField.disabled = !isChecked;
 
     $hasHitchesField
       .closest('.field')
       .classList
-      .toggle('field-disabled', !isChecked)
+      .toggle('field-disabled', !isChecked);
   }
 
-  async reset() {
+  async reset () {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.ResetConfirmTitle'),
       content: localizer('CP.ResetConfirmContent'),
       defaultYes: false,
-    })
+    });
 
     if (confirmed) {
-      this.render(true)
+      this.render(true);
     }
   }
 
-  async save($html, expandedData) {
+  async save ($html, expandedData) {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.SaveConfirmTitle'),
       content: localizer('CP.SaveConfirmContent'),
       defaultYes: false,
-    })
+    });
 
     if (confirmed) {
-      const sequenceSort = ([_, aValue,], [__, bValue,]) => {
-        const aSortValue = parseInt(aValue.sequence, 10)
-        const bSortValue = parseInt(bValue.sequence, 10)
-
+      const sequenceSort = ([_, aValue], [__, bValue]) => {
+        const aSortValue = parseInt(aValue.sequence, 10);
+        const bSortValue = parseInt(bValue.sequence, 10);
+  
         return bSortValue > aSortValue.sequence
-          ? -1
+          ? -1 
           : aSortValue > bSortValue
-            ? 1
+            ? 1 
             : 0
-      }
-
+      };
+  
       const subtraits = objectSortToArray(expandedData.subtraits, sequenceSort)
         .map(subtrait => {
-          delete subtrait.sequence
+          delete subtrait.sequence;
 
           subtrait.descriptors = Array.from(
             $html
@@ -3278,19 +3281,19 @@ class CpItemSettings extends FormApplication {
               return {
                 label: $listItem
                   .querySelector('.ItemSettings-descriptor-field-name-input')
-                  .value,
+                  .value
               }
-            })
-
-          subtrait.maxDieRating = parseInt(subtrait.maxDieRating, 10)
-          subtrait.minDieRating = parseInt(subtrait.minDieRating, 10)
+            });
+  
+          subtrait.maxDieRating = parseInt(subtrait.maxDieRating, 10);
+          subtrait.minDieRating = parseInt(subtrait.minDieRating, 10);
 
           return subtrait
-        })
-
+        });
+  
       const traits = objectSortToArray(expandedData.traits, sequenceSort)
         .map(trait => {
-          delete trait.sequence
+          delete trait.sequence;
 
           trait.descriptors = Array.from(
             $html
@@ -3300,47 +3303,47 @@ class CpItemSettings extends FormApplication {
               return {
                 label: $listItem
                   .querySelector('.ItemSettings-descriptor-field-name-input')
-                  .value,
+                  .value
               }
-            })
-
-          trait.maxDieRating = parseInt(trait.maxDieRating, 10)
-          trait.minDieRating = parseInt(trait.minDieRating, 10)
-          trait.subtraitTypes = trait.subtraitTypes.filter(x => x)
-
+            });
+  
+          trait.maxDieRating = parseInt(trait.maxDieRating, 10);
+          trait.minDieRating = parseInt(trait.minDieRating, 10);
+          trait.subtraitTypes = trait.subtraitTypes.filter(x => x);
+  
           return trait
-        })
-
+        });
+  
       const serializedData = {
         subtraits,
-        traits,
-      }
+        traits
+      };
+  
+      Log$3('CpItemSettings.save serializedData', serializedData);
 
-      Log$3('CpItemSettings.save serializedData', serializedData)
-
-      game.settings.set('cortexprime', 'itemTypes', serializedData)
+      game.settings.set('cortexprime', 'itemTypes', serializedData);
 
       Dialog.prompt({
         title: localizer('CP.PromptSettingsSaveTitle'),
         content: localizer('CP.PromptSettingsSaveContent'),
-      })
+      });
     }
   }
 
-  updateSubtraitName($html, $subtraitName) {
-    const $subtraitPage = $subtraitName.closest('.subtrait-page')
+  updateSubtraitName ($html, $subtraitName) {
+    const $subtraitPage = $subtraitName.closest('.subtrait-page');
 
-    const { id, } = $subtraitPage.dataset
+    const { id } = $subtraitPage.dataset;
 
-    const subtraitName = $subtraitName.value
+    const subtraitName = $subtraitName.value;
 
     $subtraitPage
       .querySelector('.subtrait-page-name')
-      .textContent = subtraitName
-
+      .textContent = subtraitName;
+    
     $html
       .querySelector(`.subtraits-list-item[data-id="${id}"] .subtraits-list-item-name`)
-      .textContent = subtraitName
+      .textContent = subtraitName;
 
     $html
       .querySelectorAll(`.ItemSettings-trait-field-subtrait-types [data-subtrait-id="${id}"]`)
@@ -3348,27 +3351,27 @@ class CpItemSettings extends FormApplication {
         $subtraitType
           .closest('.field-wrapper')
           .querySelector('.field-label')
-          .textContent = subtraitName
-      })
+          .textContent = subtraitName;
+      });
   }
 
-  updateTraitName($html, $traitName) {
-    const $traitPage = $traitName.closest('.trait-page')
+  updateTraitName ($html, $traitName) {
+    const $traitPage = $traitName.closest('.trait-page');
 
-    const { id, } = $traitPage.dataset
+    const { id } = $traitPage.dataset;
 
-    const traitName = $traitName.value
+    const traitName = $traitName.value;
 
     $traitPage
       .querySelector('.trait-page-name')
-      .textContent = traitName
-
+      .textContent = traitName;
+    
     $html
       .querySelector(`.traits-list-item[data-id="${id}"] .traits-list-item-name`)
-      .textContent = traitName
+      .textContent = traitName;
   }
 
-  async _addPageItem($html, $addListButton, payload) {
+  async _addPageItem ($html, $addListButton, payload) {
     const {
       id,
       itemName,
@@ -3377,16 +3380,16 @@ class CpItemSettings extends FormApplication {
       listTypeSingular,
       templatePath,
       templateData,
-    } = payload
+    } = payload;
 
     const $list = $addListButton
       .closest(`.${listTypePlural}-list-section`)
-      .querySelector(`.${listTypePlural}-list`)
+      .querySelector(`.${listTypePlural}-list`);
 
     const $listItems = $list
-      .querySelectorAll(`.${listTypePlural}-list-item`)
+      .querySelectorAll(`.${listTypePlural}-list-item`);
 
-    const sequence = $listItems.length
+    const sequence = $listItems.length;
 
     const listItemHtml = await renderTemplate(
       'systems/cortexprime/system/templates/partials/SortableListItem.html',
@@ -3399,41 +3402,41 @@ class CpItemSettings extends FormApplication {
           id,
           name: itemName,
           sequence: sequence,
-        },
+        }
       }
-    )
+    );
 
-    $list.insertAdjacentHTML('beforeend', listItemHtml)
+    $list.insertAdjacentHTML('beforeend', listItemHtml);
 
     const $newListItem = $list
-      .querySelector(`.${listTypePlural}-list-item[data-sort-sequence="${sequence}"]`)
+      .querySelector(`.${listTypePlural}-list-item[data-sort-sequence="${sequence}"]`);
 
     const $dragSortHandler = $newListItem
-      .querySelector('.drag-sort-handle')
+      .querySelector('.drag-sort-handle');
 
-    addDragSort($dragSortHandler, () => this._onDragSortDrop($html, $list))
+    addDragSort($dragSortHandler, () => this._onDragSortDrop($html, $list));
 
     const pageHtml = await renderTemplate(
       `systems/cortexprime/system/templates/partials/${templatePath}`,
-      templateData
-    )
+      templateData,
+    );
 
     $html
       .querySelector(`.${listTypeSingular}-pages`)
-      .insertAdjacentHTML('beforeend', pageHtml)
+      .insertAdjacentHTML('beforeend', pageHtml);
 
-    this._switchPage($html, { targetId: id, })
+    this._switchPage($html, { targetId: id });
   }
 
-  async _appendSubtraitType($html, data) {
+  async _appendSubtraitType ($html, data) {
     const $traitPages = $html
-      .querySelectorAll('.trait-page')
+      .querySelectorAll('.trait-page');
 
     await Promise.all(
       Array.from($traitPages)
-        .map(async $traitPage => {
-          const { id: traitId, } = $traitPage.dataset
-
+        .map(async ($traitPage) => {
+          const { id: traitId } = $traitPage.dataset;
+          
           const subtraitTypeHtml = await renderTemplate(
             'systems/cortexprime/system/templates/partials/ItemSettings/SubtraitType.html',
             {
@@ -3442,30 +3445,30 @@ class CpItemSettings extends FormApplication {
               trait: traitId,
               label: data.label,
             }
-          )
+          );
 
           $traitPage
             .querySelector('.ItemSettings-subtrait-types')
-            .insertAdjacentHTML('beforeend', subtraitTypeHtml)
+            .insertAdjacentHTML('beforeend', subtraitTypeHtml);
         })
-    )
+    );
   }
 
-  _onDragSortDrop($html, $dragSortList) {
-    this._reapplySortSequence($html, $dragSortList)
+  _onDragSortDrop ($html, $dragSortList) {
+    this._reapplySortSequence($html, $dragSortList);
   }
 
-  _reapplySortSequence($html, $dragSortList) {
-    const { sortList, } = $dragSortList.dataset
+  _reapplySortSequence ($html, $dragSortList) {
+    const { sortList } = $dragSortList.dataset;
 
     Array.from($dragSortList.children)
       .forEach(($item, index) => {
-        $item.dataset.sortSequence = index
+        $item.dataset.sortSequence = index;
         const $dragSortItemSequence = $item
-          .querySelector('.drag-sort-item-sequence')
+          .querySelector('.drag-sort-item-sequence');
 
         if ($dragSortItemSequence) {
-          $dragSortItemSequence.value = index
+          $dragSortItemSequence.value = index;
         }
 
         if (sortList === 'subtraits') {
@@ -3474,24 +3477,24 @@ class CpItemSettings extends FormApplication {
             .forEach($subtraitSection => {
               const $subtraitType = $subtraitSection
                 .querySelector(`[data-subtrait-id="${$item.dataset.id}"]`)
-                .closest('.ItemSettings-trait-field-subtrait-types')
+                .closest('.ItemSettings-trait-field-subtrait-types');
 
-              $subtraitSection.append($subtraitType)
-            })
+                $subtraitSection.append($subtraitType);
+            });
         }
-      })
+      });
   }
 
-  _switchPage($html, { currentId, targetId, }) {
+  _switchPage ($html, { currentId, targetId }) {
     $html
       .querySelector(currentId ? `.ItemSettings-page[data-id="${currentId}"]` : '.list-page')
       .classList
-      .add('hide')
+      .add('hide');
 
     $html
       .querySelector(targetId ? `.ItemSettings-page[data-id="${targetId}"]` : '.list-page')
       .classList
-      .remove('hide')
+      .remove('hide');
   }
 }
 
@@ -3499,39 +3502,39 @@ class CpItemSettings extends FormApplication {
 // feat(0.3.0): Add temporary die
 // feat(0.3.0): Add a heading 3 and apply to "Preset Descriptors" in Item Settings
 
-/** * Dice Pool ***/
+/*** Dice Pool ***/
 // feat(1.0.0): preview button in DicePool to preview pool prior to rolling
 // // Use sockets to update and have a dropdown to choose which dice pool to view
 
-/** * Item Settings ***/
+/*** Item Settings ***/
 // tweak(0.3.0): (FUTURE) when deleting trait or subtrait other sheets will be properly updated
 // tweak(0.3.0): Type image & update in item list
 
-/** * Item Sheets ***/
+/*** Item Sheets ***/
 // feat(0.3.0): getter for item type and selector (different message if missing item type rather than unchosen)
 // feat(0.3.0): Drag & Drop subtrait items onto trait item sheets
 // feat(0.3.0): Editing subtrait on a trait sheet will open a subtrait sheet
 
-/** * Actor Settings ***/
+/*** Actor Settings ***/
 // feat(0.3.0): Create settings page
 // feat(0.3.0): Layout options
 // feat(0.3.0): "Simple Traits" for dice, booleans and/or tags?, numbers, text, etc.
 // feat(1.0.0): Growth Tracking
 
-/** * Actor Sheets ***/
+/*** Actor Sheets ***/
 // feat: temporary dice ratings
 // feat(0.3.0): Drag and Drop trait and subtrait items onto sheets
 
-/** * Misc Settings ***/
+/*** Misc Settings ***/
 // feat(0.3.0): expandable roll result traits setting (default not)
 
-/** * Misc ***/
+/*** Misc ***/
 // feat(0.3.0): textarea icon interpolation
 // feat: Turn Order
 // feat(1.0.0): Quick access sheet
 // feat(0.3.0): Help Document/page
 
-const defaultItemTypes = {
+var defaultItemTypes = {
   subtraits: [
     {
       id: 'subtrait-power',
@@ -4104,12 +4107,12 @@ const defaultItemTypes = {
       ],
     },
   ],
-}
+};
 
-const defaultThemes = {
+var defaultThemes = {
   selectedTheme: 'Cortex Prime',
   customList: {},
-}
+};
 
 const registerSettings = () => {
   game.settings.register('cortexprime', 'themes', {
@@ -4118,7 +4121,7 @@ const registerSettings = () => {
     scope: 'world',
     type: Object,
     config: false,
-  })
+  });
 
   game.settings.registerMenu('cortexprime', 'ThemeSettings', {
     hint: localizer('CP.ThemeSettingsHint'),
@@ -4127,7 +4130,7 @@ const registerSettings = () => {
     name: localizer('CP.ThemeSettings'),
     restricted: true,
     type: CpThemeSettings,
-  })
+  });
 
   game.settings.register('cortexprime', 'itemTypes', {
     config: false,
@@ -4135,7 +4138,7 @@ const registerSettings = () => {
     name: localizer('CP.ItemTypes'),
     scope: 'world',
     type: Object,
-  })
+  });
 
   game.settings.registerMenu('cortexprime', 'ItemSettings', {
     hint: localizer('CP.ItemSettingsHint'),
@@ -4144,58 +4147,58 @@ const registerSettings = () => {
     name: localizer('CP.ItemSettings'),
     restricted: true,
     type: CpItemSettings,
-  })
-}
+  });
+};
 
-const Log$2 = Logger()
+const Log$2 = Logger();
 
 class CpItemSheet extends ItemSheet {
   itemTypeSettings = game.settings.get('cortexprime', 'itemTypes')
 
-  get item() {
+  get item () {
     return super.item
   }
 
-  get itemTypeProperty() {
+  get itemTypeProperty () {
     return this.item.type === 'Trait'
       ? 'traits'
       : 'subtraits'
   }
 
-  get itemTypeOptions() {
+  get itemTypeOptions () {
     return this.itemTypeSettings[this.itemTypeProperty]
   }
 
-  get itemSettings() {
-    const itemTypeId = this.item.system?.itemTypeId
+  get itemSettings () {
+    const itemTypeId = this.item.system?.itemTypeId;
 
     if (!itemTypeId) return null
 
     return this.itemTypeOptions
-      ?.find(({ id, }) => id === itemTypeId) ?? null
+      ?.find(({ id }) => id === itemTypeId) ?? null
   }
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'sheet', 'item-sheet',],
+      classes: ['cortexprime', 'sheet', 'item-sheet'],
       height: 450,
-      template: 'systems/cortexprime/system/templates/CpItemSheet.html',
+      template: "systems/cortexprime/system/templates/CpItemSheet.html",
       width: 480,
     })
   }
+ 
+  async getData (options) {
+    const superData = super.getData(options);
+    
+    Log$2(`CpItemSheet.getData superData:`, superData);
 
-  async getData(options) {
-    const superData = super.getData(options)
+    Log$2('CpItemSheet.getData item', this.item);
+    
+    Log$2('CpItemSheet.getData itemTypeSettings', this.itemTypeSettings);
 
-    Log$2('CpItemSheet.getData superData:', superData)
+    Log$2('CpItemSheet.getData itemSettings', this.itemSettings);
 
-    Log$2('CpItemSheet.getData item', this.item)
-
-    Log$2('CpItemSheet.getData itemTypeSettings', this.itemTypeSettings)
-
-    Log$2('CpItemSheet.getData itemSettings', this.itemSettings)
-
-    Log$2('CpItemSheet.getData itemTypeOptions', this.itemTypeOptions)
+    Log$2('CpItemSheet.getData itemTypeOptions', this.itemTypeOptions);
 
     if (this.item.system.itemTypeId && !this.itemSettings) ;
 
@@ -4203,48 +4206,48 @@ class CpItemSheet extends ItemSheet {
       ...superData,
       itemSettings: this.itemSettings,
       itemTypeOptions: [
-        { placeholder: true, id: '', name: localizer('CP.ChooseTypeMessage'), },
+        { placeholder: true, id: '', name: localizer('CP.ChooseTypeMessage') },
         ...this.itemTypeOptions,
-      ],
-    }
+      ]
+    };
 
-    Log$2('CpItemSheet.getData data', data)
+    Log$2('CpItemSheet.getData data', data);
 
     return data
   }
 
   async _updateObject(event, formData) {
-    let expandedData = expandObject(formData)
+    let expandedData = expandObject(formData);
 
-    Log$2('CPItemSheet._updateObject expandedData:', expandedData)
+    Log$2('CPItemSheet._updateObject expandedData:', expandedData);
 
-    const hasItemTypeChanged = expandedData.data.system.itemTypeId && expandedData.data.system.itemTypeId !== this.item.system.itemTypeId
+    const hasItemTypeChanged = expandedData.data.system.itemTypeId && expandedData.data.system.itemTypeId !== this.item.system.itemTypeId;
 
     expandedData.data.system.dice = typeof expandedData.data.system.dice === 'string'
-      ? [parseInt(expandedData.data.system.dice, 10),]
-      : expandedData.data.system.dice
+      ? [parseInt(expandedData.data.system.dice, 10)]
+      : !!expandedData.data.system.dice
         ? expandedData.data.system.dice.map(die => parseInt(die, 10))
-        : []
+        : [];
 
     if (hasItemTypeChanged) {
-      expandedData = this.onItemTypeChange(expandedData)
+      expandedData = this.onItemTypeChange(expandedData);
     }
+    
+    const system = mergeObject(this.item.system, expandedData.data.system);
 
-    const system = mergeObject(this.item.system, expandedData.data.system)
-
-    Log$2('CPItemSheet._updateObject system:', system)
+    Log$2('CPItemSheet._updateObject system:', system);
 
     await this.item.update({
       name: expandedData.data.name || this.item.name,
-      system,
-    })
+      system
+    });
 
-    await this.render()
+    await this.render();
   }
 
-  activateListeners(html) {
-    super.activateListeners(html)
-    const [$html,] = html
+  activateListeners (html) {
+    super.activateListeners(html);
+    const [$html] = html;
 
     diceSelectListener(
       $html,
@@ -4252,68 +4255,68 @@ class CpItemSheet extends ItemSheet {
         addDie: this.onAddDie.bind(this),
         removeDie: this.onRemoveDie.bind(this),
       }
-    )
+    );
   }
 
-  async onAddDie() {
+  async onAddDie () {
     [
       ...this.item.system.dice ?? [],
-      this.item.system.dice?.[this.item.system.dice.length - 1] ?? this.itemSettings.minDieRating,
-    ]
+      this.item.system.dice?.[this.item.system.dice.length - 1 ] ?? this.itemSettings.minDieRating
+    ];
 
     await this.item.update({
       system: {
         ...this.item.system,
         dice: [
           ...this.item.system.dice ?? [],
-          this.item.system.dice?.[this.item.system.dice.length -1] ?? this.itemSettings.minDieRating,
-        ],
-      },
-    })
+          this.item.system.dice?.[this.item.system.dice.length -1 ] ?? this.itemSettings.minDieRating
+        ]
+      }
+    });
 
-    this.render(true)
+    this.render(true);
   }
 
-  onItemTypeChange(expandedData) {
+  onItemTypeChange (expandedData) {
     const newItemSettings = this.itemTypeOptions
-      ?.find(({ id, }) => id === expandedData.data.system.itemTypeId) ?? null
-
-    const dice = expandedData.data.system.dice
+      ?.find(({ id }) => id === expandedData.data.system.itemTypeId) ?? null;
+    
+    const dice = expandedData.data.system.dice;
 
     if (newItemSettings.hasDice) {
       expandedData.data.system.dice = dice.length > 0
-        ? newItemSettings.allowMultipleDice
-          ? dice.map(die => {
-            return (
-              die > newItemSettings.maxDieRating
-                  || die < newItemSettings.minDieRating
-            )
-              ? newItemSettings.minDieRating
-              : die
-          })
-          : (
-            dice[0] > newItemSettings.maxDieRating
-                || dice[0] < newItemSettings.minDieRating
-          )
-            ? [newItemSettings.minDieRating,]
-            : [dice[0],]
-        : newItemSettings.allowNoDice
-          ? dice
-          : [newItemSettings.minDieRating,]
+          ? newItemSettings.allowMultipleDice
+            ? dice.map(die => {
+                return (
+                  die > newItemSettings.maxDieRating ||
+                  die < newItemSettings.minDieRating
+                )
+                  ? newItemSettings.minDieRating
+                  : die
+              })
+            : (
+                dice[0] > newItemSettings.maxDieRating ||
+                dice[0] < newItemSettings.minDieRating
+              )
+                ? [newItemSettings.minDieRating]
+                : [dice[0]]
+          : newItemSettings.allowNoDice
+            ? dice
+            : [newItemSettings.minDieRating];
     }
 
     return expandedData
   }
 
-  async onRemoveDie(event, { index, }) {
+  async onRemoveDie (event, { index }) {
     await this.item.update({
       system: {
         ...this.item.system,
-        dice: this.item.system.dice?.filter((_, i) => i !== index),
-      },
-    })
+        dice: this.item.system.dice?.filter((_, i) => i !== index)
+      }
+    });
 
-    this.render(true)
+    this.render(true);
   }
 
   // TODO: Create a conformToSettings method
@@ -4322,66 +4325,66 @@ class CpItemSheet extends ItemSheet {
   // // Used for submission
 }
 
-const Log$1 = Logger()
+const Log$1 = Logger();
 
 class CpActorSheet extends ActorSheet {
-  get actor() {
+  get actor () {
     return super.actor
   }
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'sheet', 'actor-sheet',],
+      classes: ['cortexprime', 'sheet', 'actor-sheet'],
       height: 900,
-      template: 'systems/cortexprime/system/templates/CpActorSheet.html',
+      template: "systems/cortexprime/system/templates/CpActorSheet.html",
       width: 960,
     })
   }
-
-  async getData(options) {
-    const superData = super.getData(options)
-
-    Log$1('CpActorSheet.getData superData:', superData)
+ 
+  async getData (options) {
+    const superData = super.getData(options);
+    
+    Log$1(`CpActorSheet.getData superData:`, superData);
 
     return superData
   }
 
-  activateListeners(html) {
-    super.activateListeners(html)
+  activateListeners (html) {
+    super.activateListeners(html);
   }
 }
 
 const registerSheets = () => {
-  Actors.unregisterSheet('core', ActorSheet)
+  Actors.unregisterSheet('core', ActorSheet);
   Actors.registerSheet('cortexprime', CpActorSheet, {
     label: localizer('CP.ActorSheetLabel'),
     makeDefault: true,
-  })
+  });
 
-  Items.unregisterSheet('core', ItemSheet)
+  Items.unregisterSheet('core', ItemSheet);
   Items.registerSheet('cortexprime', CpItemSheet, {
     label: localizer('CP.ItemSheetLabel'),
     makeDefault: true,
-  })
-}
+  });
+};
 
-const Log = Logger()
+const Log = Logger();
 
 Hooks.once('init', () => {
-  game.socket.on('system.cortexprime', sockets)
+  game.socket.on('system.cortexprime', sockets);
 
-  CONFIG.debug.logs = true
+  CONFIG.debug.logs = true;
 
-  Log('Initializing Cortex prime system...')
+  Log('Initializing Cortex prime system...');
 
-  CONFIG.Item.documentClass = CpItem
+  CONFIG.Item.documentClass = CpItem;
 
-  game.cortexprime = {}
+  game.cortexprime = {};
 
-  registerHandlebarHelpers()
-  preloadHandlebarsTemplates()
-  registerSettings()
-  registerSheets()
-  hooks()
-})
-// # sourceMappingURL=cortexprime.mjs.map
+  registerHandlebarHelpers();
+  preloadHandlebarsTemplates();
+  registerSettings();
+  registerSheets();
+  hooks();
+});
+//# sourceMappingURL=cortexprime.mjs.map

@@ -1,8 +1,8 @@
-import { fieldListeners } from '../lib/formHelpers'
-import { addListeners, displayToggleMethod, localizer } from '../lib/helpers'
+import { fieldListeners, } from '../lib/formHelpers'
+import { addListeners, displayToggleMethod, localizer, } from '../lib/helpers'
 import Logger from '../lib/Logger'
 import presetThemes from '../lib/presetThemes'
-import { setThemeProperties } from '../lib/setThemeProperties'
+import { setThemeProperties, } from '../lib/setThemeProperties'
 
 const Log = Logger()
 
@@ -23,15 +23,15 @@ export default class CpThemeSettings extends FormApplication {
     this.themeSelection = themeSettings.selectedTheme
   }
 
-  static get defaultOptions () {
-    return mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'settings', 'theme-settings'],
+  static get defaultOptions() {
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      classes: ['cortexprime', 'settings', 'theme-settings',],
       closeOnSubmit: false,
       height: 900,
       id: 'ThemeSettings',
       left: 400,
       resizable: false,
-      scrollY: ['#ThemeSettings-form-body'],
+      scrollY: ['#ThemeSettings-form-body',],
       submitOnChange: false,
       submitOnClose: false,
       template: 'systems/cortexprime/system/templates/CpThemeSettings.html',
@@ -41,36 +41,36 @@ export default class CpThemeSettings extends FormApplication {
     })
   }
 
-  get allThemes () {
+  get allThemes() {
     return {
       ...presetThemes,
       ...this.customThemes,
     }
   }
 
-  get allThemeNames () {
+  get allThemeNames() {
     return Object.keys(this.allThemes)
   }
 
-  get currentSettings () {
+  get currentSettings() {
     return this.allThemes[this.selectedTheme]
   }
 
-  get isPresetTheme () {
+  get isPresetTheme() {
     return !!presetThemes[this.selectedTheme]
   }
 
   getData() {
     const data = {
       borderPositions: [
-        { name: localizer('CP.None'), value: 'none' },
-        { name: localizer('CP.All'), value: 'all' },
-        { name: localizer('CP.Bottom'), value: 'bottom' },
-        { name: localizer('CP.Top'), value: 'top' },
-        { name: localizer('CP.Left'), value: 'left' },
-        { name: localizer('CP.Right'), value: 'right' },
-        { name: localizer('CP.TopAndBottom'), value: 'top-and-bottom' },
-        { name: localizer('CP.LeftAndRight'), value: 'left-and-right' },
+        { name: localizer('CP.None'), value: 'none', },
+        { name: localizer('CP.All'), value: 'all', },
+        { name: localizer('CP.Bottom'), value: 'bottom', },
+        { name: localizer('CP.Top'), value: 'top', },
+        { name: localizer('CP.Left'), value: 'left', },
+        { name: localizer('CP.Right'), value: 'right', },
+        { name: localizer('CP.TopAndBottom'), value: 'top-and-bottom', },
+        { name: localizer('CP.LeftAndRight'), value: 'left-and-right', },
       ],
       currentSettings: this.currentSettings,
       expandedSections: this.expandedSections,
@@ -80,12 +80,12 @@ export default class CpThemeSettings extends FormApplication {
         {
           label: localizer('CP.PresetThemes'),
           options: Object.keys(presetThemes)
-          .map(themeName => ({ name: themeName, value: themeName }))
+            .map(themeName => ({ name: themeName, value: themeName, })),
         },
         {
           label: 'Custom Themes',
           options: Object.keys(this.customThemes)
-          .map(themeName => ({ name: themeName, value: themeName }))
+            .map(themeName => ({ name: themeName, value: themeName, })),
         },
       ],
     }
@@ -105,15 +105,15 @@ export default class CpThemeSettings extends FormApplication {
     } = expandedData
 
     this.selectedTheme = selectedTheme
-    
+
     await this.save(expandedData)
   }
 
   activateListeners(html) {
     super.activateListeners(html)
-    
-    const [$html] = html
-    
+
+    const [$html,] = html
+
     fieldListeners($html)
 
     addListeners(
@@ -147,7 +147,7 @@ export default class CpThemeSettings extends FormApplication {
     $html
       .querySelector('#ThemeSettings-theme-select')
       ?.addEventListener('change', this.onChangeTheme.bind(this))
-    
+
     $html
       .querySelector('#ThemeSettings-custom-theme-create')
       ?.addEventListener('click', () => this.createCustomTheme.call(this, $html))
@@ -165,7 +165,7 @@ export default class CpThemeSettings extends FormApplication {
       ?.addEventListener('click', this.reset.bind(this))
   }
 
-  async close () {
+  async close() {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.CloseConfirmTitle'),
       content: localizer('CP.CloseConfirmContent'),
@@ -181,12 +181,12 @@ export default class CpThemeSettings extends FormApplication {
     }
   }
 
-  async createCustomTheme ($html) {
+  async createCustomTheme($html) {
     const customThemeName = (
       $html
         .querySelector('#ThemeSettings-custom-theme-name')
         .value ?? ''
-      ).trim()
+    ).trim()
 
     const errorMessage = !customThemeName
       ? localizer('CP.CustomThemeNameErrorRequired')
@@ -204,7 +204,7 @@ export default class CpThemeSettings extends FormApplication {
 
       const newCustomThemes = {
         ...themeSettings.customList,
-        [customThemeName]: { ...this.currentSettings }
+        [customThemeName]: { ...this.currentSettings, },
       }
 
       themeSettings.customList = newCustomThemes
@@ -220,12 +220,12 @@ export default class CpThemeSettings extends FormApplication {
       setThemeProperties(this.currentSettings)
 
       game.socket.emit('system.cortexprime', {
-        type: 'setThemeProperties'
+        type: 'setThemeProperties',
       })
     }
   }
 
-  async deleteTheme () {
+  async deleteTheme() {
     if (this.isPresetTheme) {
       Dialog.prompt({
         title: localizer('CP.ValidationError'),
@@ -243,45 +243,45 @@ export default class CpThemeSettings extends FormApplication {
 
     if (confirmed) {
       const themeSettings = game.settings.get('cortexprime', 'themes')
-  
+
       delete themeSettings.customList[this.selectedTheme]
-      
+
       delete this.customThemes[this.selectedTheme]
-  
+
       themeSettings.selectedTheme = 'Cortex Prime'
-  
+
       this.selectedTheme = 'Cortex Prime'
-  
+
       await game.settings.set('cortexprime', 'themes', themeSettings)
-  
+
       await this.render(true)
-  
+
       setThemeProperties(this.currentSettings)
-  
+
       game.socket.emit('system.cortexprime', {
-        type: 'setThemeProperties'
+        type: 'setThemeProperties',
       })
     }
   }
 
-  async onChangeTheme (event) {
+  async onChangeTheme(event) {
     const $currentTarget = event.currentTarget
     const confirmed = !this.isPresetTheme
       ? await Dialog.confirm({
-          title: localizer('CP.ChangeThemeConfirmTitle'),
-          content: localizer('CP.ChangeThemeConfirmContent'),
-          defaultYes: false,
-        })
+        title: localizer('CP.ChangeThemeConfirmTitle'),
+        content: localizer('CP.ChangeThemeConfirmContent'),
+        defaultYes: false,
+      })
       : true
 
     if (confirmed) {
       this.selectedTheme = $currentTarget.value
-  
+
       await this.render(true)
     }
   }
 
-  onColorChange (event) {
+  onColorChange(event) {
     const $input = event.target
     const $fieldColor = $input.closest('.field-color')
 
@@ -300,25 +300,25 @@ export default class CpThemeSettings extends FormApplication {
     const hasTransparentClass = $swatch.classList.contains('transparent')
 
     if (
-      (value && hasTransparentClass) ||
-      (!value && !hasTransparentClass)
+      (value && hasTransparentClass)
+      || (!value && !hasTransparentClass)
     ) {
       $swatch.classList.toggle('transparent')
     }
   }
 
-  async onDisplayToggle (event) {
-    const { section } = event.currentTarget.dataset
+  async onDisplayToggle(event) {
+    const { section, } = event.currentTarget.dataset
 
     this.expandedSections = this.expandedSections.includes(section)
       ? this.expandedSections
         .filter(expandedSection => expandedSection !== section)
-      : [...this.expandedSections, section]
+      : [...this.expandedSections, section,]
 
     displayToggleMethod(event)
   }
 
-  onImageChange (event) {
+  onImageChange(event) {
     const value = event.target.value
 
     const $fieldWrapper = event
@@ -342,7 +342,7 @@ export default class CpThemeSettings extends FormApplication {
 
     if (value) {
       $imageRemove.classList.remove('hide')
-  
+
       $noImageMsg.classList.add('hide')
     } else {
       $imageRemove.classList.add('hide')
@@ -355,7 +355,7 @@ export default class CpThemeSettings extends FormApplication {
       .textContent = value || localizer('CP.NoImage')
   }
 
-  preview (html) {
+  preview(html) {
     const formData = Object.fromEntries(new FormData(html[0]).entries())
 
     const expandedData = expandObject(formData)
@@ -367,12 +367,12 @@ export default class CpThemeSettings extends FormApplication {
       currentSettings,
     } = expandedData
 
-    setThemeProperties (
+    setThemeProperties(
       presetThemes[selectedTheme] ?? currentSettings
     )
   }
 
-  removeImage (event) {
+  removeImage(event) {
     const $fieldWrapper = event
       .target
       .closest('.field-wrapper')
@@ -400,7 +400,7 @@ export default class CpThemeSettings extends FormApplication {
       .textContent = localizer('CP.NoImage')
   }
 
-  async reset () {
+  async reset() {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.ResetConfirmTitle'),
       content: localizer('CP.ResetConfirmContent'),
@@ -417,7 +417,7 @@ export default class CpThemeSettings extends FormApplication {
     }
   }
 
-  async save (expandedData) {
+  async save(expandedData) {
     const confirmed = await Dialog.confirm({
       title: localizer('CP.SaveConfirmTitle'),
       content: localizer('CP.SaveConfirmContent'),
@@ -426,29 +426,29 @@ export default class CpThemeSettings extends FormApplication {
 
     if (confirmed) {
       const themeSettings = game.settings.get('cortexprime', 'themes')
-  
-      const newThemeSettings = mergeObject(themeSettings, expandedData)
-  
+
+      const newThemeSettings = foundry.utils.mergeObject(themeSettings, expandedData)
+
       this.selectedTheme = expandedData.selectedTheme
-  
+
       if (!presetThemes[expandedData.selectedTheme]) {
-        const customThemeSettings = mergeObject(newThemeSettings.customList[this.selectedTheme], expandedData.currentSettings)
+        const customThemeSettings = foundry.utils.mergeObject(newThemeSettings.customList[this.selectedTheme], expandedData.currentSettings)
         this.customThemes[this.selectedTheme] = customThemeSettings
         newThemeSettings.customList[this.selectedTheme] = customThemeSettings
       }
-  
+
       Log('CpThemeSettings.save newThemeSettings', newThemeSettings)
-  
+
       await game.settings.set('cortexprime', 'themes', newThemeSettings)
-  
+
       await this.render(true)
-  
+
       setThemeProperties(this.currentSettings)
-  
+
       game.socket.emit('system.cortexprime', {
-        type: 'setThemeProperties'
+        type: 'setThemeProperties',
       })
-  
+
       Dialog.prompt({
         title: localizer('CP.PromptSettingsSaveTitle'),
         content: localizer('CP.PromptSettingsSaveContent'),

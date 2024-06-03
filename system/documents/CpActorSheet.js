@@ -8,7 +8,7 @@ export class CpActorSheet extends ActorSheet {
   }
 
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['cortexprime', 'sheet', 'actor-sheet'],
       height: 900,
       template: "systems/cortexprime/system/templates/CpActorSheet.html",
