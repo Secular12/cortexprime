@@ -52,7 +52,7 @@
   text-overflow: ellipsis;
 }
 
-.field-input, .color {
+.field-input, color-picker > input[type=text] {
   background-color: var(--cp-input-background-color, color('input-background'));
   border: var(--cp-input-border, solid color('input-border'));
   border-width: var(--cp-input-border-width, 0 0 2px);

@@ -21,12 +21,11 @@
           class="swatch{{ifThen value '' ' transparent'}}"
           style="background-color: {{ifThen value value '#ffffff'}};"
         ></span>
-        {{
-          colorPicker
-          default=default
-          name=name
-          value=value
-        }}
+        <color-picker
+          default="{{default}}"
+          name="{{name}}"
+          value="{{value}}"
+        ></color-picker>
       </div>
     {{/if}}
   {{#if (and label (not noEdit))}}

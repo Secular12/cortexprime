@@ -2227,7 +2227,7 @@ class CpThemeSettings extends FormApplication {
 
     addListeners(
       $html,
-      'input.color,input[type="color"]',
+      'color-picker',
       'change',
       this.onColorChange
     );
@@ -2384,11 +2384,6 @@ class CpThemeSettings extends FormApplication {
       .querySelector('.swatch');
 
     const value = $input.value;
-
-    const $pickerField = $fieldColor
-      .querySelector('input[type="color"]');
-
-    $pickerField.value = value;
 
     $swatch.style.backgroundColor = value || '#ffffff';
 
