@@ -1,0 +1,72 @@
+<form class="theme-body ActorSettings-form">
+  <div class="theme-body-background-image"></div>
+  <div class="theme-body-background-color"></div>
+  <section
+    class="flex flex-col items-stretch theme-body-content"
+    id="ActorSettings-main"
+  >
+    <header id="ActorSettings-form-header" class="theme-section">
+      <div class="theme-section-background-image"></div>
+      <div class="theme-section-background-color"></div>
+      <div class="p-2 theme-section-content">
+        <h2 class="heading-1 mb-1">{{localize 'CP.ActorSettings'}}</h2>
+        <p>{{localize 'CP.ActorSettingsHint'}}</p>
+      </div>
+    </header>
+    <div
+      class="grow-1"
+      id="ActorSettings-form-body"
+    >
+      <div class="ActorSettings-page list-page">
+        <div class="theme-section">
+          <div class="theme-section-background-image"></div>
+          <div class="theme-section-background-color"></div>
+          <div class="p-2 theme-section-content">
+            {{>
+              "systems/cortexprime/system/templates/partials/SortableListSection.html"
+              items=actorTypes
+              itemsPath="actorTypes"
+              label=(localize 'CP.ActorTypes')
+              listType="actorTypes"
+              pluralClassAffix="actor-types"
+              singularClassAffix="actor-type"
+            }}
+          </div>
+        </div>
+      </div>
+      <div id="ActorSettings-pages-container">
+        <div class="ActorSettings-pages actor-type-pages">
+          {{#each actorTypes as |actorType actorTypeIndex|}}
+            {{>
+              "systems/cortexprime/system/templates/partials/ActorSettings/ActorTypePage.html"
+              actorType=actorType
+            }}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    <div class="theme-section">
+      <div class="theme-section-background-image"></div>
+      <div class="theme-section-background-color"></div>
+      <div class="p-2 theme-section-content">
+        <div class="flex justify-between">
+          <button
+            class="btn btn-secondary settings-reset"
+            type="button"
+          >
+            <i class="fa fa-rotate"></i>
+            <span>{{localize 'CP.Reset'}}</span>
+          </button>
+
+          <button
+            class="btn"
+            type="submit"
+          >
+            <i class="fa fa-floppy-disk"></i>
+            <span>{{localize 'CP.Save'}}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>

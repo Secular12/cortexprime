@@ -8,21 +8,21 @@ var Logger = method => (...args) => {
 };
 
 const Assert = Logger('assert');
-const Log$7 = Logger();
+const Log$8 = Logger();
 
 class CpItem extends Item {
   async _preCreate(data, options, user) {
-    Log$7('CpItem._preCreate data, options, user', data, options, user);
+    Log$8('CpItem._preCreate data, options, user', data, options, user);
 
     const itemTypeSettings = game.settings.get('cortexprime', 'itemTypes');
 
-    Log$7('CpItem._preCreate itemTypeSettings', itemTypeSettings);
+    Log$8('CpItem._preCreate itemTypeSettings', itemTypeSettings);
 
     const traitTypes = itemTypeSettings.traits
-      .map(({ id, name, }) => ({ id, name, }));
+      .map(({ id, name }) => ({ id, name }));
 
     const subtraitTypes = itemTypeSettings.subtraits
-      .map(({ id, name, }) => ({ id, name, }));
+      .map(({ id, name }) => ({ id, name }));
 
     if (data.type === 'Trait') {
       Assert(
@@ -73,7 +73,7 @@ const displayToggleMethod = function(event, $target) {
 
   const $chevronIcon = $toggler.querySelector('.toggler-icon');
 
-  const { parent, target, } = $toggler.dataset;
+  const { parent, target } = $toggler.dataset;
 
   $chevronIcon
     .classList
@@ -128,12 +128,12 @@ const objectSortToArray = (obj, cb) => {
 
   const callback = cb
     ? cb
-    : ([a,], [b,]) => b > a ? -1 : a > b ? 1 : 0;
+    : ([a], [b]) => b > a ? -1 : a > b ? 1 : 0;
 
   entries.sort((a, b) => callback(a, b, entries.length));
 
   return entries
-    .map(([_, value,]) => value)
+    .map(([_, value]) => value)
 };
 
 const rounding = (dir = null) => (number, increment, offset) => {
@@ -151,12 +151,12 @@ const rounding = (dir = null) => (number, increment, offset) => {
 const round = rounding();
 
 const uuid = () => {
-  return ([1e7,]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c => {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c => {
     return (((c ^ crypto.getRandomValues(new Uint8Array(1))[0]) & 15) >> c / 4).toString(16)
   })
 };
 
-const diceSelectListener = ($html, { addDie, changeDie, removeDie, }) => {
+const diceSelectListener = ($html, { addDie, changeDie, removeDie }) => {
 
   if (addDie) {
     addListeners(
@@ -164,8 +164,8 @@ const diceSelectListener = ($html, { addDie, changeDie, removeDie, }) => {
       '.new-die',
       'click',
       event => {
-        const { target, } = event.currentTarget.dataset ?? {};
-        addDie(event, { target, });
+        const { target } = event.currentTarget.dataset ?? {};
+        addDie(event, { target });
       }
     );
   }
@@ -299,7 +299,7 @@ const getDieIcon = (rating, type, number) => {
   return diceIcons[`d${rating}`](type, number)
 };
 
-const getAppendDiceContent = ({ isDefault, dieRating, key, }) => {
+const getAppendDiceContent = ({ isDefault, dieRating, key }) => {
   return `<div class="die-wrapper${
     isDefault ? ' default' : ''
   }"${
@@ -311,7 +311,7 @@ const getAppendDiceContent = ({ isDefault, dieRating, key, }) => {
     + '</div>'
 };
 
-var dicePickerRender = resolve => ([$html,]) => {
+var dicePickerRender = resolve => ([$html]) => {
   const $addToTotal = $html.querySelector('.DicePicker-add-to-total');
   const $addToEffect = $html.querySelector('.DicePicker-add-to-effect');
   const $effectDiceContainer = $html.querySelector('.DicePicker-effect-value .dice-container');
@@ -344,7 +344,7 @@ var dicePickerRender = resolve => ([$html,]) => {
     const $effectDice = $effectDiceContainer.querySelectorAll('.die-wrapper');
 
     if ($effectDice.length === 0) {
-      const dieContent = getAppendDiceContent({ isDefault: true, dieRating: '4', });
+      const dieContent = getAppendDiceContent({ isDefault: true, dieRating: '4' });
 
       $effectDiceContainer
         .insertAdjacentHTML('beforeend', dieContent);
@@ -371,7 +371,7 @@ var dicePickerRender = resolve => ([$html,]) => {
           $cpDie.classList.toggle('cp-selected');
           $cpDie.classList.toggle('cp-effect');
 
-          const dieContent = getAppendDiceContent({ dieRating, key, });
+          const dieContent = getAppendDiceContent({ dieRating, key });
 
           $effectDiceContainer
             .insertAdjacentHTML('beforeend', dieContent);
@@ -411,7 +411,7 @@ var dicePickerRender = resolve => ([$html,]) => {
     .addEventListener('click', event => {
       event.preventDefault();
 
-      const values = { dice: [], total: 0, effectDice: [], };
+      const values = { dice: [], total: 0, effectDice: [] };
 
       $html
         .querySelectorAll('.DicePicker-die-result')
@@ -454,7 +454,7 @@ var dicePickerRender = resolve => ([$html,]) => {
         .querySelector('.DicePicker-total-value')
         .textContent = '0';
 
-      const dieContent = getAppendDiceContent({ isDefault: true, dieRating: '4', });
+      const dieContent = getAppendDiceContent({ isDefault: true, dieRating: '4' });
 
       $effectDiceContainer.innerHtml = dieContent;
 
@@ -526,10 +526,10 @@ var dicePickerRender = resolve => ([$html,]) => {
   );
 };
 
-const Log$6 = Logger();
+const Log$7 = Logger();
 
 const dicePicker = async rollResults => {
-  Log$6('rollDice.dicePicker rollResults:', rollResults);
+  Log$7('rollDice.dicePicker rollResults:', rollResults);
 
   const content = await renderTemplate('systems/cortexprime/system/templates/DicePicker.html', {
     rollResults,
@@ -543,11 +543,11 @@ const dicePicker = async rollResults => {
         confirm: {
           icon: '<i class="fas fa-check"></i>',
           label: localizer('CP.Confirm'),
-          callback([$html,]) {
+          callback([$html]) {
             const $dieResults = $html
               .querySelectorAll('.DicePicker-die-result');
 
-            const values = { dice: [], total: null, effectDice: [], };
+            const values = { dice: [], total: null, effectDice: [] };
 
             $dieResults
               .forEach($die => {
@@ -580,19 +580,19 @@ const dicePicker = async rollResults => {
       },
       default: 'confirm',
       render: dicePickerRender(resolve),
-    }, { jQuery: true, classes: ['dialog', 'DicePicker', 'cortexprime',], }).render(true);
+    }, { jQuery: true, classes: ['dialog', 'DicePicker', 'cortexprime'] }).render(true);
   })
 };
 
-const display3dDice = ({ rollMode, throws, }) => {
+const display3dDice = ({ rollMode, throws }) => {
   if (game.dice3d) {
     const synchronize = rollMode !== 'selfroll';
-    const whisper = ['gmroll', 'blindroll',].includes(rollMode)
+    const whisper = ['gmroll', 'blindroll'].includes(rollMode)
       ? game.users.filter(u => u.isGM).map(u => u.id)
       : null;
     const blind = rollMode === 'blindroll';
 
-    game.dice3d.show({ throws, }, game.user, synchronize, whisper, blind);
+    game.dice3d.show({ throws }, game.user, synchronize, whisper, blind);
   }
 };
 
@@ -617,14 +617,14 @@ const getRollFormulas = pool => {
 
         return acc
       }, formulas)
-    }, [{ name: null, formula: '', hasHitches: true, rollsSeparately: false, },])
-    .filter(({ formula, }) => !!formula)
+    }, [{ name: null, formula: '', hasHitches: true, rollsSeparately: false }])
+    .filter(({ formula }) => !!formula)
 };
 
 const getRollResults = async pool => {
   const rollFormulas = getRollFormulas(pool);
 
-  Log$6('rollDice.getRollResults rollFormulas', rollFormulas);
+  Log$7('rollDice.getRollResults rollFormulas', rollFormulas);
 
   const results = await rollByFormulas(rollFormulas);
 
@@ -638,15 +638,15 @@ const getRollResults = async pool => {
 
 const getSelectedDice = results => {
   return results
-    .reduce(({ effectDice, total, }, resultGroup) => {
+    .reduce(({ effectDice, total }, resultGroup) => {
       const targetEffectDie = resultGroup.rollsSeparately
         ? null
         : resultGroup.results.find(result => result.type === 'effect');
       return {
-        effectDice: targetEffectDie?.dieRating ? [...effectDice, targetEffectDie.dieRating,] : effectDice,
+        effectDice: targetEffectDie?.dieRating ? [...effectDice, targetEffectDie.dieRating] : effectDice,
         total: total + resultGroup.results.reduce((totalValue, result) => result.type === 'chosen' ? totalValue + result.value : totalValue, 0),
       }
-    }, { effectDice: [], total: 0, })
+    }, { effectDice: [], total: 0 })
 };
 
 const getThrows = results => {
@@ -666,7 +666,7 @@ const getThrows = results => {
   }, [])
 };
 
-const initDiceValues = ({ roll, rollFormula, }) => {
+const initDiceValues = ({ roll, rollFormula }) => {
   return roll.dice.map(die => ({
     dieRating: die.faces,
     type: die.total > 1 || !rollFormula.hasHitches ? 'unchosen' : 'hitch',
@@ -681,9 +681,9 @@ const markResultEffect = results => {
 
   results.results = results.results.reduce((acc, result) => {
     const hasEffectDie = acc.some(item => item.type === 'effect');
-    if (!['chosen', 'hitch',].includes(result.type) && !hasEffectDie) return [...acc, { ...result, type: 'effect', },]
+    if (!['chosen', 'hitch'].includes(result.type) && !hasEffectDie) return [...acc, { ...result, type: 'effect' }]
 
-    return [...acc, result,]
+    return [...acc, result]
   }, []);
 
   return results
@@ -695,17 +695,17 @@ const markResultTotals = results => {
   results.results = sortResultsByValue(results.results);
 
   results.results = results.results.reduce((acc, result) => {
-    if (!['effect', 'hitch',].includes(result.type) && acc.count < selectedTotalCount) {
-      return { dice: [...acc.dice, { ...result, type: 'chosen', },], count: acc.count + 1, }
+    if (!['effect', 'hitch'].includes(result.type) && acc.count < selectedTotalCount) {
+      return { dice: [...acc.dice, { ...result, type: 'chosen' }], count: acc.count + 1 }
     }
 
-    return { dice: [...acc.dice, result,], count: acc.count, }
-  }, { dice: [], count: 0, }).dice;
+    return { dice: [...acc.dice, result], count: acc.count }
+  }, { dice: [], count: 0 }).dice;
 
   return results
 };
 
-const renderRollResult = async ({ diceSelections, effectDice, pool, results, rollMode, total, }) => {
+const renderRollResult = async ({ diceSelections, effectDice, pool, results, rollMode, total }) => {
   const contentData = {
     effectDice,
     pool,
@@ -717,11 +717,11 @@ const renderRollResult = async ({ diceSelections, effectDice, pool, results, rol
     total: total ?? 0,
   };
 
-  Log$6('rollDice.renderRollResult contentData:', contentData);
+  Log$7('rollDice.renderRollResult contentData:', contentData);
 
   const content = await renderTemplate('systems/cortexprime/system/templates/RollResult.html', contentData);
 
-  const chatData = ChatMessage.applyRollMode({ content, }, rollMode);
+  const chatData = ChatMessage.applyRollMode({ content }, rollMode);
 
   ChatMessage.create(chatData);
 };
@@ -732,7 +732,7 @@ const rollByFormulas = async rollFormulas => {
 
     const roll = await r.evaluate();
 
-    const results = initDiceValues({ roll, rollFormula, });
+    const results = initDiceValues({ roll, rollFormula });
 
     const sortedResults = sortResultsByValue(results);
 
@@ -753,7 +753,7 @@ const rollForEffect = results => {
     total,
   } = getSelectedDice(finalResults);
 
-  Log$6('rollDice.rollForEffect finalResults, effectDice, total:', finalResults, effectDice, total);
+  Log$7('rollDice.rollForEffect finalResults, effectDice, total:', finalResults, effectDice, total);
 
   return {
     dice: finalResults.map(x => x.results),
@@ -776,7 +776,7 @@ const rollForTotal = results => {
     total,
   } = getSelectedDice(finalResults);
 
-  Log$6('rollDice.rollForTotal finalResults, effectDice, total:', finalResults, effectDice, total);
+  Log$7('rollDice.rollForTotal finalResults, effectDice, total:', finalResults, effectDice, total);
 
   return {
     dice: finalResults.map(x => x.results),
@@ -785,7 +785,7 @@ const rollForTotal = results => {
   }
 };
 
-const selectByType = async ({ results, rollType, }) => {
+const selectByType = async ({ results, rollType }) => {
   return rollType === 'select'
     ? await dicePicker(results)
     : rollType === 'total'
@@ -794,7 +794,7 @@ const selectByType = async ({ results, rollType, }) => {
 };
 
 const sortResultsByDieRating = results => {
-  const r = [...results,];
+  const r = [...results];
 
   r.sort((a, b) => {
     if (a.dieRating !== b.dieRating) {
@@ -808,7 +808,7 @@ const sortResultsByDieRating = results => {
 };
 
 const sortResultsByValue = results => {
-  const r = [...results,];
+  const r = [...results];
 
   r.sort((a, b) => {
     if (a.value !== b.value) {
@@ -822,9 +822,9 @@ const sortResultsByValue = results => {
 };
 
 async function rollDice(pool, rollType, rollMode) {
-  const { results, throws, } = await getRollResults(pool);
+  const { results, throws } = await getRollResults(pool);
 
-  Log$6('rollDice.default rollMode, rollType, results, throws', rollMode, rollType, results, throws);
+  Log$7('rollDice.default rollMode, rollType, results, throws', rollMode, rollType, results, throws);
 
   await this?.clear();
   this?.close();
@@ -833,11 +833,11 @@ async function rollDice(pool, rollType, rollMode) {
     dice: diceSelections,
     effectDice,
     total,
-  } = await selectByType({ results, rollType, });
+  } = await selectByType({ results, rollType });
 
-  Log$6('rollDice.default diceSelections:', diceSelections);
+  Log$7('rollDice.default diceSelections:', diceSelections);
 
-  display3dDice({ rollMode, throws, });
+  display3dDice({ rollMode, throws });
 
   await renderRollResult({
     diceSelections,
@@ -849,10 +849,10 @@ async function rollDice(pool, rollType, rollMode) {
   });
 }
 
-const Log$5 = Logger();
+const Log$6 = Logger();
 
 const getBlankCustomAdd = () => ({
-  dice: [8,],
+  dice: [8],
   hasHitches: true,
   parentName: null,
   name: '',
@@ -871,7 +871,7 @@ class DicePool extends FormApplication {
 
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'DicePool',],
+      classes: ['cortexprime', 'DicePool'],
       closeOnSubmit: false,
       height: 'auto',
       id: 'DicePool',
@@ -893,14 +893,14 @@ class DicePool extends FormApplication {
       poolIsEmpty: this.poolIsEmpty,
       rollMode: this.rollMode,
       rollModes: [
-        { name: localizer('CP.PublicRoll'), value: 'publicroll', },
-        { name: localizer('CP.PrivateGmRoll'), value: 'gmroll', },
-        { name: localizer('CP.BlindGmRoll'), value: 'blindroll', },
-        { name: localizer('CP.SelfRoll'), value: 'selfroll', },
+        { name: localizer('CP.PublicRoll'), value: 'publicroll' },
+        { name: localizer('CP.PrivateGmRoll'), value: 'gmroll' },
+        { name: localizer('CP.BlindGmRoll'), value: 'blindroll' },
+        { name: localizer('CP.SelfRoll'), value: 'selfroll' },
       ],
     };
 
-    Log$5('DicePool.getData data:', data);
+    Log$6('DicePool.getData data:', data);
 
     return data
   }
@@ -915,7 +915,7 @@ class DicePool extends FormApplication {
 
     this.rollMode = expandedData.rollMode;
 
-    Log$5(
+    Log$6(
       'DicePool._updateObject event, expandedData, this.rollMode:',
       event,
       expandedData,
@@ -926,7 +926,7 @@ class DicePool extends FormApplication {
   activateListeners(html) {
     super.activateListeners(html);
 
-    const [$html,] = html;
+    const [$html] = html;
 
     fieldListeners($html);
 
@@ -1006,12 +1006,12 @@ class DicePool extends FormApplication {
   }
 
   async _rollDice(rollType) {
-    Log$5('DicePool._rollDice this.pool, rollType:', this.pool, rollType);
+    Log$6('DicePool._rollDice this.pool, rollType:', this.pool, rollType);
 
     await rollDice.call(this, this.pool, rollType, this.rollMode);
   }
 
-  _onChangeRollsSeparately(event, [$html,]) {
+  _onChangeRollsSeparately(event, [$html]) {
     const $target = event.currentTarget;
     const isRolledSeparately = $target.checked;
 
@@ -1036,8 +1036,8 @@ class DicePool extends FormApplication {
     if (matchingSourceIndex < 0) {
       this.pool = [...this.pool, {
         source: 'Custom',
-        traits: [this.customAdd,],
-      },];
+        traits: [this.customAdd],
+      }];
     } else {
       this.pool[matchingSourceIndex].traits = [
         ...this.pool[matchingSourceIndex].traits,
@@ -1075,7 +1075,7 @@ class DicePool extends FormApplication {
     this.pool = [];
   }
 
-  async onAddDie(event, { target, }) {
+  async onAddDie(event, { target }) {
     const targetTrait = this._getTraitByTarget(event, target);
 
     targetTrait.dice = [
@@ -1086,7 +1086,7 @@ class DicePool extends FormApplication {
     await this.render(true);
   }
 
-  async onChangeDie(event, { index, target, value, }) {
+  async onChangeDie(event, { index, target, value }) {
     const targetTrait = this._getTraitByTarget(event, target);
 
     targetTrait.dice = targetTrait.dice.map((die, dieIndex) => {
@@ -1096,7 +1096,7 @@ class DicePool extends FormApplication {
     await this.render(true);
   }
 
-  async onRemoveDie(event, { index, target, }) {
+  async onRemoveDie(event, { index, target }) {
     const targetTrait = this._getTraitByTarget(event, target);
 
     targetTrait.dice = targetTrait.dice
@@ -1458,13 +1458,13 @@ const setThemeProperties = properties => {
     .querySelector(':root');
 
   if (!properties) {
-    const { selectedTheme, customList: customThemeList, } = game.settings.get('cortexprime', 'themes');
+    const { selectedTheme, customList: customThemeList } = game.settings.get('cortexprime', 'themes');
 
     properties = presetThemes[selectedTheme] ?? customThemeList[selectedTheme] ?? {};
   }
 
-  const { borderProperties, mainProperties, } = Object.entries(properties)
-    .reduce((acc, [property, value,]) => {
+  const { borderProperties, mainProperties } = Object.entries(properties)
+    .reduce((acc, [property, value]) => {
       const isColor = property?.endsWith('_color');
 
       if (property?.startsWith('border_')) {
@@ -1515,13 +1515,13 @@ const setThemeProperties = properties => {
           value = `${value}px`;
         }
 
-        acc.mainProperties.push([property, value,]);
+        acc.mainProperties.push([property, value]);
       }
 
       return acc
-    }, { borderProperties: {}, mainProperties: [], });
+    }, { borderProperties: {}, mainProperties: [] });
 
-  Object.entries(borderProperties).forEach(([namespace, values,]) => {
+  Object.entries(borderProperties).forEach(([namespace, values]) => {
     const position = values.position ?? 'all';
     const width = values.width ?? 1;
 
@@ -1568,7 +1568,7 @@ const setThemeProperties = properties => {
       );
   });
 
-  mainProperties.forEach(([property, value,]) => {
+  mainProperties.forEach(([property, value]) => {
     $root
       .style
       .setProperty(`--cp-${camelCasetoKebabCase(property)}`, value);
@@ -1577,7 +1577,7 @@ const setThemeProperties = properties => {
 
 var ready = async () => {
   game.cortexprime.DicePool = new DicePool();
-  
+
   const themes = game.settings.get('cortexprime', 'themes');
 
   const themeOptions = {
@@ -1591,7 +1591,7 @@ var ready = async () => {
 var renderChatLog = (log, [$html], data) => {
   $html
     .querySelector('#chat-log')
-    .addEventListener('click', (event) => {
+    .addEventListener('click', event => {
       const $displayToggle = event.target.closest('.display-toggle');
       const $rollResultAddToPool = event.target.closest('.RollResult-add-to-pool');
       const $rollResultReRoll = event.target.closest('.RollResult-re-roll');
@@ -1611,7 +1611,7 @@ var renderChatLog = (log, [$html], data) => {
         game.cortexprime.DicePool.addToPool(event, $rollResultReRoll);
         game.cortexprime.DicePool._rollDice('select');
         game.cortexprime.DicePool.clear();
-        return
+
       }
     });
 };
@@ -1647,13 +1647,13 @@ var renderChatMessage = (message, [$html], data) => {
 
     $rollResult
       .querySelectorAll('.chat-die')
-      .forEach(($die) => {
+      .forEach($die => {
         const {
           dieRating,
           hideLabel,
           resultGroupIndex,
           type,
-          value
+          value,
         } = $die.dataset;
 
         const html = getHtml(value, {
@@ -1663,7 +1663,7 @@ var renderChatMessage = (message, [$html], data) => {
             hideLabel: !!hideLabel,
             resultGroupIndex,
             type,
-          }
+          },
         });
 
         $die.outerHTML = html;
@@ -1672,11 +1672,11 @@ var renderChatMessage = (message, [$html], data) => {
 };
 
 var renderSceneControls = (controls, [$html]) => {
-  const dicePoolButton =  
-    `<li class="dice-pool-control" data-control="dice-pool" title="${game.i18n.localize("DicePool")}">` +
-    '<i class="fas fa-dice"></i>' +
-    '<ol class="control-tools"></ol>' +
-    '</li>';
+  const dicePoolButton =
+    `<li class="dice-pool-control" data-control="dice-pool" title="${game.i18n.localize('DicePool')}">`
+    + '<i class="fas fa-dice"></i>'
+    + '<ol class="control-tools"></ol>'
+    + '</li>';
 
   $html
     .querySelector('.main-controls')
@@ -1684,14 +1684,14 @@ var renderSceneControls = (controls, [$html]) => {
 
   const $dicePoolControl = $html
     .querySelector('.dice-pool-control');
-  
+
   $dicePoolControl
     .classList
     .remove('control-tool');
 
   $dicePoolControl
     .addEventListener('click', async () => {
-      await game.cortexprime.DicePool.toggle(); 
+      await game.cortexprime.DicePool.toggle();
     });
 };
 
@@ -1719,8 +1719,8 @@ const getAddButton = options => {
     + '</button>'
 };
 
-const getSelect = (options, { dieIndex, dieRating, removable, }) => {
-  const diceOptions = [4, 6, 8, 10, 12,]
+const getSelect = (options, { dieIndex, dieRating, removable }) => {
+  const diceOptions = [4, 6, 8, 10, 12]
     .filter(rating => {
       return (
         !options.hash.minDieRating
@@ -1761,10 +1761,10 @@ var diceSelect = (val, options) => {
   const type = options.hash.type ?? 'die-rating';
   const value = val
     ? typeof val === 'number'
-      ? [val,]
+      ? [val]
       : val
     : options.hash.defaultDie
-      ? [options.hash.defaultDie,]
+      ? [options.hash.defaultDie]
       : [];
   return new Handlebars.SafeString(
     `<div class="dice-${
@@ -1825,11 +1825,11 @@ var fieldCheckbox = (value, options) => {
     +`<input type="checkbox" ${
       value ? 'checked ' : ''
     }${Object.entries(options.hash)
-      .reduce((attributes, [key, value,]) => {
+      .reduce((attributes, [key, value]) => {
         if (inputHashIgnore.includes(key)) return attributes
 
-        if (['disabled', 'required',].includes(key) && value === true) {
-          return [...attributes, key,]
+        if (['disabled', 'required'].includes(key) && value === true) {
+          return [...attributes, key]
         }
 
         if (key === 'inputClass') {
@@ -1839,8 +1839,8 @@ var fieldCheckbox = (value, options) => {
 
         const val = value ?? null;
 
-        return [...attributes, val || val === 0 ? `${key}="${value}"` : '',]
-      }, ['class="field-checkbox-input"',])
+        return [...attributes, val || val === 0 ? `${key}="${value}"` : '']
+      }, ['class="field-checkbox-input"'])
       .join(' ')
     }>${
       options.hash.label ? '<span class="field-label' : ''
@@ -1881,11 +1881,11 @@ var fieldInput = type => (value, options) => {
       ? `<p class="field-view-value">${value}${options.hash.append || ''}</p>`
       : `${options.hash.append ? '<div class="flex gap-1">' : ''}<input type="${type}" ${
         Object.entries(options.hash)
-          .reduce((attributes, [key, value,]) => {
+          .reduce((attributes, [key, value]) => {
             if (inputHashIgnore.includes(key)) return attributes
 
-            if (['disabled', 'required',].includes(key) && value === true) {
-              return [...attributes, key,]
+            if (['disabled', 'required'].includes(key) && value === true) {
+              return [...attributes, key]
             }
 
             if (key === 'inputClass') {
@@ -1895,8 +1895,8 @@ var fieldInput = type => (value, options) => {
 
             const val = value ?? null;
 
-            return [...attributes, val || val === 0 ? `${key}="${value}"` : '',]
-          }, ['class="field-input"',])
+            return [...attributes, val || val === 0 ? `${key}="${value}"` : '']
+          }, ['class="field-input"'])
           .join(' ')
       } value="${value ?? ''}"`
           + `>${
@@ -1963,11 +1963,11 @@ var fieldSelect = (value, items, name, val, options) => {
       ? `<p class="field-view-value">${getViewValue(value)}</p>`
       : `<select ${
         Object.entries(options.hash)
-          .reduce((attributes, [key, value,]) => {
+          .reduce((attributes, [key, value]) => {
             if (inputHashIgnore.includes(key)) return attributes
 
-            if (['disabled', 'required',].includes(key) && value === true) {
-              return [...attributes, key,]
+            if (['disabled', 'required'].includes(key) && value === true) {
+              return [...attributes, key]
             }
 
             if (key === 'inputClass') {
@@ -1977,8 +1977,8 @@ var fieldSelect = (value, items, name, val, options) => {
 
             const val = value ?? null;
 
-            return [...attributes, val || val === 0 ? `${key}="${value}"` : '',]
-          }, ['class="field-input"',])
+            return [...attributes, val || val === 0 ? `${key}="${value}"` : '']
+          }, ['class="field-input"'])
           .join(' ')
       }>${
         getOptions(items, value, name, val)
@@ -2017,11 +2017,11 @@ var fieldTextarea = (value, options) => {
       ? `<p class="field-view-value">${value}</p>`
       : `<textarea ${
         Object.entries(options.hash)
-          .reduce((attributes, [key, value,]) => {
+          .reduce((attributes, [key, value]) => {
             if (inputHashIgnore.includes(key)) return attributes
 
-            if (['disabled', 'required',].includes(key) && value === true) {
-              return [...attributes, key,]
+            if (['disabled', 'required'].includes(key) && value === true) {
+              return [...attributes, key]
             }
 
             if (key === 'inputClass') {
@@ -2031,8 +2031,8 @@ var fieldTextarea = (value, options) => {
 
             const val = value ?? null;
 
-            return [...attributes, val || val === 0 ? `${key}="${value}"` : '',]
-          }, ['class="field-input"',])
+            return [...attributes, val || val === 0 ? `${key}="${value}"` : '']
+          }, ['class="field-input"'])
           .join(' ')
       }>${
         value ?? ''
@@ -2046,19 +2046,20 @@ var fieldTextarea = (value, options) => {
 
 const registerHandlebarHelpers = () => {
   Handlebars.registerHelper({
-    add: (a, b) => +a + +b,
+    add: (a, b) => Number(a) + Number(b),
     get: (list, key) => list[key] ?? false,
     includes: (arr, item) => arr.includes(item),
-    length: (value) => value?.length ?? null,
-    sub: (a, b) => +a - +b,
+    length: value => value?.length ?? null,
+    sub: (a, b) => Number(a) - Number(b),
     '??': (a, b) => a ?? b,
-  }),
+  });
+
   Handlebars.registerHelper('times', (n, block) => {
     let accum = '';
-    for(let i = 0; i < n; ++i)
-      accum += block.fn(i);
+    for (let i = 0; i < n; ++i) accum += block.fn(i);
     return accum
   });
+
   Handlebars.registerHelper('diceSelect', diceSelect);
   Handlebars.registerHelper('dieResult', dieResult);
   Handlebars.registerHelper('fieldNumber', fieldInput('number'));
@@ -2072,6 +2073,7 @@ const preloadHandlebarsTemplates = async () => {
   const templatePaths = [
     'fields/color',
     'fields/image',
+    'ActorSettings/ActorTypePage',
     'ItemSettings/Descriptor',
     'ItemSettings/Descriptors',
     'ItemSettings/SubtraitPage',
@@ -2092,12 +2094,473 @@ const preloadHandlebarsTemplates = async () => {
   return loadTemplates(templatePaths)
 };
 
-var sockets = ({ payload, type, }) => {
+var sockets = ({ payload, type }) => {
   switch (type) {
     case 'setThemeProperties':
       setThemeProperties();
   }
 };
+
+const addDragSort = ($dragSortHandle, callback) => {
+  $dragSortHandle.setAttribute('draggable', true);
+  $dragSortHandle.ondrag = handleItemDrag;
+  $dragSortHandle.ondragend = event => handleItemDrop(event, callback);
+};
+
+const dragSort = ($html, callback) => {
+  $html
+    .querySelectorAll('.drag-sort-handle')
+    .forEach($dragSortHandle => addDragSort($dragSortHandle, callback));
+};
+
+const handleItemDrag = event => {
+  const $dragSortItem = event.currentTarget.closest('.drag-sort-item');
+  const $dragSortList = $dragSortItem.parentNode;
+
+  const xPos = event.clientX;
+  const yPos = event.clientY;
+
+  $dragSortItem.classList.add('drag-sort-item--active');
+
+  const $swapItem = document.elementFromPoint(xPos, yPos) ?? $selectedItem;
+
+  if ($dragSortList === $swapItem.parentNode) {
+    const $dragSortSwapItem = $swapItem !== $dragSortItem.nextSibling
+      ? $swapItem
+      : $swapItem.nextSibling;
+
+    $dragSortList.insertBefore($dragSortItem, $dragSortSwapItem);
+  }
+};
+
+const handleItemDrop = (event, callback) => {
+  const $dragSortItem = event.target.closest('.drag-sort-item');
+
+  $dragSortItem
+    .classList
+    .remove('drag-sort-item--active');
+
+  callback($dragSortItem.parentNode);
+};
+
+const Log$5 = Logger();
+
+class CpActorSettings extends FormApplication {
+  constructor() {
+    super();
+
+    const actorSettings = game.settings.get('cortexprime', 'actorTypes');
+
+    this.actorSettings = actorSettings;
+
+    Log$5('CpActorSettings.constructor actorSettings', actorSettings);
+  }
+
+  static get defaultOptions() {
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      classes: ['cortexprime', 'settings', 'actor-settings'],
+      closeOnSubmit: false,
+      height: 900,
+      id: 'ActorSettings',
+      left: 400,
+      resizable: false,
+      scrollY: ['#ActorSettings-form-body'],
+      submitOnChange: false,
+      submitOnClose: false,
+      template: 'systems/cortexprime/system/templates/CpActorSettings.html',
+      title: localizer('CP.ActorSettings'),
+      top: 200,
+      width: 600,
+    })
+  }
+
+  getData() {
+    const data = this.actorSettings;
+
+    Log$5('CPActorSettings.getData data:', data);
+
+    return data
+  }
+
+  async _updateObject(event, formData) {
+    const expandedData = foundry.utils.expandObject(formData);
+
+    Log$5('CPActorSettings._updateSettings expandedData:', expandedData);
+
+    await this.save(event.target, expandedData);
+  }
+
+  activateListeners(html) {
+    super.activateListeners(html);
+    const [$html] = html;
+
+    dragSort($html, this._onDragSortDrop.bind(this, $html));
+
+    addListeners(
+      $html,
+      '#ActorSettings-main',
+      'click',
+      event => {
+        const $goToPage = event.target.closest('.go-to-page');
+
+        if ($goToPage) {
+          this.goToPage(event, $html, $goToPage);
+
+        }
+      }
+    );
+
+    addListeners(
+      $html,
+      '.actor-types-list-section',
+      'click',
+      event => {
+        const $addActorType = event.target.closest('.add-actor-type');
+
+        if ($addActorType) {
+          this.addActorType($html, $addActorType);
+          return
+        }
+
+        const $duplicateActorType = event.target.closest('.duplicate-actor-type');
+
+        if ($duplicateActorType) {
+          this.duplicateActorType($html, $duplicateActorType);
+          return
+        }
+
+        const $deleteActorType = event.target.closest('.delete-actor-type');
+
+        if ($deleteActorType) {
+          this.deletePageItem($html, $deleteActorType, '.actor-types-list-item');
+        }
+      }
+    );
+
+    addListeners(
+      $html,
+      '.actor-type-pages',
+      'change',
+      event => {
+        const $actorTypeName = event
+          .target
+          .closest('.ActorSettings-actor-type-field-name-input');
+
+        if ($actorTypeName) {
+          this.updateActorTypeName($html, $actorTypeName);
+
+        }
+      }
+    );
+
+    $html
+      .querySelector('.settings-reset')
+      .addEventListener('click', this.reset.bind(this));
+  }
+
+  async addActorType($html, $addActorType) {
+    const id = uuid();
+
+    await this._addPageItem(
+      $html,
+      $addActorType,
+      {
+        id,
+        itemName: 'New Actor Type',
+        itemsPath: 'actorTypes',
+        listTypePlural: 'actor-types',
+        listTypeSingular: 'actor-type',
+        templatePath: 'ActorSettings/ActorTypePage.html',
+        templateData: {
+          actorType: {
+            id,
+            name: 'New Actor Type',
+          },
+        },
+      }
+    );
+
+    this._switchPage($html, { targetId: id });
+  }
+
+  async close() {
+    const confirmed = await Dialog.confirm({
+      title: localizer('CP.CloseConfirmTitle'),
+      content: localizer('CP.CloseConfirmContent'),
+      defaultYes: false,
+    });
+
+    if (confirmed) {
+      return super.close()
+    }
+  }
+
+  async deletePageItem($html, $deletePage, parentSelector) {
+    const $parentListItem = $deletePage.closest(parentSelector);
+
+    const { id } = $parentListItem.dataset;
+    const $dragSortList = $parentListItem.closest('.drag-sort-list');
+
+    const listItemName = $parentListItem
+      .querySelector('.list-item-name')
+      .textContent;
+
+    const confirmed = await Dialog.confirm({
+      title: localizer('CP.DeleteConfirmTitle'),
+      content: `${localizer('CP.DeleteConfirmContentStart')} ${listItemName}?`,
+      defaultYes: false,
+    });
+
+    if (confirmed) {
+      $parentListItem.remove();
+
+      $html
+        .querySelector(`.ActorSettings-page[data-id="${id}"]`)
+        .remove();
+
+      this._reapplySortSequence($html, $dragSortList);
+    }
+
+    return confirmed
+  }
+
+  async duplicateActorType($html, $duplicateActorType) {
+    const id = uuid();
+
+    const { id: currentId } = $duplicateActorType
+      .closest('.actor-types-list-item')
+      .dataset;
+
+    const $currentActorTypePage = $html
+      .querySelector(`.ActorSettings-page[data-id="${currentId}"]`);
+
+    const name = `${$currentActorTypePage
+      ?.querySelector(`[name="actorTypes.${currentId}.name"]`)
+      ?.value ?? 'New Actor Type'
+    } (duplicate)`;
+
+    await this._addPageItem(
+      $html,
+      $duplicateActorType,
+      {
+        id,
+        itemName: name,
+        itemsPath: 'actorTypes',
+        listTypePlural: 'actor-types',
+        listTypeSingular: 'actor-type',
+        templatePath: 'ActorSettings/ActorTypePage.html',
+        templateData: {
+          actorType: {
+            id,
+            name,
+          },
+        },
+      }
+    );
+
+    this._switchPage($html, { targetId: id });
+  }
+
+  async goToPage(event, $html, $goToPage) {
+    const {
+      currentId,
+      targetId,
+    } = $goToPage?.dataset ?? event.currentTarget.dataset;
+
+    this._switchPage($html, { currentId, targetId });
+  }
+
+  async reset() {
+    const confirmed = await Dialog.confirm({
+      title: localizer('CP.ResetConfirmTitle'),
+      content: localizer('CP.ResetConfirmContent'),
+      defaultYes: false,
+    });
+
+    if (confirmed) {
+      this.render(true);
+    }
+  }
+
+  async save($html, expandedData) {
+    const confirmed = await Dialog.confirm({
+      title: localizer('CP.SaveConfirmTitle'),
+      content: localizer('CP.SaveConfirmContent'),
+      defaultYes: false,
+    });
+
+    if (confirmed) {
+      const sequenceSort = ([_, aValue], [__, bValue]) => {
+        const aSortValue = parseInt(aValue.sequence, 10);
+        const bSortValue = parseInt(bValue.sequence, 10);
+
+        return bSortValue > aSortValue.sequence
+          ? -1
+          : aSortValue > bSortValue
+            ? 1
+            : 0
+      };
+
+      const actorTypes = objectSortToArray(expandedData.actorTypes, sequenceSort)
+        .map(actorType => {
+          delete actorType.sequence;
+
+          return actorType
+        });
+
+      const serializedData = {
+        actorTypes,
+      };
+
+      Log$5('CpActorSettings.save serializedData', serializedData);
+
+      game.settings.set('cortexprime', 'actorTypes', serializedData);
+
+      Dialog.prompt({
+        title: localizer('CP.PromptSettingsSaveTitle'),
+        content: localizer('CP.PromptSettingsSaveContent'),
+      });
+    }
+  }
+
+  updateActorTypeName($html, $actorTypeName) {
+    const $actorTypePage = $actorTypeName.closest('.actor-type-page');
+
+    const { id } = $actorTypePage.dataset;
+
+    const actorTypeName = $actorTypeName.value;
+
+    $actorTypePage
+      .querySelector('.actor-type-page-name')
+      .textContent = actorTypeName;
+
+    $html
+      .querySelector(`.actor-types-list-item[data-id="${id}"] .actor-types-list-item-name`)
+      .textContent = actorTypeName;
+  }
+
+  async _addPageItem($html, $addListButton, payload) {
+    const {
+      id,
+      itemName,
+      itemsPath,
+      listTypePlural,
+      listTypeSingular,
+      templatePath,
+      templateData,
+    } = payload;
+
+    const $list = $addListButton
+      .closest(`.${listTypePlural}-list-section`)
+      .querySelector(`.${listTypePlural}-list`);
+
+    const $listItems = $list
+      .querySelectorAll(`.${listTypePlural}-list-item`);
+
+    const sequence = $listItems.length;
+
+    const listItemHtml = await renderTemplate(
+      'systems/cortexprime/system/templates/partials/SortableListItem.html',
+      {
+        itemIndex: sequence,
+        itemsPath: itemsPath,
+        pluralClassAffix: listTypePlural,
+        singularClassAffix: listTypeSingular,
+        item: {
+          id,
+          name: itemName,
+          sequence: sequence,
+        },
+      }
+    );
+
+    $list.insertAdjacentHTML('beforeend', listItemHtml);
+
+    const $newListItem = $list
+      .querySelector(`.${listTypePlural}-list-item[data-sort-sequence="${sequence}"]`);
+
+    const $dragSortHandler = $newListItem
+      .querySelector('.drag-sort-handle');
+
+    addDragSort($dragSortHandler, () => this._onDragSortDrop($html, $list));
+
+    const pageHtml = await renderTemplate(
+      `systems/cortexprime/system/templates/partials/${templatePath}`,
+      templateData
+    );
+
+    $html
+      .querySelector(`.${listTypeSingular}-pages`)
+      .insertAdjacentHTML('beforeend', pageHtml);
+
+    this._switchPage($html, { targetId: id });
+  }
+
+  _onDragSortDrop($html, $dragSortList) {
+    this._reapplySortSequence($html, $dragSortList);
+  }
+
+  _reapplySortSequence($html, $dragSortList) {
+    Array.from($dragSortList.children)
+      .forEach(($item, index) => {
+        $item.dataset.sortSequence = index;
+        const $dragSortItemSequence = $item
+          .querySelector('.drag-sort-item-sequence');
+
+        if ($dragSortItemSequence) {
+          $dragSortItemSequence.value = index;
+        }
+      });
+  }
+
+  _switchPage($html, { currentId, targetId }) {
+    $html
+      .querySelector(currentId ? `.ActorSettings-page[data-id="${currentId}"]` : '.list-page')
+      .classList
+      .add('hide');
+
+    $html
+      .querySelector(targetId ? `.ActorSettings-page[data-id="${targetId}"]` : '.list-page')
+      .classList
+      .remove('hide');
+  }
+}
+
+// /** Theme Settings ***/
+// // feat(0.3.0): Add temporary die
+// // feat(0.3.0): Add a heading 3 and apply to "Preset Descriptors" in Item Settings
+
+// /** * Dice Pool ***/
+// // feat(1.0.0): preview button in DicePool to preview pool prior to rolling
+// // // Use sockets to update and have a dropdown to choose which dice pool to view
+
+// /** * Item Settings ***/
+// // tweak(0.3.0): (FUTURE) when deleting trait or subtrait other sheets will be properly updated
+// // tweak(0.3.0): Type image & update in item list
+
+// /** * Item Sheets ***/
+// // feat(0.3.0): getter for item type and selector (different message if missing item type rather than unchosen)
+// // feat(0.3.0): Drag & Drop subtrait items onto trait item sheets
+// // feat(0.3.0): Editing subtrait on a trait sheet will open a subtrait sheet
+
+// /** * Actor Settings ***/
+// // feat(0.3.0): Create settings page
+// // feat(0.3.0): Layout options
+// // feat(0.3.0): "Simple Traits" for dice, booleans and/or tags?, numbers, text, etc.
+// // feat(1.0.0): Growth Tracking
+
+// /** * Actor Sheets ***/
+// // feat: temporary dice ratings
+// // feat(0.3.0): Drag and Drop trait and subtrait items onto sheets
+
+// /** * Misc Settings ***/
+// // feat(0.3.0): expandable roll result traits setting (default not)
+
+// /** * Misc ***/
+// // feat(0.3.0): textarea icon interpolation
+// // feat: Turn Order
+// // feat(1.0.0): Quick access sheet
+// // feat(0.3.0): Help Document/page
 
 const Log$4 = Logger();
 
@@ -2120,13 +2583,13 @@ class CpThemeSettings extends FormApplication {
 
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'settings', 'theme-settings',],
+      classes: ['cortexprime', 'settings', 'theme-settings'],
       closeOnSubmit: false,
       height: 900,
       id: 'ThemeSettings',
       left: 400,
       resizable: false,
-      scrollY: ['#ThemeSettings-form-body',],
+      scrollY: ['#ThemeSettings-form-body'],
       submitOnChange: false,
       submitOnClose: false,
       template: 'systems/cortexprime/system/templates/CpThemeSettings.html',
@@ -2158,14 +2621,14 @@ class CpThemeSettings extends FormApplication {
   getData() {
     const data = {
       borderPositions: [
-        { name: localizer('CP.None'), value: 'none', },
-        { name: localizer('CP.All'), value: 'all', },
-        { name: localizer('CP.Bottom'), value: 'bottom', },
-        { name: localizer('CP.Top'), value: 'top', },
-        { name: localizer('CP.Left'), value: 'left', },
-        { name: localizer('CP.Right'), value: 'right', },
-        { name: localizer('CP.TopAndBottom'), value: 'top-and-bottom', },
-        { name: localizer('CP.LeftAndRight'), value: 'left-and-right', },
+        { name: localizer('CP.None'), value: 'none' },
+        { name: localizer('CP.All'), value: 'all' },
+        { name: localizer('CP.Bottom'), value: 'bottom' },
+        { name: localizer('CP.Top'), value: 'top' },
+        { name: localizer('CP.Left'), value: 'left' },
+        { name: localizer('CP.Right'), value: 'right' },
+        { name: localizer('CP.TopAndBottom'), value: 'top-and-bottom' },
+        { name: localizer('CP.LeftAndRight'), value: 'left-and-right' },
       ],
       currentSettings: this.currentSettings,
       expandedSections: this.expandedSections,
@@ -2175,12 +2638,12 @@ class CpThemeSettings extends FormApplication {
         {
           label: localizer('CP.PresetThemes'),
           options: Object.keys(presetThemes)
-            .map(themeName => ({ name: themeName, value: themeName, })),
+            .map(themeName => ({ name: themeName, value: themeName })),
         },
         {
           label: 'Custom Themes',
           options: Object.keys(this.customThemes)
-            .map(themeName => ({ name: themeName, value: themeName, })),
+            .map(themeName => ({ name: themeName, value: themeName })),
         },
       ],
     };
@@ -2207,7 +2670,7 @@ class CpThemeSettings extends FormApplication {
   activateListeners(html) {
     super.activateListeners(html);
 
-    const [$html,] = html;
+    const [$html] = html;
 
     fieldListeners($html);
 
@@ -2299,7 +2762,7 @@ class CpThemeSettings extends FormApplication {
 
       const newCustomThemes = {
         ...themeSettings.customList,
-        [customThemeName]: { ...this.currentSettings, },
+        [customThemeName]: { ...this.currentSettings },
       };
 
       themeSettings.customList = newCustomThemes;
@@ -2398,12 +2861,12 @@ class CpThemeSettings extends FormApplication {
   }
 
   async onDisplayToggle(event) {
-    const { section, } = event.currentTarget.dataset;
+    const { section } = event.currentTarget.dataset;
 
     this.expandedSections = this.expandedSections.includes(section)
       ? this.expandedSections
         .filter(expandedSection => expandedSection !== section)
-      : [...this.expandedSections, section,];
+      : [...this.expandedSections, section];
 
     displayToggleMethod(event);
   }
@@ -2551,48 +3014,6 @@ class CpThemeSettings extends FormApplication {
   }
 }
 
-const addDragSort = ($dragSortHandle, callback) => {
-  $dragSortHandle.setAttribute('draggable', true);
-  $dragSortHandle.ondrag = handleItemDrag;
-  $dragSortHandle.ondragend = event => handleItemDrop(event, callback);
-};
-
-const dragSort = ($html, callback) => {
-  $html
-    .querySelectorAll('.drag-sort-handle')
-    .forEach($dragSortHandle => addDragSort($dragSortHandle, callback));
-};
-
-const handleItemDrag = event => {
-  const $dragSortItem = event.currentTarget.closest('.drag-sort-item');
-  const $dragSortList = $dragSortItem.parentNode;
-
-  const xPos = event.clientX;
-  const yPos = event.clientY;
-
-  $dragSortItem.classList.add('drag-sort-item--active');
-
-  const $swapItem = document.elementFromPoint(xPos, yPos) ?? $selectedItem;
-
-  if ($dragSortList === $swapItem.parentNode) {
-    const $dragSortSwapItem = $swapItem !== $dragSortItem.nextSibling
-      ? $swapItem
-      : $swapItem.nextSibling;
-
-    $dragSortList.insertBefore($dragSortItem, $dragSortSwapItem);
-  }
-};
-
-const handleItemDrop = (event, callback) => {
-  const $dragSortItem = event.target.closest('.drag-sort-item');
-
-  $dragSortItem
-    .classList
-    .remove('drag-sort-item--active');
-
-  callback($dragSortItem.parentNode);
-};
-
 const Log$3 = Logger();
 
 class CpItemSettings extends FormApplication {
@@ -2608,13 +3029,13 @@ class CpItemSettings extends FormApplication {
 
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'settings', 'item-settings',],
+      classes: ['cortexprime', 'settings', 'item-settings'],
       closeOnSubmit: false,
       height: 900,
       id: 'ItemSettings',
       left: 400,
       resizable: false,
-      scrollY: ['#ItemSettings-form-body',],
+      scrollY: ['#ItemSettings-form-body'],
       submitOnChange: false,
       submitOnClose: false,
       template: 'systems/cortexprime/system/templates/CpItemSettings.html',
@@ -2633,7 +3054,7 @@ class CpItemSettings extends FormApplication {
   }
 
   async _updateObject(event, formData) {
-    const expandedData = expandObject(formData);
+    const expandedData = foundry.utils.expandObject(formData);
 
     Log$3('CPItemSettings._updateSettings expandedData:', expandedData);
 
@@ -2642,7 +3063,7 @@ class CpItemSettings extends FormApplication {
 
   activateListeners(html) {
     super.activateListeners(html);
-    const [$html,] = html;
+    const [$html] = html;
 
     dragSort($html, this._onDragSortDrop.bind(this, $html));
 
@@ -2803,8 +3224,8 @@ class CpItemSettings extends FormApplication {
   }
 
   async addDescriptor($html, event, $addDescriptor) {
-    const descriptor = { label: 'New Descriptor', };
-    const { path, } = $addDescriptor.dataset;
+    const descriptor = { label: 'New Descriptor' };
+    const { path } = $addDescriptor.dataset;
     const sequence = $addDescriptor
       .closest('.item-list')
       .querySelectorAll('.descriptors-list-item')
@@ -2916,7 +3337,7 @@ class CpItemSettings extends FormApplication {
       }
     );
 
-    this._switchPage($html, { targetId: id, });
+    this._switchPage($html, { targetId: id });
   }
 
   async close() {
@@ -2949,7 +3370,7 @@ class CpItemSettings extends FormApplication {
   async deletePageItem($html, $deletePage, parentSelector) {
     const $parentListItem = $deletePage.closest(parentSelector);
 
-    const { id, } = $parentListItem.dataset;
+    const { id } = $parentListItem.dataset;
     const $dragSortList = $parentListItem.closest('.drag-sort-list');
 
     const listItemName = $parentListItem
@@ -2976,7 +3397,7 @@ class CpItemSettings extends FormApplication {
   }
 
   async deleteSubtrait($html, $deleteSubtrait) {
-    const { id, } = $deleteSubtrait
+    const { id } = $deleteSubtrait
       .closest('.subtraits-list-item')
       .dataset;
 
@@ -2996,7 +3417,7 @@ class CpItemSettings extends FormApplication {
   async duplicateSubtrait($html, $duplicateSubtrait) {
     const id = uuid();
 
-    const { id: currentId, } = $duplicateSubtrait
+    const { id: currentId } = $duplicateSubtrait
       .closest('.subtraits-list-item')
       .dataset;
 
@@ -3072,13 +3493,13 @@ class CpItemSettings extends FormApplication {
       subtraitId: id,
     });
 
-    this._switchPage($html, { targetId: id, });
+    this._switchPage($html, { targetId: id });
   }
 
   async duplicateTrait($html, $duplicateTrait) {
     const id = uuid();
 
-    const { id: currentId, } = $duplicateTrait
+    const { id: currentId } = $duplicateTrait
       .closest('.traits-list-item')
       .dataset;
 
@@ -3163,7 +3584,7 @@ class CpItemSettings extends FormApplication {
       }
     );
 
-    this._switchPage($html, { targetId: id, });
+    this._switchPage($html, { targetId: id });
   }
 
   async goToPage(event, $html, $goToPage) {
@@ -3172,10 +3593,10 @@ class CpItemSettings extends FormApplication {
       targetId,
     } = $goToPage?.dataset ?? event.currentTarget.dataset;
 
-    this._switchPage($html, { currentId, targetId, });
+    this._switchPage($html, { currentId, targetId });
   }
 
-  async onChangeDie(event, { index, value, }) {
+  async onChangeDie(event, { index, value }) {
     const $diceSelect = event.target.closest('.dice-select');
     const $dieWrapper = event.target.closest('.die-wrapper');
     const $dieSelect = $dieWrapper.querySelector('.die-select');
@@ -3255,7 +3676,7 @@ class CpItemSettings extends FormApplication {
     });
 
     if (confirmed) {
-      const sequenceSort = ([_, aValue,], [__, bValue,]) => {
+      const sequenceSort = ([_, aValue], [__, bValue]) => {
         const aSortValue = parseInt(aValue.sequence, 10);
         const bSortValue = parseInt(bValue.sequence, 10);
 
@@ -3330,7 +3751,7 @@ class CpItemSettings extends FormApplication {
   updateSubtraitName($html, $subtraitName) {
     const $subtraitPage = $subtraitName.closest('.subtrait-page');
 
-    const { id, } = $subtraitPage.dataset;
+    const { id } = $subtraitPage.dataset;
 
     const subtraitName = $subtraitName.value;
 
@@ -3355,7 +3776,7 @@ class CpItemSettings extends FormApplication {
   updateTraitName($html, $traitName) {
     const $traitPage = $traitName.closest('.trait-page');
 
-    const { id, } = $traitPage.dataset;
+    const { id } = $traitPage.dataset;
 
     const traitName = $traitName.value;
 
@@ -3422,7 +3843,7 @@ class CpItemSettings extends FormApplication {
       .querySelector(`.${listTypeSingular}-pages`)
       .insertAdjacentHTML('beforeend', pageHtml);
 
-    this._switchPage($html, { targetId: id, });
+    this._switchPage($html, { targetId: id });
   }
 
   async _appendSubtraitType($html, data) {
@@ -3432,7 +3853,7 @@ class CpItemSettings extends FormApplication {
     await Promise.all(
       Array.from($traitPages)
         .map(async $traitPage => {
-          const { id: traitId, } = $traitPage.dataset;
+          const { id: traitId } = $traitPage.dataset;
 
           const subtraitTypeHtml = await renderTemplate(
             'systems/cortexprime/system/templates/partials/ItemSettings/SubtraitType.html',
@@ -3456,7 +3877,7 @@ class CpItemSettings extends FormApplication {
   }
 
   _reapplySortSequence($html, $dragSortList) {
-    const { sortList, } = $dragSortList.dataset;
+    const { sortList } = $dragSortList.dataset;
 
     Array.from($dragSortList.children)
       .forEach(($item, index) => {
@@ -3482,7 +3903,7 @@ class CpItemSettings extends FormApplication {
       });
   }
 
-  _switchPage($html, { currentId, targetId, }) {
+  _switchPage($html, { currentId, targetId }) {
     $html
       .querySelector(currentId ? `.ItemSettings-page[data-id="${currentId}"]` : '.list-page')
       .classList
@@ -3530,6 +3951,19 @@ class CpItemSettings extends FormApplication {
 // feat: Turn Order
 // feat(1.0.0): Quick access sheet
 // feat(0.3.0): Help Document/page
+
+var defaultActorTypes = {
+  actorTypes: [
+    {
+      id: 'character',
+      name: 'Character',
+    },
+    {
+      id: 'scene',
+      name: 'Scene',
+    },
+  ],
+};
 
 var defaultItemTypes = {
   subtraits: [
@@ -4046,8 +4480,8 @@ var defaultItemTypes = {
       allowMultipleDice: false,
       allowNoDice: false,
       descriptors: [
-        { label: 'Trigger', },
-        { label: 'Effect', },
+        { label: 'Trigger' },
+        { label: 'Effect' },
       ],
       hasConsumableDice: false,
       hasDescription: true,
@@ -4112,6 +4546,40 @@ var defaultThemes = {
 };
 
 const registerSettings = () => {
+  game.settings.register('cortexprime', 'actorTypes', {
+    config: false,
+    default: defaultActorTypes,
+    name: localizer('CP.ActorTypes'),
+    scope: 'world',
+    type: Object,
+  });
+
+  game.settings.registerMenu('cortexprime', 'ActorSettings', {
+    hint: localizer('CP.ActorSettingsHint'),
+    icon: 'fas fa-person',
+    label: localizer('CP.ActorSettings'),
+    name: localizer('CP.ActorSettings'),
+    restricted: true,
+    type: CpActorSettings,
+  });
+
+  game.settings.register('cortexprime', 'itemTypes', {
+    config: false,
+    default: defaultItemTypes,
+    name: localizer('CP.ItemTypes'),
+    scope: 'world',
+    type: Object,
+  });
+
+  game.settings.registerMenu('cortexprime', 'ItemSettings', {
+    hint: localizer('CP.ItemSettingsHint'),
+    icon: 'fas fa-sack',
+    label: localizer('CP.ItemSettings'),
+    name: localizer('CP.ItemSettings'),
+    restricted: true,
+    type: CpItemSettings,
+  });
+
   game.settings.register('cortexprime', 'themes', {
     name: localizer('Themes'),
     default: defaultThemes,
@@ -4129,22 +4597,6 @@ const registerSettings = () => {
     type: CpThemeSettings,
   });
 
-  game.settings.register('cortexprime', 'itemTypes', {
-    config: false,
-    default: defaultItemTypes,
-    name: localizer('CP.ItemTypes'),
-    scope: 'world',
-    type: Object,
-  });
-
-  game.settings.registerMenu('cortexprime', 'ItemSettings', {
-    hint: localizer('CP.ItemSettingsHint'),
-    icon: 'fas fa-palette',
-    label: localizer('CP.ItemSettings'),
-    name: localizer('CP.ItemSettings'),
-    restricted: true,
-    type: CpItemSettings,
-  });
 };
 
 const Log$2 = Logger();
@@ -4172,12 +4624,12 @@ class CpItemSheet extends ItemSheet {
     if (!itemTypeId) return null
 
     return this.itemTypeOptions
-      ?.find(({ id, }) => id === itemTypeId) ?? null
+      ?.find(({ id }) => id === itemTypeId) ?? null
   }
 
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'sheet', 'item-sheet',],
+      classes: ['cortexprime', 'sheet', 'item-sheet'],
       height: 450,
       template: 'systems/cortexprime/system/templates/CpItemSheet.html',
       width: 480,
@@ -4203,7 +4655,7 @@ class CpItemSheet extends ItemSheet {
       ...superData,
       itemSettings: this.itemSettings,
       itemTypeOptions: [
-        { placeholder: true, id: '', name: localizer('CP.ChooseTypeMessage'), },
+        { placeholder: true, id: '', name: localizer('CP.ChooseTypeMessage') },
         ...this.itemTypeOptions,
       ],
     };
@@ -4222,7 +4674,7 @@ class CpItemSheet extends ItemSheet {
       && expandedData.data.system.itemTypeId !== this.item.system.itemTypeId;
 
     expandedData.data.system.dice = typeof expandedData.data.system.dice === 'string'
-      ? [parseInt(expandedData.data.system.dice, 10),]
+      ? [parseInt(expandedData.data.system.dice, 10)]
       : expandedData.data.system.dice
         ? expandedData.data.system.dice.map(die => parseInt(die, 10))
         : [];
@@ -4245,7 +4697,7 @@ class CpItemSheet extends ItemSheet {
 
   activateListeners(html) {
     super.activateListeners(html);
-    const [$html,] = html;
+    const [$html] = html;
 
     diceSelectListener(
       $html,
@@ -4272,7 +4724,7 @@ class CpItemSheet extends ItemSheet {
 
   onItemTypeChange(expandedData) {
     const newItemSettings = this.itemTypeOptions
-      ?.find(({ id, }) => id === expandedData.data.system.itemTypeId) ?? null;
+      ?.find(({ id }) => id === expandedData.data.system.itemTypeId) ?? null;
 
     const dice = expandedData.data.system.dice;
 
@@ -4291,17 +4743,17 @@ class CpItemSheet extends ItemSheet {
             dice[0] > newItemSettings.maxDieRating
                 || dice[0] < newItemSettings.minDieRating
           )
-            ? [newItemSettings.minDieRating,]
-            : [dice[0],]
+            ? [newItemSettings.minDieRating]
+            : [dice[0]]
         : newItemSettings.allowNoDice
           ? dice
-          : [newItemSettings.minDieRating,];
+          : [newItemSettings.minDieRating];
     }
 
     return expandedData
   }
 
-  async onRemoveDie(event, { index, }) {
+  async onRemoveDie(event, { index }) {
     await this.item.update({
       system: {
         ...this.item.system,
@@ -4327,7 +4779,7 @@ class CpActorSheet extends ActorSheet {
 
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'sheet', 'actor-sheet',],
+      classes: ['cortexprime', 'sheet', 'actor-sheet'],
       height: 900,
       template: 'systems/cortexprime/system/templates/CpActorSheet.html',
       width: 960,

@@ -2,6 +2,7 @@ export const preloadHandlebarsTemplates = async () => {
   const templatePaths = [
     'fields/color',
     'fields/image',
+    'ActorSettings/ActorTypePage',
     'ItemSettings/Descriptor',
     'ItemSettings/Descriptors',
     'ItemSettings/SubtraitPage',

@@ -57,7 +57,7 @@ export default class CpItemSettings extends FormApplication {
   }
 
   async _updateObject(event, formData) {
-    const expandedData = expandObject(formData)
+    const expandedData = foundry.utils.expandObject(formData)
 
     Log('CPItemSettings._updateSettings expandedData:', expandedData)
 
@@ -937,7 +937,6 @@ export default class CpItemSettings extends FormApplication {
 // feat(0.3.0): Editing subtrait on a trait sheet will open a subtrait sheet
 
 /** * Actor Settings ***/
-// feat(0.3.0): Create settings page
 // feat(0.3.0): Layout options
 // feat(0.3.0): "Simple Traits" for dice, booleans and/or tags?, numbers, text, etc.
 // feat(1.0.0): Growth Tracking

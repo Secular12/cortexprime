@@ -1,0 +1,31 @@
+<section 
+  class="ActorSettings-page hide list-item-page theme-section actor-type-page"
+  data-id="{{actorType.id}}"
+>
+  <div class="theme-section-background-image"></div>
+  <div class="theme-section-background-color"></div>
+  <div class="p-2 theme-section-content">
+    <header class="flex">
+      <button
+        class="btn btn-secondary go-to-page"
+        type="button"
+        data-current-id="{{actorType.id}}"
+      >
+        <i class="fa fa-chevron-left"></i>
+        <span>{{localize 'CP.Back'}}</span>
+      </button>
+      <h3 class="heading-1 actor-type-page-name">{{actorType.name}}</h3>
+    </header>
+    <div class="my-2 separator"></div>
+    <div class="ActorSettings-actor-type-fields">
+      {{
+        fieldText
+        actorType.name
+        class="ActorSettings-actor-type-field-name mb-2"
+        inputClass="ActorSettings-actor-type-field-name-input"
+        label=(localize 'CP.Name')
+        name=(concat 'actorTypes.' actorType.id '.name')
+      }}
+    </div>
+  </div>
+</section>

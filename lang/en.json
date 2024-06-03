@@ -1,5 +1,8 @@
 {
+  "CP.ActorSettings": "Actor Settings",
+  "CP.ActorSettingsHint": "Set up configuration for actors for your Cortex Prime game.",
   "CP.ActorSheetLabel": "Actor Sheet",
+  "CP.ActorTypes": "Actor Types",
   "CP.AddsToTotal": "Adds to Total",
   "CP.AddToPool": "Add to Pool",
   "CP.All": "All",
@@ -50,7 +53,7 @@
   "CP.FillColor": "Fill Color",
   "CP.Font": "Font",
   "CP.ItemSettings": "Item Settings",
-  "CP.ItemSettingsHint": "Set up configuration for actors, traits, and subtraits for your Cortex Prime game.",
+  "CP.ItemSettingsHint": "Set up configuration for traits and subtraits for your Cortex Prime game.",
   "CP.HasConsumableDice": "Has Consumable Dice",
   "CP.HasDescription": "Has Description",
   "CP.HasDescriptors": "Has Descriptors",
