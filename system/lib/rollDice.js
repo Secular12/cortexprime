@@ -206,7 +206,7 @@ const rollByFormulas = async rollFormulas => {
   return Promise.all(rollFormulas.map(async rollFormula => {
     const r = new Roll(rollFormula.formula)
 
-    const roll = await r.evaluate({ async: true, })
+    const roll = await r.evaluate()
 
     const results = initDiceValues({ roll, rollFormula, })
 
