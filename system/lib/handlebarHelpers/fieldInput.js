@@ -27,11 +27,11 @@ export default type => (value, options) => {
       ? `<p class="field-view-value">${value}${options.hash.append || ''}</p>`
       : `${options.hash.append ? '<div class="flex gap-1">' : ''}<input type="${type}" ${
         Object.entries(options.hash)
-          .reduce((attributes, [key, value,]) => {
+          .reduce((attributes, [key, value]) => {
             if (inputHashIgnore.includes(key)) return attributes
 
-            if (['disabled', 'required',].includes(key) && value === true) {
-              return [...attributes, key,]
+            if (['disabled', 'required'].includes(key) && value === true) {
+              return [...attributes, key]
             }
 
             if (key === 'inputClass') {
@@ -41,8 +41,8 @@ export default type => (value, options) => {
 
             const val = value ?? null
 
-            return [...attributes, val || val === 0 ? `${key}="${value}"` : '',]
-          }, ['class="field-input"',])
+            return [...attributes, val || val === 0 ? `${key}="${value}"` : '']
+          }, ['class="field-input"'])
           .join(' ')
       } value="${value ?? ''}"`
           + `>${

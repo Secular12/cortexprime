@@ -1,4 +1,4 @@
-import { getDieIcon, } from '../dice.js'
+import { getDieIcon } from '../dice.js'
 
 const getAddButton = options => {
   return `<button class="btn btn-icon btn-icon-text btn-small ml-1 new-die${
@@ -17,8 +17,8 @@ const getAddButton = options => {
     + '</button>'
 }
 
-const getSelect = (options, { dieIndex, dieRating, removable, }) => {
-  const diceOptions = [4, 6, 8, 10, 12,]
+const getSelect = (options, { dieIndex, dieRating, removable }) => {
+  const diceOptions = [4, 6, 8, 10, 12]
     .filter(rating => {
       return (
         !options.hash.minDieRating
@@ -59,10 +59,10 @@ export default (val, options) => {
   const type = options.hash.type ?? 'die-rating'
   const value = val
     ? typeof val === 'number'
-      ? [val,]
+      ? [val]
       : val
     : options.hash.defaultDie
-      ? [options.hash.defaultDie,]
+      ? [options.hash.defaultDie]
       : []
   return new Handlebars.SafeString(
     `<div class="dice-${

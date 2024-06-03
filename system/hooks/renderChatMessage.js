@@ -8,13 +8,13 @@ export default (message, [$html], data) => {
 
     $rollResult
       .querySelectorAll('.chat-die')
-      .forEach(($die) => {
+      .forEach($die => {
         const {
           dieRating,
           hideLabel,
           resultGroupIndex,
           type,
-          value
+          value,
         } = $die.dataset
 
         const html = getHtml(value, {
@@ -24,7 +24,7 @@ export default (message, [$html], data) => {
             hideLabel: !!hideLabel,
             resultGroupIndex,
             type,
-          }
+          },
         })
 
         $die.outerHTML = html

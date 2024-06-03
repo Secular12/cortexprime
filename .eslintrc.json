@@ -15,10 +15,10 @@
     "array-callback-return": "warn",
     "arrow-spacing": "warn",
     "comma-dangle": ["warn", {
-      "arrays": "always",
-      "objects": "always",
-      "imports": "always",
-      "exports": "always"
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline"
     }],
     "comma-style": "warn",
     "computed-property-spacing": "warn",

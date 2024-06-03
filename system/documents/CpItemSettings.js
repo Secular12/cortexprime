@@ -1,4 +1,4 @@
-import { diceSelectListener, } from '../lib/formHelpers.js'
+import { diceSelectListener } from '../lib/formHelpers.js'
 
 import {
   addDragSort,
@@ -15,7 +15,7 @@ import {
 } from '../lib/helpers.js'
 
 import Logger from '../lib/Logger.js'
-import { getDieIcon, } from '../lib/dice.js'
+import { getDieIcon } from '../lib/dice.js'
 
 const Log = Logger()
 
@@ -32,13 +32,13 @@ export default class CpItemSettings extends FormApplication {
 
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'settings', 'item-settings',],
+      classes: ['cortexprime', 'settings', 'item-settings'],
       closeOnSubmit: false,
       height: 900,
       id: 'ItemSettings',
       left: 400,
       resizable: false,
-      scrollY: ['#ItemSettings-form-body',],
+      scrollY: ['#ItemSettings-form-body'],
       submitOnChange: false,
       submitOnClose: false,
       template: 'systems/cortexprime/system/templates/CpItemSettings.html',
@@ -66,7 +66,7 @@ export default class CpItemSettings extends FormApplication {
 
   activateListeners(html) {
     super.activateListeners(html)
-    const [$html,] = html
+    const [$html] = html
 
     dragSort($html, this._onDragSortDrop.bind(this, $html))
 
@@ -227,8 +227,8 @@ export default class CpItemSettings extends FormApplication {
   }
 
   async addDescriptor($html, event, $addDescriptor) {
-    const descriptor = { label: 'New Descriptor', }
-    const { path, } = $addDescriptor.dataset
+    const descriptor = { label: 'New Descriptor' }
+    const { path } = $addDescriptor.dataset
     const sequence = $addDescriptor
       .closest('.item-list')
       .querySelectorAll('.descriptors-list-item')
@@ -340,7 +340,7 @@ export default class CpItemSettings extends FormApplication {
       }
     )
 
-    this._switchPage($html, { targetId: id, })
+    this._switchPage($html, { targetId: id })
   }
 
   async close() {
@@ -373,7 +373,7 @@ export default class CpItemSettings extends FormApplication {
   async deletePageItem($html, $deletePage, parentSelector) {
     const $parentListItem = $deletePage.closest(parentSelector)
 
-    const { id, } = $parentListItem.dataset
+    const { id } = $parentListItem.dataset
     const $dragSortList = $parentListItem.closest('.drag-sort-list')
 
     const listItemName = $parentListItem
@@ -400,7 +400,7 @@ export default class CpItemSettings extends FormApplication {
   }
 
   async deleteSubtrait($html, $deleteSubtrait) {
-    const { id, } = $deleteSubtrait
+    const { id } = $deleteSubtrait
       .closest('.subtraits-list-item')
       .dataset
 
@@ -420,7 +420,7 @@ export default class CpItemSettings extends FormApplication {
   async duplicateSubtrait($html, $duplicateSubtrait) {
     const id = uuid()
 
-    const { id: currentId, } = $duplicateSubtrait
+    const { id: currentId } = $duplicateSubtrait
       .closest('.subtraits-list-item')
       .dataset
 
@@ -496,13 +496,13 @@ export default class CpItemSettings extends FormApplication {
       subtraitId: id,
     })
 
-    this._switchPage($html, { targetId: id, })
+    this._switchPage($html, { targetId: id })
   }
 
   async duplicateTrait($html, $duplicateTrait) {
     const id = uuid()
 
-    const { id: currentId, } = $duplicateTrait
+    const { id: currentId } = $duplicateTrait
       .closest('.traits-list-item')
       .dataset
 
@@ -587,7 +587,7 @@ export default class CpItemSettings extends FormApplication {
       }
     )
 
-    this._switchPage($html, { targetId: id, })
+    this._switchPage($html, { targetId: id })
   }
 
   async goToPage(event, $html, $goToPage) {
@@ -596,10 +596,10 @@ export default class CpItemSettings extends FormApplication {
       targetId,
     } = $goToPage?.dataset ?? event.currentTarget.dataset
 
-    this._switchPage($html, { currentId, targetId, })
+    this._switchPage($html, { currentId, targetId })
   }
 
-  async onChangeDie(event, { index, value, }) {
+  async onChangeDie(event, { index, value }) {
     const $diceSelect = event.target.closest('.dice-select')
     const $dieWrapper = event.target.closest('.die-wrapper')
     const $dieSelect = $dieWrapper.querySelector('.die-select')
@@ -679,7 +679,7 @@ export default class CpItemSettings extends FormApplication {
     })
 
     if (confirmed) {
-      const sequenceSort = ([_, aValue,], [__, bValue,]) => {
+      const sequenceSort = ([_, aValue], [__, bValue]) => {
         const aSortValue = parseInt(aValue.sequence, 10)
         const bSortValue = parseInt(bValue.sequence, 10)
 
@@ -754,7 +754,7 @@ export default class CpItemSettings extends FormApplication {
   updateSubtraitName($html, $subtraitName) {
     const $subtraitPage = $subtraitName.closest('.subtrait-page')
 
-    const { id, } = $subtraitPage.dataset
+    const { id } = $subtraitPage.dataset
 
     const subtraitName = $subtraitName.value
 
@@ -779,7 +779,7 @@ export default class CpItemSettings extends FormApplication {
   updateTraitName($html, $traitName) {
     const $traitPage = $traitName.closest('.trait-page')
 
-    const { id, } = $traitPage.dataset
+    const { id } = $traitPage.dataset
 
     const traitName = $traitName.value
 
@@ -846,7 +846,7 @@ export default class CpItemSettings extends FormApplication {
       .querySelector(`.${listTypeSingular}-pages`)
       .insertAdjacentHTML('beforeend', pageHtml)
 
-    this._switchPage($html, { targetId: id, })
+    this._switchPage($html, { targetId: id })
   }
 
   async _appendSubtraitType($html, data) {
@@ -856,7 +856,7 @@ export default class CpItemSettings extends FormApplication {
     await Promise.all(
       Array.from($traitPages)
         .map(async $traitPage => {
-          const { id: traitId, } = $traitPage.dataset
+          const { id: traitId } = $traitPage.dataset
 
           const subtraitTypeHtml = await renderTemplate(
             'systems/cortexprime/system/templates/partials/ItemSettings/SubtraitType.html',
@@ -880,7 +880,7 @@ export default class CpItemSettings extends FormApplication {
   }
 
   _reapplySortSequence($html, $dragSortList) {
-    const { sortList, } = $dragSortList.dataset
+    const { sortList } = $dragSortList.dataset
 
     Array.from($dragSortList.children)
       .forEach(($item, index) => {
@@ -906,7 +906,7 @@ export default class CpItemSettings extends FormApplication {
       })
   }
 
-  _switchPage($html, { currentId, targetId, }) {
+  _switchPage($html, { currentId, targetId }) {
     $html
       .querySelector(currentId ? `.ItemSettings-page[data-id="${currentId}"]` : '.list-page')
       .classList

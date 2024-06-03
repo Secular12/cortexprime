@@ -1,7 +1,7 @@
-import { getDieIcon, } from './dice.js'
-import { addListeners, } from './helpers.js'
+import { getDieIcon } from './dice.js'
+import { addListeners } from './helpers.js'
 
-const getAppendDiceContent = ({ isDefault, dieRating, key, }) => {
+const getAppendDiceContent = ({ isDefault, dieRating, key }) => {
   return `<div class="die-wrapper${
     isDefault ? ' default' : ''
   }"${
@@ -13,7 +13,7 @@ const getAppendDiceContent = ({ isDefault, dieRating, key, }) => {
     + '</div>'
 }
 
-export default resolve => ([$html,]) => {
+export default resolve => ([$html]) => {
   const $addToTotal = $html.querySelector('.DicePicker-add-to-total')
   const $addToEffect = $html.querySelector('.DicePicker-add-to-effect')
   const $effectDiceContainer = $html.querySelector('.DicePicker-effect-value .dice-container')
@@ -46,7 +46,7 @@ export default resolve => ([$html,]) => {
     const $effectDice = $effectDiceContainer.querySelectorAll('.die-wrapper')
 
     if ($effectDice.length === 0) {
-      const dieContent = getAppendDiceContent({ isDefault: true, dieRating: '4', })
+      const dieContent = getAppendDiceContent({ isDefault: true, dieRating: '4' })
 
       $effectDiceContainer
         .insertAdjacentHTML('beforeend', dieContent)
@@ -73,7 +73,7 @@ export default resolve => ([$html,]) => {
           $cpDie.classList.toggle('cp-selected')
           $cpDie.classList.toggle('cp-effect')
 
-          const dieContent = getAppendDiceContent({ dieRating, key, })
+          const dieContent = getAppendDiceContent({ dieRating, key })
 
           $effectDiceContainer
             .insertAdjacentHTML('beforeend', dieContent)
@@ -113,7 +113,7 @@ export default resolve => ([$html,]) => {
     .addEventListener('click', event => {
       event.preventDefault()
 
-      const values = { dice: [], total: 0, effectDice: [], }
+      const values = { dice: [], total: 0, effectDice: [] }
 
       $html
         .querySelectorAll('.DicePicker-die-result')
@@ -156,7 +156,7 @@ export default resolve => ([$html,]) => {
         .querySelector('.DicePicker-total-value')
         .textContent = '0'
 
-      const dieContent = getAppendDiceContent({ isDefault: true, dieRating: '4', })
+      const dieContent = getAppendDiceContent({ isDefault: true, dieRating: '4' })
 
       $effectDiceContainer.innerHtml = dieContent
 

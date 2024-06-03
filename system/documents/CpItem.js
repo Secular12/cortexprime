@@ -12,10 +12,10 @@ export class CpItem extends Item {
     Log('CpItem._preCreate itemTypeSettings', itemTypeSettings)
 
     const traitTypes = itemTypeSettings.traits
-      .map(({ id, name, }) => ({ id, name, }))
+      .map(({ id, name }) => ({ id, name }))
 
     const subtraitTypes = itemTypeSettings.subtraits
-      .map(({ id, name, }) => ({ id, name, }))
+      .map(({ id, name }) => ({ id, name }))
 
     if (data.type === 'Trait') {
       Assert(

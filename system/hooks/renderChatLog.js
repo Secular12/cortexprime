@@ -3,7 +3,7 @@ import { displayToggleMethod } from '../lib/helpers.js'
 export default (log, [$html], data) => {
   $html
     .querySelector('#chat-log')
-    .addEventListener('click', (event) => {
+    .addEventListener('click', event => {
       const $displayToggle = event.target.closest('.display-toggle')
       const $rollResultAddToPool = event.target.closest('.RollResult-add-to-pool')
       const $rollResultReRoll = event.target.closest('.RollResult-re-roll')
@@ -23,7 +23,7 @@ export default (log, [$html], data) => {
         game.cortexprime.DicePool.addToPool(event, $rollResultReRoll)
         game.cortexprime.DicePool._rollDice('select')
         game.cortexprime.DicePool.clear()
-        return
+
       }
     })
 }

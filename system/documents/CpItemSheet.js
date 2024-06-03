@@ -1,4 +1,4 @@
-import { diceSelectListener, } from '../lib/formHelpers.js'
+import { diceSelectListener } from '../lib/formHelpers.js'
 import {
   localizer,
 } from '../lib/helpers.js'
@@ -29,12 +29,12 @@ export class CpItemSheet extends ItemSheet {
     if (!itemTypeId) return null
 
     return this.itemTypeOptions
-      ?.find(({ id, }) => id === itemTypeId) ?? null
+      ?.find(({ id }) => id === itemTypeId) ?? null
   }
 
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'sheet', 'item-sheet',],
+      classes: ['cortexprime', 'sheet', 'item-sheet'],
       height: 450,
       template: 'systems/cortexprime/system/templates/CpItemSheet.html',
       width: 480,
@@ -62,7 +62,7 @@ export class CpItemSheet extends ItemSheet {
       ...superData,
       itemSettings: this.itemSettings,
       itemTypeOptions: [
-        { placeholder: true, id: '', name: localizer('CP.ChooseTypeMessage'), },
+        { placeholder: true, id: '', name: localizer('CP.ChooseTypeMessage') },
         ...this.itemTypeOptions,
       ],
     }
@@ -81,7 +81,7 @@ export class CpItemSheet extends ItemSheet {
       && expandedData.data.system.itemTypeId !== this.item.system.itemTypeId
 
     expandedData.data.system.dice = typeof expandedData.data.system.dice === 'string'
-      ? [parseInt(expandedData.data.system.dice, 10),]
+      ? [parseInt(expandedData.data.system.dice, 10)]
       : expandedData.data.system.dice
         ? expandedData.data.system.dice.map(die => parseInt(die, 10))
         : []
@@ -104,7 +104,7 @@ export class CpItemSheet extends ItemSheet {
 
   activateListeners(html) {
     super.activateListeners(html)
-    const [$html,] = html
+    const [$html] = html
 
     diceSelectListener(
       $html,
@@ -131,7 +131,7 @@ export class CpItemSheet extends ItemSheet {
 
   onItemTypeChange(expandedData) {
     const newItemSettings = this.itemTypeOptions
-      ?.find(({ id, }) => id === expandedData.data.system.itemTypeId) ?? null
+      ?.find(({ id }) => id === expandedData.data.system.itemTypeId) ?? null
 
     const dice = expandedData.data.system.dice
 
@@ -150,17 +150,17 @@ export class CpItemSheet extends ItemSheet {
             dice[0] > newItemSettings.maxDieRating
                 || dice[0] < newItemSettings.minDieRating
           )
-            ? [newItemSettings.minDieRating,]
-            : [dice[0],]
+            ? [newItemSettings.minDieRating]
+            : [dice[0]]
         : newItemSettings.allowNoDice
           ? dice
-          : [newItemSettings.minDieRating,]
+          : [newItemSettings.minDieRating]
     }
 
     return expandedData
   }
 
-  async onRemoveDie(event, { index, }) {
+  async onRemoveDie(event, { index }) {
     await this.item.update({
       system: {
         ...this.item.system,

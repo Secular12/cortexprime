@@ -1,8 +1,8 @@
-import { fieldListeners, } from '../lib/formHelpers'
-import { addListeners, displayToggleMethod, localizer, } from '../lib/helpers'
+import { fieldListeners } from '../lib/formHelpers'
+import { addListeners, displayToggleMethod, localizer } from '../lib/helpers'
 import Logger from '../lib/Logger'
 import presetThemes from '../lib/presetThemes'
-import { setThemeProperties, } from '../lib/setThemeProperties'
+import { setThemeProperties } from '../lib/setThemeProperties'
 
 const Log = Logger()
 
@@ -25,13 +25,13 @@ export default class CpThemeSettings extends FormApplication {
 
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ['cortexprime', 'settings', 'theme-settings',],
+      classes: ['cortexprime', 'settings', 'theme-settings'],
       closeOnSubmit: false,
       height: 900,
       id: 'ThemeSettings',
       left: 400,
       resizable: false,
-      scrollY: ['#ThemeSettings-form-body',],
+      scrollY: ['#ThemeSettings-form-body'],
       submitOnChange: false,
       submitOnClose: false,
       template: 'systems/cortexprime/system/templates/CpThemeSettings.html',
@@ -63,14 +63,14 @@ export default class CpThemeSettings extends FormApplication {
   getData() {
     const data = {
       borderPositions: [
-        { name: localizer('CP.None'), value: 'none', },
-        { name: localizer('CP.All'), value: 'all', },
-        { name: localizer('CP.Bottom'), value: 'bottom', },
-        { name: localizer('CP.Top'), value: 'top', },
-        { name: localizer('CP.Left'), value: 'left', },
-        { name: localizer('CP.Right'), value: 'right', },
-        { name: localizer('CP.TopAndBottom'), value: 'top-and-bottom', },
-        { name: localizer('CP.LeftAndRight'), value: 'left-and-right', },
+        { name: localizer('CP.None'), value: 'none' },
+        { name: localizer('CP.All'), value: 'all' },
+        { name: localizer('CP.Bottom'), value: 'bottom' },
+        { name: localizer('CP.Top'), value: 'top' },
+        { name: localizer('CP.Left'), value: 'left' },
+        { name: localizer('CP.Right'), value: 'right' },
+        { name: localizer('CP.TopAndBottom'), value: 'top-and-bottom' },
+        { name: localizer('CP.LeftAndRight'), value: 'left-and-right' },
       ],
       currentSettings: this.currentSettings,
       expandedSections: this.expandedSections,
@@ -80,12 +80,12 @@ export default class CpThemeSettings extends FormApplication {
         {
           label: localizer('CP.PresetThemes'),
           options: Object.keys(presetThemes)
-            .map(themeName => ({ name: themeName, value: themeName, })),
+            .map(themeName => ({ name: themeName, value: themeName })),
         },
         {
           label: 'Custom Themes',
           options: Object.keys(this.customThemes)
-            .map(themeName => ({ name: themeName, value: themeName, })),
+            .map(themeName => ({ name: themeName, value: themeName })),
         },
       ],
     }
@@ -112,7 +112,7 @@ export default class CpThemeSettings extends FormApplication {
   activateListeners(html) {
     super.activateListeners(html)
 
-    const [$html,] = html
+    const [$html] = html
 
     fieldListeners($html)
 
@@ -204,7 +204,7 @@ export default class CpThemeSettings extends FormApplication {
 
       const newCustomThemes = {
         ...themeSettings.customList,
-        [customThemeName]: { ...this.currentSettings, },
+        [customThemeName]: { ...this.currentSettings },
       }
 
       themeSettings.customList = newCustomThemes
@@ -303,12 +303,12 @@ export default class CpThemeSettings extends FormApplication {
   }
 
   async onDisplayToggle(event) {
-    const { section, } = event.currentTarget.dataset
+    const { section } = event.currentTarget.dataset
 
     this.expandedSections = this.expandedSections.includes(section)
       ? this.expandedSections
         .filter(expandedSection => expandedSection !== section)
-      : [...this.expandedSections, section,]
+      : [...this.expandedSections, section]
 
     displayToggleMethod(event)
   }

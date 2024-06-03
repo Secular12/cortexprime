@@ -4,7 +4,7 @@ import { setThemeProperties } from '../lib/setThemeProperties.js'
 
 export default async () => {
   game.cortexprime.DicePool = new DicePool()
-  
+
   const themes = game.settings.get('cortexprime', 'themes')
 
   const themeOptions = {

@@ -2,7 +2,7 @@ import CpThemeSettings from './documents/CpThemeSettings'
 import CpItemSettings from './documents/CpItemSettings'
 import defaultItemTypes from './lib/defaultItemTypes'
 import defaultThemes from './lib/defaultThemes'
-import { localizer, } from './lib/helpers'
+import { localizer } from './lib/helpers'
 
 export const registerSettings = () => {
   game.settings.register('cortexprime', 'themes', {

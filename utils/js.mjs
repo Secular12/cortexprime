@@ -35,7 +35,7 @@ const getEslintOptions = () => ({
 export const lint = () => {
 
   const tasks = LINTING_PATHS.map(path => {
-    const src = path.endsWith('/') ? `${path}**/*.mjs` : path
+    const src = path.endsWith('/') ? `${path}**/*.js` : path
     const dest = path.endsWith('/') ? path : `${path.split('/').slice(0, -1).join('/')}/`
 
     return gulp

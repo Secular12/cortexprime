@@ -513,8 +513,8 @@ export default {
       allowMultipleDice: false,
       allowNoDice: false,
       descriptors: [
-        { label: 'Trigger', },
-        { label: 'Effect', },
+        { label: 'Trigger' },
+        { label: 'Effect' },
       ],
       hasConsumableDice: false,
       hasDescription: true,

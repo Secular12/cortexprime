@@ -54,11 +54,11 @@ export default (value, items, name, val, options) => {
       ? `<p class="field-view-value">${getViewValue(value)}</p>`
       : `<select ${
         Object.entries(options.hash)
-          .reduce((attributes, [key, value,]) => {
+          .reduce((attributes, [key, value]) => {
             if (inputHashIgnore.includes(key)) return attributes
 
-            if (['disabled', 'required',].includes(key) && value === true) {
-              return [...attributes, key,]
+            if (['disabled', 'required'].includes(key) && value === true) {
+              return [...attributes, key]
             }
 
             if (key === 'inputClass') {
@@ -68,8 +68,8 @@ export default (value, items, name, val, options) => {
 
             const val = value ?? null
 
-            return [...attributes, val || val === 0 ? `${key}="${value}"` : '',]
-          }, ['class="field-input"',])
+            return [...attributes, val || val === 0 ? `${key}="${value}"` : '']
+          }, ['class="field-input"'])
           .join(' ')
       }>${
         getOptions(items, value, name, val)

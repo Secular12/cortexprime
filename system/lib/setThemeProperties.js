@@ -1,4 +1,4 @@
-import { camelCasetoKebabCase, } from './helpers'
+import { camelCasetoKebabCase } from './helpers'
 import presetThemes from '../lib/presetThemes'
 
 export const setThemeProperties = properties => {
@@ -6,13 +6,13 @@ export const setThemeProperties = properties => {
     .querySelector(':root')
 
   if (!properties) {
-    const { selectedTheme, customList: customThemeList, } = game.settings.get('cortexprime', 'themes')
+    const { selectedTheme, customList: customThemeList } = game.settings.get('cortexprime', 'themes')
 
     properties = presetThemes[selectedTheme] ?? customThemeList[selectedTheme] ?? {}
   }
 
-  const { borderProperties, mainProperties, } = Object.entries(properties)
-    .reduce((acc, [property, value,]) => {
+  const { borderProperties, mainProperties } = Object.entries(properties)
+    .reduce((acc, [property, value]) => {
       const isColor = property?.endsWith('_color')
 
       if (property?.startsWith('border_')) {
@@ -63,13 +63,13 @@ export const setThemeProperties = properties => {
           value = `${value}px`
         }
 
-        acc.mainProperties.push([property, value,])
+        acc.mainProperties.push([property, value])
       }
 
       return acc
-    }, { borderProperties: {}, mainProperties: [], })
+    }, { borderProperties: {}, mainProperties: [] })
 
-  Object.entries(borderProperties).forEach(([namespace, values,]) => {
+  Object.entries(borderProperties).forEach(([namespace, values]) => {
     const position = values.position ?? 'all'
     const width = values.width ?? 1
 
@@ -116,7 +116,7 @@ export const setThemeProperties = properties => {
       )
   })
 
-  mainProperties.forEach(([property, value,]) => {
+  mainProperties.forEach(([property, value]) => {
     $root
       .style
       .setProperty(`--cp-${camelCasetoKebabCase(property)}`, value)

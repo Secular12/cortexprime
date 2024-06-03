@@ -1,4 +1,4 @@
-import { getDieIcon, } from '../dice.js'
+import { getDieIcon } from '../dice.js'
 
 export const getHtml = (value, options) => {
   return `<div class="die-result${

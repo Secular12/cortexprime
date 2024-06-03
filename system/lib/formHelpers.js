@@ -1,6 +1,6 @@
-import { addListeners, round, } from './helpers.js'
+import { addListeners, round } from './helpers.js'
 
-export const diceSelectListener = ($html, { addDie, changeDie, removeDie, }) => {
+export const diceSelectListener = ($html, { addDie, changeDie, removeDie }) => {
 
   if (addDie) {
     addListeners(
@@ -8,8 +8,8 @@ export const diceSelectListener = ($html, { addDie, changeDie, removeDie, }) => 
       '.new-die',
       'click',
       event => {
-        const { target, } = event.currentTarget.dataset ?? {}
-        addDie(event, { target, })
+        const { target } = event.currentTarget.dataset ?? {}
+        addDie(event, { target })
       }
     )
   }

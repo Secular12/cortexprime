@@ -19,11 +19,11 @@ export default (value, options) => {
     +`<input type="checkbox" ${
       value ? 'checked ' : ''
     }${Object.entries(options.hash)
-      .reduce((attributes, [key, value,]) => {
+      .reduce((attributes, [key, value]) => {
         if (inputHashIgnore.includes(key)) return attributes
 
-        if (['disabled', 'required',].includes(key) && value === true) {
-          return [...attributes, key,]
+        if (['disabled', 'required'].includes(key) && value === true) {
+          return [...attributes, key]
         }
 
         if (key === 'inputClass') {
@@ -33,8 +33,8 @@ export default (value, options) => {
 
         const val = value ?? null
 
-        return [...attributes, val || val === 0 ? `${key}="${value}"` : '',]
-      }, ['class="field-checkbox-input"',])
+        return [...attributes, val || val === 0 ? `${key}="${value}"` : '']
+      }, ['class="field-checkbox-input"'])
       .join(' ')
     }>${
       options.hash.label ? '<span class="field-label' : ''
