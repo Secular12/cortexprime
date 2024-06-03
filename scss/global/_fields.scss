@@ -20,12 +20,19 @@
   position: relative;
   width: toRem(100px);
 
-  .file-picker {
-    @include btn;
-    @include btn-icon;
-    position: absolute;
-    bottom: toRem(-5px);
-    right: toRem(-5px);
+  file-picker {
+    .image {
+      display: none;
+    }
+
+    button {
+      @include btn;
+      @include btn-icon;
+      position: absolute;
+      bottom: toRem(-5px);
+      right: toRem(-5px);
+      font-family: "Font Awesome 6 Pro";
+    }
   }
 
   .image-remove {

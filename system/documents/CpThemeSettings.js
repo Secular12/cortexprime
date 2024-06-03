@@ -118,7 +118,7 @@ export default class CpThemeSettings extends FormApplication {
 
     addListeners(
       $html,
-      '.field-hidden-image-picker',
+      'file-picker',
       'change',
       this.onImageChange
     )
@@ -326,6 +326,9 @@ export default class CpThemeSettings extends FormApplication {
     const $noImageMsg = $fieldWrapper
       .querySelector('.no-image-msg')
 
+    const $fieldImageValue = $fieldWrapper
+      .querySelector('.field-img-value')
+
     $fieldWrapper
       .querySelector('.field-hidden-image-picker')
       .value = value
@@ -339,15 +342,15 @@ export default class CpThemeSettings extends FormApplication {
       $imageRemove.classList.remove('hide')
 
       $noImageMsg.classList.add('hide')
+
+      $fieldImageValue.title = value
     } else {
       $imageRemove.classList.add('hide')
 
       $noImageMsg.classList.remove('hide')
     }
 
-    $fieldWrapper
-      .querySelector('.field-img-value')
-      .textContent = value || localizer('CP.NoImage')
+    $fieldImageValue.textContent = value || localizer('CP.NoImage')
   }
 
   preview(html) {

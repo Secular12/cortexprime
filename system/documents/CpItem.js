@@ -4,7 +4,7 @@ const Assert = Logger('assert')
 const Log = Logger()
 
 export class CpItem extends Item {
-  async _preCreate (data, options, user) {
+  async _preCreate(data, options, user) {
     Log('CpItem._preCreate data, options, user', data, options, user)
 
     const itemTypeSettings = game.settings.get('cortexprime', 'itemTypes')
@@ -12,10 +12,10 @@ export class CpItem extends Item {
     Log('CpItem._preCreate itemTypeSettings', itemTypeSettings)
 
     const traitTypes = itemTypeSettings.traits
-      .map(({ id, name }) => ({ id, name }))
+      .map(({ id, name, }) => ({ id, name, }))
 
     const subtraitTypes = itemTypeSettings.subtraits
-      .map(({ id, name }) => ({ id, name }))
+      .map(({ id, name, }) => ({ id, name, }))
 
     if (data.type === 'Trait') {
       Assert(
@@ -38,9 +38,9 @@ export class CpItem extends Item {
         : []
 
     if (itemTypes.length !== 1) return
-    
+
     await this.updateSource({
-      'system.itemType': itemTypes[0]
+      'system.itemType': itemTypes[0],
     })
   }
 }

@@ -15,7 +15,10 @@
             type="hidden"
             value="{{value}}"
           />
-          {{filePicker type="image" target=name}}
+          <file-picker
+            type="image"
+            target="{{name}}"
+          ></file-picker>
           <button
             class="btn btn-icon btn-secondary{{ifThen value '' ' hide'}} image-remove"
             type="button"
@@ -26,7 +29,7 @@
         <p class="{{ifThen value 'hide ' ''}}no-image-msg">{{localize 'CP.NoImageSelected'}}</p>
       </div>
     </div>
-    <p class="field-img-value mt-1 p-1">{{ifThen value value (localize 'CP.NoImage')}}</p>
+    <p class="field-img-value mt-1 p-1"{{ifThen value (concat ' title="' value '"') ''}}>{{ifThen value value (localize 'CP.NoImage')}}</p>
   </div>
   {{#if (and hint (not noEdit))}}
     <p class="field-hint">{{hint}}</p>

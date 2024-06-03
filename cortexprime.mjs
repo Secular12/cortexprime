@@ -11,7 +11,7 @@ const Assert = Logger('assert');
 const Log$7 = Logger();
 
 class CpItem extends Item {
-  async _preCreate (data, options, user) {
+  async _preCreate(data, options, user) {
     Log$7('CpItem._preCreate data, options, user', data, options, user);
 
     const itemTypeSettings = game.settings.get('cortexprime', 'itemTypes');
@@ -19,10 +19,10 @@ class CpItem extends Item {
     Log$7('CpItem._preCreate itemTypeSettings', itemTypeSettings);
 
     const traitTypes = itemTypeSettings.traits
-      .map(({ id, name }) => ({ id, name }));
+      .map(({ id, name, }) => ({ id, name, }));
 
     const subtraitTypes = itemTypeSettings.subtraits
-      .map(({ id, name }) => ({ id, name }));
+      .map(({ id, name, }) => ({ id, name, }));
 
     if (data.type === 'Trait') {
       Assert(
@@ -45,9 +45,9 @@ class CpItem extends Item {
         : [];
 
     if (itemTypes.length !== 1) return
-    
+
     await this.updateSource({
-      'system.itemType': itemTypes[0]
+      'system.itemType': itemTypes[0],
     });
   }
 }
@@ -2213,7 +2213,7 @@ class CpThemeSettings extends FormApplication {
 
     addListeners(
       $html,
-      '.field-hidden-image-picker',
+      'file-picker',
       'change',
       this.onImageChange
     );
@@ -2421,6 +2421,9 @@ class CpThemeSettings extends FormApplication {
     const $noImageMsg = $fieldWrapper
       .querySelector('.no-image-msg');
 
+    const $fieldImageValue = $fieldWrapper
+      .querySelector('.field-img-value');
+
     $fieldWrapper
       .querySelector('.field-hidden-image-picker')
       .value = value;
@@ -2434,15 +2437,15 @@ class CpThemeSettings extends FormApplication {
       $imageRemove.classList.remove('hide');
 
       $noImageMsg.classList.add('hide');
+
+      $fieldImageValue.title = value;
     } else {
       $imageRemove.classList.add('hide');
 
       $noImageMsg.classList.remove('hide');
     }
 
-    $fieldWrapper
-      .querySelector('.field-img-value')
-      .textContent = value || localizer('CP.NoImage');
+    $fieldImageValue.textContent = value || localizer('CP.NoImage');
   }
 
   preview(html) {
