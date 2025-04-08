@@ -44,7 +44,7 @@ export default class ImportExportSettings extends FormApplication {
 
     const settings = {
       actorTypes: game.settings.get('cortexprime', 'actorTypes'),
-      cortexPrimeVersion: game.system.data.version,
+      cortexPrimeVersion: game.system.version,
       theme: { current, custom }
     }
 
@@ -75,7 +75,7 @@ export default class ImportExportSettings extends FormApplication {
           return
         }
 
-        if (game.system.data.version !== data?.cortexPrimeVersion) {
+        if (game.system.version !== data?.cortexPrimeVersion) {
           warning = localizer('ImportVersionWarning')
         }
 
@@ -91,7 +91,7 @@ export default class ImportExportSettings extends FormApplication {
 
         if (confirmed) {
           await game.settings.set('cortexprime', 'importedSettings', { currentSetting: file.name })
-          await game.settings.set('cortexprime', 'actorTypes', system.actorTypes)
+          await game.settings.set('cortexprime', 'actorTypes', data.actorTypes)
 
           const themeSettings = await game.settings.get('cortexprime', 'themes')
 
