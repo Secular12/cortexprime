@@ -43,4 +43,33 @@ export class CortexPrimeActor extends Actor {
       'system.pp.value': value
     })
   }
+
+  getDiceObjectForTrait(trait) {
+    let diceObj = null
+    const myTraitSets = this.system.actorType.traitSets
+    for (const i in myTraitSets) {
+      let myTraits = myTraitSets[i].traits
+      for (const j in myTraits) {
+        let myTrait = myTraits[j]
+        let myName = myTrait.name
+        if(myName.toLowerCase() == trait.toLowerCase() ) {
+          diceObj = this._countDice(myTraits[j].dice.value)
+          return diceObj
+        }
+      }
+    }
+    return diceObj
+  }
+
+  _countDice(diceObj){
+    let diceCounter = {}
+    for (const [index, sides] of Object.entries(diceObj)) {
+      if (diceCounter.hasOwnProperty(sides)) {
+        diceCounter[sides] += 1
+      } else {
+        diceCounter[sides] = 1
+      }
+    }
+    return diceCounter
+  }
 }
