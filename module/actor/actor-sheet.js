@@ -1,6 +1,6 @@
 /**
  * Extend the basic ActorSheet with some very simple modifications
- * @extends {ActorSheet}
+ * @extends {foundry.appv1.sheets.ActorSheet}
  */
 import { getLength, objectMapValues, objectReindexFilter, objectFindValue, objectSome } from '../../lib/helpers.js'
 import { localizer } from '../scripts/foundryHelpers.js'
@@ -9,7 +9,7 @@ import {
   toggleItems
 } from '../scripts/sheetHelpers.js'
 
-export class CortexPrimeActorSheet extends ActorSheet {
+export class CortexPrimeActorSheet extends foundry.appv1.sheets.ActorSheet {
 
   get actor () {
     return super.actor
@@ -238,7 +238,7 @@ export class CortexPrimeActorSheet extends ActorSheet {
   }
 
   async _getConsumableDiceSelection (options, label) {
-    const content = await renderTemplate('systems/cortexprime/templates/dialog/consumable-dice.html', {
+    const content = await foundry.applications.handlebars.renderTemplate('systems/cortexprime/templates/dialog/consumable-dice.html', {
       options,
       isOwner: game.user.isOwner
     })
@@ -249,14 +249,14 @@ export class CortexPrimeActorSheet extends ActorSheet {
         content,
         buttons: {
           cancel: {
-            icon: '<i class="fas fa-times"></i>',
+            icon: '<i class="fa-solid fa-times"></i>',
             label: localizer('Cancel'),
             callback () {
               resolve({ remove: [], value: {} })
             }
           },
           done: {
-            icon: '<i class="fas fa-check"></i>',
+            icon: '<i class="fa-solid fa-check"></i>',
             label: localizer('AddToPool'),
             callback (html) {
               const remove = html.find('.remove-check').prop('checked')

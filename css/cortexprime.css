@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
 /* Global styles */
-.window-app {
+/* Styles limited to cortexprime sheets */
+.cortexprime .window-app {
   font-family: "Roboto", sans-serif;
 }
-.window-app .window-content {
+.cortexprime .window-app .window-content {
   background: #ffffff;
 }
-
 .cortexprime.window-app .window-content {
   background: none;
   padding: 0;
@@ -14,26 +14,22 @@
 .cortexprime.window-app .window-resizable-handle {
   z-index: 10;
 }
-
-.dice-picker.window-app .window-content, .consumable-dice.window-app .window-content {
+.cortexprime .dice-picker.window-app .window-content, .cortexprime .consumable-dice.window-app .window-content {
   background: none;
   padding: 0;
 }
-
-h1, h2, h3, h4, h5, h6 {
+.cortexprime h1, .cortexprime h2, .cortexprime h3, .cortexprime h4, .cortexprime h5, .cortexprime h6 {
   border: 0;
   margin: 0;
+  font-family: "Roboto", sans-serif;
 }
-
-p {
+.cortexprime p {
   margin: 0;
 }
-
-a[href] {
+.cortexprime a[href] {
   color: inherit;
 }
-
-.truncate {
+.cortexprime .truncate {
   width: 21.25rem;
   overflow: hidden;
   -o-text-overflow: ellipsis;
@@ -41,78 +37,16 @@ a[href] {
   text-align: center;
   white-space: nowrap;
 }
-
-.text-center {
+.cortexprime .text-center {
   text-align: center;
 }
-
-.ba-2-primary {
+.cortexprime .ba-2-primary {
   border: 2px solid #B30044;
 }
-
-.btn {
-  background-color: transparent;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 0.875rem;
-  line-height: normal;
-  padding: 0.25rem 0.5rem;
-  text-transform: uppercase;
-  white-space: nowrap;
-  width: auto;
-}
-.btn:disabled {
-  opacity: 0.5;
-  color: #ffffff;
-  cursor: not-allowed;
-}
-.btn.btn-small {
-  font-size: 0.625rem;
-  height: 1rem;
-  padding: 0.125rem;
-  width: 1rem;
-}
-
-.btn-icon {
-  border-radius: 50%;
-  font-size: 0.875rem;
-  height: 1.5rem;
-  line-height: normal;
-  padding: 0.25rem;
-  text-align: center;
-  width: 1.5rem;
-}
-.btn-icon i.fa {
-  margin-right: 0;
-}
-
-.add-trait-to-pool {
-  cursor: pointer;
-}
-
-.icon {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  display: inline-block;
-  height: 1.25rem;
-  margin-left: 0.125rem;
-  margin-right: 0.125rem;
-  position: relative;
-  width: 1.25rem;
-}
-.icon.pp {
-  background-image: url("../assets/plot-point/plot-point.png");
-  vertical-align: bottom;
-}
-
-.d-block {
+.cortexprime .d-block {
   display: block;
 }
-
-.columns-1 {
+.cortexprime .columns-1 {
   -webkit-column-count: 2;
   -moz-column-count: 2;
   column-count: 2;
@@ -120,8 +54,7 @@ a[href] {
   -moz-column-gap: 0;
   column-gap: 0;
 }
-
-.columns-2 {
+.cortexprime .columns-2 {
   -webkit-column-count: 2;
   -moz-column-count: 2;
   column-count: 2;
@@ -129,8 +62,7 @@ a[href] {
   -moz-column-gap: 0;
   column-gap: 0;
 }
-
-.columns-3 {
+.cortexprime .columns-3 {
   -webkit-column-count: 2;
   -moz-column-count: 2;
   column-count: 2;
@@ -138,8 +70,7 @@ a[href] {
   -moz-column-gap: 0;
   column-gap: 0;
 }
-
-.columns-4 {
+.cortexprime .columns-4 {
   -webkit-column-count: 2;
   -moz-column-count: 2;
   column-count: 2;
@@ -147,109 +78,91 @@ a[href] {
   -moz-column-gap: 0;
   column-gap: 0;
 }
-
-.column-gap-0 {
+.cortexprime .column-gap-0 {
   -webkit-column-gap: 0rem;
   -moz-column-gap: 0rem;
   column-gap: 0rem;
 }
-
-.column-gap-1 {
+.cortexprime .column-gap-1 {
   -webkit-column-gap: 0.25rem;
   -moz-column-gap: 0.25rem;
   column-gap: 0.25rem;
 }
-
-.column-gap-2 {
+.cortexprime .column-gap-2 {
   -webkit-column-gap: 0.5rem;
   -moz-column-gap: 0.5rem;
   column-gap: 0.5rem;
 }
-
-.column-gap-3 {
+.cortexprime .column-gap-3 {
   -webkit-column-gap: 0.75rem;
   -moz-column-gap: 0.75rem;
   column-gap: 0.75rem;
 }
-
-.column-gap-4 {
+.cortexprime .column-gap-4 {
   -webkit-column-gap: 1rem;
   -moz-column-gap: 1rem;
   column-gap: 1rem;
 }
-
-.column-gap-5 {
+.cortexprime .column-gap-5 {
   -webkit-column-gap: 1.25rem;
   -moz-column-gap: 1.25rem;
   column-gap: 1.25rem;
 }
-
-.column-gap-6 {
+.cortexprime .column-gap-6 {
   -webkit-column-gap: 1.5rem;
   -moz-column-gap: 1.5rem;
   column-gap: 1.5rem;
 }
-
-.column-gap-7 {
+.cortexprime .column-gap-7 {
   -webkit-column-gap: 1.75rem;
   -moz-column-gap: 1.75rem;
   column-gap: 1.75rem;
 }
-
-.column-gap-8 {
+.cortexprime .column-gap-8 {
   -webkit-column-gap: 2rem;
   -moz-column-gap: 2rem;
   column-gap: 2rem;
 }
-
-.column-gap-9 {
+.cortexprime .column-gap-9 {
   -webkit-column-gap: 2.25rem;
   -moz-column-gap: 2.25rem;
   column-gap: 2.25rem;
 }
-
-.column-gap-10 {
+.cortexprime .column-gap-10 {
   -webkit-column-gap: 2.5rem;
   -moz-column-gap: 2.5rem;
   column-gap: 2.5rem;
 }
-
-.column-gap-11 {
+.cortexprime .column-gap-11 {
   -webkit-column-gap: 2.75rem;
   -moz-column-gap: 2.75rem;
   column-gap: 2.75rem;
 }
-
-.column-gap-12 {
+.cortexprime .column-gap-12 {
   -webkit-column-gap: 3rem;
   -moz-column-gap: 3rem;
   column-gap: 3rem;
 }
-
-.column-item {
+.cortexprime .column-item {
   -webkit-column-break-inside: avoid;
   page-break-inside: avoid;
   -moz-column-break-inside: avoid;
   break-inside: avoid;
 }
-
-.flex, .flex-row {
+.cortexprime .flex, .cortexprime .flex-row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
-
-.flex-wrap {
+.cortexprime .flex-wrap {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
-
-.flex-row {
+.cortexprime .flex-row {
   margin-left: -0.5rem;
   margin-right: -0.5rem;
 }
-
-.flex-col {
+.cortexprime .flex-col {
   -ms-flex-preferred-size: auto;
   flex-basis: auto;
   -webkit-box-flex: 0;
@@ -260,147 +173,120 @@ a[href] {
   padding-right: 0.5rem;
   width: auto;
 }
-
-.col-1 {
+.cortexprime .col-1 {
   max-width: 8.3333333333%;
   width: 100%;
 }
-
-.col-2 {
+.cortexprime .col-2 {
   max-width: 16.6666666667%;
   width: 100%;
 }
-
-.col-3 {
+.cortexprime .col-3 {
   max-width: 25%;
   width: 100%;
 }
-
-.col-4 {
+.cortexprime .col-4 {
   max-width: 33.3333333333%;
   width: 100%;
 }
-
-.col-5 {
+.cortexprime .col-5 {
   max-width: 41.6666666667%;
   width: 100%;
 }
-
-.col-6 {
+.cortexprime .col-6 {
   max-width: 50%;
   width: 100%;
 }
-
-.col-7 {
+.cortexprime .col-7 {
   max-width: 58.3333333333%;
   width: 100%;
 }
-
-.col-8 {
+.cortexprime .col-8 {
   max-width: 66.6666666667%;
   width: 100%;
 }
-
-.col-9 {
+.cortexprime .col-9 {
   max-width: 75%;
   width: 100%;
 }
-
-.col-10 {
+.cortexprime .col-10 {
   max-width: 83.3333333333%;
   width: 100%;
 }
-
-.col-11 {
+.cortexprime .col-11 {
   max-width: 91.6666666667%;
   width: 100%;
 }
-
-.col-12 {
+.cortexprime .col-12 {
   max-width: 100%;
   width: 100%;
 }
-
-.flex-as {
+.cortexprime .flex-as {
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: flex-start;
 }
-
-.flex-ac {
+.cortexprime .flex-ac {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
 }
-
-.flex-ae {
+.cortexprime .flex-ae {
   -webkit-box-align: end;
   -ms-flex-align: end;
   align-items: flex-end;
 }
-
-.flex-ab {
+.cortexprime .flex-ab {
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
   align-items: baseline;
 }
-
-.flex-as-self {
+.cortexprime .flex-as-self {
   -ms-flex-item-align: start;
   align-self: flex-start;
 }
-
-.flex-ac-self {
+.cortexprime .flex-ac-self {
   -ms-flex-item-align: center;
   align-self: center;
 }
-
-.flex-ae-self {
+.cortexprime .flex-ae-self {
   -ms-flex-item-align: end;
   align-self: flex-end;
 }
-
-.flex-ab-self {
+.cortexprime .flex-ab-self {
   -ms-flex-item-align: baseline;
   align-self: baseline;
 }
-
-.flex-js {
+.cortexprime .flex-js {
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
 }
-
-.flex-jc {
+.cortexprime .flex-jc {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
 }
-
-.flex-je {
+.cortexprime .flex-je {
   -webkit-box-pack: end;
   -ms-flex-pack: end;
   justify-content: flex-end;
 }
-
-.flex-jsa {
+.cortexprime .flex-jsa {
   -ms-flex-pack: distribute;
   justify-content: space-around;
 }
-
-.flex-jsb {
+.cortexprime .flex-jsb {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
-
-.flex-jse {
+.cortexprime .flex-jse {
   -webkit-box-pack: space-evenly;
   -ms-flex-pack: space-evenly;
   justify-content: space-evenly;
 }
-
-.flex-c {
+.cortexprime .flex-c {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -409,964 +295,806 @@ a[href] {
   justify-content: center;
   text-align: center;
 }
-
-.flex-g-1 {
+.cortexprime .flex-g-1 {
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
 }
-
-.flex-g-2 {
+.cortexprime .flex-g-2 {
   -webkit-box-flex: 2;
   -ms-flex-positive: 2;
   flex-grow: 2;
 }
-
-.flex-s-1 {
+.cortexprime .flex-s-1 {
   -ms-flex-negative: 1;
   flex-shrink: 1;
 }
-
-.flex-s-2 {
+.cortexprime .flex-s-2 {
   -ms-flex-negative: 2;
   flex-shrink: 2;
 }
-
-.ma-0 {
+.cortexprime .ma-0 {
   margin-bottom: 0rem;
   margin-left: 0rem;
   margin-right: 0rem;
   margin-top: 0rem;
 }
-
-.ma-1 {
+.cortexprime .ma-1 {
   margin-bottom: 0.25rem;
   margin-left: 0.25rem;
   margin-right: 0.25rem;
   margin-top: 0.25rem;
 }
-
-.ma-2 {
+.cortexprime .ma-2 {
   margin-bottom: 0.5rem;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   margin-top: 0.5rem;
 }
-
-.ma-3 {
+.cortexprime .ma-3 {
   margin-bottom: 0.75rem;
   margin-left: 0.75rem;
   margin-right: 0.75rem;
   margin-top: 0.75rem;
 }
-
-.ma-4 {
+.cortexprime .ma-4 {
   margin-bottom: 1rem;
   margin-left: 1rem;
   margin-right: 1rem;
   margin-top: 1rem;
 }
-
-.ma-5 {
+.cortexprime .ma-5 {
   margin-bottom: 1.25rem;
   margin-left: 1.25rem;
   margin-right: 1.25rem;
   margin-top: 1.25rem;
 }
-
-.ma-6 {
+.cortexprime .ma-6 {
   margin-bottom: 1.5rem;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
   margin-top: 1.5rem;
 }
-
-.ma-7 {
+.cortexprime .ma-7 {
   margin-bottom: 1.75rem;
   margin-left: 1.75rem;
   margin-right: 1.75rem;
   margin-top: 1.75rem;
 }
-
-.ma-8 {
+.cortexprime .ma-8 {
   margin-bottom: 2rem;
   margin-left: 2rem;
   margin-right: 2rem;
   margin-top: 2rem;
 }
-
-.ma-9 {
+.cortexprime .ma-9 {
   margin-bottom: 2.25rem;
   margin-left: 2.25rem;
   margin-right: 2.25rem;
   margin-top: 2.25rem;
 }
-
-.ma-10 {
+.cortexprime .ma-10 {
   margin-bottom: 2.5rem;
   margin-left: 2.5rem;
   margin-right: 2.5rem;
   margin-top: 2.5rem;
 }
-
-.ma-11 {
+.cortexprime .ma-11 {
   margin-bottom: 2.75rem;
   margin-left: 2.75rem;
   margin-right: 2.75rem;
   margin-top: 2.75rem;
 }
-
-.ma-12 {
+.cortexprime .ma-12 {
   margin-bottom: 3rem;
   margin-left: 3rem;
   margin-right: 3rem;
   margin-top: 3rem;
 }
-
-.pa-0 {
+.cortexprime .pa-0 {
   padding-bottom: 0rem;
   padding-left: 0rem;
   padding-right: 0rem;
   padding-top: 0rem;
 }
-
-.pa-1 {
+.cortexprime .pa-1 {
   padding-bottom: 0.25rem;
   padding-left: 0.25rem;
   padding-right: 0.25rem;
   padding-top: 0.25rem;
 }
-
-.pa-2 {
+.cortexprime .pa-2 {
   padding-bottom: 0.5rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   padding-top: 0.5rem;
 }
-
-.pa-3 {
+.cortexprime .pa-3 {
   padding-bottom: 0.75rem;
   padding-left: 0.75rem;
   padding-right: 0.75rem;
   padding-top: 0.75rem;
 }
-
-.pa-4 {
+.cortexprime .pa-4 {
   padding-bottom: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 1rem;
 }
-
-.pa-5 {
+.cortexprime .pa-5 {
   padding-bottom: 1.25rem;
   padding-left: 1.25rem;
   padding-right: 1.25rem;
   padding-top: 1.25rem;
 }
-
-.pa-6 {
+.cortexprime .pa-6 {
   padding-bottom: 1.5rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   padding-top: 1.5rem;
 }
-
-.pa-7 {
+.cortexprime .pa-7 {
   padding-bottom: 1.75rem;
   padding-left: 1.75rem;
   padding-right: 1.75rem;
   padding-top: 1.75rem;
 }
-
-.pa-8 {
+.cortexprime .pa-8 {
   padding-bottom: 2rem;
   padding-left: 2rem;
   padding-right: 2rem;
   padding-top: 2rem;
 }
-
-.pa-9 {
+.cortexprime .pa-9 {
   padding-bottom: 2.25rem;
   padding-left: 2.25rem;
   padding-right: 2.25rem;
   padding-top: 2.25rem;
 }
-
-.pa-10 {
+.cortexprime .pa-10 {
   padding-bottom: 2.5rem;
   padding-left: 2.5rem;
   padding-right: 2.5rem;
   padding-top: 2.5rem;
 }
-
-.pa-11 {
+.cortexprime .pa-11 {
   padding-bottom: 2.75rem;
   padding-left: 2.75rem;
   padding-right: 2.75rem;
   padding-top: 2.75rem;
 }
-
-.pa-12 {
+.cortexprime .pa-12 {
   padding-bottom: 3rem;
   padding-left: 3rem;
   padding-right: 3rem;
   padding-top: 3rem;
 }
-
-.mb-0 {
+.cortexprime .mb-0 {
   margin-bottom: 0rem;
 }
-
-.mb-1 {
+.cortexprime .mb-1 {
   margin-bottom: 0.25rem;
 }
-
-.mb-2 {
+.cortexprime .mb-2 {
   margin-bottom: 0.5rem;
 }
-
-.mb-3 {
+.cortexprime .mb-3 {
   margin-bottom: 0.75rem;
 }
-
-.mb-4 {
+.cortexprime .mb-4 {
   margin-bottom: 1rem;
 }
-
-.mb-5 {
+.cortexprime .mb-5 {
   margin-bottom: 1.25rem;
 }
-
-.mb-6 {
+.cortexprime .mb-6 {
   margin-bottom: 1.5rem;
 }
-
-.mb-7 {
+.cortexprime .mb-7 {
   margin-bottom: 1.75rem;
 }
-
-.mb-8 {
+.cortexprime .mb-8 {
   margin-bottom: 2rem;
 }
-
-.mb-9 {
+.cortexprime .mb-9 {
   margin-bottom: 2.25rem;
 }
-
-.mb-10 {
+.cortexprime .mb-10 {
   margin-bottom: 2.5rem;
 }
-
-.mb-11 {
+.cortexprime .mb-11 {
   margin-bottom: 2.75rem;
 }
-
-.mb-12 {
+.cortexprime .mb-12 {
   margin-bottom: 3rem;
 }
-
-.pb-0 {
+.cortexprime .pb-0 {
   padding-bottom: 0rem;
 }
-
-.pb-1 {
+.cortexprime .pb-1 {
   padding-bottom: 0.25rem;
 }
-
-.pb-2 {
+.cortexprime .pb-2 {
   padding-bottom: 0.5rem;
 }
-
-.pb-3 {
+.cortexprime .pb-3 {
   padding-bottom: 0.75rem;
 }
-
-.pb-4 {
+.cortexprime .pb-4 {
   padding-bottom: 1rem;
 }
-
-.pb-5 {
+.cortexprime .pb-5 {
   padding-bottom: 1.25rem;
 }
-
-.pb-6 {
+.cortexprime .pb-6 {
   padding-bottom: 1.5rem;
 }
-
-.pb-7 {
+.cortexprime .pb-7 {
   padding-bottom: 1.75rem;
 }
-
-.pb-8 {
+.cortexprime .pb-8 {
   padding-bottom: 2rem;
 }
-
-.pb-9 {
+.cortexprime .pb-9 {
   padding-bottom: 2.25rem;
 }
-
-.pb-10 {
+.cortexprime .pb-10 {
   padding-bottom: 2.5rem;
 }
-
-.pb-11 {
+.cortexprime .pb-11 {
   padding-bottom: 2.75rem;
 }
-
-.pb-12 {
+.cortexprime .pb-12 {
   padding-bottom: 3rem;
 }
-
-.ml-0 {
+.cortexprime .ml-0 {
   margin-left: 0rem;
 }
-
-.ml-1 {
+.cortexprime .ml-1 {
   margin-left: 0.25rem;
 }
-
-.ml-2 {
+.cortexprime .ml-2 {
   margin-left: 0.5rem;
 }
-
-.ml-3 {
+.cortexprime .ml-3 {
   margin-left: 0.75rem;
 }
-
-.ml-4 {
+.cortexprime .ml-4 {
   margin-left: 1rem;
 }
-
-.ml-5 {
+.cortexprime .ml-5 {
   margin-left: 1.25rem;
 }
-
-.ml-6 {
+.cortexprime .ml-6 {
   margin-left: 1.5rem;
 }
-
-.ml-7 {
+.cortexprime .ml-7 {
   margin-left: 1.75rem;
 }
-
-.ml-8 {
+.cortexprime .ml-8 {
   margin-left: 2rem;
 }
-
-.ml-9 {
+.cortexprime .ml-9 {
   margin-left: 2.25rem;
 }
-
-.ml-10 {
+.cortexprime .ml-10 {
   margin-left: 2.5rem;
 }
-
-.ml-11 {
+.cortexprime .ml-11 {
   margin-left: 2.75rem;
 }
-
-.ml-12 {
+.cortexprime .ml-12 {
   margin-left: 3rem;
 }
-
-.pl-0 {
+.cortexprime .pl-0 {
   padding-left: 0rem;
 }
-
-.pl-1 {
+.cortexprime .pl-1 {
   padding-left: 0.25rem;
 }
-
-.pl-2 {
+.cortexprime .pl-2 {
   padding-left: 0.5rem;
 }
-
-.pl-3 {
+.cortexprime .pl-3 {
   padding-left: 0.75rem;
 }
-
-.pl-4 {
+.cortexprime .pl-4 {
   padding-left: 1rem;
 }
-
-.pl-5 {
+.cortexprime .pl-5 {
   padding-left: 1.25rem;
 }
-
-.pl-6 {
+.cortexprime .pl-6 {
   padding-left: 1.5rem;
 }
-
-.pl-7 {
+.cortexprime .pl-7 {
   padding-left: 1.75rem;
 }
-
-.pl-8 {
+.cortexprime .pl-8 {
   padding-left: 2rem;
 }
-
-.pl-9 {
+.cortexprime .pl-9 {
   padding-left: 2.25rem;
 }
-
-.pl-10 {
+.cortexprime .pl-10 {
   padding-left: 2.5rem;
 }
-
-.pl-11 {
+.cortexprime .pl-11 {
   padding-left: 2.75rem;
 }
-
-.pl-12 {
+.cortexprime .pl-12 {
   padding-left: 3rem;
 }
-
-.mr-0 {
+.cortexprime .mr-0 {
   margin-right: 0rem;
 }
-
-.mr-1 {
+.cortexprime .mr-1 {
   margin-right: 0.25rem;
 }
-
-.mr-2 {
+.cortexprime .mr-2 {
   margin-right: 0.5rem;
 }
-
-.mr-3 {
+.cortexprime .mr-3 {
   margin-right: 0.75rem;
 }
-
-.mr-4 {
+.cortexprime .mr-4 {
   margin-right: 1rem;
 }
-
-.mr-5 {
+.cortexprime .mr-5 {
   margin-right: 1.25rem;
 }
-
-.mr-6 {
+.cortexprime .mr-6 {
   margin-right: 1.5rem;
 }
-
-.mr-7 {
+.cortexprime .mr-7 {
   margin-right: 1.75rem;
 }
-
-.mr-8 {
+.cortexprime .mr-8 {
   margin-right: 2rem;
 }
-
-.mr-9 {
+.cortexprime .mr-9 {
   margin-right: 2.25rem;
 }
-
-.mr-10 {
+.cortexprime .mr-10 {
   margin-right: 2.5rem;
 }
-
-.mr-11 {
+.cortexprime .mr-11 {
   margin-right: 2.75rem;
 }
-
-.mr-12 {
+.cortexprime .mr-12 {
   margin-right: 3rem;
 }
-
-.pr-0 {
+.cortexprime .pr-0 {
   padding-right: 0rem;
 }
-
-.pr-1 {
+.cortexprime .pr-1 {
   padding-right: 0.25rem;
 }
-
-.pr-2 {
+.cortexprime .pr-2 {
   padding-right: 0.5rem;
 }
-
-.pr-3 {
+.cortexprime .pr-3 {
   padding-right: 0.75rem;
 }
-
-.pr-4 {
+.cortexprime .pr-4 {
   padding-right: 1rem;
 }
-
-.pr-5 {
+.cortexprime .pr-5 {
   padding-right: 1.25rem;
 }
-
-.pr-6 {
+.cortexprime .pr-6 {
   padding-right: 1.5rem;
 }
-
-.pr-7 {
+.cortexprime .pr-7 {
   padding-right: 1.75rem;
 }
-
-.pr-8 {
+.cortexprime .pr-8 {
   padding-right: 2rem;
 }
-
-.pr-9 {
+.cortexprime .pr-9 {
   padding-right: 2.25rem;
 }
-
-.pr-10 {
+.cortexprime .pr-10 {
   padding-right: 2.5rem;
 }
-
-.pr-11 {
+.cortexprime .pr-11 {
   padding-right: 2.75rem;
 }
-
-.pr-12 {
+.cortexprime .pr-12 {
   padding-right: 3rem;
 }
-
-.mt-0 {
+.cortexprime .mt-0 {
   margin-top: 0rem;
 }
-
-.mt-1 {
+.cortexprime .mt-1 {
   margin-top: 0.25rem;
 }
-
-.mt-2 {
+.cortexprime .mt-2 {
   margin-top: 0.5rem;
 }
-
-.mt-3 {
+.cortexprime .mt-3 {
   margin-top: 0.75rem;
 }
-
-.mt-4 {
+.cortexprime .mt-4 {
   margin-top: 1rem;
 }
-
-.mt-5 {
+.cortexprime .mt-5 {
   margin-top: 1.25rem;
 }
-
-.mt-6 {
+.cortexprime .mt-6 {
   margin-top: 1.5rem;
 }
-
-.mt-7 {
+.cortexprime .mt-7 {
   margin-top: 1.75rem;
 }
-
-.mt-8 {
+.cortexprime .mt-8 {
   margin-top: 2rem;
 }
-
-.mt-9 {
+.cortexprime .mt-9 {
   margin-top: 2.25rem;
 }
-
-.mt-10 {
+.cortexprime .mt-10 {
   margin-top: 2.5rem;
 }
-
-.mt-11 {
+.cortexprime .mt-11 {
   margin-top: 2.75rem;
 }
-
-.mt-12 {
+.cortexprime .mt-12 {
   margin-top: 3rem;
 }
-
-.pt-0 {
+.cortexprime .pt-0 {
   padding-top: 0rem;
 }
-
-.pt-1 {
+.cortexprime .pt-1 {
   padding-top: 0.25rem;
 }
-
-.pt-2 {
+.cortexprime .pt-2 {
   padding-top: 0.5rem;
 }
-
-.pt-3 {
+.cortexprime .pt-3 {
   padding-top: 0.75rem;
 }
-
-.pt-4 {
+.cortexprime .pt-4 {
   padding-top: 1rem;
 }
-
-.pt-5 {
+.cortexprime .pt-5 {
   padding-top: 1.25rem;
 }
-
-.pt-6 {
+.cortexprime .pt-6 {
   padding-top: 1.5rem;
 }
-
-.pt-7 {
+.cortexprime .pt-7 {
   padding-top: 1.75rem;
 }
-
-.pt-8 {
+.cortexprime .pt-8 {
   padding-top: 2rem;
 }
-
-.pt-9 {
+.cortexprime .pt-9 {
   padding-top: 2.25rem;
 }
-
-.pt-10 {
+.cortexprime .pt-10 {
   padding-top: 2.5rem;
 }
-
-.pt-11 {
+.cortexprime .pt-11 {
   padding-top: 2.75rem;
 }
-
-.pt-12 {
+.cortexprime .pt-12 {
   padding-top: 3rem;
 }
-
-.mx-0 {
+.cortexprime .mx-0 {
   margin-left: 0rem;
   margin-right: 0rem;
 }
-
-.mx-1 {
+.cortexprime .mx-1 {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
 }
-
-.mx-2 {
+.cortexprime .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
-
-.mx-3 {
+.cortexprime .mx-3 {
   margin-left: 0.75rem;
   margin-right: 0.75rem;
 }
-
-.mx-4 {
+.cortexprime .mx-4 {
   margin-left: 1rem;
   margin-right: 1rem;
 }
-
-.mx-5 {
+.cortexprime .mx-5 {
   margin-left: 1.25rem;
   margin-right: 1.25rem;
 }
-
-.mx-6 {
+.cortexprime .mx-6 {
   margin-left: 1.5rem;
   margin-right: 1.5rem;
 }
-
-.mx-7 {
+.cortexprime .mx-7 {
   margin-left: 1.75rem;
   margin-right: 1.75rem;
 }
-
-.mx-8 {
+.cortexprime .mx-8 {
   margin-left: 2rem;
   margin-right: 2rem;
 }
-
-.mx-9 {
+.cortexprime .mx-9 {
   margin-left: 2.25rem;
   margin-right: 2.25rem;
 }
-
-.mx-10 {
+.cortexprime .mx-10 {
   margin-left: 2.5rem;
   margin-right: 2.5rem;
 }
-
-.mx-11 {
+.cortexprime .mx-11 {
   margin-left: 2.75rem;
   margin-right: 2.75rem;
 }
-
-.mx-12 {
+.cortexprime .mx-12 {
   margin-left: 3rem;
   margin-right: 3rem;
 }
-
-.px-0 {
+.cortexprime .px-0 {
   padding-left: 0rem;
   padding-right: 0rem;
 }
-
-.px-1 {
+.cortexprime .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
 }
-
-.px-2 {
+.cortexprime .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
-
-.px-3 {
+.cortexprime .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
 }
-
-.px-4 {
+.cortexprime .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
 }
-
-.px-5 {
+.cortexprime .px-5 {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
 }
-
-.px-6 {
+.cortexprime .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
-
-.px-7 {
+.cortexprime .px-7 {
   padding-left: 1.75rem;
   padding-right: 1.75rem;
 }
-
-.px-8 {
+.cortexprime .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
 }
-
-.px-9 {
+.cortexprime .px-9 {
   padding-left: 2.25rem;
   padding-right: 2.25rem;
 }
-
-.px-10 {
+.cortexprime .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
 }
-
-.px-11 {
+.cortexprime .px-11 {
   padding-left: 2.75rem;
   padding-right: 2.75rem;
 }
-
-.px-12 {
+.cortexprime .px-12 {
   padding-left: 3rem;
   padding-right: 3rem;
 }
-
-.my-0 {
+.cortexprime .my-0 {
   margin-bottom: 0rem;
   margin-top: 0rem;
 }
-
-.my-1 {
+.cortexprime .my-1 {
   margin-bottom: 0.25rem;
   margin-top: 0.25rem;
 }
-
-.my-2 {
+.cortexprime .my-2 {
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
 }
-
-.my-3 {
+.cortexprime .my-3 {
   margin-bottom: 0.75rem;
   margin-top: 0.75rem;
 }
-
-.my-4 {
+.cortexprime .my-4 {
   margin-bottom: 1rem;
   margin-top: 1rem;
 }
-
-.my-5 {
+.cortexprime .my-5 {
   margin-bottom: 1.25rem;
   margin-top: 1.25rem;
 }
-
-.my-6 {
+.cortexprime .my-6 {
   margin-bottom: 1.5rem;
   margin-top: 1.5rem;
 }
-
-.my-7 {
+.cortexprime .my-7 {
   margin-bottom: 1.75rem;
   margin-top: 1.75rem;
 }
-
-.my-8 {
+.cortexprime .my-8 {
   margin-bottom: 2rem;
   margin-top: 2rem;
 }
-
-.my-9 {
+.cortexprime .my-9 {
   margin-bottom: 2.25rem;
   margin-top: 2.25rem;
 }
-
-.my-10 {
+.cortexprime .my-10 {
   margin-bottom: 2.5rem;
   margin-top: 2.5rem;
 }
-
-.my-11 {
+.cortexprime .my-11 {
   margin-bottom: 2.75rem;
   margin-top: 2.75rem;
 }
-
-.my-12 {
+.cortexprime .my-12 {
   margin-bottom: 3rem;
   margin-top: 3rem;
 }
-
-.py-0 {
+.cortexprime .py-0 {
   padding-bottom: 0rem;
   padding-top: 0rem;
 }
-
-.py-1 {
+.cortexprime .py-1 {
   padding-bottom: 0.25rem;
   padding-top: 0.25rem;
 }
-
-.py-2 {
+.cortexprime .py-2 {
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
 }
-
-.py-3 {
+.cortexprime .py-3 {
   padding-bottom: 0.75rem;
   padding-top: 0.75rem;
 }
-
-.py-4 {
+.cortexprime .py-4 {
   padding-bottom: 1rem;
   padding-top: 1rem;
 }
-
-.py-5 {
+.cortexprime .py-5 {
   padding-bottom: 1.25rem;
   padding-top: 1.25rem;
 }
-
-.py-6 {
+.cortexprime .py-6 {
   padding-bottom: 1.5rem;
   padding-top: 1.5rem;
 }
-
-.py-7 {
+.cortexprime .py-7 {
   padding-bottom: 1.75rem;
   padding-top: 1.75rem;
 }
-
-.py-8 {
+.cortexprime .py-8 {
   padding-bottom: 2rem;
   padding-top: 2rem;
 }
-
-.py-9 {
+.cortexprime .py-9 {
   padding-bottom: 2.25rem;
   padding-top: 2.25rem;
 }
-
-.py-10 {
+.cortexprime .py-10 {
   padding-bottom: 2.5rem;
   padding-top: 2.5rem;
 }
-
-.py-11 {
+.cortexprime .py-11 {
   padding-bottom: 2.75rem;
   padding-top: 2.75rem;
 }
-
-.py-12 {
+.cortexprime .py-12 {
   padding-bottom: 3rem;
   padding-top: 3rem;
 }
-
-.my-auto {
+.cortexprime .my-auto {
   margin-left: auto;
   margin-right: auto;
 }
-
-.max-50 {
+.cortexprime .max-50 {
   max-width: 50%;
 }
-
-.white-space-nowrap {
+.cortexprime .white-space-nowrap {
   white-space: nowrap;
 }
-
-.actor-selection {
+.cortexprime .actor-selection {
   height: 100%;
 }
-
-.cursor-pointer {
+.cortexprime .cursor-pointer {
   cursor: pointer;
 }
-
-.default-image, .profile-image {
+.cortexprime .default-image, .cortexprime .profile-image {
   cursor: pointer;
   width: 100%;
 }
-
-.hide {
+.cortexprime .hide {
   display: none;
 }
-
-.shutdown {
+.cortexprime .shutdown {
   opacity: 0.5;
 }
-.shutdown .shutdown {
+.cortexprime .shutdown .shutdown {
   opacity: 1;
 }
-
-.list-style-none {
+.cortexprime .list-style-none {
   list-style: none;
 }
-
-.add-to-pool {
+.cortexprime .add-to-pool {
   cursor: pointer;
 }
-.add-to-pool::before {
-  font-family: "Font Awesome 5 Free";
+.cortexprime .add-to-pool::before {
+  font-family: "Font Awesome 6 Free";
   content: "\f522";
 }
-
-#controls ol.cortexprime-controls {
+.cortexprime #controls ol.cortexprime-controls {
   padding-left: 20px;
 }
-
-input[type=text].color {
+.cortexprime input[type=text].color {
   max-width: 6.25rem;
 }
-
-input[type=color][data-edit][data-edit] {
+.cortexprime input[type=color][data-edit][data-edit] {
   border: none;
   cursor: pointer;
   margin-left: 0;
   max-width: 1.625rem;
 }
-
-.dice-pool-control {
-  background-color: var(--cp-button-primary-color, #2d5931);
-  color: var(--cp-button-primary-font-color, #ffffff);
+.cortexprime .btn {
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  display: inline-block;
-  margin-bottom: 0.5rem;
-  pointer-events: all;
-  position: relative;
+  font-weight: bold;
+  font-size: 0.875rem;
+  line-height: normal;
+  min-height: auto;
+  padding: 0.25rem 0.5rem;
+  text-transform: uppercase;
+  white-space: nowrap;
   width: auto;
-  z-index: calc(var(--z-index-ui) + 10);
 }
-
-/* Styles limited to cortexprime sheets */
+.cortexprime .btn:disabled {
+  opacity: 0.5;
+  color: #ffffff;
+  cursor: not-allowed;
+}
+.cortexprime .btn.btn-small {
+  font-size: 0.625rem;
+  height: 1rem;
+  padding: 0.125rem;
+  width: 1rem;
+}
+.cortexprime .btn-icon {
+  border-radius: 50%;
+  font-size: 0.875rem;
+  height: 1.5rem;
+  line-height: normal;
+  padding: 0.25rem;
+  text-align: center;
+  width: 1.5rem;
+}
+.cortexprime .btn-icon i.fa {
+  margin-right: 0;
+}
+.cortexprime .add-trait-to-pool {
+  cursor: pointer;
+}
+.cortexprime .icon {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  height: 1.25rem;
+  margin-left: 0.125rem;
+  margin-right: 0.125rem;
+  position: relative;
+  width: 1.25rem;
+}
+.cortexprime .icon.pp {
+  background-image: url("../assets/plot-point/plot-point.png");
+  vertical-align: bottom;
+}
 .cortexprime input, .cortexprime select, .cortexprime textarea {
   border: 0;
   border-radius: 0;

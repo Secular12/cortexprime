@@ -1,7 +1,7 @@
 import { objectReduce } from '../../lib/helpers.js'
 import { localizer } from './foundryHelpers.js'
 
-const getAppendDiceContent = (data) => renderTemplate('systems/cortexprime/templates/partials/die-display.html', data)
+const getAppendDiceContent = (data) => foundry.applications.handlebars.renderTemplate('systems/cortexprime/templates/partials/die-display.html', data)
 
 const getRollFormula = (pool) => {
   return objectReduce(pool, (formula, traitGroup) => {
@@ -157,7 +157,7 @@ const updateDice = async (html, dice) => {
 const dicePicker = async rollResults => {
   const themes = game.settings.get('cortexprime', 'themes')
   const theme = themes.current === 'custom' ? themes.custom : themes.list[themes.current]
-  const content = await renderTemplate('systems/cortexprime/templates/dialog/dice-picker.html', {
+  const content = await foundry.applications.handlebars.renderTemplate('systems/cortexprime/templates/dialog/dice-picker.html', {
     rollResults,
     theme
   })
@@ -168,7 +168,7 @@ const dicePicker = async rollResults => {
       content,
       buttons: {
         confirm: {
-          icon: '<i class="fas fa-check"></i>',
+          icon: '<i class="fa-solid fa-check"></i>',
           label: localizer('Confirm'),
           callback (html) {
             const $diceBox = html
@@ -429,7 +429,7 @@ export default async function (pool, rollType) {
       ? getDiceByEffect(rollResults.results)
       : await dicePicker(rollResults)
 
-  const content = await renderTemplate('systems/cortexprime/templates/chat/roll-result.html', {
+  const content = await foundry.applications.handlebars.renderTemplate('systems/cortexprime/templates/chat/roll-result.html', {
     dicePool: pool,
     effectDice: selectedDice.effectDice,
     rollResults: { hitches: rollResults.hitches, results: selectedDice.dice },

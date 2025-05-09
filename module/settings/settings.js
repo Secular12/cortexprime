@@ -9,7 +9,7 @@ import { localizer } from '../scripts/foundryHelpers.js'
 export const registerSettings = () => {
   game.settings.registerMenu('cortexprime', 'ActorSettings', {
     hint: localizer('ActorSettingsH'),
-    icon: 'fas fa-user-cog',
+    icon: 'fa-solid fa-user-cog',
     label: localizer('ActorSettings'),
     name: localizer('ActorSettings'),
     restricted: true,
@@ -35,7 +35,7 @@ export const registerSettings = () => {
   game.settings.registerMenu("cortexprime", "ImportExportSettings", {
     name: localizer('ImportExportSettings'),
     hint: localizer('ImportExportSettingsHint'),
-    icon: 'fas fa-file-import',
+    icon: 'fa-solid fa-file-import',
     label: localizer('ImportExportSettings'),
     restricted: true,
     type: ImportExportSettings
@@ -69,7 +69,7 @@ export const registerSettings = () => {
 
   game.settings.registerMenu('cortexprime', 'ThemeSettings', {
     hint: localizer('ThemeSettingsH'),
-    icon: 'fas fa-user-cog',
+    icon: 'fa-solid fa-user-cog',
     label: localizer('ThemeSettings'),
     name: localizer('ThemeSettings'),
     restricted: true,

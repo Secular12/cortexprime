@@ -31,7 +31,7 @@
   cursor: pointer;
 
   &::before {
-    font-family: "Font Awesome 5 Free"; content: "\f522";
+    font-family: "Font Awesome 6 Free"; content: "\f522";
   }
 }
 
@@ -50,16 +50,4 @@ input[type="color"][data-edit][data-edit] {
   cursor: pointer;
   margin-left: 0;
   max-width: toRem(26px);
-}
-
-.dice-pool-control {
-  background-color: var(--cp-button-primary-color, #2d5931);
-  color: var(--cp-button-primary-font-color, #ffffff);
-  cursor: pointer;
-  display: inline-block;
-  margin-bottom: toRem(8px);
-  pointer-events: all;
-  position: relative;
-  width: auto;
-  z-index: calc(var(--z-index-ui) + 10);
 }

@@ -53,8 +53,9 @@ export default () => {
     await game.cortexprime.UserDicePool.initPool()
   })
 
-  Hooks.on('renderChatMessage', async (message, html, data) => {
-    const $rollResult = html.find('.roll-result').first()
+  Hooks.on('renderChatMessageHTML', async (message, html, data) => {
+    const $html = $(html)
+    const $rollResult = $html.find('.roll-result').first()
 
     if ($rollResult) {
       const $chatMessage = $rollResult.closest('.chat-message')
@@ -76,14 +77,14 @@ export default () => {
 
         const { dieRating, type, value: number } = data
 
-        const html = await renderTemplate(`systems/cortexprime/templates/partials/dice/d${dieRating}.html`, {
+        const html = await foundry.applications.handlebars.renderTemplate(`systems/cortexprime/templates/partials/dice/d${dieRating}.html`, {
           type,
           number
         })
         $die.html(html)
       }
 
-      html
+      $html
         .find('.source-header')
         .click(function () {
           const $source = $(this)
@@ -95,8 +96,8 @@ export default () => {
             .toggleClass('hide')
         })
 
-      const getPool = html => {
-        return html.find('.source').get().reduce((sources, source) => {
+      const getPool = $html => {
+        return $html.find('.source').get().reduce((sources, source) => {
           const $source = $(source)
           return {
             ...sources,
@@ -136,22 +137,21 @@ export default () => {
   })
 
   Hooks.on('renderSceneControls', (controls, html) => {
+    const $html = $(html)
     const $dicePoolButton = $(
-      `<li class="dice-pool-control" data-control="dice-pool" title="${game.i18n.localize("DicePool")}">
-          <i class="fas fa-dice"></i>
-          <ol class="control-tools">
-          </ol>
+      `<li>
+        <button class="control dice-pool-control ui-control fa-solid fa-dice icon" type="button" data-control="dice-pool" aria-label="${game.i18n.localize("DicePool")}">
+        </button>
       </li>`
     );
 
-    html
-      .find('.main-controls')
+    $html
+      .find('#scene-controls-layers')
       .append($dicePoolButton);
-    html
+    $html
     .find('.dice-pool-control')
-    .removeClass('control-tool')
     .on('click', async () => {
       await game.cortexprime.UserDicePool.toggle()
-    });
+    })
   })
 }

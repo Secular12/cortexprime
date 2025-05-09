@@ -26,7 +26,7 @@ export class CortexPrimeActor extends Actor {
 
   // Send a message to the chat on the pp change
   async createPpMessage (changeType, value, total) {
-    const message = await renderTemplate(`systems/cortexprime/templates/chat/change-pp.html`, {
+    const message = await foundry.applications.handlebars.renderTemplate(`systems/cortexprime/templates/chat/change-pp.html`, {
       changeType,
       speaker: game.user,
       target: this,
