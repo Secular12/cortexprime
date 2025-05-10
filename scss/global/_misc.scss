@@ -31,7 +31,8 @@
   cursor: pointer;
 
   &::before {
-    font-family: "Font Awesome 6 Free"; content: "\f522";
+    font-family: "Font Awesome 6 Pro", "Font Awesome 6 Free";
+    content: "\f522";
   }
 }
 

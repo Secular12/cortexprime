@@ -11,7 +11,7 @@
     "verified": "13.342"
   },
   "description": "Cortex Prime System WARNING: This is currently in Beta. Which means there is a risk of breaking changes with every update. More features are being planned and worked on. It is currently playable, however, expect bugs and you may need to use the features that currently exist in different ways to make up for a feature that is not yet released.",
-  "download": "https://github.com/Secular12/cortexprime/archive/refs/tags/v0.2.13.zip",
+  "download": "https://github.com/Secular12/cortexprime/archive/refs/tags/v0.2.14.zip",
   "esmodules": ["cortexprime.js"],
   "id": "cortexprime",
   "grid": {
@@ -34,5 +34,5 @@
   "templateVersion": 2,
   "title": "Cortex Prime",
   "url": "https://github.com/Secular12/cortexprime",
-  "version": "0.2.13"
+  "version": "0.2.14"
 }

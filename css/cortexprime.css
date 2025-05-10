@@ -1025,7 +1025,7 @@
   cursor: pointer;
 }
 .cortexprime .add-to-pool::before {
-  font-family: "Font Awesome 6 Free";
+  font-family: "Font Awesome 6 Pro", "Font Awesome 6 Free";
   content: "\f522";
 }
 .cortexprime #controls ol.cortexprime-controls {
