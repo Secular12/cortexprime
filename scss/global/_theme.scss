@@ -450,9 +450,9 @@
 
     .checkmark-cpt:after {
       left: toRem(4px);
-      top: toRem(1px);
-      width: toRem(4px);
-      height: toRem(8px);
+      top: 0;
+      width: toRem(6px);
+      height: toRem(12px);
       border: solid white;
       border-width: 0 toRem(3px) toRem(3px) 0;
       -webkit-transform: rotate(45deg);
@@ -470,10 +470,10 @@
       }
 
       .checkmark-cpt:after {
-        left: toRem(8px);
+        left: toRem(9px);
         top: toRem(1px);
-        width: toRem(8px);
-        height: toRem(16px);
+        width: toRem(12px);
+        height: toRem(24px);
         border-width: 0 toRem(6px) toRem(6px) 0;
       }
 

@@ -1544,9 +1544,9 @@
 }
 .cortexprime .checkmark-container .checkmark-cpt:after {
   left: 0.25rem;
-  top: 0.0625rem;
-  width: 0.25rem;
-  height: 0.5rem;
+  top: 0;
+  width: 0.375rem;
+  height: 0.75rem;
   border: solid white;
   border-width: 0 0.1875rem 0.1875rem 0;
   -webkit-transform: rotate(45deg);
@@ -1562,10 +1562,10 @@
   width: 1.875rem;
 }
 .cortexprime .checkmark-container.checkmark-lg .checkmark-cpt:after {
-  left: 0.5rem;
+  left: 0.5625rem;
   top: 0.0625rem;
-  width: 0.5rem;
-  height: 1rem;
+  width: 0.75rem;
+  height: 1.5rem;
   border-width: 0 0.375rem 0.375rem 0;
 }
 .cortexprime .checkmark-container.checkmark-lg .input-checkbox-cpt {
