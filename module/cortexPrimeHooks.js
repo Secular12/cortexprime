@@ -10,7 +10,6 @@ export default () => {
       type: 'dp',
       labels: [ppLabel, ppLabel],
       system: 'standard',
-      colorset: 'bronze'
     }, 'd2')
   })
 
