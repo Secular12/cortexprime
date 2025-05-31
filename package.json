@@ -1,6 +1,6 @@
 {
   "name": "cortexprime",
-  "version": "0.2.15",
+  "version": "0.2.16",
   "description": "CSS compiler for the Cortex Prime system",
   "scripts": {
     "build": "gulp",

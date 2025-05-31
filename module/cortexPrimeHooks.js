@@ -45,6 +45,23 @@ export default () => {
         }
       }
     }
+
+    const $rollPrivacy = $(document.querySelector('#roll-privacy'))
+
+    if ($rollPrivacy) {
+      const $dicePoolButton = $(
+        `<button class="control dice-pool-control ui-control fa-solid fa-dice icon" type="button" data-control="dice-pool" aria-label="${game.i18n.localize("DicePool")}">
+          </button>`
+      )
+
+      $rollPrivacy
+        .prepend($dicePoolButton)
+      $rollPrivacy
+        .find('.dice-pool-control')
+        .on('click', async () => {
+          await game.cortexprime.UserDicePool.toggle()
+        })
+    }
   })
 
   Hooks.on('ready', async () => {
@@ -133,24 +150,5 @@ export default () => {
         await game.cortexprime.UserDicePool._setPool(pool)
       })
     }
-  })
-
-  Hooks.on('renderSceneControls', (controls, html) => {
-    const $html = $(html)
-    const $dicePoolButton = $(
-      `<li>
-        <button class="control dice-pool-control ui-control fa-solid fa-dice icon" type="button" data-control="dice-pool" aria-label="${game.i18n.localize("DicePool")}">
-        </button>
-      </li>`
-    );
-
-    $html
-      .find('#scene-controls-layers')
-      .append($dicePoolButton);
-    $html
-    .find('.dice-pool-control')
-    .on('click', async () => {
-      await game.cortexprime.UserDicePool.toggle()
-    })
   })
 }
