@@ -90,6 +90,8 @@
   "ImportExportSettings": "Import/Export Settings",
   "ImportExportSettingsHint": "Import or Export this game's settings.",
   "ImportVersionWarning": "The imported settings Cortex Prime version does not match the current Cortex Prime version being used.",
+  "InitiativeTraits": "Initiative Traits",
+  "InitiativeTraitsHint": "The Traits used to roll initiative, separated by commas and optional spaces",
   "Inputs": "Inputs",
   "Inset": "inset",
   "Italic": "italic",
